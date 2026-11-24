@@ -106,7 +106,7 @@ def test_adding_a_member_needs_no_code(company_dir):
 
     match = Match.load(company_dir / "data" / "sample_match.json")
     run = analyze(company, match, MockClient(), Ledger(company_dir / "ledger.sqlite"))
-    assert len(run.final) == 4
+    assert len(run.final) == 5            # 투표 4명 + 투표 안 하는 비교용 호구형
     assert sum(int(x) for x in run.decision.one_x_two.tally.split(":")) == 4
     assert run.decision.headline  # 팀장 코멘트가 붙음
 
@@ -134,7 +134,7 @@ def test_settle_review_and_weights(company_dir):
         ledger.settle(match.id, *score)
 
     stats = ledger.member_stats("soccer")
-    assert len(stats) == 3 and all(s["n"] == 4 for s in stats)
+    assert len(stats) == 4 and all(s["n"] == 4 for s in stats)   # 호구형도 인사평가에 들어감
     w = ledger.weights(company, "soccer")
     lo, hi = company.policy.weight_bounds
     assert all(lo <= v <= hi for v in w.values())
@@ -150,4 +150,42 @@ def test_mock_runs_are_excluded_from_review(company_dir):
     ledger.record(match, run.decision, run.initial + run.final, mock=True, report_path="")
     ledger.settle(match.id, 1, 0)
     assert ledger.member_stats("soccer") == []
-    assert len(ledger.member_stats("soccer", include_mock=True)) == 3
+    assert len(ledger.member_stats("soccer", include_mock=True)) == 4
+
+
+def test_non_voting_member_analyzes_but_does_not_vote(company_dir):
+    """호구형: 분석·토론은 하지만 팀 결론 투표에는 빠진다 (실력 비교용)."""
+    company = load_company(company_dir / "company.yaml")
+    assert "hogu" in [m.id for m in company.analysts("soccer")]
+    assert "hogu" not in [m.id for m in company.voters("soccer")]
+    assert company.member("hogu").model == "claude-haiku-5-5"
+    match = Match.load(company_dir / "data" / "sample_match.json")
+    run = analyze(company, match, MockClient(), Ledger(company_dir / "ledger.sqlite"))
+    assert {o.member_id for o in run.final} == {"kim_data", "park_field", "lee_contra", "hogu"}
+    assert sum(int(x) for x in run.decision.one_x_two.tally.split(":")) == 3
+
+
+def test_late_member_joins_already_analyzed_matches(company_dir):
+    from datetime import datetime
+    from zoneinfo import ZoneInfo
+
+    from aa.daily import catch_up_members
+    from aa.store import load_runs, save_run
+
+    company = load_company(company_dir / "company.yaml")
+    ledger = Ledger(company_dir / "ledger.sqlite")
+    hogu = next(m for m in company.members if m.id == "hogu")
+    hogu.active = False                                   # 호구형이 들어오기 전에 분석된 경기
+    match = Match.load(company_dir / "data" / "sample_match.json")
+    run = analyze(company, match, MockClient(), ledger)
+    save_run(run, company_dir / "reports")
+    ledger.record(match, run.decision, run.initial + run.final, mock=True, report_path="")
+    before = run.decision.one_x_two.pick
+    hogu.active = True
+    ko = datetime.strptime(match.kickoff[:16], "%Y-%m-%d %H:%M").replace(tzinfo=ZoneInfo("Asia/Seoul"))
+    from datetime import timedelta
+    n = catch_up_members(company, ledger, ko - timedelta(hours=10), client_factory=MockClient, log=lambda *_: None)
+    assert n == 1
+    saved = load_runs(company_dir / "reports")[0]
+    assert "hogu" in {o["member_id"] for o in saved["final"]} and saved["decision"]["one_x_two"]["pick"] == before
+    assert catch_up_members(company, ledger, ko - timedelta(hours=10), client_factory=MockClient, log=lambda *_: None) == 0
