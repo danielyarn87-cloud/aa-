@@ -18,7 +18,8 @@ policy:
 automation:
   run_at: ["06:00", "14:00"]    # 한국 시각. 하루 두 번 (GitHub 자동 실행은 .github/workflows/daily.yml 의 cron)
   collect_days: 7               # 오늘부터 일주일 뒤 경기까지 모은다
-  analyze_within_hours: 168     # 킥오프가 일주일 안인 경기를 분석 (이미 분석한 경기는 다시 하지 않음)
+  analyze_within_hours: 168     # 킥오프가 일주일 안인 경기는 자세한 자료까지 모은다
+  auto_analyze: false           # false: 6시·14시에는 경기 목록만 모으고(Claude 비용 없음), 분석은 사이트에서 고른 경기만
   max_analyses_per_day: 400     # 하루 분석 경기 수 상한 (Claude API 비용 관리, 경기당 호출 6회)
   leagues: [39, 140, 135, 78, 61, 2, 3, 848, 40, 88, 94, 203, 144, 179, 292, 293, 98, 99, 17, 253]  # 자동으로 다룰 리그 (전체). 사이트의 '분석 요청'에서 기본 리그를 저장하면 그쪽(data/settings.json)이 우선
   light: false                  # true 면 모든 경기를 호출 절약 방식으로 (킥오프 48시간 밖 경기는 늘 절약 방식)
