@@ -314,3 +314,32 @@ pre{background:var(--panel);padding:12px;border-radius:8px;font-size:14px;white-
 .k4{background:#E6F1FB;color:#0C447C}.k4 .ks{color:#185FA5}
 .lgtoggle{display:flex;justify-content:space-between;align-items:center;width:100%;font:inherit;font-size:15px;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;margin-bottom:8px}
 .lgchips[hidden]{display:none}
+
+/* 글자 크기 버튼 */
+.zoombtn{margin-left:auto;margin-right:8px;font:inherit;font-size:13px;font-weight:600;color:var(--chalk);background:transparent;border:1px solid color-mix(in srgb,var(--chalk) 45%,transparent);border-radius:999px;padding:5px 10px;cursor:pointer;white-space:nowrap}
+/* 작은 폰 화면 (폴드 겉화면·소형폰) */
+@media (max-width:600px){
+  .tag{white-space:normal}
+  .tags{min-width:0}
+  .listhead{gap:8px}
+  .listhead h1{font-size:26px}
+  .segbar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%}
+  .seg{padding:8px 6px;font-size:14px;min-height:40px;border-top:1px solid var(--line)}
+  .seg:nth-child(-n+3){border-top:0}.seg:nth-child(4){border-left:0}
+  .listhead + .kpis + .lgtoggle ~ .small{font-size:12px}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0}
+  .kpi{padding:10px 12px}
+  .kl{font-size:12px}.kn{font-size:30px}.ks{font-size:11px}
+  .lgtoggle{font-size:14px;padding:8px 12px}
+  .trilegend{display:flex;margin:4px 0 0}
+  .row .teams{font-size:16px}
+  .row .time{font-size:22px}
+  .ressearch input[type=search]{flex-basis:100%}
+  .brand span:last-child{font-size:18px}
+}
+@media (max-width:380px){
+  .kn{font-size:26px}
+  .listhead h1{font-size:23px}
+  .wrap{padding-left:12px;padding-right:12px}
+}
+@media (max-width:600px){.tk-sum{font-size:12px;table-layout:fixed}.tk-sum th,.tk-sum td{padding:6px 3px;white-space:normal;word-break:keep-all}.ticket{padding:10px}}
