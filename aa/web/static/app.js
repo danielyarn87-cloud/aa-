@@ -42,7 +42,8 @@ async function api(path, opts) {
   if (STATIC) {
     const file = path === '/api/matches' ? 'api/matches.json'
       : path.startsWith('/api/matches/') ? 'api/matches/' + path.split('/').pop() + '.json'
-      : path === '/api/company' ? 'api/company.json' : path === '/api/record' ? 'api/record.json' : null;
+      : path === '/api/company' ? 'api/company.json' : path === '/api/record' ? 'api/record.json'
+      : path === '/api/leagues' ? 'api/leagues.json' : null;
     if (!file) throw new Error('이 사이트에서는 쓸 수 없는 기능입니다.');
     const r = await fetch(file, {cache: 'no-cache'});
     if (!r.ok) throw new Error(r.status === 404 ? '아직 분석하지 않은 경기입니다.' : '불러오기 실패 ' + r.status);
@@ -68,9 +69,15 @@ function dayLabel(d) {
 
 /* ---------- 경기 목록 ---------- */
 let listFilter = 'all';
+let leagueFilter = store.get('aa_league') || 'all';
+const lgName = m => m.league_name || (m.league || '').split(' ')[0] || '기타';
 async function renderList() {
   const data = await api('/api/matches');
-  const ms = data.matches;
+  const all = data.matches;
+  const lgCount = {};
+  all.forEach(m => { lgCount[lgName(m)] = (lgCount[lgName(m)] || 0) + 1; });
+  if (leagueFilter !== 'all' && !lgCount[leagueFilter]) leagueFilter = 'all';
+  const ms = all.filter(m => leagueFilter === 'all' || lgName(m) === leagueFilter);
   const done = ms.filter(m => m.status === 'analyzed');
   const vals = done.filter(m => m.value_alerts && m.value_alerts.length).length;
   const shown = ms.filter(m => listFilter === 'all' || (listFilter === 'analyzed' ? m.status === 'analyzed' : listFilter === 'pending' ? m.status === 'pending' : (m.value_alerts || []).length));
@@ -80,11 +87,15 @@ async function renderList() {
     <div class="listhead"><div><h1>이번 주 경기</h1>
       <p class="mute" style="margin:6px 0 0">분석 완료 <b class="num">${done.length}</b> · 분석 대기 <b class="num">${ms.length - done.length}</b> · 이득 신호 <b class="num">${vals}</b></p></div>
       <div class="chips" role="group" aria-label="경기 거르기">${chip('all', '전체')}${chip('analyzed', '분석 완료')}${chip('value', '이득 신호')}${chip('pending', '분석 대기')}</div></div>
+    ${Object.keys(lgCount).length > 1 ? `<div class="chips lgchips" role="group" aria-label="리그 거르기">
+      <button class="chip" data-lg="all" aria-pressed="${leagueFilter === 'all'}">모든 리그 <span class="num">${all.length}</span></button>
+      ${Object.entries(lgCount).sort((a, b) => b[1] - a[1]).map(([n, c]) => `<button class="chip" data-lg="${esc(n)}" aria-pressed="${leagueFilter === n}">${esc(n)} <span class="num">${c}</span></button>`).join('')}</div>` : ''}
     <p class="small mute" style="margin:0">노란 <span class="tag value">이득</span> 표시는 우리가 본 가능성에 비해 배당이 후하게 나온 선택입니다.</p>
     ${shown.length ? days.map(d => `<h2 class="day">${esc(dayLabel(d))}</h2>${shown.filter(m => dayOf(m.kickoff) === d).map(rowHtml).join('')}`).join('')
-      : '<p class="empty">조건에 맞는 경기가 없습니다. 관리 화면에서 경기를 수집하세요.</p>'}
+      : `<p class="empty">조건에 맞는 경기가 없습니다.${STATIC ? ' <a href="#run">분석 요청</a>에서 리그를 골라 경기를 가져오세요.' : ''}</p>`}
   </div></section>`;
   view.querySelectorAll('[data-f]').forEach(b => b.onclick = () => { listFilter = b.dataset.f; renderList(); });
+  view.querySelectorAll('[data-lg]').forEach(b => b.onclick = () => { leagueFilter = b.dataset.lg; store.set('aa_league', leagueFilter); renderList(); });
 }
 function rowHtml(m) {
   const N = names(m.home, m.away, m.line);
@@ -268,6 +279,100 @@ async function renderRecord() {
   </div></section>`;
 }
 
+/* ---------- 분석 요청 (정적 사이트: Cloudflare 함수 /api/run → GitHub Actions) ---------- */
+let runPoll = null;
+async function renderRun() {
+  const L = await api('/api/leagues');
+  const saved = store.get('aa_run_leagues');
+  let picked = new Set(saved ? saved.split(',').map(Number) : L.defaults);
+  const groups = [...new Set(L.leagues.map(l => l.group))];
+  const u = L.usage || {};
+  const last = L.last_run;
+  view.innerHTML = `<section class="band"><div class="wrap"><h1>분석 요청</h1>
+    <p class="lead mute">리그를 고르고 <b>분석 시작</b>을 누르면 분석팀이 경기 자료와 배당을 모아 분석합니다. 끝나면 이 사이트에 자동으로 올라옵니다 (보통 5~20분).</p>
+    <div class="sheet sec"><div>
+      <div class="inline" style="justify-content:space-between"><h2>리그 고르기</h2>
+        <span class="inline"><button class="btn ghost" id="lgDefault" type="button">기본 리그</button><button class="btn ghost" id="lgNone" type="button">모두 해제</button></span></div>
+      ${groups.map(g => `<fieldset class="lgroup"><legend>${esc(g)}</legend><div class="chips">
+        ${L.leagues.filter(l => l.group === g).map(l => `<button type="button" class="chip pickchip" data-id="${l.id}" aria-pressed="${picked.has(l.id)}">${esc(l.name)}</button>`).join('')}
+      </div></fieldset>`).join('')}
+      <p class="small mute" id="pickedText"></p>
+    </div><div>
+      <div class="panel"><h2>분석 조건</h2>
+        <div class="form" style="margin-top:12px">
+          <label for="rdays">경기 기간</label>
+          <select id="rdays"><option value="1">오늘~내일 (24시간 안 킥오프)</option><option value="2" selected>2일 안</option><option value="3">3일 안</option><option value="7">일주일 안</option></select>
+          <label for="rmax">최대 분석 경기 수</label>
+          <input id="rmax" type="number" min="1" max="30" value="${esc(store.get('aa_run_max') || 10)}">
+          <label><input type="checkbox" id="rdef" style="width:auto"> 이 리그를 매일 자동 분석(10시·22시)의 기본 리그로 저장</label>
+          <label for="rpw">분석 요청 비밀번호</label>
+          <input id="rpw" type="password" autocomplete="current-password" value="${esc(store.get('aa_run_pw'))}">
+          <label><input type="checkbox" id="rkeep" style="width:auto" ${store.get('aa_run_pw') ? 'checked' : ''}> 이 기기에서 비밀번호 기억</label>
+          <button class="btn" id="rgo" type="button">분석 시작</button>
+        </div>
+        <div id="rmsg" class="log" style="margin-top:12px" role="status"></div>
+      </div>
+      <div class="panel"><h2>진행 상황</h2><div id="rstat" class="small">불러오는 중…</div></div>
+      <div class="panel"><h2>비용과 한도</h2><ul class="small mute why" style="margin-top:6px">
+        <li>경기 1개를 분석할 때 Claude 를 6번 부릅니다 (분석가 3명 × 1차 분석·토론).</li>
+        <li>경기 자료 API-Football: 오늘 <b class="num">${esc(u.api_football_today ?? '-')}</b> / ${esc(u.api_football_limit ?? 100)}회. 분석할 경기는 경기당 약 6회, 목록에만 올릴 경기는 리그당 2회.</li>
+        <li>배당 The Odds API: 이번 달 <b class="num">${esc(u.odds_month ?? '-')}</b> / ${esc(u.odds_limit ?? 500)} 크레딧. 리그 하나에 2크레딧.</li>
+        <li class="small">사용량은 마지막 분석 때 기준입니다${last ? ` (${esc(last.at)})` : ''}.</li></ul></div>
+    </div></div></div></section>`;
+  const days = document.getElementById('rdays');
+  days.value = store.get('aa_run_days') || '2';
+  const sync = () => {
+    view.querySelectorAll('.pickchip').forEach(b => b.setAttribute('aria-pressed', picked.has(+b.dataset.id)));
+    const names = L.leagues.filter(l => picked.has(l.id)).map(l => l.name);
+    document.getElementById('pickedText').textContent = names.length ? `고른 리그 ${names.length}개: ${names.join(', ')}` : '고른 리그가 없습니다.';
+    store.set('aa_run_leagues', [...picked].join(','));
+  };
+  view.querySelectorAll('.pickchip').forEach(b => b.onclick = () => { const id = +b.dataset.id; picked.has(id) ? picked.delete(id) : picked.add(id); sync(); });
+  document.getElementById('lgDefault').onclick = () => { picked = new Set(L.defaults); sync(); };
+  document.getElementById('lgNone').onclick = () => { picked = new Set(); sync(); };
+  sync();
+  const msg = t => { document.getElementById('rmsg').textContent = t; };
+  document.getElementById('rgo').onclick = async e => {
+    const btn = e.target;
+    if (!picked.size) { msg('리그를 하나 이상 고르세요.'); return; }
+    const pw = document.getElementById('rpw').value;
+    if (!pw) { msg('비밀번호를 넣으세요.'); return; }
+    const max = Math.min(Math.max(+document.getElementById('rmax').value || 10, 1), 30);
+    store.set('aa_run_max', max); store.set('aa_run_days', days.value);
+    store.set('aa_run_pw', document.getElementById('rkeep').checked ? pw : '');
+    btn.disabled = true; msg('요청 보내는 중…');
+    try {
+      const r = await fetch('/api/run', {method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({password: pw, leagues: [...picked], days: +days.value, max, save_default: document.getElementById('rdef').checked})});
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(j.error || ('요청 실패 ' + r.status));
+      msg(`분석을 시작했습니다. 리그 ${picked.size}개, ${days.options[days.selectedIndex].text}, 최대 ${max}경기${j.saved_default ? ' · 기본 리그로 저장함' : ''}.\n끝나면 경기 목록에 올라옵니다.`);
+      setTimeout(status, 4000);
+    } catch (err) { msg(err.message); }
+    btn.disabled = false;
+  };
+  const label = x => x.status === 'completed'
+    ? (x.conclusion === 'success' ? '<span class="tag hit">끝남</span>' : `<span class="tag miss">${x.conclusion === 'cancelled' ? '취소됨' : '실패'}</span>`)
+    : x.status === 'in_progress' ? '<span class="tag value">분석 중</span>' : '<span class="tag wait">대기 중</span>';
+  const when = s => { const d = new Date(s); return isNaN(d) ? '' : `${d.getMonth() + 1}/${d.getDate()} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`; };
+  async function status() {
+    const el = document.getElementById('rstat');
+    if (!el) { clearInterval(runPoll); return; }
+    try {
+      const r = await fetch('/api/run', {cache: 'no-store'});
+      const j = await r.json();
+      if (!j.configured) { el.innerHTML = '분석 요청 기능이 아직 설정되지 않았습니다 (Cloudflare 에 GH_TOKEN, RUN_PASSWORD 필요).'; return; }
+      if (!j.runs.length) { el.textContent = '아직 실행 기록이 없습니다.'; return; }
+      const busy = j.runs.some(x => x.status !== 'completed');
+      el.innerHTML = `<table><tbody>${j.runs.map(x => `<tr><td class="num">#${esc(x.number)}</td><td>${x.event === 'schedule' ? '자동 (10시·22시)' : '요청'}</td><td>${esc(when(x.created_at))}</td><td class="r">${label(x)}</td></tr>`).join('')}</tbody></table>
+        <p class="small mute" style="margin:8px 0 0">${busy ? '분석이 끝나면 사이트가 1~2분 안에 새로 고쳐집니다. 이 화면은 15초마다 다시 확인합니다.' : '끝난 분석은 경기 목록에서 볼 수 있습니다.'}</p>`;
+    } catch (err) { el.textContent = '상태를 불러오지 못했습니다.'; }
+  }
+  clearInterval(runPoll);
+  status();
+  runPoll = setInterval(status, 15000);
+}
+
 /* ---------- 관리 ---------- */
 async function renderAdmin() {
   if (READONLY) { view.innerHTML = '<section class="band"><div class="wrap"><h1>관리</h1><p class="lead">이 사이트는 읽기 전용입니다. 경기 수집·분석·채점은 GitHub Actions 가 하루 두 번 자동으로 하고, 바로 돌리려면 GitHub 저장소의 Actions 탭에서 "Run workflow" 를 누르세요.</p></div></section>'; return; }
@@ -313,11 +418,14 @@ async function route() {
   const navKey = !h || h.startsWith('m-') ? 'list' : h;
   document.querySelectorAll('[data-nav]').forEach(a => a.classList.toggle('on', a.dataset.nav === navKey));
   if (READONLY) document.querySelectorAll('.admin-link').forEach(a => a.hidden = true);
+  document.querySelectorAll('.run-link').forEach(a => a.hidden = !STATIC);
+  if (h !== 'run') clearInterval(runPoll);
   try {
     if (h.startsWith('m-')) await renderMatch(decodeURIComponent(h.slice(2)));
     else if (h === 'team') await renderTeam();
     else if (h === 'record') await renderRecord();
     else if (h === 'admin') await renderAdmin();
+    else if (h === 'run' && STATIC) await renderRun();
     else await renderList();
   } catch (e) {
     view.innerHTML = `<section class="band"><div class="wrap"><h1>불러오지 못했습니다</h1><p class="lead">${esc(e.message)}</p><p><a href="#">경기 목록으로</a></p></div></section>`;
