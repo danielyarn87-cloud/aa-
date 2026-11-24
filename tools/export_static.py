@@ -8,6 +8,9 @@ dist/site/
   api/matches/<id>.json 경기 분석 전체
   api/company.json      조직도
   api/record.json       인사평가
+  api/leagues.json      고를 수 있는 리그·기본 리그·API 사용량
+그리고 저장소 맨 위의 functions/ 폴더(Cloudflare Pages 함수)가 /api/run 을 맡는다: 사이트에서 '분석 요청'을
+누르면 GitHub Actions 를 실행시킨다.
 같은 JSON 파일을 나중에 모바일 앱이 그대로 읽을 수 있다.
 
 사용법: python tools/export_static.py [출력 폴더]
@@ -47,6 +50,7 @@ def export(out: Path, company_path: Path = ROOT / "company.yaml") -> Path:
             _write(out / "api" / "matches" / f"{m['id']}.json", c.get(f"/api/matches/{m['id']}").get_json())
     _write(out / "api" / "company.json", c.get("/api/company").get_json())
     _write(out / "api" / "record.json", c.get("/api/record").get_json())
+    _write(out / "api" / "leagues.json", c.get("/api/leagues").get_json())
 
     html = (static / "index.html").read_text(encoding="utf-8")
     html = html.replace('<script src="/static/app.js"></script>', '<script>window.AA_STATIC=true;</script>\n<script src="/static/app.js"></script>')
