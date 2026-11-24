@@ -1,0 +1,111 @@
+# AA 스포츠 분석 회사 조직도
+# 인원을 늘리려면 members 에 한 명을 추가하고 personas/ 에 지시문 파일을 하나 만들면 됩니다.
+# 부서를 늘리려면 departments 에 항목을 추가하면 됩니다. 코드는 고칠 필요가 없습니다.
+
+company:
+  name: AA 스포츠 분석
+  model: claude-sonnet-5-5        # 분석가 기본 모델 (사람마다 member.model 로 바꿀 수 있음)
+  language: ko
+
+# 투표·추천 규칙 (회사 전체 공통)
+policy:
+  consensus_share: 0.5      # 1위 선택지의 가중 득표율이 이 값을 넘어야 픽 확정, 아니면 관망
+  value_threshold: 0.05     # 기대값(확률 x 배당 - 1)이 5% 이상이면 '가치 있음' 표시
+  min_samples_for_weight: 30  # 이 경기 수 이상 채점된 뒤부터 성적으로 투표 비중 조정
+  weight_bounds: [0.5, 2.0]   # 투표 비중 하한·상한
+
+# 데이터 공급처. API 키는 여기 적지 말고 환경변수로 넣으세요 (API_FOOTBALL_KEY, ODDS_API_KEY).
+data_sources:
+  timezone: Asia/Seoul
+  api_football:
+    daily_limit: 100          # 무료 플랜 하루 100회. 유료(Pro)면 7500 으로 올리세요
+    cache_hours: 6            # 같은 요청은 이 시간 동안 다시 부르지 않음
+  odds_api:
+    monthly_credits: 500      # 무료 플랜 월 500 크레딧 (요청 1회 = 시장 수 x 지역 수)
+    regions: eu
+    markets: h2h,totals
+    cache_hours: 3
+  leagues:                    # api_football_id: API-Football 리그 번호 / odds_key: The Odds API 종목 키
+    - {name: 프리미어리그, api_football_id: 39, season: 2026, odds_key: soccer_epl}
+    - {name: 라리가, api_football_id: 140, season: 2026, odds_key: soccer_spain_la_liga}
+    - {name: 세리에A, api_football_id: 135, season: 2026, odds_key: soccer_italy_serie_a}
+    - {name: 분데스리가, api_football_id: 78, season: 2026, odds_key: soccer_germany_bundesliga}
+    - {name: 리그1, api_football_id: 61, season: 2026, odds_key: soccer_france_ligue_one}
+    - {name: 챔피언스리그, api_football_id: 2, season: 2026, odds_key: soccer_uefa_champs_league}
+    - {name: K리그1, api_football_id: 292, season: 2026, odds_key: soccer_korea_kleague1}
+  team_aliases:               # 두 API 의 팀 이름이 다를 때 맞춰 주는 표 (API-Football 이름: The Odds API 이름)
+    Manchester City: Manchester City
+    Manchester United: Manchester United
+    Wolves: Wolverhampton Wanderers
+    Nottingham Forest: Nottingham Forest
+    Tottenham: Tottenham Hotspur
+    Newcastle: Newcastle United
+    Brighton: Brighton and Hove Albion
+    West Ham: West Ham United
+    Inter: Inter Milan
+    Bayern München: Bayern Munich
+    Paris Saint Germain: Paris Saint Germain
+
+departments:
+  - id: soccer
+    name: 축구분석팀
+    sport: soccer
+    active: true
+    markets: [1x2, over_under]
+    over_under_line: 2.5
+
+  # 야구 확장 시 active 를 true 로 바꾸고 분석가를 배치하세요.
+  - id: baseball
+    name: 야구분석팀
+    sport: baseball
+    active: false
+    markets: [1x2, over_under]
+    over_under_line: 8.5
+
+  # 예시: 나중에 생길 수 있는 지원 부서 (분석 투표에는 참여하지 않음)
+  # - id: data
+  #   name: 데이터팀
+  #   sport: null
+  #   active: false
+
+members:
+  - id: kim_data
+    name: 김데이터
+    title: 퀀트 분석가
+    department: soccer
+    role: analyst          # analyst = 투표 참여 / lead = 최종 요약 작성(투표 참여 여부는 votes 로)
+    persona: personas/kim_data.md
+    color: "#2563eb"          # 화면에서 쓰는 이 사람의 색
+    base_weight: 1.0
+    active: true
+
+  - id: park_field
+    name: 박현장
+    title: 스카우트 분석가
+    department: soccer
+    role: analyst
+    persona: personas/park_field.md
+    color: "#15803d"          # 화면에서 쓰는 이 사람의 색
+    base_weight: 1.0
+    active: true
+
+  - id: lee_contra
+    name: 이역발
+    title: 역발상 분석가
+    department: soccer
+    role: analyst
+    persona: personas/lee_contra.md
+    color: "#ea580c"          # 화면에서 쓰는 이 사람의 색
+    base_weight: 1.0
+    active: true
+
+  # 인원 추가 예시: 팀장을 두면 투표 결과를 종합한 최종 코멘트를 씁니다.
+  # - id: choi_lead
+  #   name: 최팀장
+  #   title: 축구분석팀장
+  #   department: soccer
+  #   role: lead
+  #   votes: false
+  #   persona: personas/choi_lead.md
+  #   base_weight: 1.0
+  #   active: false
