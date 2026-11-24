@@ -6,13 +6,14 @@
 | --- | --- | --- |
 | 비용 | 0원 (Claude API 사용료만) | 서버비 + 도메인 |
 | 자동 분석 | GitHub Actions 가 하루 두 번 | 서버의 worker 가 하루 두 번 |
-| 사이트 | Cloudflare Pages (읽기 전용) | 관리 화면까지 |
+| 사이트 | Cloudflare Pages (보기 + 분석 요청) | 관리 화면까지 |
 | 나중에 로그인·앱 | B 로 옮기면 됨 | 바로 가능 |
 
 # A. 무료 운영: GitHub Actions + Cloudflare Pages
 
-GitHub 가 하루 두 번(10:17, 22:17 한국 시각) 채점 → 수집 → 분석을 돌리고, 결과로 만든 사이트를
-`site` 브랜치에 올립니다. Cloudflare Pages 는 `site` 브랜치를 보고 있다가 사이트를 바꿉니다.
+GitHub 가 하루 두 번(10:17, 22:17 한국 시각) 채점 → 수집 → 분석을 돌리고 기록을 `main` 에 올립니다.
+Cloudflare Pages 는 `main` 을 보고 있다가 새 기록이 올라오면 사이트를 다시 만듭니다.
+사이트의 **분석 요청** 화면에서 리그를 골라 원할 때 분석을 돌릴 수도 있습니다.
 
 ## 1. API 키 3개를 GitHub 에 넣기
 
@@ -25,36 +26,49 @@ GitHub 가 하루 두 번(10:17, 22:17 한국 시각) 채점 → 수집 → 분�
 | `API_FOOTBALL_KEY` | API-Football 키 |
 | `ODDS_API_KEY` | The Odds API 키 |
 
-## 2. 원할 때 분석하기 (처음 한 번도 이렇게)
+## 2. Cloudflare Pages 연결 (한 번만)
 
-저장소 **Actions → 매일 분석 → Run workflow** 를 누르면 바로 돌아갑니다. 휴대폰 GitHub 앱에서도 됩니다.
-빈칸은 비워 두면 평소 설정대로 돌고, 이번만 바꾸고 싶을 때 채웁니다.
+Cloudflare 대시보드 **Workers & Pages → 만들기 → Pages → Git 에 연결**:
 
-| 칸 | 예 | 뜻 |
-| --- | --- | --- |
-| 리그 번호 | `39,140` | 프리미어리그와 라리가만 (39 프리미어리그, 140 라리가, 135 세리에A, 78 분데스리가, 61 리그1, 2 챔스, 292 K리그1) |
-| 며칠 뒤까지 | `5` | 5일 뒤 경기까지 수집 |
-| 킥오프 몇 시간 안 | `120` | 5일 안의 경기까지 분석 |
-| 최대 경기 수 | `3` | 이번에는 3경기만 분석 (오늘 한도와 별도) |
-| 모의 실행 | 체크 | Claude 비용 없이 흐름만 확인 |
+- 저장소: `danielyarn87-cloud/aa-` / 프로덕션 브랜치: **`main`**
+- 빌드 명령: `pip install -r requirements.txt && python tools/export_static.py dist/site`
+- 빌드 출력 디렉터리: `dist/site`
 
-처음에는 **모의 실행**에 체크해서 돌려 보세요. 끝나면 저장소에 `site` 브랜치가 생깁니다.
+저장소 맨 위의 `functions/` 폴더는 Cloudflare 가 알아서 서버 함수로 올립니다 (`/api/run`).
 
-## 3. Cloudflare Pages 연결 (한 번만)
+## 3. 사이트에서 리그 골라 분석하기 (분석 요청 화면)
 
-Cloudflare 대시보드 **Workers & Pages → 만들기(Create) → Pages → Git 에 연결(Connect to Git)**:
+사이트의 **분석 요청** 버튼이 GitHub 작업을 실행하려면 Cloudflare 에 값 두 개가 필요합니다. 한 번만 하면 됩니다.
 
-- 저장소: `danielyarn87-cloud/aa-`
-- 프로덕션 브랜치: **`site`**
-- 프레임워크: 없음 / 빌드 명령: **비움** / 출력 디렉터리: **`/`** (비워 두어도 됨)
+**① GitHub 토큰 만들기**: GitHub **Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token**
 
-저장하면 `프로젝트이름.pages.dev` 주소가 생깁니다. 내 도메인을 붙이려면 그 프로젝트의 **사용자 지정 도메인**에서 추가합니다.
+- Repository access: **Only select repositories** → `aa-`
+- Permissions → Repository permissions: **Actions: Read and write**, **Contents: Read and write**
+- 만료일은 원하는 만큼 (만료되면 새로 만들어 ②에 다시 넣기)
+
+**② Cloudflare 에 넣기**: Workers & Pages → 프로젝트 `aa` → **설정 → 변수 및 비밀** → 프로덕션에 추가 (유형: **비밀**)
+
+| 이름 | 값 |
+| --- | --- |
+| `GH_TOKEN` | ①에서 만든 토큰 |
+| `RUN_PASSWORD` | 분석 요청 비밀번호 (아무나 눌러서 Claude 비용을 쓰지 못하게) |
+
+넣은 뒤 **배포 → 최근 배포 다시 시도**를 한 번 눌러야 적용됩니다.
+
+**쓰는 법**: 리그를 고르고 기간·최대 경기 수·비밀번호를 넣고 **분석 시작**. 5~20분 뒤 경기 목록에 올라옵니다.
+"매일 자동 분석의 기본 리그로 저장"에 체크하면 그 리그가 `data/settings.json` 에 저장되어 10시·22시 자동 분석에도 쓰입니다.
+
+**한도**: API-Football 무료는 하루 100회(한국 시각 오전 9시 초기화)입니다. 분석할 경기는 경기당 약 6회,
+목록에만 올릴 경기는 리그당 2회를 씁니다. 하루 15경기 넘게 분석하려면 유료(Pro, 하루 7,500회)로 올리고
+`company.yaml` 의 `daily_limit` 을 7500 으로 바꾸세요. 배당(The Odds API)은 리그 하나에 2크레딧, 무료는 한 달 500크레딧입니다.
+
+GitHub 저장소 **Actions → 매일 분석 → Run workflow** 로도 똑같이 돌릴 수 있습니다 (리그 번호를 쉼표로).
 
 ## 4. 운영
 
 - 자동 실행 기록: 저장소 **Actions** 탭. 실패하면 GitHub 가 메일로 알려 줍니다.
 - 예측·결과 기록(`data/ledger.sqlite`)과 분석 리포트(`reports/`)는 실행할 때마다 저장소에 커밋됩니다. 그래서 따로 백업할 필요가 없습니다.
-- 비용 조절은 `company.yaml` 의 `automation`(리그, 하루 분석 한도)에서 합니다. 실행 시각은 `.github/workflows/daily.yml` 의 `cron` 에서 바꿉니다 (UTC 기준, 한국 시각 −9시간).
+- 비용 조절은 `company.yaml` 의 `automation`(기본 리그, 하루 분석 한도)에서 합니다. 고를 수 있는 리그 목록은 `data_sources.leagues` 에 한 줄씩 더하면 사이트에 바로 나타납니다. 실행 시각은 `.github/workflows/daily.yml` 의 `cron` 에서 바꿉니다 (UTC 기준, 한국 시각 −9시간).
 - 저장소를 **비공개**로 바꿔도 됩니다. 비공개 저장소의 Actions 무료 시간은 한 달 2,000분이고, 이 작업은 한 번에 몇 분이라 충분합니다.
 
 # B. 서버 1대 (Docker)
