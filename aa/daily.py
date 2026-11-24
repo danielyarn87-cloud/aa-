@@ -33,6 +33,11 @@ def _kickoff(m: dict) -> datetime | None:
         return None
 
 
+def _league_id(m: dict) -> int | None:
+    lid = m.get("league_id") or (m.get("source_ids") or {}).get("league")
+    return int(lid) if lid is not None else None
+
+
 def analyzed_today(company: Company, now: datetime) -> int:
     reports = company.base_dir / "reports"
     today = now.astimezone(KST).strftime("%Y-%m-%d")
@@ -47,8 +52,29 @@ def analyzed_today(company: Company, now: datetime) -> int:
     return n
 
 
-def due_matches(company: Company, now: datetime, within_hours: float) -> list[Path]:
-    """아직 분석하지 않았고 킥오프가 지금부터 within_hours 안에 있는 경기, 킥오프 순."""
+def settings_path(company: Company) -> Path:
+    return company.base_dir / "data" / "settings.json"
+
+
+def saved_leagues(company: Company) -> list[int] | None:
+    """사이트의 '분석 요청' 화면에서 저장한 기본 리그 (data/settings.json). 없으면 None."""
+    p = settings_path(company)
+    if not p.exists():
+        return None
+    try:
+        leagues = json.loads(p.read_text(encoding="utf-8")).get("leagues")
+        return [int(x) for x in leagues] if leagues else None
+    except (json.JSONDecodeError, TypeError, ValueError):
+        return None
+
+
+def default_leagues(company: Company) -> list[int]:
+    return saved_leagues(company) or list(company.automation.get("leagues") or [])
+
+
+def due_matches(company: Company, now: datetime, within_hours: float, leagues: list[int] | None = None) -> list[Path]:
+    """아직 분석하지 않았고 킥오프가 지금부터 within_hours 안에 있는 경기, 킥오프 순.
+    leagues 가 있으면 그 리그 경기만."""
     pending = company.base_dir / "data" / "matches"
     reports = company.base_dir / "reports"
     out = []
@@ -56,6 +82,8 @@ def due_matches(company: Company, now: datetime, within_hours: float) -> list[Pa
         if (reports / p.name).exists():
             continue
         m = json.loads(p.read_text(encoding="utf-8"))
+        if leagues and _league_id(m) not in leagues:
+            continue
         ko = _kickoff(m)
         if ko and now < ko <= now + timedelta(hours=within_hours):
             out.append((ko, p))
@@ -90,7 +118,7 @@ def run_daily(company: Company, client_factory=None, now: datetime | None = None
 
     # 3) 새 경기 분석 (하루 한도 안에서)
     room = int(auto.get("max_analyses_per_day", 10)) - analyzed_today(company, now)
-    due = due_matches(company, now, float(auto.get("analyze_within_hours", 48)))
+    due = due_matches(company, now, float(auto.get("analyze_within_hours", 48)), leagues=auto.get("leagues") or None)
     if due and room <= 0:
         log(f"오늘 분석 한도({auto.get('max_analyses_per_day', 10)}경기)에 닿아 {len(due)}경기는 다음 실행으로 넘깁니다.")
     client = None
