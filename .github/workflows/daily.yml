@@ -7,8 +7,8 @@ name: 매일 분석
 
 on:
   schedule:
-    - cron: "17 1 * * *"    # 매일 10:17 (한국 시각)
-    - cron: "17 13 * * *"   # 매일 22:17 (한국 시각)
+    - cron: "3 21 * * *"    # 매일 06:03 (한국 시각, UTC 로는 전날 21:03)
+    - cron: "3 5 * * *"     # 매일 14:03 (한국 시각)
   workflow_dispatch:         # 원할 때 분석: Actions 탭 → 매일 분석 → "Run workflow" (휴대폰 GitHub 앱에서도 가능)
     inputs:
       leagues:
