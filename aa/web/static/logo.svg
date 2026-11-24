@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="RAISE">
+  <rect x="4" y="4" width="92" height="92" rx="22" fill="#0d5c35"/>
+  <path d="M31 40l-3-16 10 8 12-13 12 13 10-8-3 16z" fill="#f5c518" stroke="#f5c518" stroke-width="2" stroke-linejoin="round"/>
+  <path fill-rule="evenodd" fill="#f4f1e8" d="M35 80V44h18a12.5 12.5 0 0 1 4.6 24.1L67 80H57l-8.4-11H43v11zM43 51v11h10a5.5 5.5 0 0 0 0-11z"/>
+</svg>
