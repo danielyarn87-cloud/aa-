@@ -172,6 +172,11 @@ def create_app(company: Company) -> Flask:
             items.append({"id": m["id"], "league": m["league"], "league_id": lid, "league_name": lname,
                           "kickoff": m["kickoff"], "home": ko_name(m["home"]),
                           "away": ko_name(m["away"]), "status": "pending", "odds": m.get("odds", {})})
+        from ..daily import load_picked
+
+        picked = load_picked(company)
+        for it in items:
+            it["picked"] = it["id"] in picked
         items.sort(key=lambda x: x["kickoff"])
         return jsonify({"company": company.name, "matches": items})
 
