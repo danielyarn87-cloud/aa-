@@ -45,6 +45,7 @@ jobs:
           git add data/ledger.sqlite data/betting.json
           if git diff --cached --quiet; then echo "바뀐 기록 없음"; exit 0; fi
           git commit -m "결과 확인 $(TZ=Asia/Seoul date '+%Y-%m-%d %H:%M')"
+          git stash -u -q || true   # 저장하지 않는 캐시 파일 변경은 치워 둔다
           for i in 1 2 3; do
             git pull --rebase -X theirs origin main && git push && exit 0
             sleep 5
