@@ -29,6 +29,25 @@ const store = {
   set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
 };
 
+/* 화면 크기: 폰마다 보기 편하게 (자동 + 직접 고르기: 작게·보통·크게) */
+const ZOOMS = [{k: 's', t: '작게', z: 0.88}, {k: 'm', t: '보통', z: 1}, {k: 'l', t: '크게', z: 1.12}];
+function applyZoom() {
+  const k = store.get('aa_zoom') || 'm';
+  const z = (ZOOMS.find(x => x.k === k) || ZOOMS[1]).z;
+  document.documentElement.style.zoom = z === 1 ? '' : String(z);
+  const b = document.getElementById('zoomBtn');
+  if (b) b.textContent = '글자 ' + (ZOOMS.find(x => x.k === k) || ZOOMS[1]).t;
+}
+(function zoomButton() {
+  const top = document.querySelector('.top');
+  if (!top || document.getElementById('zoomBtn')) return;
+  const b = document.createElement('button');
+  b.id = 'zoomBtn'; b.type = 'button'; b.className = 'zoombtn'; b.setAttribute('aria-label', '글자 크기 바꾸기');
+  b.onclick = () => { const i = ZOOMS.findIndex(x => x.k === (store.get('aa_zoom') || 'm')); store.set('aa_zoom', ZOOMS[(i + 1) % ZOOMS.length].k); applyZoom(); };
+  top.querySelector('.brand').after(b);
+  applyZoom();
+})();
+
 async function api(path, opts) {
   if (SNAP) {
     if (path === '/api/matches') return SNAP.matches;
