@@ -270,3 +270,14 @@ pre{background:var(--panel);padding:12px;border-radius:8px;font-size:14px;white-
 @media(min-width:721px){.row{grid-template-columns:max-content minmax(180px,1.3fr) minmax(0,.8fr) minmax(0,1.9fr)}}
 .trilegend{display:inline-flex;gap:12px;font-size:13px;color:var(--mute);margin-left:4px}
 .trilegend i{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+
+/* 보기 거르기(위)와 리그 거르기(아래)를 확실히 구분 */
+.segbar{display:inline-flex;flex-wrap:wrap;border:2px solid var(--ink);border-radius:12px;overflow:hidden;background:var(--bg)}
+.seg{border:0;border-left:1px solid var(--line);background:transparent;color:var(--ink);padding:10px 16px;font:inherit;font-size:15px;font-weight:700;cursor:pointer;min-height:44px}
+.seg:first-child{border-left:0}
+.seg[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.seg.mine{background:#fff4c2;color:#7a5200}
+.seg.mine[aria-pressed=true]{background:#ffd60a;color:#1d1a00}
+.lgchips{padding:10px 12px;border-radius:10px;background:var(--panel);align-items:center}
+.lgchips .chip{font-size:13px;min-height:30px;padding:4px 11px}
+.lglabel{font-size:13px;font-weight:800;color:var(--mute);margin-right:4px}
