@@ -10,6 +10,7 @@ KST = ZoneInfo("Asia/Seoul")
 
 
 def test_daily_collects_and_analyzes_within_limits(company):
+    company.automation["leagues"] = [39]  # 가짜 API 는 어느 리그든 같은 경기를 돌려주므로 한 리그만
     now = datetime(2026, 11, 28, 12, 0, tzinfo=KST)  # 킥오프(11/30 01:30 KST) 37.5시간 전
     s = run_daily(company, client_factory=MockClient, now=now, log=lambda *_: None,
                   af_transport=FakeAF(), odds_transport=fake_odds)
@@ -24,6 +25,7 @@ def test_daily_collects_and_analyzes_within_limits(company):
 
 
 def test_daily_respects_window_and_cap(company):
+    company.automation["leagues"] = [39]
     early = datetime(2026, 11, 25, 12, 0, tzinfo=KST)  # 킥오프 4일 전: 수집은 하되 분석은 아직
     company.automation["collect_days"] = 7
     s = run_daily(company, client_factory=MockClient, now=early, log=lambda *_: None,
@@ -71,3 +73,16 @@ def test_ledger_backfill_from_reports(company):
     assert fresh.backfill_from_reports(company.base_dir / "reports") == 0
     fresh.settle("AF-9001", 2, 0)
     assert fresh.company_stats("soccer", include_mock=True)["settled"] == 1
+
+
+def test_collect_is_detailed_only_for_matches_to_analyze(company):
+    from aa.collect import collect
+    af = FakeAF()
+    far = datetime(2026, 11, 25, 12, 0, tzinfo=KST)   # 킥오프 4일 전
+    collect(company, days=7, leagues=[39], af_transport=af, odds_transport=fake_odds, today=far,
+            log=lambda *_: None, full_within_hours=48)
+    assert not any(p == "/fixtures/headtohead" for p, _ in af.calls)  # 멀면 가볍게
+    near = datetime(2026, 11, 29, 9, 0, tzinfo=KST)   # 킥오프 16.5시간 전
+    collect(company, days=2, leagues=[39], af_transport=af, odds_transport=fake_odds, today=near,
+            log=lambda *_: None, full_within_hours=48)
+    assert any(p == "/fixtures/headtohead" for p, _ in af.calls)      # 가까우면 자세히
