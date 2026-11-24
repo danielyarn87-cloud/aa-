@@ -16,7 +16,7 @@ API_URL = "https://api.anthropic.com/v1/messages"
 class ClaudeClient:
     """표준 라이브러리만으로 Claude Messages API 를 호출한다 (추가 설치 불필요)."""
 
-    def __init__(self, model: str, api_key: str | None = None, max_tokens: int = 2000, timeout: int = 180):
+    def __init__(self, model: str, api_key: str | None = None, max_tokens: int = 4000, timeout: int = 240):
         self.model = model
         self.api_key = api_key or os.environ.get("ANTHROPIC_API_KEY")
         if not self.api_key:
@@ -27,14 +27,17 @@ class ClaudeClient:
 
     def complete(self, system: str, prompt: str, ctx: dict) -> str:
         model = ctx.get("model") or self.model
-        body = json.dumps(
-            {
-                "model": model,
-                "max_tokens": self.max_tokens,
-                "system": system,
-                "messages": [{"role": "user", "content": prompt}],
-            }
-        ).encode("utf-8")
+        payload = {
+            "model": model,
+            "max_tokens": self.max_tokens,
+            "system": system,
+            "messages": [{"role": "user", "content": prompt}],
+        }
+        schema = ctx.get("schema")
+        if schema:  # 답을 정해진 양식(도구 입력)으로만 받는다: 따옴표 등으로 형식이 깨지지 않음
+            payload["tools"] = [{"name": "submit", "description": "분석 결과를 제출한다.", "input_schema": schema}]
+            payload["tool_choice"] = {"type": "tool", "name": "submit"}
+        body = json.dumps(payload).encode("utf-8")
         headers = {
             "content-type": "application/json",
             "x-api-key": self.api_key,
@@ -45,6 +48,9 @@ class ClaudeClient:
             try:
                 with urllib.request.urlopen(req, timeout=self.timeout) as resp:
                     data = json.loads(resp.read().decode("utf-8"))
+                for b in data.get("content", []):
+                    if b.get("type") == "tool_use":
+                        return json.dumps(b.get("input", {}), ensure_ascii=False)
                 return "".join(b.get("text", "") for b in data.get("content", []) if b.get("type") == "text")
             except urllib.error.HTTPError as e:
                 if e.code in (429, 500, 502, 503, 529) and attempt < 3:
