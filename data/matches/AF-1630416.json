@@ -1,0 +1,76 @@
+{
+  "id": "AF-1630416",
+  "sport": "soccer",
+  "league": "AFC챔피언스리그 2 Group Stage - 5",
+  "league_id": 18,
+  "league_name": "AFC챔피언스리그 2",
+  "kickoff": "2026-11-26 19:00 KST",
+  "kickoff_iso": "2026-11-26T19:00:00+09:00",
+  "home": "Tampines Rovers",
+  "away": "상하이 선화",
+  "home_en": "Tampines Rovers",
+  "away_en": "Shanghai Shenhua",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.375,
+    "away_goals": 1.625
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.025,
+      "xg_against": 2.175,
+      "raw_goals_for": 0.5,
+      "raw_goals_against": 3.0,
+      "played": 2,
+      "record": "0승 0무 2패",
+      "form": "LLLL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.175,
+      "xg_against": 1.225,
+      "raw_goals_for": 0.5,
+      "raw_goals_against": 1.0,
+      "played": 2,
+      "record": "0승 1무 1패",
+      "form": "WDLL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Tampines Stadium",
+  "source_ids": {
+    "api_football_fixture": 1630416,
+    "home_team": 4206,
+    "away_team": 833,
+    "league": 18,
+    "season": 2026
+  },
+  "head_to_head": [
+    "2026-09-17 상하이 선화 2-1 Tampines Rovers"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Premier League",
+    "home_days_rest": 3,
+    "away_prev": "2026-11-08 Super League",
+    "away_days_rest": 18
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-25 08:44 KST"
+}

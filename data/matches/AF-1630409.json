@@ -1,0 +1,76 @@
+{
+  "id": "AF-1630409",
+  "sport": "soccer",
+  "league": "AFC챔피언스리그 2 Group Stage - 5",
+  "league_id": 18,
+  "league_name": "AFC챔피언스리그 2",
+  "kickoff": "2026-11-26 01:00 KST",
+  "kickoff_iso": "2026-11-26T01:00:00+09:00",
+  "home": "Al Faisaly",
+  "away": "Al-Rayyan SC",
+  "home_en": "Al Faisaly",
+  "away_en": "Al-Rayyan SC",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.375,
+    "away_goals": 1.625
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.225,
+      "xg_against": 1.375,
+      "raw_goals_for": 1.0,
+      "raw_goals_against": 1.0,
+      "played": 2,
+      "record": "1승 0무 1패",
+      "form": "LWLL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.975,
+      "xg_against": 1.425,
+      "raw_goals_for": 2.5,
+      "raw_goals_against": 1.5,
+      "played": 2,
+      "record": "1승 0무 1패",
+      "form": "WLWW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Amman International Stadium",
+  "source_ids": {
+    "api_football_fixture": 1630409,
+    "home_team": 4531,
+    "away_team": 2897,
+    "league": 18,
+    "season": 2026
+  },
+  "head_to_head": [
+    "2026-09-16 Al-Rayyan SC 4-3 Al Faisaly"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Cup",
+    "home_days_rest": 4,
+    "away_prev": "2026-11-22 Stars League",
+    "away_days_rest": 4
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-25 08:44 KST"
+}

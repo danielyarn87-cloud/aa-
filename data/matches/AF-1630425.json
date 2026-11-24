@@ -1,0 +1,63 @@
+{
+  "id": "AF-1630425",
+  "sport": "soccer",
+  "league": "AFC챔피언스리그 2 Group Stage - 6",
+  "league_id": 18,
+  "league_name": "AFC챔피언스리그 2",
+  "kickoff": "2026-12-03 21:15 KST",
+  "kickoff_iso": "2026-12-03T21:15:00+09:00",
+  "home": "Kitchee",
+  "away": "Kuching FA",
+  "home_en": "Kitchee",
+  "away_en": "Kuching FA",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.375,
+    "away_goals": 1.625
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (0경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.375,
+      "xg_against": 1.625,
+      "raw_goals_for": 0.0,
+      "raw_goals_against": 0.0,
+      "played": 0
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (0경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.625,
+      "xg_against": 1.375,
+      "raw_goals_for": 0.0,
+      "raw_goals_against": 0.0,
+      "played": 0
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "호출 절약 수집이라 부상자 목록을 받지 않음"
+  },
+  "collected_detail": "light",
+  "venue": "Mong Kok Stadium",
+  "source_ids": {
+    "api_football_fixture": 1630425,
+    "home_team": 4453,
+    "away_team": 10108,
+    "league": 18,
+    "season": 2026
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-25 08:44 KST"
+}

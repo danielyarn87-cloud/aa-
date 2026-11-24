@@ -1,0 +1,76 @@
+{
+  "id": "AF-1630419",
+  "sport": "soccer",
+  "league": "AFC챔피언스리그 2 Group Stage - 5",
+  "league_id": 18,
+  "league_name": "AFC챔피언스리그 2",
+  "kickoff": "2026-11-26 21:15 KST",
+  "kickoff_iso": "2026-11-26T21:15:00+09:00",
+  "home": "Wofoo Tai Po",
+  "away": "애들레이드 유나이티드",
+  "home_en": "Wofoo Tai Po",
+  "away_en": "Adelaide United",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.375,
+    "away_goals": 1.625
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.825,
+      "xg_against": 1.775,
+      "raw_goals_for": 0.0,
+      "raw_goals_against": 2.0,
+      "played": 2,
+      "record": "0승 0무 2패",
+      "form": "LLLL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.375,
+      "xg_against": 2.025,
+      "raw_goals_for": 1.0,
+      "raw_goals_against": 3.0,
+      "played": 2,
+      "record": "1승 0무 1패",
+      "form": "WWLL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Tai Po Sports Ground",
+  "source_ids": {
+    "api_football_fixture": 1630419,
+    "home_team": 4457,
+    "away_team": 948,
+    "league": 18,
+    "season": 2026
+  },
+  "head_to_head": [
+    "2026-09-17 애들레이드 유나이티드 3-0 Wofoo Tai Po"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 Premier League",
+    "home_days_rest": 5,
+    "away_prev": "2026-11-20 A-League",
+    "away_days_rest": 6
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-25 08:44 KST"
+}

@@ -1,0 +1,76 @@
+{
+  "id": "AF-1630415",
+  "sport": "soccer",
+  "league": "AFC챔피언스리그 2 Group Stage - 5",
+  "league_id": 18,
+  "league_name": "AFC챔피언스리그 2",
+  "kickoff": "2026-11-26 19:00 KST",
+  "kickoff_iso": "2026-11-26T19:00:00+09:00",
+  "home": "Kuching FA",
+  "away": "Phnom Penh Crown",
+  "home_en": "Kuching FA",
+  "away_en": "Phnom Penh Crown",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.375,
+    "away_goals": 1.625
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.425,
+      "xg_against": 1.175,
+      "raw_goals_for": 1.5,
+      "raw_goals_against": 0.5,
+      "played": 2,
+      "record": "1승 1무 0패",
+      "form": "LDLW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.575,
+      "xg_against": 1.425,
+      "raw_goals_for": 1.5,
+      "raw_goals_against": 1.5,
+      "played": 2,
+      "record": "1승 0무 1패",
+      "form": "WWWL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Sarawak Stadium",
+  "source_ids": {
+    "api_football_fixture": 1630415,
+    "home_team": 10108,
+    "away_team": 5394,
+    "league": 18,
+    "season": 2026
+  },
+  "head_to_head": [
+    "2026-09-17 Phnom Penh Crown 2-1 Kuching FA"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-20 Super League",
+    "home_days_rest": 6,
+    "away_prev": "2026-11-21 C-League",
+    "away_days_rest": 4
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-25 08:44 KST"
+}

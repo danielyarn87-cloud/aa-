@@ -1,0 +1,76 @@
+{
+  "id": "AF-1637495",
+  "sport": "soccer",
+  "league": "AFC챔피언스리그 2 Group Stage - 5",
+  "league_id": 18,
+  "league_name": "AFC챔피언스리그 2",
+  "kickoff": "2026-11-25 21:15 KST",
+  "kickoff_iso": "2026-11-25T21:15:00+09:00",
+  "home": "Persib Bandung",
+  "away": "FC 서울",
+  "home_en": "Persib Bandung",
+  "away_en": "FC Seoul",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.375,
+    "away_goals": 1.625
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (3경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.338,
+      "xg_against": 0.812,
+      "raw_goals_for": 1.3,
+      "raw_goals_against": 0.0,
+      "played": 3,
+      "record": "3승 0무 0패",
+      "form": "WWWWW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.975,
+      "xg_against": 1.425,
+      "raw_goals_for": 2.5,
+      "raw_goals_against": 1.5,
+      "played": 2,
+      "record": "1승 0무 1패",
+      "form": "LLWW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Gelora Bandung Lautan Api Stadium",
+  "source_ids": {
+    "api_football_fixture": 1637495,
+    "home_team": 2445,
+    "away_team": 2766,
+    "league": 18,
+    "season": 2026
+  },
+  "head_to_head": [
+    "2026-09-16 FC 서울 0-1 Persib Bandung"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Liga 1",
+    "home_days_rest": 3,
+    "away_prev": "2026-11-21 K League 1",
+    "away_days_rest": 4
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-25 08:44 KST"
+}
