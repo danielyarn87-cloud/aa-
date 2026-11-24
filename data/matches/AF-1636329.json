@@ -1,0 +1,77 @@
+{
+  "id": "AF-1636329",
+  "sport": "soccer",
+  "league": "유로파리그 League Stage - 5",
+  "league_id": 3,
+  "league_name": "유로파리그",
+  "kickoff": "2026-11-27 02:45 KST",
+  "kickoff_iso": "2026-11-27T02:45:00+09:00",
+  "home": "위니옹 생질루아즈",
+  "away": "레흐 포즈난",
+  "home_en": "Union St. Gilloise",
+  "away_en": "Lech Poznan",
+  "odds": {
+    "line": 2.5,
+    "note": "The Odds API 에서 이 경기를 찾지 못함 (팀 이름 별칭을 확인하세요)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.431,
+    "away_goals": 1.542
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.859,
+      "xg_against": 1.125,
+      "raw_goals_for": 2.5,
+      "raw_goals_against": 0.5,
+      "played": 2,
+      "record": "1승 1무 0패",
+      "form": "WDWW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (4경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.804,
+      "xg_against": 1.928,
+      "raw_goals_for": 2.0,
+      "raw_goals_against": 2.3,
+      "played": 4,
+      "record": "1승 1무 2패",
+      "form": "DLLDL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Den Dreef Stadium",
+  "source_ids": {
+    "api_football_fixture": 1636329,
+    "home_team": 1393,
+    "away_team": 347,
+    "league": 3,
+    "season": 2026
+  },
+  "table": "위니옹 생질루아즈 4위 10점 (3승1무0패, 득실 +8) / 레흐 포즈난 35위 1점 (0승1무3패, 득실 -10)",
+  "head_to_head": "자료 없음",
+  "schedule": {
+    "home_prev": "2026-11-23 Jupiler Pro League",
+    "home_days_rest": 4,
+    "away_prev": "2026-11-22 Ekstraklasa",
+    "away_days_rest": 4
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 18:39 KST"
+}

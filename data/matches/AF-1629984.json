@@ -6,7 +6,7 @@
   "league_name": "AFC챔피언스리그 엘리트",
   "kickoff": "2026-11-24 21:15 KST",
   "kickoff_iso": "2026-11-24T21:15:00+09:00",
-  "home": "Công An Nhân Dân",
+  "home": "꽁안 하노이",
   "away": "비셀 고베",
   "home_en": "Công An Nhân Dân",
   "away_en": "Vissel Kobe",
@@ -70,5 +70,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-24 18:24 KST"
+  "collected_at": "2026-11-24 18:40 KST"
 }

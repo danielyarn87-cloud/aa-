@@ -1,0 +1,87 @@
+{
+  "id": "AF-1636457",
+  "sport": "soccer",
+  "league": "컨퍼런스리그 League Stage - 4",
+  "league_id": 848,
+  "league_name": "컨퍼런스리그",
+  "kickoff": "2026-11-27 05:00 KST",
+  "kickoff_iso": "2026-11-27T05:00:00+09:00",
+  "home": "FC Nordsjaelland",
+  "away": "파나티나이코스",
+  "home_en": "FC Nordsjaelland",
+  "away_en": "Panathinaikos",
+  "odds": {
+    "line": 2.5,
+    "home": 2.71,
+    "best_home": 2.9,
+    "draw": 3.45,
+    "best_draw": 3.7,
+    "away": 2.45,
+    "best_away": 2.56,
+    "over": 1.71,
+    "best_over": 1.77,
+    "under": 2.09,
+    "best_under": 2.14,
+    "source": "The Odds API 평균 배당 (승무패 15곳, 언더/오버 8곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.574,
+    "away_goals": 1.185
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (4경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 2.675,
+      "xg_against": 0.794,
+      "raw_goals_for": 3.5,
+      "raw_goals_against": 0.5,
+      "played": 4,
+      "record": "3승 1무 0패",
+      "form": "WWDDL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (4경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 2.108,
+      "xg_against": 1.246,
+      "raw_goals_for": 2.8,
+      "raw_goals_against": 1.0,
+      "played": 4,
+      "record": "4승 0무 0패",
+      "form": "DWWWW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Right to Dream Park",
+  "source_ids": {
+    "api_football_fixture": 1636457,
+    "home_team": 398,
+    "away_team": 617,
+    "league": 848,
+    "season": 2026
+  },
+  "table": "FC Nordsjaelland 25위 2점 (0승2무1패, 득실 -2) / 파나티나이코스 2위 9점 (3승0무0패, 득실 +6)",
+  "head_to_head": "자료 없음",
+  "schedule": {
+    "home_prev": "2026-11-23 Superliga",
+    "home_days_rest": 4,
+    "away_prev": "2026-11-23 Super League 1",
+    "away_days_rest": 4
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 18:39 KST"
+}

@@ -1,0 +1,99 @@
+{
+  "id": "AF-1635703",
+  "sport": "soccer",
+  "league": "챔피언스리그 League Stage - 5",
+  "league_id": 2,
+  "league_name": "챔피언스리그",
+  "kickoff": "2026-11-26 05:00 KST",
+  "kickoff_iso": "2026-11-26T05:00:00+09:00",
+  "home": "파리 생제르맹",
+  "away": "AS 로마",
+  "home_en": "Paris Saint Germain",
+  "away_en": "AS Roma",
+  "odds": {
+    "line": 3.5,
+    "home": 1.4,
+    "best_home": 1.46,
+    "draw": 5.21,
+    "best_draw": 5.63,
+    "away": 6.65,
+    "best_away": 7.5,
+    "over": 1.85,
+    "best_over": 1.92,
+    "under": 1.95,
+    "best_under": 2.06,
+    "source": "The Odds API 평균 배당 (승무패 23곳, 언더/오버 14곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 2.319,
+    "away_goals": 1.722
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 3.391,
+      "xg_against": 1.633,
+      "raw_goals_for": 5.0,
+      "raw_goals_against": 1.5,
+      "played": 2,
+      "record": "2승 0무 0패",
+      "form": "WWWW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.633,
+      "xg_against": 2.191,
+      "raw_goals_for": 1.5,
+      "raw_goals_against": 2.0,
+      "played": 2,
+      "record": "0승 1무 1패",
+      "form": "DLWL"
+    }
+  },
+  "lineup": {
+    "home_absent": [
+      "D. Doue (Knee Injury)",
+      "K. Kvaratskhelia (Knee Injury)",
+      "A. Longoni (Thigh Injury)"
+    ],
+    "home_doubtful": [],
+    "away_absent": [
+      "L. Pellegrini (Thigh Injury)",
+      "D. Rensch (Muscle Injury)",
+      "D. S. Vasquez Llach (Inactive)"
+    ],
+    "away_doubtful": [
+      "L. Balerdi (Injury)"
+    ],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Parc des Princes",
+  "source_ids": {
+    "api_football_fixture": 1635703,
+    "home_team": 85,
+    "away_team": 497,
+    "league": 2,
+    "season": 2026
+  },
+  "table": "파리 생제르맹 1위 12점 (4승0무0패, 득실 +15) / AS 로마 20위 4점 (1승1무2패, 득실 +2)",
+  "head_to_head": [
+    "2017-07-20 AS 로마 1-1 파리 생제르맹"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Ligue 1",
+    "home_days_rest": 4,
+    "away_prev": "2026-11-22 Serie A",
+    "away_days_rest": 4
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 18:39 KST"
+}

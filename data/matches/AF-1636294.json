@@ -1,0 +1,87 @@
+{
+  "id": "AF-1636294",
+  "sport": "soccer",
+  "league": "유로파리그 League Stage - 5",
+  "league_id": 3,
+  "league_name": "유로파리그",
+  "kickoff": "2026-11-27 05:00 KST",
+  "kickoff_iso": "2026-11-27T05:00:00+09:00",
+  "home": "리옹",
+  "away": "Lillestrom",
+  "home_en": "Lyon",
+  "away_en": "Lillestrom",
+  "odds": {
+    "line": 3.5,
+    "home": 1.17,
+    "best_home": 1.23,
+    "draw": 7.42,
+    "best_draw": 8.5,
+    "away": 13.25,
+    "best_away": 16.0,
+    "over": 1.93,
+    "best_over": 1.98,
+    "under": 1.86,
+    "best_under": 1.91,
+    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 11곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.431,
+    "away_goals": 1.542
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (1경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.823,
+      "xg_against": 1.657,
+      "raw_goals_for": 3.0,
+      "raw_goals_against": 2.0,
+      "played": 1,
+      "record": "1승 0무 0패",
+      "form": "WWLD"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.125,
+      "xg_against": 1.059,
+      "raw_goals_for": 0.5,
+      "raw_goals_against": 0.5,
+      "played": 2,
+      "record": "0승 2무 0패",
+      "form": "WLDLL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Groupama Stadium",
+  "source_ids": {
+    "api_football_fixture": 1636294,
+    "home_team": 80,
+    "away_team": 321,
+    "league": 3,
+    "season": 2026
+  },
+  "table": "리옹 13위 7점 (2승1무1패, 득실 -1) / Lillestrom 34위 1점 (0승1무3패, 득실 -8)",
+  "head_to_head": "자료 없음",
+  "schedule": {
+    "home_prev": "2026-11-22 Ligue 1",
+    "home_days_rest": 5,
+    "away_prev": "2026-11-23 Eliteserien",
+    "away_days_rest": 4
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 18:39 KST"
+}

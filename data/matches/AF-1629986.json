@@ -6,7 +6,7 @@
   "league_name": "AFC챔피언스리그 엘리트",
   "kickoff": "2026-11-24 21:15 KST",
   "kickoff_iso": "2026-11-24T21:15:00+09:00",
-  "home": "SHANGHAI SIPG",
+  "home": "상하이 포트",
   "away": "부리람 유나이티드",
   "home_en": "SHANGHAI SIPG",
   "away_en": "Buriram United",
@@ -61,8 +61,8 @@
     "season": 2026
   },
   "head_to_head": [
-    "2025-11-04 부리람 유나이티드 2-0 SHANGHAI SIPG",
-    "2020-01-28 SHANGHAI SIPG 3-0 부리람 유나이티드"
+    "2025-11-04 부리람 유나이티드 2-0 상하이 포트",
+    "2020-01-28 상하이 포트 3-0 부리람 유나이티드"
   ],
   "schedule": {
     "home_prev": "2026-11-20 FA Cup",
@@ -73,5 +73,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-24 18:24 KST"
+  "collected_at": "2026-11-24 18:40 KST"
 }

@@ -1,0 +1,90 @@
+{
+  "id": "AF-1635735",
+  "sport": "soccer",
+  "league": "챔피언스리그 League Stage - 5",
+  "league_id": 2,
+  "league_name": "챔피언스리그",
+  "kickoff": "2026-11-26 05:00 KST",
+  "kickoff_iso": "2026-11-26T05:00:00+09:00",
+  "home": "스포르팅 CP",
+  "away": "맨체스터 유나이티드",
+  "home_en": "Sporting CP",
+  "away_en": "Manchester United",
+  "odds": {
+    "line": 2.5,
+    "note": "The Odds API 에서 이 경기를 찾지 못함 (팀 이름 별칭을 확인하세요)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 2.319,
+    "away_goals": 1.722
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 2.391,
+      "xg_against": 1.833,
+      "raw_goals_for": 2.5,
+      "raw_goals_against": 2.0,
+      "played": 2,
+      "record": "1승 0무 1패",
+      "form": "WWLW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.233,
+      "xg_against": 2.591,
+      "raw_goals_for": 0.5,
+      "raw_goals_against": 3.0,
+      "played": 2,
+      "record": "0승 0무 2패",
+      "form": "WLLW"
+    }
+  },
+  "lineup": {
+    "home_absent": [
+      "S. Alexandropoulos (Off the roster)",
+      "Z. Debast (Injury)",
+      "N. Santos (Knee Injury)"
+    ],
+    "home_doubtful": [],
+    "away_absent": [
+      "C. Baleba (Thigh Injury)",
+      "M. Cunha (Red Card)",
+      "K. Darlow (Muscle Injury)",
+      "B. Sesko (Leg Injury)",
+      "M. Ugarte (Knee Injury)"
+    ],
+    "away_doubtful": [
+      "M. Rashford (Hip Injury)",
+      "L. Shaw (Muscle Injury)"
+    ],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": null,
+  "source_ids": {
+    "api_football_fixture": 1635735,
+    "home_team": 228,
+    "away_team": 33,
+    "league": 2,
+    "season": 2026
+  },
+  "table": "스포르팅 CP 10위 9점 (3승0무1패, 득실 +4) / 맨체스터 유나이티드 17위 6점 (2승0무2패, 득실 +0)",
+  "head_to_head": "자료 없음",
+  "schedule": {
+    "home_prev": "2026-11-22 Taça de Portugal",
+    "home_days_rest": 4,
+    "away_prev": "2026-11-23 Premier League",
+    "away_days_rest": 3
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 18:39 KST"
+}

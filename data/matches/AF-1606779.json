@@ -6,7 +6,7 @@
   "league_name": "J2리그",
   "kickoff": "2026-11-25 19:00 KST",
   "kickoff_iso": "2026-11-25T19:00:00+09:00",
-  "home": "Tochigi City",
+  "home": "도치기 시티",
   "away": "블라우블리츠 아키타",
   "home_en": "Tochigi City",
   "away_en": "Blaublitz Akita",
@@ -60,10 +60,10 @@
     "league": 99,
     "season": 2026
   },
-  "table": "Tochigi City 18위 15점 (4승3무11패, 득실 -8) / 블라우블리츠 아키타 13위 23점 (6승5무7패, 득실 -2)",
+  "table": "도치기 시티 18위 15점 (4승3무11패, 득실 -8) / 블라우블리츠 아키타 13위 23점 (6승5무7패, 득실 -2)",
   "head_to_head": [
-    "2026-05-24 블라우블리츠 아키타 1-0 Tochigi City",
-    "2026-02-15 Tochigi City 0-1 블라우블리츠 아키타"
+    "2026-05-24 블라우블리츠 아키타 1-0 도치기 시티",
+    "2026-02-15 도치기 시티 0-1 블라우블리츠 아키타"
   ],
   "schedule": {
     "home_prev": "2026-11-21 J2 League",
@@ -74,5 +74,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-24 17:48 KST"
+  "collected_at": "2026-11-24 18:40 KST"
 }

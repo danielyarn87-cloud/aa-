@@ -1,0 +1,90 @@
+{
+  "id": "AF-1636307",
+  "sport": "soccer",
+  "league": "유로파리그 League Stage - 5",
+  "league_id": 3,
+  "league_name": "유로파리그",
+  "kickoff": "2026-11-27 02:45 KST",
+  "kickoff_iso": "2026-11-27T02:45:00+09:00",
+  "home": "올림피아코스",
+  "away": "AC 밀란",
+  "home_en": "Olympiakos Piraeus",
+  "away_en": "AC Milan",
+  "odds": {
+    "line": 2.5,
+    "home": 2.68,
+    "best_home": 2.8,
+    "draw": 3.38,
+    "best_draw": 3.5,
+    "away": 2.53,
+    "best_away": 2.7,
+    "over": 1.84,
+    "best_over": 1.91,
+    "under": 1.94,
+    "best_under": 2.02,
+    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 14곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.431,
+    "away_goals": 1.542
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.459,
+      "xg_against": 1.125,
+      "raw_goals_for": 1.5,
+      "raw_goals_against": 0.5,
+      "played": 2,
+      "record": "2승 0무 0패",
+      "form": "WWWD"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.725,
+      "xg_against": 1.459,
+      "raw_goals_for": 2.0,
+      "raw_goals_against": 1.5,
+      "played": 2,
+      "record": "1승 0무 1패",
+      "form": "LWLL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Karaiskakis Stadium",
+  "source_ids": {
+    "api_football_fixture": 1636307,
+    "home_team": 553,
+    "away_team": 489,
+    "league": 3,
+    "season": 2026
+  },
+  "table": "올림피아코스 6위 10점 (3승1무0패, 득실 +3) / AC 밀란 28위 3점 (1승0무3패, 득실 -3)",
+  "head_to_head": [
+    "2018-12-13 올림피아코스 3-1 AC 밀란",
+    "2018-10-04 AC 밀란 3-1 올림피아코스"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-23 Super League 1",
+    "home_days_rest": 4,
+    "away_prev": "2026-11-23 Serie A",
+    "away_days_rest": 4
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 18:39 KST"
+}

@@ -1,0 +1,104 @@
+{
+  "id": "AF-1563283",
+  "sport": "soccer",
+  "league": "챔피언십 Regular Season - 17",
+  "league_id": 40,
+  "league_name": "챔피언십",
+  "kickoff": "2026-11-26 04:45 KST",
+  "kickoff_iso": "2026-11-26T04:45:00+09:00",
+  "home": "Bolton",
+  "away": "웨스트브로미치",
+  "home_en": "Bolton",
+  "away_en": "West Brom",
+  "odds": {
+    "line": 2.5,
+    "home": 3.5,
+    "best_home": 3.85,
+    "draw": 3.55,
+    "best_draw": 3.8,
+    "away": 1.96,
+    "best_away": 2.1,
+    "over": 1.69,
+    "best_over": 1.75,
+    "under": 2.07,
+    "best_under": 2.15,
+    "source": "The Odds API 평균 배당 (승무패 22곳, 언더/오버 13곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.651,
+    "away_goals": 1.271
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (8경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.396,
+      "xg_against": 1.801,
+      "raw_goals_for": 1.3,
+      "raw_goals_against": 2.0,
+      "played": 8,
+      "record": "2승 1무 5패",
+      "form": "LLWLD"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (8경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.438,
+      "xg_against": 1.396,
+      "raw_goals_for": 1.5,
+      "raw_goals_against": 1.3,
+      "played": 8,
+      "record": "4승 2무 2패",
+      "form": "DWDWD"
+    }
+  },
+  "lineup": {
+    "home_absent": [
+      "E. Erhahon (Thigh Injury)",
+      "R. Hardie (Hamstring Injury)",
+      "J. McAtee (Knee Injury)",
+      "J. Nelson (Hamstring Injury)"
+    ],
+    "home_doubtful": [
+      "E. Toal (Muscle Injury)"
+    ],
+    "away_absent": [
+      "T. Collyer (Hamstring Injury)",
+      "N. Galves (Knee Injury)",
+      "M. Johnston (Broken Leg)"
+    ],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Toughsheet Community Stadium",
+  "source_ids": {
+    "api_football_fixture": 1563283,
+    "home_team": 68,
+    "away_team": 60,
+    "league": 40,
+    "season": 2026
+  },
+  "table": "Bolton 17위 18점 (5승3무8패, 득실 -9) / 웨스트브로미치 5위 29점 (8승5무3패, 득실 +8)",
+  "head_to_head": [
+    "2024-07-13 웨스트브로미치 1-2 Bolton",
+    "2023-07-29 Bolton 4-3 웨스트브로미치",
+    "2019-01-21 Bolton 0-2 웨스트브로미치",
+    "2018-08-04 웨스트브로미치 1-2 Bolton",
+    "2012-05-06 Bolton 2-2 웨스트브로미치"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Championship",
+    "home_days_rest": 4,
+    "away_prev": "2026-11-22 Championship",
+    "away_days_rest": 4
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 18:39 KST"
+}

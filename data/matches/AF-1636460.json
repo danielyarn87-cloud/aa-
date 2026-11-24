@@ -1,0 +1,87 @@
+{
+  "id": "AF-1636460",
+  "sport": "soccer",
+  "league": "컨퍼런스리그 League Stage - 4",
+  "league_id": 848,
+  "league_name": "컨퍼런스리그",
+  "kickoff": "2026-11-27 02:45 KST",
+  "kickoff_iso": "2026-11-27T02:45:00+09:00",
+  "home": "파포스",
+  "away": "미트윌란",
+  "home_en": "Pafos",
+  "away_en": "FC Midtjylland",
+  "odds": {
+    "line": 2.5,
+    "home": 2.94,
+    "best_home": 3.1,
+    "draw": 3.54,
+    "best_draw": 3.9,
+    "away": 2.24,
+    "best_away": 2.38,
+    "over": 1.57,
+    "best_over": 1.62,
+    "under": 2.36,
+    "best_under": 2.38,
+    "source": "The Odds API 평균 배당 (승무패 15곳, 언더/오버 5곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.574,
+    "away_goals": 1.185
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.944,
+      "xg_against": 1.311,
+      "raw_goals_for": 2.5,
+      "raw_goals_against": 1.5,
+      "played": 2,
+      "record": "1승 1무 0패",
+      "form": "DWLDL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (3경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.742,
+      "xg_against": 1.137,
+      "raw_goals_for": 2.3,
+      "raw_goals_against": 0.7,
+      "played": 3,
+      "record": "2승 1무 0패",
+      "form": "WWDLL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Alphamega Stadium",
+  "source_ids": {
+    "api_football_fixture": 1636460,
+    "home_team": 3403,
+    "away_team": 397,
+    "league": 848,
+    "season": 2026
+  },
+  "table": "파포스 30위 1점 (0승1무2패, 득실 -4) / 미트윌란 34위 1점 (0승1무2패, 득실 -6)",
+  "head_to_head": "자료 없음",
+  "schedule": {
+    "home_prev": "2026-11-21 1. Division",
+    "home_days_rest": 5,
+    "away_prev": "2026-11-24 Superliga",
+    "away_days_rest": 2
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 18:39 KST"
+}

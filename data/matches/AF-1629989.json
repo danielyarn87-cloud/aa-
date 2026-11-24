@@ -7,7 +7,7 @@
   "kickoff": "2026-11-25 19:00 KST",
   "kickoff_iso": "2026-11-25T19:00:00+09:00",
   "home": "감바 오사카",
-  "away": "Port FC",
+  "away": "포트 FC",
   "home_en": "Gamba Osaka",
   "away_en": "Port FC",
   "odds": {
@@ -70,5 +70,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-24 18:24 KST"
+  "collected_at": "2026-11-24 18:40 KST"
 }

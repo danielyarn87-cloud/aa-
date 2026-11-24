@@ -1,0 +1,108 @@
+{
+  "id": "AF-1635724",
+  "sport": "soccer",
+  "league": "챔피언스리그 League Stage - 5",
+  "league_id": 2,
+  "league_name": "챔피언스리그",
+  "kickoff": "2026-11-26 05:00 KST",
+  "kickoff_iso": "2026-11-26T05:00:00+09:00",
+  "home": "샤흐타르 도네츠크",
+  "away": "페네르바흐체",
+  "home_en": "Shakhtar Donetsk",
+  "away_en": "Fenerbahçe",
+  "odds": {
+    "line": 2.5,
+    "home": 2.62,
+    "best_home": 2.75,
+    "draw": 3.47,
+    "best_draw": 3.65,
+    "away": 2.59,
+    "best_away": 2.7,
+    "over": 1.71,
+    "best_over": 1.81,
+    "under": 2.13,
+    "best_under": 2.2,
+    "source": "The Odds API 평균 배당 (승무패 23곳, 언더/오버 15곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 2.319,
+    "away_goals": 1.722
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.991,
+      "xg_against": 1.433,
+      "raw_goals_for": 1.5,
+      "raw_goals_against": 1.0,
+      "played": 2,
+      "record": "1승 0무 1패",
+      "form": "DWLL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (4경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.309,
+      "xg_against": 2.137,
+      "raw_goals_for": 1.0,
+      "raw_goals_against": 2.0,
+      "played": 4,
+      "record": "2승 1무 1패",
+      "form": "WDLDW"
+    }
+  },
+  "lineup": {
+    "home_absent": [
+      "Eguinaldo (Shoulder Injury)",
+      "Kaua Elias (Foot Injury)",
+      "V. Korniyenko (Off the roster)",
+      "Pedrinho (Muscle Injury)",
+      "T. Puzankov (Off the roster)",
+      "M. Shved (Off the roster)",
+      "D. Tvardovskyi (Off the roster)"
+    ],
+    "home_doubtful": [
+      "Marlon (Muscle Injury)"
+    ],
+    "away_absent": [
+      "N. Ake (Muscle Injury)",
+      "M. Asensio (Knee Injury)",
+      "A. Diouf (Off the roster)",
+      "A. Fall (Off the roster)",
+      "J. Oosterwolde (Achilles Tendon Injury)",
+      "M. Yandas (Off the roster)"
+    ],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Stamford Bridge",
+  "source_ids": {
+    "api_football_fixture": 1635724,
+    "home_team": 550,
+    "away_team": 611,
+    "league": 2,
+    "season": 2026
+  },
+  "table": "샤흐타르 도네츠크 21위 4점 (1승1무2패, 득실 +0) / 페네르바흐체 19위 5점 (1승2무1패, 득실 -5)",
+  "head_to_head": [
+    "2022-04-19 페네르바흐체 1-0 샤흐타르 도네츠크",
+    "2015-08-05 샤흐타르 도네츠크 3-0 페네르바흐체",
+    "2015-07-28 페네르바흐체 0-0 샤흐타르 도네츠크"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 Premier League",
+    "home_days_rest": 5,
+    "away_prev": "2026-11-22 Süper Lig",
+    "away_days_rest": 4
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 18:39 KST"
+}

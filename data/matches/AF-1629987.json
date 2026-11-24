@@ -7,7 +7,7 @@
   "kickoff": "2026-11-25 01:00 KST",
   "kickoff_iso": "2026-11-25T01:00:00+09:00",
   "home": "샤밥 알아흘리",
-  "away": "Al-Qadisiyah FC",
+  "away": "알카디시야",
   "home_en": "Shabab Al Ahli Dubai",
   "away_en": "Al-Qadisiyah FC",
   "odds": {
@@ -60,7 +60,7 @@
     "league": 17,
     "season": 2026
   },
-  "table": "샤밥 알아흘리 4위 9점 (3승0무1패, 득실 +2) / Al-Qadisiyah FC 5위 8점 (2승2무0패, 득실 +6)",
+  "table": "샤밥 알아흘리 4위 9점 (3승0무1패, 득실 +2) / 알카디시야 5위 8점 (2승2무0패, 득실 +6)",
   "head_to_head": "자료 없음",
   "schedule": {
     "home_prev": "2026-11-21 Pro League",
@@ -71,5 +71,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-24 18:24 KST"
+  "collected_at": "2026-11-24 18:40 KST"
 }

@@ -6,8 +6,8 @@
   "league_name": "AFC챔피언스리그 엘리트",
   "kickoff": "2026-11-24 21:15 KST",
   "kickoff_iso": "2026-11-24T21:15:00+09:00",
-  "home": "Ratchaburi",
-  "away": "Johor Darul Takzim FC",
+  "home": "랏차부리",
+  "away": "조호르 다룰 탁짐",
   "home_en": "Ratchaburi",
   "away_en": "Johor Darul Takzim FC",
   "odds": {
@@ -61,8 +61,8 @@
     "season": 2026
   },
   "head_to_head": [
-    "2021-07-07 Johor Darul Takzim FC 0-0 Ratchaburi",
-    "2021-06-25 Ratchaburi 0-1 Johor Darul Takzim FC"
+    "2021-07-07 조호르 다룰 탁짐 0-0 랏차부리",
+    "2021-06-25 랏차부리 0-1 조호르 다룰 탁짐"
   ],
   "schedule": {
     "home_prev": "2026-11-21 Thai League 1",
@@ -73,5 +73,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-24 18:24 KST"
+  "collected_at": "2026-11-24 18:40 KST"
 }

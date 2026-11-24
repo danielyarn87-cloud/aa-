@@ -1,0 +1,87 @@
+{
+  "id": "AF-1636301",
+  "sport": "soccer",
+  "league": "유로파리그 League Stage - 5",
+  "league_id": 3,
+  "league_name": "유로파리그",
+  "kickoff": "2026-11-27 05:00 KST",
+  "kickoff_iso": "2026-11-27T05:00:00+09:00",
+  "home": "NEC 네이메헌",
+  "away": "렌",
+  "home_en": "NEC Nijmegen",
+  "away_en": "Rennes",
+  "odds": {
+    "line": 3.5,
+    "home": 3.01,
+    "best_home": 3.25,
+    "draw": 3.76,
+    "best_draw": 4.0,
+    "away": 2.13,
+    "best_away": 2.25,
+    "over": 2.32,
+    "best_over": 2.4,
+    "under": 1.57,
+    "best_under": 1.66,
+    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 7곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.431,
+    "away_goals": 1.542
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.659,
+      "xg_against": 1.325,
+      "raw_goals_for": 2.0,
+      "raw_goals_against": 1.0,
+      "played": 2,
+      "record": "1승 1무 0패",
+      "form": "LDWW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.325,
+      "xg_against": 1.259,
+      "raw_goals_for": 1.0,
+      "raw_goals_against": 1.0,
+      "played": 2,
+      "record": "0승 2무 0패",
+      "form": "DWDD"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Stadion de Goffert",
+  "source_ids": {
+    "api_football_fixture": 1636301,
+    "home_team": 413,
+    "away_team": 94,
+    "league": 3,
+    "season": 2026
+  },
+  "table": "NEC 네이메헌 12위 7점 (2승1무1패, 득실 -1) / 렌 17위 6점 (1승3무0패, 득실 +1)",
+  "head_to_head": "자료 없음",
+  "schedule": {
+    "home_prev": "2026-11-22 Eredivisie",
+    "home_days_rest": 5,
+    "away_prev": "2026-11-23 Ligue 1",
+    "away_days_rest": 4
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 18:39 KST"
+}

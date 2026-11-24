@@ -1,0 +1,80 @@
+{
+  "id": "AF-1636412",
+  "sport": "soccer",
+  "league": "컨퍼런스리그 League Stage - 4",
+  "league_id": 848,
+  "league_name": "컨퍼런스리그",
+  "kickoff": "2026-11-27 05:00 KST",
+  "kickoff_iso": "2026-11-27T05:00:00+09:00",
+  "home": "헨트",
+  "away": "츠르베나 즈베즈다",
+  "home_en": "Gent",
+  "away_en": "FK Crvena Zvezda",
+  "odds": {
+    "line": 2.5,
+    "note": "The Odds API 에서 이 경기를 찾지 못함 (팀 이름 별칭을 확인하세요)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.574,
+    "away_goals": 1.185
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (4경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.132,
+      "xg_against": 0.679,
+      "raw_goals_for": 0.8,
+      "raw_goals_against": 0.3,
+      "played": 4,
+      "record": "2승 2무 0패",
+      "form": "DWWLD"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (1경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.389,
+      "xg_against": 1.931,
+      "raw_goals_for": 2.0,
+      "raw_goals_against": 3.0,
+      "played": 1,
+      "record": "0승 0무 1패",
+      "form": "LDW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Planet Group Arena",
+  "source_ids": {
+    "api_football_fixture": 1636412,
+    "home_team": 631,
+    "away_team": 598,
+    "league": 848,
+    "season": 2026
+  },
+  "table": "헨트 18위 4점 (1승1무1패, 득실 -1) / 츠르베나 즈베즈다 15위 4점 (1승1무1패, 득실 +0)",
+  "head_to_head": [
+    "2020-11-26 헨트 0-2 츠르베나 즈베즈다",
+    "2020-11-05 츠르베나 즈베즈다 2-1 헨트"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Jupiler Pro League",
+    "home_days_rest": 4,
+    "away_prev": "2026-11-21 Super Liga",
+    "away_days_rest": 5
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 18:39 KST"
+}
