@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import hmac
 import json
+from datetime import datetime, timezone
 import os
 import threading
 from pathlib import Path
@@ -129,6 +130,9 @@ def create_app(company: Company) -> Flask:
             m = json.loads(p.read_text(encoding="utf-8"))
             if m["id"] in analyzed:
                 continue
+            ko = m.get("kickoff_iso")
+            if ko and datetime.fromisoformat(ko) < datetime.now(timezone.utc):
+                continue  # 분석하지 못하고 지나간 경기는 숨김
             items.append({"id": m["id"], "league": m["league"], "kickoff": m["kickoff"], "home": m["home"],
                           "away": m["away"], "status": "pending", "odds": m.get("odds", {})})
         items.sort(key=lambda x: x["kickoff"])
