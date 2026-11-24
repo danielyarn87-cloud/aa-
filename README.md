@@ -36,6 +36,7 @@ python -m aa serve --port 8000                  # http://127.0.0.1:8000
 
 화면은 경기 목록, 경기 상세(확률 사다리, 배당 대비 가치, 분석가 의견과 토론), 분석팀, 인사평가, 관리로 구성됩니다.
 휴대폰에서는 아래쪽 탭으로 바뀌고, 홈 화면에 추가하면 앱처럼 열립니다(PWA).
+공개 사이트(Cloudflare Pages)에는 관리 대신 **분석 요청** 화면이 있습니다. 리그를 골라 누르면 GitHub Actions 가 그 리그를 수집·분석합니다 (설정은 DEPLOY.md 3번).
 앱으로 갈 때는 같은 JSON API(`/api/...`)를 그대로 쓰면 됩니다. 목록은 `aa/web/app.py` 맨 위에 있습니다.
 
 서버 없이 화면만 보여 줄 때: `python tools/build_preview.py` → `dist/preview.html` (현재 분석 결과가 들어간 한 장짜리 HTML).
