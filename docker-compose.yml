@@ -1,0 +1,38 @@
+# 서버 한 대에 세 개를 띄운다.
+#   web    : 웹사이트와 API
+#   worker : 매일 정해진 시각에 채점 → 수집 → 분석
+#   caddy  : 도메인에 HTTPS 인증서를 자동으로 붙여 web 으로 연결
+# 실행: docker compose up -d --build
+services:
+  web:
+    build: .
+    env_file: .env
+    volumes:
+      - ./data:/app/data
+      - ./reports:/app/reports
+    restart: unless-stopped
+
+  worker:
+    build: .
+    command: ["python", "-m", "aa", "worker"]
+    env_file: .env
+    volumes:
+      - ./data:/app/data
+      - ./reports:/app/reports
+    restart: unless-stopped
+
+  caddy:
+    image: caddy:2
+    env_file: .env
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+    depends_on:
+      - web
+    restart: unless-stopped
+
+volumes:
+  caddy_data:

@@ -1,0 +1,55 @@
+{
+  "id": "SAMPLE-001",
+  "sport": "soccer",
+  "league": "가상 리그 (형식 확인용 예시 데이터, 실제 팀 아님)",
+  "kickoff": "2026-11-28 19:00 KST",
+  "home": "한강 FC",
+  "away": "서해 유나이티드",
+  "odds": {
+    "home": 1.62,
+    "draw": 4.10,
+    "away": 5.40,
+    "line": 2.5,
+    "over": 1.80,
+    "under": 2.05,
+    "movement": "홈 1.70 → 1.62 (최근 사흘간 홈 쪽으로 쏠림)"
+  },
+  "league_avg": {
+    "home_goals": 1.48,
+    "away_goals": 1.17
+  },
+  "stats": {
+    "home": {
+      "설명": "홈팀의 홈 경기 기준",
+      "xg_for": 1.82,
+      "xg_against": 1.05,
+      "goals_for": 2.1,
+      "goals_against": 0.9,
+      "last10": "6승 2무 2패",
+      "elo": 1712
+    },
+    "away": {
+      "설명": "원정팀의 원정 경기 기준",
+      "xg_for": 1.21,
+      "xg_against": 1.38,
+      "goals_for": 1.1,
+      "goals_against": 1.4,
+      "last10": "4승 3무 3패",
+      "elo": 1640
+    }
+  },
+  "lineup": {
+    "home_absent": ["주전 스트라이커 (햄스트링, 2주)"],
+    "away_absent": ["주전 센터백 (경고 누적)", "왼쪽 풀백 (부상)"],
+    "confirmed": false
+  },
+  "schedule": {
+    "home_days_rest": 3,
+    "home_next": "사흘 뒤 컵대회 8강",
+    "away_days_rest": 7,
+    "away_next": "일주일 뒤 리그 경기"
+  },
+  "motivation": "홈팀은 리그 3위로 선두와 승점 4점 차. 원정팀은 11위로 강등권과 승점 6점 차.",
+  "head_to_head": "최근 5경기 홈팀 3승 2무",
+  "notes": ["예보: 비, 기온 6도"]
+}

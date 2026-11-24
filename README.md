@@ -56,6 +56,15 @@ python -m aa sync                             # 끝난 경기 결과 자동 채�
 - 무료 플랜의 기초 모델은 xG 대신 홈/원정 경기당 득실을 쓰고, 경기 수가 적으면 리그 평균 쪽으로 보정합니다.
 - 두 API 의 팀 이름이 다르면 `team_aliases` 에 짝을 넣으세요.
 
+## 매일 자동 실행과 서버 배포
+
+```bash
+python -m aa daily     # 지금 한 번: 끝난 경기 채점 → 예정 경기 수집 → 새 경기 분석
+python -m aa worker    # company.yaml 의 automation.run_at 시각마다 계속 실행
+```
+
+서버에 올리는 방법은 [DEPLOY.md](DEPLOY.md)에 있습니다 (Docker 한 번에 웹 + 자동 실행 + HTTPS).
+
 ## 폴더 구조
 
 ```
@@ -69,6 +78,7 @@ aa/                 프로그램
   web/              웹 서버(Flask)와 화면(static/)
   sources/          API-Football, The Odds API 연동과 캐시
   collect.py        경기 자료 자동 생성, 결과 자동 채점
+  daily.py          매일 자동 실행
   pipeline.py       분석 흐름
   voting.py         가중 투표와 관망 규칙
   ledger.py         기록과 채점, 성적 기반 투표 비중

@@ -14,6 +14,14 @@ policy:
   min_samples_for_weight: 30  # 이 경기 수 이상 채점된 뒤부터 성적으로 투표 비중 조정
   weight_bounds: [0.5, 2.0]   # 투표 비중 하한·상한
 
+# 매일 자동 실행 (python -m aa worker). 순서: 끝난 경기 채점 → 예정 경기 수집 → 새 경기 분석
+automation:
+  run_at: ["10:00", "22:00"]    # 한국 시각. 하루 두 번
+  collect_days: 2               # 오늘부터 며칠 뒤 경기까지 모을지
+  analyze_within_hours: 48      # 킥오프가 이 시간 안에 있는 경기만 분석
+  max_analyses_per_day: 10      # 하루 분석 경기 수 상한 (Claude API 비용 관리, 경기당 호출 6회)
+  leagues: [39]                 # 자동으로 다룰 리그 (API-Football 번호). 처음엔 프리미어리그만
+
 # 데이터 공급처. API 키는 여기 적지 말고 환경변수로 넣으세요 (API_FOOTBALL_KEY, ODDS_API_KEY).
 data_sources:
   timezone: Asia/Seoul
