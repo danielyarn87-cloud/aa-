@@ -1,0 +1,95 @@
+{
+  "id": "AF-1557479",
+  "sport": "soccer",
+  "league": "프리미어리그 Regular Season - 12",
+  "kickoff": "2026-11-29 23:05 KST",
+  "kickoff_iso": "2026-11-29T23:05:00+09:00",
+  "home": "Crystal Palace",
+  "away": "Hull City",
+  "odds": {
+    "line": 2.5,
+    "home": 1.84,
+    "best_home": 1.93,
+    "draw": 3.78,
+    "best_draw": 4.0,
+    "away": 3.98,
+    "best_away": 4.2,
+    "over": 1.71,
+    "best_over": 1.81,
+    "under": 2.11,
+    "best_under": 2.2,
+    "source": "The Odds API 평균 배당 (승무패 25곳, 언더/오버 16곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.582,
+    "away_goals": 1.173
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 팀 통계의 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.468,
+      "xg_against": 2.065,
+      "raw_goals_for": 1.4,
+      "raw_goals_against": 2.6,
+      "played": 5,
+      "record": "1승 0무 4패",
+      "form": "LLLLL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.94,
+      "xg_against": 1.343,
+      "raw_goals_for": 0.8,
+      "raw_goals_against": 1.2,
+      "played": 5,
+      "record": "1승 1무 3패",
+      "form": "LDDLW"
+    }
+  },
+  "lineup": {
+    "home_absent": [
+      "I. Sarr (Groin Injury)",
+      "T. Tomiyasu (Calf Injury)",
+      "C. Riad (Jumpers Knee)"
+    ],
+    "home_doubtful": [],
+    "away_absent": [
+      "C. Hughes (Groin Injury)",
+      "Ilyas  Ansah (Back Injury)"
+    ],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "venue": "Selhurst Park",
+  "source_ids": {
+    "api_football_fixture": 1557479,
+    "home_team": 52,
+    "away_team": 64,
+    "league": 39,
+    "season": 2026
+  },
+  "table": "Crystal Palace 20위 7점 (2승1무8패, 득실 -15) / Hull City 11위 14점 (3승5무3패, 득실 +2)",
+  "head_to_head": [
+    "2017-05-14 Crystal Palace 4-0 Hull City",
+    "2016-12-10 Hull City 3-3 Crystal Palace",
+    "2015-04-25 Crystal Palace 0-2 Hull City",
+    "2014-10-04 Hull City 2-0 Crystal Palace",
+    "2014-01-28 Crystal Palace 1-0 Hull City"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Premier League",
+    "home_days_rest": 7,
+    "away_prev": "2026-11-22 Premier League",
+    "away_days_rest": 7
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 10:55 KST"
+}

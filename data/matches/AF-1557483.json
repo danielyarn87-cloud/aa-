@@ -1,0 +1,92 @@
+{
+  "id": "AF-1557483",
+  "sport": "soccer",
+  "league": "프리미어리그 Regular Season - 12",
+  "kickoff": "2026-11-29 00:00 KST",
+  "kickoff_iso": "2026-11-29T00:00:00+09:00",
+  "home": "Leeds",
+  "away": "Coventry",
+  "odds": {
+    "line": 2.5,
+    "home": 1.51,
+    "best_home": 1.58,
+    "draw": 4.33,
+    "best_draw": 4.6,
+    "away": 5.94,
+    "best_away": 6.8,
+    "over": 1.71,
+    "best_over": 1.78,
+    "under": 2.12,
+    "best_under": 2.21,
+    "source": "The Odds API 평균 배당 (승무패 25곳, 언더/오버 17곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.582,
+    "away_goals": 1.173
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 팀 통계의 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.468,
+      "xg_against": 0.815,
+      "raw_goals_for": 1.4,
+      "raw_goals_against": 0.6,
+      "played": 5,
+      "record": "2승 3무 0패",
+      "form": "DDLWW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.815,
+      "xg_against": 1.843,
+      "raw_goals_for": 0.6,
+      "raw_goals_against": 2.0,
+      "played": 5,
+      "record": "1승 0무 4패",
+      "form": "LLWLW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [
+      "J. Eccles (Sprained Ankle)",
+      "L. Woolfenden (Jumpers Knee)",
+      "H. Wright (Muscle Bruise)"
+    ],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "venue": "Elland Road",
+  "source_ids": {
+    "api_football_fixture": 1557483,
+    "home_team": 63,
+    "away_team": 1346,
+    "league": 39,
+    "season": 2026
+  },
+  "table": "Leeds 7위 17점 (4승5무2패, 득실 +5) / Coventry 14위 12점 (4승0무7패, 득실 -8)",
+  "head_to_head": [
+    "2025-02-05 Coventry 0-2 Leeds",
+    "2024-09-28 Leeds 3-0 Coventry",
+    "2024-04-06 Coventry 2-1 Leeds",
+    "2023-12-16 Leeds 1-1 Coventry",
+    "2012-02-14 Coventry 2-1 Leeds"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Premier League",
+    "home_days_rest": 7,
+    "away_prev": "2026-11-22 Premier League",
+    "away_days_rest": 7
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 10:55 KST"
+}
