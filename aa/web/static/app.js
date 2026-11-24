@@ -90,7 +90,7 @@ async function renderList() {
     ${Object.keys(lgCount).length > 1 ? `<div class="chips lgchips" role="group" aria-label="리그 거르기">
       <button class="chip" data-lg="all" aria-pressed="${leagueFilter === 'all'}">모든 리그 <span class="num">${all.length}</span></button>
       ${Object.entries(lgCount).sort((a, b) => b[1] - a[1]).map(([n, c]) => `<button class="chip" data-lg="${esc(n)}" aria-pressed="${leagueFilter === n}">${esc(n)} <span class="num">${c}</span></button>`).join('')}</div>` : ''}
-    <p class="small mute" style="margin:0">노란 <span class="tag value">이득</span> 표시는 우리가 본 가능성에 비해 배당이 후하게 나온 선택입니다.</p>
+    <p class="small mute" style="margin:0"><span class="tag pick">예측</span> 가장 유력하다고 본 결과 · 노란 <span class="tag value">이득</span> 우리가 본 가능성에 비해 배당이 후한 선택 · <span class="tag both"><span class="star">★ 예측+이득</span></span> 둘 다 해당 (가장 강한 신호)</p>
     ${shown.length ? days.map(d => `<h2 class="day">${esc(dayLabel(d))}</h2>${shown.filter(m => dayOf(m.kickoff) === d).map(rowHtml).join('')}`).join('')
       : `<p class="empty">조건에 맞는 경기가 없습니다.${STATIC ? ' <a href="#run">분석 요청</a>에서 리그를 골라 경기를 가져오세요.' : ''}</p>`}
   </div></section>`;
@@ -108,9 +108,13 @@ function rowHtml(m) {
   const od = m.odds || {};
   const at = k => od[k] ? ` <b class="num">${esc(od[k])}</b>` : '';   // 그 선택의 평균 배당
   const lab = k => esc(k === 'over' || k === 'under' ? N[k + 'S'] + ' ' + m.line : N[k]);
-  tags.push(`<span class="tag pick">${m.pick_1x2 ? '예측 ' + esc(N[m.pick_1x2]) + at(m.pick_1x2) : '승패 판단 보류'}</span>`);
-  tags.push(`<span class="tag">${m.pick_ou ? lab(m.pick_ou) + at(m.pick_ou) : '골 수 판단 보류'}</span>`);
-  if (m.value_alerts.length) tags.push(`<span class="tag value">이득 ${m.value_alerts.map(k => lab(k) + at(k)).join(' · ')}</span>`);
+  const va = m.value_alerts || [];
+  const both = k => k && va.includes(k);   // 가장 유력하면서 배당도 후한 선택 → 한 번만, 눈에 띄게
+  const star = '<span class="star">★ 예측+이득</span> ';
+  tags.push(`<span class="tag ${both(m.pick_1x2) ? 'pick both' : 'pick'}">${m.pick_1x2 ? (both(m.pick_1x2) ? star : '예측 ') + esc(N[m.pick_1x2]) + at(m.pick_1x2) : '승패 판단 보류'}</span>`);
+  tags.push(`<span class="tag ${both(m.pick_ou) ? 'both' : ''}">${m.pick_ou ? (both(m.pick_ou) ? star : '') + lab(m.pick_ou) + at(m.pick_ou) : '골 수 판단 보류'}</span>`);
+  const rest = va.filter(k => k !== m.pick_1x2 && k !== m.pick_ou);
+  if (rest.length) tags.push(`<span class="tag value">이득 ${rest.map(k => lab(k) + at(k)).join(' · ')}</span>`);
   if (m.result) tags.push(`<span class="tag ${m.result.hit_1x2 ? 'hit' : m.result.hit_1x2 === false ? 'miss' : ''}">${esc(m.result.score)} ${m.result.hit_1x2 ? '적중' : m.result.hit_1x2 === false ? '빗나감' : ''}</span>`);
   if (m.mock) tags.push('<span class="tag wait">모의</span>');
   return `<a class="row" href="#m-${encodeURIComponent(m.id)}">${head}${tri(m.probs)}<span class="tags">${tags.join('')}</span></a>`;
