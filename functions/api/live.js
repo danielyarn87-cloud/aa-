@@ -46,10 +46,17 @@ export async function onRequestGet({ env }) {
       headers: { "x-apisports-key": env.API_FOOTBALL_KEY },
     });
     if (!r.ok) throw new Error("HTTP " + r.status);
-    body = JSON.stringify({ at: new Date(now).toISOString(), live: shrink(await r.json()) });
+    const j = await r.json();
+    // API-Football 은 키가 틀리거나 한도를 넘어도 200 으로 답하고 errors 에 이유를 담는다 → "0경기"와 구분
+    const errs = j && j.errors;
+    if (errs && (Array.isArray(errs) ? errs.length : Object.keys(errs).length)) {
+      body = JSON.stringify({ at: new Date(now).toISOString(), error: "api_error", detail: errs, live: {} });
+    } else {
+      body = JSON.stringify({ at: new Date(now).toISOString(), live: shrink(j) });
+    }
   } catch (e) {
     // 실패하면 직전 값이라도 준다 (없으면 빈 값). 30초 뒤에 다시 시도.
-    return out(memo ? memo.body : JSON.stringify({ error: "fetch_failed", live: {} }), 30);
+    return out(memo ? memo.body : JSON.stringify({ error: "fetch_failed", detail: String(e.message || e), live: {} }), 30);
   }
 
   memo = { t: now, body };
