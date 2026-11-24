@@ -1,0 +1,52 @@
+# 결과만 확인 (1시간마다, Claude 비용 없음)
+# 끝난 경기 점수를 받아 채점하고, 배팅 게임을 정산·새로 겁니다. 바뀐 것이 있을 때만 저장해서
+# 사이트(Cloudflare Pages)를 다시 만듭니다. 분석(Claude)은 하지 않습니다.
+name: 결과 확인
+
+on:
+  schedule:
+    - cron: "17 * * * *"   # 매시 17분 (한국 시각도 매시 17분)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: results
+  cancel-in-progress: true
+
+jobs:
+  results:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: 설치
+        run: pip install -r requirements.txt
+
+      - name: 채점 → 배팅 정산
+        id: run
+        env:
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+        run: python -m aa results
+
+      - name: 바뀌었으면 저장
+        if: steps.run.outputs.changed == 'true'
+        run: |
+          git config user.name "aa-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ledger.sqlite data/betting.json
+          if git diff --cached --quiet; then echo "바뀐 기록 없음"; exit 0; fi
+          git commit -m "결과 확인 $(TZ=Asia/Seoul date '+%Y-%m-%d %H:%M')"
+          for i in 1 2 3; do
+            git pull --rebase -X theirs origin main && git push && exit 0
+            sleep 5
+          done
+          exit 1
