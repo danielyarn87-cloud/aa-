@@ -140,7 +140,7 @@
           "odds": 2.13,
           "prob": 0.65,
           "ev": 0.3845,
-          "hit": null
+          "hit": true
         },
         {
           "match_id": "AF-1563277",
@@ -223,7 +223,7 @@
           "odds": 2.13,
           "prob": 0.65,
           "ev": 0.3845,
-          "hit": null
+          "hit": true
         },
         {
           "match_id": "AF-1563277",
@@ -306,7 +306,7 @@
           "odds": 2.13,
           "prob": 0.64,
           "ev": 0.3632,
-          "hit": null
+          "hit": true
         },
         {
           "match_id": "AF-1556157",
@@ -363,7 +363,7 @@
           "odds": 2.13,
           "prob": 0.64,
           "ev": 0.3632,
-          "hit": null
+          "hit": true
         },
         {
           "match_id": "AF-1556157",
@@ -446,7 +446,7 @@
           "odds": 2.13,
           "prob": 0.64,
           "ev": 0.3632,
-          "hit": null
+          "hit": true
         },
         {
           "match_id": "AF-1556157",
@@ -555,7 +555,7 @@
           "odds": 2.13,
           "prob": 0.62,
           "ev": 0.3206,
-          "hit": null
+          "hit": true
         },
         {
           "match_id": "AF-1556157",
@@ -612,7 +612,7 @@
           "odds": 2.13,
           "prob": 0.62,
           "ev": 0.3206,
-          "hit": null
+          "hit": true
         },
         {
           "match_id": "AF-1556157",
@@ -695,7 +695,7 @@
           "odds": 2.13,
           "prob": 0.62,
           "ev": 0.3206,
-          "hit": null
+          "hit": true
         },
         {
           "match_id": "AF-1556157",
@@ -894,7 +894,7 @@
           "prob": 0.55,
           "ev": 0.1715,
           "reason": "두 팀 예상 득점 합이 약 2.7골이라 3.5골을 넘기려면 4골 이상이 필요합니다.",
-          "hit": null
+          "hit": true
         },
         {
           "match_id": "AF-1563277",
@@ -982,7 +982,7 @@
           "prob": 0.55,
           "ev": 0.1715,
           "reason": "두 팀 예상 득점 합이 약 2.7골이라 3.5골을 넘기려면 4골 이상이 필요합니다.",
-          "hit": null
+          "hit": true
         },
         {
           "match_id": "AF-1563277",
