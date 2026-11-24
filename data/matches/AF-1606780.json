@@ -1,0 +1,81 @@
+{
+  "id": "AF-1606780",
+  "sport": "soccer",
+  "league": "J2리그 Regular Season - 19",
+  "league_id": 99,
+  "league_name": "J2리그",
+  "kickoff": "2026-11-25 19:00 KST",
+  "kickoff_iso": "2026-11-25T19:00:00+09:00",
+  "home": "요코하마 FC",
+  "away": "베갈타 센다이",
+  "home_en": "Yokohama FC",
+  "away_en": "Vegalta Sendai",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.389,
+    "away_goals": 1.194
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (8경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 2.124,
+      "xg_against": 1.126,
+      "raw_goals_for": 2.4,
+      "raw_goals_against": 1.1,
+      "played": 8,
+      "record": "5승 1무 2패",
+      "form": "WWWLL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (9경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.348,
+      "xg_against": 1.022,
+      "raw_goals_for": 1.4,
+      "raw_goals_against": 0.9,
+      "played": 9,
+      "record": "5승 1무 3패",
+      "form": "LLWWD"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "MNHK Spring Mitsuzawa Football Stadium",
+  "source_ids": {
+    "api_football_fixture": 1606780,
+    "home_team": 307,
+    "away_team": 286,
+    "league": 99,
+    "season": 2026
+  },
+  "table": "요코하마 FC 6위 31점 (9승4무5패, 득실 +11) / 베갈타 센다이 2위 34점 (10승4무4패, 득실 +17)",
+  "head_to_head": [
+    "2026-05-23 베갈타 센다이 0-3 요코하마 FC",
+    "2026-02-14 요코하마 FC 0-1 베갈타 센다이",
+    "2026-01-28 요코하마 FC 0-1 베갈타 센다이",
+    "2024-10-19 베갈타 센다이 3-0 요코하마 FC",
+    "2024-03-30 요코하마 FC 1-2 베갈타 센다이"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 J2 League",
+    "home_days_rest": 4,
+    "away_prev": "2026-11-21 J2 League",
+    "away_days_rest": 4
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-24 17:48 KST"
+}

@@ -2,23 +2,27 @@
   "id": "AF-1635692",
   "sport": "soccer",
   "league": "챔피언스리그 League Stage - 5",
+  "league_id": 2,
+  "league_name": "챔피언스리그",
   "kickoff": "2026-11-25 05:00 KST",
   "kickoff_iso": "2026-11-25T05:00:00+09:00",
-  "home": "Manchester City",
-  "away": "Napoli",
+  "home": "맨체스터 시티",
+  "away": "나폴리",
+  "home_en": "Manchester City",
+  "away_en": "Napoli",
   "odds": {
-    "line": 2.5,
-    "home": 1.28,
-    "best_home": 1.32,
-    "draw": 6.23,
+    "line": 3.5,
+    "home": 1.29,
+    "best_home": 1.33,
+    "draw": 6.21,
     "best_draw": 6.8,
-    "away": 9.03,
-    "best_away": 10.5,
-    "over": 1.31,
-    "best_over": 1.31,
-    "under": 3.47,
-    "best_under": 3.51,
-    "source": "The Odds API 평균 배당 (승무패 23곳, 언더/오버 3곳 북메이커)"
+    "away": 8.61,
+    "best_away": 9.8,
+    "over": 1.76,
+    "best_over": 1.84,
+    "under": 2.07,
+    "best_under": 2.12,
+    "source": "The Odds API 평균 배당 (승무패 23곳, 언더/오버 13곳 북메이커)"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -28,7 +32,7 @@
   "stats": {
     "basis": "venue",
     "metric": "goals",
-    "설명": "API-Football 팀 통계의 홈/원정 경기당 득실 (xG 아님)",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
       "xg_for": 2.791,
@@ -72,6 +76,7 @@
     "confirmed": false,
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
+  "collected_detail": "full",
   "venue": "Etihad Stadium",
   "source_ids": {
     "api_football_fixture": 1635692,
@@ -80,10 +85,23 @@
     "league": 2,
     "season": 2026
   },
-  "table": "Manchester City 7위 9점 (3승0무1패, 득실 +5) / Napoli 27위 3점 (1승0무3패, 득실 -5)",
+  "table": "맨체스터 시티 7위 9점 (3승0무1패, 득실 +5) / 나폴리 27위 3점 (1승0무3패, 득실 -5)",
+  "head_to_head": [
+    "2025-09-18 맨체스터 시티 2-0 나폴리",
+    "2017-11-01 나폴리 2-4 맨체스터 시티",
+    "2017-10-17 맨체스터 시티 2-1 나폴리",
+    "2011-11-22 나폴리 2-1 맨체스터 시티",
+    "2011-09-14 맨체스터 시티 1-1 나폴리"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 Premier League",
+    "home_days_rest": 3,
+    "away_prev": "2026-11-22 Serie A",
+    "away_days_rest": 3
+  },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 14:58 KST"
+  "collected_at": "2026-11-24 17:48 KST"
 }

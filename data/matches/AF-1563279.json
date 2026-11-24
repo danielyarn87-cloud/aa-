@@ -1,0 +1,93 @@
+{
+  "id": "AF-1563279",
+  "sport": "soccer",
+  "league": "챔피언십 Regular Season - 17",
+  "league_id": 40,
+  "league_name": "챔피언십",
+  "kickoff": "2026-11-25 04:45 KST",
+  "kickoff_iso": "2026-11-25T04:45:00+09:00",
+  "home": "노리치",
+  "away": "QPR",
+  "home_en": "Norwich",
+  "away_en": "QPR",
+  "odds": {
+    "line": 2.5,
+    "note": "The Odds API 에서 이 경기를 찾지 못함 (팀 이름 별칭을 확인하세요)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.651,
+    "away_goals": 1.271
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (8경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.832,
+      "xg_against": 1.51,
+      "raw_goals_for": 1.9,
+      "raw_goals_against": 1.6,
+      "played": 8,
+      "record": "4승 0무 4패",
+      "form": "WWWWW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (8경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.147,
+      "xg_against": 1.468,
+      "raw_goals_for": 1.1,
+      "raw_goals_against": 1.4,
+      "played": 8,
+      "record": "3승 3무 2패",
+      "form": "WLDWW"
+    }
+  },
+  "lineup": {
+    "home_absent": [
+      "A. Ahmed (Knee Injury)",
+      "P. A. Diallo (Hamstring Injury)",
+      "G. Forsyth (Lacking Match Fitness)",
+      "M. Toure (Shoulder Injury)"
+    ],
+    "home_doubtful": [],
+    "away_absent": [
+      "T. Lamptey (Muscle Injury)",
+      "A. S. Mbengue (Knee Injury)"
+    ],
+    "away_doubtful": [
+      "A. Lloyd (Hamstring Injury)"
+    ],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Carrow Road",
+  "source_ids": {
+    "api_football_fixture": 1563279,
+    "home_team": 71,
+    "away_team": 72,
+    "league": 40,
+    "season": 2026
+  },
+  "table": "노리치 11위 24점 (8승0무8패, 득실 +9) / QPR 7위 27점 (7승6무3패, 득실 +7)",
+  "head_to_head": [
+    "2026-01-01 QPR 1-2 노리치",
+    "2025-11-29 노리치 3-1 QPR",
+    "2024-12-29 노리치 1-1 QPR",
+    "2024-12-07 QPR 3-0 노리치",
+    "2024-02-10 QPR 2-2 노리치"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 Championship",
+    "home_days_rest": 3,
+    "away_prev": "2026-11-21 Championship",
+    "away_days_rest": 3
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 17:48 KST"
+}

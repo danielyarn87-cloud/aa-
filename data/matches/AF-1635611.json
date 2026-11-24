@@ -2,23 +2,27 @@
   "id": "AF-1635611",
   "sport": "soccer",
   "league": "챔피언스리그 League Stage - 5",
+  "league_id": 2,
+  "league_name": "챔피언스리그",
   "kickoff": "2026-11-25 05:00 KST",
   "kickoff_iso": "2026-11-25T05:00:00+09:00",
-  "home": "Arsenal",
-  "away": "Borussia Dortmund",
+  "home": "아스널",
+  "away": "도르트문트",
+  "home_en": "Arsenal",
+  "away_en": "Borussia Dortmund",
   "odds": {
     "line": 2.5,
-    "home": 1.42,
+    "home": 1.44,
     "best_home": 1.49,
-    "draw": 4.75,
-    "best_draw": 5.1,
-    "away": 7.25,
-    "best_away": 8.5,
-    "over": 1.66,
-    "best_over": 1.75,
-    "under": 2.2,
-    "best_under": 2.28,
-    "source": "The Odds API 평균 배당 (승무패 23곳, 언더/오버 12곳 북메이커)"
+    "draw": 4.64,
+    "best_draw": 4.9,
+    "away": 6.97,
+    "best_away": 8.0,
+    "over": 1.73,
+    "best_over": 1.81,
+    "under": 2.12,
+    "best_under": 2.26,
+    "source": "The Odds API 평균 배당 (승무패 23곳, 언더/오버 15곳 북메이커)"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -28,7 +32,7 @@
   "stats": {
     "basis": "venue",
     "metric": "goals",
-    "설명": "API-Football 팀 통계의 홈/원정 경기당 득실 (xG 아님)",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (1경기, 리그 평균 쪽으로 3경기만큼 보정)",
       "xg_for": 2.489,
@@ -70,6 +74,7 @@
     "confirmed": false,
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
+  "collected_detail": "full",
   "venue": "Emirates Stadium",
   "source_ids": {
     "api_football_fixture": 1635611,
@@ -78,10 +83,23 @@
     "league": 2,
     "season": 2026
   },
-  "table": "Arsenal 3위 10점 (3승1무0패, 득실 +5) / Borussia Dortmund 12위 9점 (3승0무1패, 득실 +2)",
+  "table": "아스널 3위 10점 (3승1무0패, 득실 +5) / 도르트문트 12위 9점 (3승0무1패, 득실 +2)",
+  "head_to_head": [
+    "2026-08-09 아스널 2-3 도르트문트",
+    "2014-11-26 아스널 2-0 도르트문트",
+    "2014-09-16 도르트문트 2-0 아스널",
+    "2013-11-06 도르트문트 0-1 아스널",
+    "2013-10-22 아스널 1-2 도르트문트"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Premier League",
+    "home_days_rest": 3,
+    "away_prev": "2026-11-21 Bundesliga",
+    "away_days_rest": 3
+  },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 14:58 KST"
+  "collected_at": "2026-11-24 17:48 KST"
 }

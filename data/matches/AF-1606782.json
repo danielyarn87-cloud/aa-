@@ -1,0 +1,81 @@
+{
+  "id": "AF-1606782",
+  "sport": "soccer",
+  "league": "J2리그 Regular Season - 19",
+  "league_id": 99,
+  "league_name": "J2리그",
+  "kickoff": "2026-11-25 19:00 KST",
+  "kickoff_iso": "2026-11-25T19:00:00+09:00",
+  "home": "오미야 아르디자",
+  "away": "도쿠시마 보르티스",
+  "home_en": "Omiya Ardija",
+  "away_en": "Tokushima Vortis",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.389,
+    "away_goals": 1.194
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (9경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.772,
+      "xg_against": 1.198,
+      "raw_goals_for": 1.9,
+      "raw_goals_against": 1.2,
+      "played": 9,
+      "record": "5승 3무 1패",
+      "form": "WWWWL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (9경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.973,
+      "xg_against": 1.397,
+      "raw_goals_for": 0.9,
+      "raw_goals_against": 1.4,
+      "played": 9,
+      "record": "3승 1무 5패",
+      "form": "LLLWL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "NACK5 Stadium Omiya",
+  "source_ids": {
+    "api_football_fixture": 1606782,
+    "home_team": 313,
+    "away_team": 299,
+    "league": 99,
+    "season": 2026
+  },
+  "table": "오미야 아르디자 3위 33점 (9승6무3패, 득실 +11) / 도쿠시마 보르티스 14위 20점 (6승2무10패, 득실 -5)",
+  "head_to_head": [
+    "2025-11-23 오미야 아르디자 1-2 도쿠시마 보르티스",
+    "2025-03-30 도쿠시마 보르티스 1-0 오미야 아르디자",
+    "2023-09-24 도쿠시마 보르티스 0-1 오미야 아르디자",
+    "2023-05-07 오미야 아르디자 1-3 도쿠시마 보르티스",
+    "2022-10-16 도쿠시마 보르티스 3-1 오미야 아르디자"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 J2 League",
+    "home_days_rest": 4,
+    "away_prev": "2026-11-22 J2 League",
+    "away_days_rest": 3
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-24 17:48 KST"
+}

@@ -1,0 +1,100 @@
+{
+  "id": "AF-1563278",
+  "sport": "soccer",
+  "league": "챔피언십 Regular Season - 17",
+  "league_id": 40,
+  "league_name": "챔피언십",
+  "kickoff": "2026-11-25 04:45 KST",
+  "kickoff_iso": "2026-11-25T04:45:00+09:00",
+  "home": "미들즈브러",
+  "away": "스완지",
+  "home_en": "Middlesbrough",
+  "away_en": "Swansea",
+  "odds": {
+    "line": 2.5,
+    "home": 1.44,
+    "best_home": 1.5,
+    "draw": 4.66,
+    "best_draw": 5.2,
+    "away": 6.13,
+    "best_away": 7.2,
+    "over": 1.49,
+    "best_over": 1.52,
+    "under": 2.45,
+    "best_under": 2.62,
+    "source": "The Odds API 평균 배당 (승무패 22곳, 언더/오버 7곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.651,
+    "away_goals": 1.271
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (8경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 2.196,
+      "xg_against": 1.147,
+      "raw_goals_for": 2.4,
+      "raw_goals_against": 1.1,
+      "played": 8,
+      "record": "6승 2무 0패",
+      "form": "WWLDW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (8경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.365,
+      "xg_against": 1.832,
+      "raw_goals_for": 1.4,
+      "raw_goals_against": 1.9,
+      "played": 8,
+      "record": "4승 0무 4패",
+      "form": "LWLLD"
+    }
+  },
+  "lineup": {
+    "home_absent": [
+      "A. Jones (Calf Injury)",
+      "R. Pukstas (Hamstring Injury)"
+    ],
+    "home_doubtful": [],
+    "away_absent": [
+      "C. Burgess (Achilles Tendon Injury)",
+      "Ronald (Hamstring Injury)",
+      "J. Tymon (Yellow Cards)"
+    ],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Riverside Stadium",
+  "source_ids": {
+    "api_football_fixture": 1563278,
+    "home_team": 70,
+    "away_team": 76,
+    "league": 40,
+    "season": 2026
+  },
+  "table": "미들즈브러 1위 32점 (9승5무2패, 득실 +13) / 스완지 8위 27점 (8승3무5패, 득실 +4)",
+  "head_to_head": [
+    "2026-04-06 스완지 2-2 미들즈브러",
+    "2025-08-09 미들즈브러 1-0 스완지",
+    "2025-03-08 스완지 1-0 미들즈브러",
+    "2024-08-10 미들즈브러 1-0 스완지",
+    "2024-04-06 미들즈브러 2-0 스완지"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Championship",
+    "home_days_rest": 3,
+    "away_prev": "2026-11-22 Championship",
+    "away_days_rest": 3
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 17:48 KST"
+}

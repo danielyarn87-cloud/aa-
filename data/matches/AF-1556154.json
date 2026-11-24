@@ -1,0 +1,93 @@
+{
+  "id": "AF-1556154",
+  "sport": "soccer",
+  "league": "J1리그 Regular Season - 16",
+  "league_id": 98,
+  "league_name": "J1리그",
+  "kickoff": "2026-11-25 19:00 KST",
+  "kickoff_iso": "2026-11-25T19:00:00+09:00",
+  "home": "미토 홀리호크",
+  "away": "도쿄 베르디",
+  "home_en": "Mito Hollyhock",
+  "away_en": "Tokyo Verdy",
+  "odds": {
+    "line": 2.5,
+    "home": 2.85,
+    "best_home": 3.1,
+    "draw": 2.98,
+    "best_draw": 3.13,
+    "away": 2.46,
+    "best_away": 2.65,
+    "over": 2.32,
+    "best_over": 2.4,
+    "under": 1.53,
+    "best_under": 1.6,
+    "source": "The Odds API 평균 배당 (승무패 19곳, 언더/오버 10곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.444,
+    "away_goals": 1.389
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (10경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.256,
+      "xg_against": 1.551,
+      "raw_goals_for": 1.2,
+      "raw_goals_against": 1.6,
+      "played": 10,
+      "record": "4승 0무 6패",
+      "form": "LLLLL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (10경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.167,
+      "xg_against": 1.487,
+      "raw_goals_for": 1.1,
+      "raw_goals_against": 1.5,
+      "played": 10,
+      "record": "3승 1무 6패",
+      "form": "LWLDL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "K's Denki Stadium Mito",
+  "source_ids": {
+    "api_football_fixture": 1556154,
+    "home_team": 305,
+    "away_team": 306,
+    "league": 98,
+    "season": 2026
+  },
+  "table": "미토 홀리호크 9위 18점 (6승0무12패, 득실 -16) / 도쿄 베르디 5위 28점 (10승0무8패, 득실 -4)",
+  "head_to_head": [
+    "2026-05-16 미토 홀리호크 0-1 도쿄 베르디",
+    "2026-02-08 도쿄 베르디 3-1 미토 홀리호크",
+    "2023-07-29 도쿄 베르디 0-0 미토 홀리호크",
+    "2023-04-29 미토 홀리호크 0-2 도쿄 베르디",
+    "2022-09-21 미토 홀리호크 1-2 도쿄 베르디"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-20 J1 League",
+    "home_days_rest": 5,
+    "away_prev": "2026-11-21 J1 League",
+    "away_days_rest": 4
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 17:48 KST"
+}

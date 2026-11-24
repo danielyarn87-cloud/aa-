@@ -1,0 +1,78 @@
+{
+  "id": "AF-1606779",
+  "sport": "soccer",
+  "league": "J2리그 Regular Season - 19",
+  "league_id": 99,
+  "league_name": "J2리그",
+  "kickoff": "2026-11-25 19:00 KST",
+  "kickoff_iso": "2026-11-25T19:00:00+09:00",
+  "home": "Tochigi City",
+  "away": "블라우블리츠 아키타",
+  "home_en": "Tochigi City",
+  "away_en": "Blaublitz Akita",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.389,
+    "away_goals": 1.194
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (9경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.322,
+      "xg_against": 1.949,
+      "raw_goals_for": 1.3,
+      "raw_goals_against": 2.2,
+      "played": 9,
+      "record": "1승 2무 6패",
+      "form": "LLLWL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (8경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.689,
+      "xg_against": 1.542,
+      "raw_goals_for": 0.5,
+      "raw_goals_against": 1.6,
+      "played": 8,
+      "record": "0승 2무 6패",
+      "form": "DLWLW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "City Football Station",
+  "source_ids": {
+    "api_football_fixture": 1606779,
+    "home_team": 7145,
+    "away_team": 4315,
+    "league": 99,
+    "season": 2026
+  },
+  "table": "Tochigi City 18위 15점 (4승3무11패, 득실 -8) / 블라우블리츠 아키타 13위 23점 (6승5무7패, 득실 -2)",
+  "head_to_head": [
+    "2026-05-24 블라우블리츠 아키타 1-0 Tochigi City",
+    "2026-02-15 Tochigi City 0-1 블라우블리츠 아키타"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 J2 League",
+    "home_days_rest": 4,
+    "away_prev": "2026-11-21 J2 League",
+    "away_days_rest": 4
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-24 17:48 KST"
+}

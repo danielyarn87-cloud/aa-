@@ -1,0 +1,92 @@
+{
+  "id": "AF-1556151",
+  "sport": "soccer",
+  "league": "J1리그 Regular Season - 16",
+  "league_id": 98,
+  "league_name": "J1리그",
+  "kickoff": "2026-11-25 19:00 KST",
+  "kickoff_iso": "2026-11-25T19:00:00+09:00",
+  "home": "아비스파 후쿠오카",
+  "away": "요코하마 F. 마리노스",
+  "home_en": "Avispa Fukuoka",
+  "away_en": "Yokohama F. Marinos",
+  "odds": {
+    "line": 2.5,
+    "home": 2.94,
+    "best_home": 3.25,
+    "draw": 3.28,
+    "best_draw": 3.51,
+    "away": 2.24,
+    "best_away": 2.48,
+    "over": 1.91,
+    "best_over": 1.95,
+    "under": 1.82,
+    "best_under": 1.91,
+    "source": "The Odds API 평균 배당 (승무패 19곳, 언더/오버 13곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.444,
+    "away_goals": 1.389
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (10경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.487,
+      "xg_against": 1.705,
+      "raw_goals_for": 1.5,
+      "raw_goals_against": 1.8,
+      "played": 10,
+      "record": "5승 1무 4패",
+      "form": "WLLDW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (10경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.705,
+      "xg_against": 1.487,
+      "raw_goals_for": 1.8,
+      "raw_goals_against": 1.5,
+      "played": 10,
+      "record": "4승 1무 5패",
+      "form": "LLWDW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Best Denki Stadium",
+  "source_ids": {
+    "api_football_fixture": 1556151,
+    "home_team": 316,
+    "away_team": 296,
+    "league": 98,
+    "season": 2026
+  },
+  "head_to_head": [
+    "2025-09-20 요코하마 F. 마리노스 2-0 아비스파 후쿠오카",
+    "2025-04-12 아비스파 후쿠오카 2-1 요코하마 F. 마리노스",
+    "2024-06-26 아비스파 후쿠오카 2-1 요코하마 F. 마리노스",
+    "2024-03-01 요코하마 F. 마리노스 0-1 아비스파 후쿠오카",
+    "2023-10-28 아비스파 후쿠오카 0-4 요코하마 F. 마리노스"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 J1 League",
+    "home_days_rest": 4,
+    "away_prev": "2026-11-21 J1 League",
+    "away_days_rest": 4
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 17:48 KST"
+}

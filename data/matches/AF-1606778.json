@@ -1,0 +1,81 @@
+{
+  "id": "AF-1606778",
+  "sport": "soccer",
+  "league": "J2리그 Regular Season - 19",
+  "league_id": 99,
+  "league_name": "J2리그",
+  "kickoff": "2026-11-25 19:00 KST",
+  "kickoff_iso": "2026-11-25T19:00:00+09:00",
+  "home": "몬테디오 야마가타",
+  "away": "주빌로 이와타",
+  "home_en": "Montedio Yamagata",
+  "away_en": "Jubilo Iwata",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.389,
+    "away_goals": 1.194
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (9경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.022,
+      "xg_against": 1.048,
+      "raw_goals_for": 0.9,
+      "raw_goals_against": 1.0,
+      "played": 9,
+      "record": "4승 0무 5패",
+      "form": "WWLLL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (9경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.348,
+      "xg_against": 1.247,
+      "raw_goals_for": 1.4,
+      "raw_goals_against": 1.2,
+      "played": 9,
+      "record": "4승 2무 3패",
+      "form": "WWDWW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "ND Soft Stadium Yamagata",
+  "source_ids": {
+    "api_football_fixture": 1606778,
+    "home_team": 312,
+    "away_team": 280,
+    "league": 99,
+    "season": 2026
+  },
+  "table": "몬테디오 야마가타 16위 19점 (6승1무11패, 득실 -5) / 주빌로 이와타 7위 29점 (8승5무5패, 득실 +6)",
+  "head_to_head": [
+    "2025-11-23 주빌로 이와타 2-2 몬테디오 야마가타",
+    "2025-04-05 몬테디오 야마가타 0-0 주빌로 이와타",
+    "2023-07-09 몬테디오 야마가타 1-3 주빌로 이와타",
+    "2023-03-04 주빌로 이와타 2-1 몬테디오 야마가타",
+    "2021-07-17 주빌로 이와타 1-2 몬테디오 야마가타"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 J2 League",
+    "home_days_rest": 4,
+    "away_prev": "2026-11-21 J2 League",
+    "away_days_rest": 4
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-24 17:48 KST"
+}

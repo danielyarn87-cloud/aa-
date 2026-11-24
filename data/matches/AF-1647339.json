@@ -1,0 +1,93 @@
+{
+  "id": "AF-1647339",
+  "sport": "soccer",
+  "league": "스코틀랜드 프리미어십 Regular Season - 12",
+  "league_id": 179,
+  "league_name": "스코틀랜드 프리미어십",
+  "kickoff": "2026-11-25 05:00 KST",
+  "kickoff_iso": "2026-11-25T05:00:00+09:00",
+  "home": "레인저스",
+  "away": "애버딘",
+  "home_en": "Rangers",
+  "away_en": "Aberdeen",
+  "odds": {
+    "line": 3.5,
+    "home": 1.22,
+    "best_home": 1.26,
+    "draw": 6.07,
+    "best_draw": 7.2,
+    "away": 10.49,
+    "best_away": 13.5,
+    "over": 2.03,
+    "best_over": 2.14,
+    "under": 1.71,
+    "best_under": 1.85,
+    "source": "The Odds API 평균 배당 (승무패 18곳, 언더/오버 12곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.481,
+    "away_goals": 1.519
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.805,
+      "xg_against": 0.945,
+      "raw_goals_for": 2.0,
+      "raw_goals_against": 0.6,
+      "played": 5,
+      "record": "4승 0무 1패",
+      "form": "DWDWW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.706,
+      "xg_against": 1.694,
+      "raw_goals_for": 1.8,
+      "raw_goals_against": 1.8,
+      "played": 6,
+      "record": "2승 1무 3패",
+      "form": "WLLLW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Ibrox Stadium",
+  "source_ids": {
+    "api_football_fixture": 1647339,
+    "home_team": 257,
+    "away_team": 252,
+    "league": 179,
+    "season": 2026
+  },
+  "table": "레인저스 2위 30점 (9승3무1패, 득실 +13) / 애버딘 8위 14점 (4승2무7패, 득실 -4)",
+  "head_to_head": [
+    "2026-10-31 레인저스 1-0 애버딘",
+    "2026-08-30 애버딘 0-1 레인저스",
+    "2026-03-21 레인저스 4-1 애버딘",
+    "2026-01-11 애버딘 0-2 레인저스",
+    "2026-01-06 레인저스 2-0 애버딘"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Premiership",
+    "home_days_rest": 3,
+    "away_prev": "2026-11-22 Premiership",
+    "away_days_rest": 3
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 17:48 KST"
+}

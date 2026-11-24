@@ -1,0 +1,77 @@
+{
+  "id": "AF-1606776",
+  "sport": "soccer",
+  "league": "J2리그 Regular Season - 19",
+  "league_id": 99,
+  "league_name": "J2리그",
+  "kickoff": "2026-11-25 18:30 KST",
+  "kickoff_iso": "2026-11-25T18:30:00+09:00",
+  "home": "Vanraure Hachinohe",
+  "away": "알비렉스 니가타",
+  "home_en": "Vanraure Hachinohe",
+  "away_en": "Albirex Niigata",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.389,
+    "away_goals": 1.194
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (9경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.872,
+      "xg_against": 1.348,
+      "raw_goals_for": 0.7,
+      "raw_goals_against": 1.4,
+      "played": 9,
+      "record": "2승 1무 6패",
+      "form": "LLLDW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (8경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.344,
+      "xg_against": 1.833,
+      "raw_goals_for": 1.4,
+      "raw_goals_against": 2.0,
+      "played": 8,
+      "record": "3승 2무 3패",
+      "form": "LWWLW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Prifoods Stadium",
+  "source_ids": {
+    "api_football_fixture": 1606776,
+    "home_team": 4326,
+    "away_team": 311,
+    "league": 99,
+    "season": 2026
+  },
+  "table": "Vanraure Hachinohe 17위 18점 (5승3무10패, 득실 -13) / 알비렉스 니가타 1위 35점 (11승2무5패, 득실 +0)",
+  "head_to_head": [
+    "2025-03-20 Vanraure Hachinohe 1-1 알비렉스 니가타"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 J2 League",
+    "home_days_rest": 4,
+    "away_prev": "2026-11-21 J2 League",
+    "away_days_rest": 4
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-24 17:48 KST"
+}

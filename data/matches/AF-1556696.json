@@ -1,0 +1,93 @@
+{
+  "id": "AF-1556696",
+  "sport": "soccer",
+  "league": "스코틀랜드 프리미어십 Regular Season - 12",
+  "league_id": 179,
+  "league_name": "스코틀랜드 프리미어십",
+  "kickoff": "2026-11-25 04:45 KST",
+  "kickoff_iso": "2026-11-25T04:45:00+09:00",
+  "home": "히버니언",
+  "away": "던디",
+  "home_en": "Hibernian",
+  "away_en": "Dundee",
+  "odds": {
+    "line": 2.5,
+    "home": 1.61,
+    "best_home": 1.7,
+    "draw": 4.01,
+    "best_draw": 4.31,
+    "away": 4.71,
+    "best_away": 5.3,
+    "over": 1.61,
+    "best_over": 1.69,
+    "under": 2.2,
+    "best_under": 2.36,
+    "source": "The Odds API 평균 배당 (승무패 18곳, 언더/오버 12곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.481,
+    "away_goals": 1.519
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (7경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.934,
+      "xg_against": 1.926,
+      "raw_goals_for": 0.7,
+      "raw_goals_against": 2.1,
+      "played": 7,
+      "record": "0승 1무 6패",
+      "form": "LLDWL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.306,
+      "xg_against": 1.36,
+      "raw_goals_for": 1.2,
+      "raw_goals_against": 1.3,
+      "played": 6,
+      "record": "2승 0무 4패",
+      "form": "DLWLL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Easter Road",
+  "source_ids": {
+    "api_football_fixture": 1556696,
+    "home_team": 249,
+    "away_team": 253,
+    "league": 179,
+    "season": 2026
+  },
+  "table": "히버니언 11위 11점 (3승2무8패, 득실 -6) / 던디 7위 17점 (5승2무6패, 득실 -5)",
+  "head_to_head": [
+    "2026-08-30 던디 1-2 히버니언",
+    "2026-02-28 던디 3-3 히버니언",
+    "2025-11-22 히버니언 2-0 던디",
+    "2025-08-03 던디 1-2 히버니언",
+    "2025-04-13 히버니언 4-0 던디"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Premiership",
+    "home_days_rest": 3,
+    "away_prev": "2026-11-22 Premiership",
+    "away_days_rest": 3
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 17:48 KST"
+}

@@ -1,0 +1,81 @@
+{
+  "id": "AF-1606784",
+  "sport": "soccer",
+  "league": "J2리그 Regular Season - 19",
+  "league_id": 99,
+  "league_name": "J2리그",
+  "kickoff": "2026-11-25 19:00 KST",
+  "kickoff_iso": "2026-11-25T19:00:00+09:00",
+  "home": "쇼난 벨마레",
+  "away": "반포레 고후",
+  "home_en": "Shonan Bellmare",
+  "away_en": "Ventforet Kofu",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.389,
+    "away_goals": 1.194
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (8경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.179,
+      "xg_against": 1.053,
+      "raw_goals_for": 1.1,
+      "raw_goals_against": 1.0,
+      "played": 8,
+      "record": "3승 3무 2패",
+      "form": "LLDWW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (9경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.824,
+      "xg_against": 2.372,
+      "raw_goals_for": 0.7,
+      "raw_goals_against": 2.7,
+      "played": 9,
+      "record": "1승 2무 6패",
+      "form": "DLLLL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Lemon Gas Stadium",
+  "source_ids": {
+    "api_football_fixture": 1606784,
+    "home_team": 284,
+    "away_team": 308,
+    "league": 99,
+    "season": 2026
+  },
+  "table": "쇼난 벨마레 9위 29점 (7승8무3패, 득실 +4) / 반포레 고후 20위 12점 (3승3무12패, 득실 -25)",
+  "head_to_head": [
+    "2016-10-29 쇼난 벨마레 1-0 반포레 고후",
+    "2016-05-25 반포레 고후 1-0 쇼난 벨마레",
+    "2016-04-10 반포레 고후 3-1 쇼난 벨마레",
+    "2015-07-19 쇼난 벨마레 0-2 반포레 고후",
+    "2015-05-10 반포레 고후 0-1 쇼난 벨마레"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 J2 League",
+    "home_days_rest": 3,
+    "away_prev": "2026-11-21 J2 League",
+    "away_days_rest": 4
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-24 17:48 KST"
+}
