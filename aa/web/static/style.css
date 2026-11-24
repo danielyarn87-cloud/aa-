@@ -164,3 +164,21 @@ pre{background:var(--panel);padding:12px;border-radius:8px;font-size:14px;white-
 .leg-top{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
 .leg-why{margin:4px 0 0 18px}
 .leg-why .plus{color:#0d5c35}
+/* 배팅 게임: 분석가별 색 */
+.slip{border-left:8px solid var(--mc)}
+.slip-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.who-badge{display:inline-block;background:var(--mc);color:#fff;font-weight:800;font-size:17px;padding:4px 12px;border-radius:999px}
+.slip-size{font-size:22px;font-weight:800}
+.slip-stake{font-size:22px;font-weight:800;color:var(--mc)}
+.leg-no{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--mc);color:#fff;font-size:13px;font-weight:700}
+.slip .leg-pick{font-size:19px;font-weight:800}
+.slip .leg-pick .num{color:var(--mc)}
+.leg-match{margin:2px 0 0 32px;font-size:15px}
+.slip .leg-why{margin-left:32px}
+.acc-card{text-align:left;cursor:pointer;border-top:6px solid var(--mc);font:inherit;color:inherit;width:100%}
+.acc-card[aria-pressed=true]{outline:3px solid var(--mc);outline-offset:-3px}
+.acc-value{display:block;font-size:30px;font-weight:800;margin:10px 0 0}
+.acc-hint{display:block;margin-top:8px;color:var(--mc);font-weight:700}
+.who-title{display:flex;align-items:center;gap:10px;margin-top:30px;padding:10px 14px;border-radius:10px;background:color-mix(in srgb,var(--mc) 12%,transparent);color:var(--mc);font-size:24px}
+.who-title .dot{width:14px;height:14px;border-radius:50%;background:var(--mc)}
+.who-title .small{color:inherit;opacity:.8;font-weight:600}
