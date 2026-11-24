@@ -143,13 +143,17 @@ class Ledger:
             )
 
     # ---- 채점 --------------------------------------------------------------
-    def member_stats(self, department: str, include_mock: bool = False) -> list[dict]:
+    def member_stats(self, department: str, include_mock: bool = False, stage: str = "debate",
+                     ids: set | None = None) -> list[dict]:
+        """분석가별 성적. stage='debate' 는 토론 후 최종, 'initial' 은 혼자 처음 낸 1차 분석. ids 를 주면 그 경기들만."""
         rows = self.db.execute(
             "SELECT p.*, r.home_goals, r.away_goals, d.odds_json FROM predictions p"
             " JOIN results r ON r.match_id = p.match_id JOIN decisions d ON d.match_id = p.match_id"
-            " WHERE p.department = ? AND p.stage = 'debate' AND (? OR p.mock = 0)",
-            (department, int(include_mock)),
+            " WHERE p.department = ? AND p.stage = ? AND (? OR p.mock = 0)",
+            (department, stage, int(include_mock)),
         ).fetchall()
+        if ids is not None:
+            rows = [r for r in rows if r["match_id"] in ids]
         by: dict[str, dict] = {}
         for r in rows:
             s = by.setdefault(
@@ -186,12 +190,14 @@ class Ledger:
             )
         return sorted(out, key=lambda x: x["brier_1x2"])
 
-    def company_stats(self, department: str, include_mock: bool = False) -> dict:
+    def company_stats(self, department: str, include_mock: bool = False, ids: set | None = None) -> dict:
         rows = self.db.execute(
             "SELECT d.*, r.home_goals, r.away_goals FROM decisions d JOIN results r ON r.match_id = d.match_id"
             " WHERE d.department = ? AND (? OR d.mock = 0)",
             (department, int(include_mock)),
         ).fetchall()
+        if ids is not None:
+            rows = [r for r in rows if r["match_id"] in ids]
         n = len(rows)
         picks = [r for r in rows if r["pick_1x2"]]
         hits = profit = 0.0
