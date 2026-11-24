@@ -402,7 +402,7 @@ async function renderMatch(id) {
       </article>`).join('')}
     </div></div>
 
-    <div class="sec"><h2>토론 전후 변화${s.result ? ` <span class="small mute">결과 ${esc(s.result.score)} · ○ 맞음 ✕ 틀림</span>` : ''}</h2><div class="scroll"><table class="stack">
+    <div class="sec"><h2>토론 전후 변화${s.result ? ` <span class="small mute">결과 ${esc(s.result.score)} · ○ 적중 ✕ 미적중</span>` : ''}</h2><div class="scroll"><table class="stack">
       <thead><tr><th>분석가</th><th>처음 고른 결과</th><th>최종</th><th>골 수 (처음→최종)</th><th class="r">처음 가능성 (승/무/패)</th><th class="r">최종 가능성 (승/무/패)</th><th class="r">오버 가능성</th></tr></thead><tbody>
       ${r.final.map(o => { const f = first[o.member_id] || o; return `<tr><td data-l="분석가"><b>${esc(o.member_name)}</b></td><td data-l="처음 고른 결과">${esc(N[f.pick_1x2])} ${OX(f.hit_1x2)}</td><td data-l="최종"><b>${esc(N[o.pick_1x2])}</b> ${OX(o.hit_1x2)}</td><td data-l="골 수">${esc(N[f.pick_ou + 'S'])} ${OX(f.hit_ou)} → ${esc(N[o.pick_ou + 'S'])} ${OX(o.hit_ou)}</td><td data-l="처음 가능성" class="r num">${pct(f.probs.home)}/${pct(f.probs.draw)}/${pct(f.probs.away)}</td><td data-l="최종 가능성" class="r num">${pct(o.probs.home)}/${pct(o.probs.draw)}/${pct(o.probs.away)}</td><td data-l="오버 가능성" class="r num">${pct(f.over_prob)}→${pct(o.over_prob)}</td></tr>`; }).join('')}
       </tbody></table></div></div>
@@ -482,8 +482,8 @@ async function renderBets() {
   const b = await api('/api/bets');
   const W = n => (n < 0 ? '−' : '') + Math.abs(Math.round(n)).toLocaleString('ko-KR') + '원';
   const pctx = p => (p * 100).toFixed(1) + '%';
-  const st = s => s.status === 'won' ? '<span class="tag hit">적중</span>' : s.status === 'lost' ? '<span class="tag miss">실패</span>' : '<span class="tag wait">진행 중</span>';
-  const mark = l => l.hit === true ? '<span class="tag hit">맞음</span>' : l.hit === false ? '<span class="tag miss">틀림</span>' : '';
+  const st = s => s.status === 'won' ? '<span class="tag hit">적중</span>' : s.status === 'lost' ? '<span class="tag miss">미적중</span>' : '<span class="tag wait">진행 중</span>';
+  const mark = l => l.hit === true ? '<span class="tag hit">적중</span>' : l.hit === false ? '<span class="tag miss">미적중</span>' : '';
   const won100 = v => (v >= 0 ? '+' : '−') + Math.abs(Math.round(v * UNIT / 100)).toLocaleString('ko-KR') + '원';
   const howText = s => {
     const h = s.how || {};
@@ -511,7 +511,7 @@ async function renderBets() {
         <td><span class="leg-no">${i + 1}</span> <span class="small mute">${esc(sz)}폴더 조합</span><br><b>${game}</b></td>
         <td><div class="tk-opts n${order.length}">${btns}</div></td><td class="tk-res">${mark(l)}</td></tr>`;
   };
-  const slip = s => `<div class="panel slip ticket" style="--mc:${esc(col(s.member_id))}">
+  const slip = (s, brief) => `<div class="panel slip ticket" style="--mc:${esc(col(s.member_id))}">
     <div class="slip-head">
       <span class="who-badge">${esc(s.member_name)}</span>
       <span class="slip-size">${esc(s.size)}폴더</span>
@@ -523,13 +523,22 @@ async function renderBets() {
     <table class="tk-sum"><thead><tr><th>선택경기수</th><th>예상배당률</th><th>개별투표금액</th><th>예상적중금액</th></tr></thead>
       <tbody><tr><td>${esc(s.legs.length)}경기</td><td class="num">${esc(s.combined_odds)}배</td><td class="num">${W(s.stake)}</td><td class="num">${W(Math.floor(s.stake * s.combined_odds))}</td></tr>
       <tr class="tk-total"><td colspan="4">총투표금액 <b class="num">${W(s.stake)}</b>${s.status === 'won' ? ` · 받은 돈 <b class="num">${W(s.payout)}</b>` : ''}</td></tr></tbody></table>
-    <div class="tk-explain"><h3>설명</h3>
+    ${brief ? '' : `<div class="tk-explain"><h3>설명</h3>
       <p class="small">${howText(s)}</p>
       <ol class="small">${s.legs.map(l => `<li><b>${esc(l.title)} → ${esc(l.label)} @${esc(l.odds)}</b><br>
         AI 가능성 <b>${pctx(l.prob)}</b> · 본전 가능성(1÷배당) ${pctx(l.breakeven ?? 1 / l.odds)} · 5,000원당 <b class="${(l.ev ?? 0) >= 0 ? 'plus' : ''}">${won100((l.ev ?? (l.prob * l.odds - 1)) * 100)}</b>
-        ${l.reason ? `<br><span class="mute">“${esc(l.reason)}”</span>` : ''}</li>`).join('')}</ol></div></div>`;
+        ${l.reason ? `<br><span class="mute">“${esc(l.reason)}”</span>` : ''}</li>`).join('')}</ol></div>`}</div>`;
   const pick = store.get('aa_bet_who') || 'all';
   const shown = pick === 'all' ? b.accounts : b.accounts.filter(a => a.member_id === pick);
+  /* 모두 보기 = 결과가 아직 안 나온 배팅표, 배팅 결과 = 끝난 배팅표 (적중·미적중으로 걸르기) */
+  const betView = store.get('aa_bet_view') === 'done' ? 'done' : 'open';
+  const resF = ['won', 'lost'].includes(store.get('aa_bet_res')) ? store.get('aa_bet_res') : 'all';
+  const mineAll = id => b.slips.filter(s => s.member_id === id && (pick === 'all' || id === pick));
+  const inView = s => betView === 'open' ? s.status === 'open' : s.status !== 'open' && (resF === 'all' || s.status === resF);
+  const newest = (x, y) => String(y.placed_at).localeCompare(String(x.placed_at));
+  const pool = b.slips.filter(s => pick === 'all' || s.member_id === pick);
+  const nOpen = pool.filter(s => s.status === 'open').length, nDone = pool.length - nOpen;
+  const nWon = pool.filter(s => s.status === 'won').length, nLost = pool.filter(s => s.status === 'lost').length;
   view.innerHTML = `<section class="band"><div class="wrap"><h1>배팅 게임</h1>
     <p class="lead mute">분석가들이 각자 가상 자금 <b>${W(b.start_bankroll)}</b>으로 자기 예측만 믿고 3폴더·5폴더·7폴더 조합 배팅을 합니다. 한 장에 ${W(b.min_stake)}~${W(b.max_stake)}, 경기는 이틀 안에서만 고릅니다. 실제 돈이 아닌 실력 비교용입니다.</p>
     <div class="grid4">${b.accounts.map(a => { const bs = a.by_size || {}; return `<div class="panel acc-card" aria-pressed="${pick === a.member_id}" style="--mc:${esc(col(a.member_id))}">
@@ -550,13 +559,28 @@ async function renderBets() {
         <input type="password" placeholder="분석 요청 비밀번호" class="tu-pw" value="${esc(store.get('aa_run_pw'))}" autocomplete="current-password">
         <button type="button" class="btn sm tu-go">넣기</button><p class="small tu-msg" role="status"></p>
       </div></div>`; }).join('')}</div>
-    <div class="chips" style="margin-top:14px"><button class="chip" data-who="all" aria-pressed="${pick === 'all'}">모두 보기</button></div>
+    <div class="bettabs">
+      <div class="segbar" role="group" aria-label="배팅 보기">
+        <button class="seg" data-bview="open" aria-pressed="${betView === 'open'}">모두 보기 <span class="num">${nOpen}</span></button>
+        <button class="seg res" data-bview="done" aria-pressed="${betView === 'done'}">배팅 결과 <span class="num">${nDone}</span></button></div>
+      ${pick !== 'all' ? `<button class="chip" data-who="all">${esc((who[pick] || {}).name || '')}만 보는 중 · 모두 보기 ✕</button>` : ''}</div>
+    ${betView === 'done' ? `<div class="chips" role="group" aria-label="결과 걸르기" style="margin-top:10px">
+        <button class="chip" data-bres="all" aria-pressed="${resF === 'all'}">전체 <span class="num">${nDone}</span></button>
+        <button class="chip" data-bres="won" aria-pressed="${resF === 'won'}">적중 <span class="num">${nWon}</span></button>
+        <button class="chip" data-bres="lost" aria-pressed="${resF === 'lost'}">미적중 <span class="num">${nLost}</span></button></div>` : ''}
     ${shown.map(a => {
-      const mine = b.slips.filter(s => s.member_id === a.member_id);
-      return `<h2 class="who-title" style="--mc:${esc(col(a.member_id))}"><span class="dot"></span>${esc(a.name)}의 배팅 <span class="small mute">${mine.length}장 · 배팅 적중 ${rate(a.won, a.settled)}</span></h2>${mine.length ? mine.map(slip).join('') : '<p class="empty">아직 배팅이 없습니다. 분석이 끝난 경기가 생기면 자동으로 겁니다.</p>'}`;
+      const mine = mineAll(a.member_id).filter(inView).sort(newest);
+      const empty = betView === 'open' ? '진행 중인 배팅이 없습니다. 분석이 끝난 경기가 생기면 자동으로 겁니다.' : '해당하는 배팅 결과가 없습니다.';
+      return `<h2 class="who-title" style="--mc:${esc(col(a.member_id))}"><span class="dot"></span>${esc(a.name)}의 ${betView === 'open' ? '배팅' : '배팅 결과'} <span class="small mute">${mine.length}장 · 배팅 적중 ${rate(a.won, a.settled)}</span></h2>${mine.length ? mine.map(s => slip(s, betView === 'done')).join('') : `<p class="empty">${empty}</p>`}`;
     }).join('')}
     <p class="small mute" style="margin-top:24px">고르는 법: 각 분석가가 경기마다 자기 최종 가능성으로 승무패·언더오버 중 가장 이득인 선택 하나를 고릅니다(가능성 45% 미만은 제외). 그중 5,000원당 평균 손익이 큰 경기부터 3·5·7개를 담습니다. 금액은 켈리 기준의 1/4(자신 있을수록 많이)을 한도 안에서 1,000원 단위로. 배당은 북메이커 평균. 배당 자료가 없는 리그·대회(K리그2·J2리그·AFC챔피언스리그)는 빠집니다. 추가로 넣은 돈은 손익에서 빼고 계산합니다.</p>
   </div></section>`;
+  view.querySelectorAll('[data-bview]').forEach(el => el.onclick = () => {
+    store.set('aa_bet_view', el.dataset.bview);
+    if (el.dataset.bview === 'open') store.set('aa_bet_who', 'all');   /* 모두 보기 = 모든 분석가의 진행 중 배팅 */
+    renderBets();
+  });
+  view.querySelectorAll('[data-bres]').forEach(el => el.onclick = () => { store.set('aa_bet_res', el.dataset.bres); renderBets(); });
   view.querySelectorAll('[data-who]').forEach(el => el.onclick = () => {
     const w = el.dataset.who;
     store.set('aa_bet_who', w === pick && w !== 'all' ? 'all' : w);
