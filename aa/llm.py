@@ -34,9 +34,8 @@ class ClaudeClient:
             "messages": [{"role": "user", "content": prompt}],
         }
         schema = ctx.get("schema")
-        if schema:  # 답을 정해진 양식(도구 입력)으로만 받는다: 따옴표 등으로 형식이 깨지지 않음
-            payload["tools"] = [{"name": "submit", "description": "분석 결과를 제출한다.", "input_schema": schema}]
-            payload["tool_choice"] = {"type": "tool", "name": "submit"}
+        if schema:  # 답을 정해진 JSON 양식으로만 받는다 (구조화된 출력): 따옴표 등으로 형식이 깨지지 않음
+            payload["output_config"] = {"format": {"type": "json_schema", "schema": schema}}
         body = json.dumps(payload).encode("utf-8")
         headers = {
             "content-type": "application/json",
