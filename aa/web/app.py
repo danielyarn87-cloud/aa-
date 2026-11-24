@@ -249,8 +249,10 @@ def create_app(company: Company) -> Flask:
                 continue
             w = lg.weights(company, d.id)
             members = lg.member_stats(d.id)
+            voting = {m.id for m in company.voters(d.id)}
             for s in members:
                 s["weight"] = w.get(s["member_id"], 1.0)
+                s["votes"] = s["member_id"] in voting
             out.append({"department": d.name, "company": lg.company_stats(d.id), "members": members,
                         "weights": {m.name: w.get(m.id, 1.0) for m in company.voters(d.id)}})
         return jsonify({"departments": out, "min_samples": company.policy.min_samples_for_weight})
