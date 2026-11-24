@@ -221,7 +221,7 @@ async function renderMatch(id) {
             <p><b>100원당 평균 손익</b>은 같은 판단을 아주 여러 번 했을 때 100원마다 평균으로 남거나 잃는 돈입니다. <span class="ev plus">+5원</span> 이상일 때만 노란 <b>이득 신호</b>를 켭니다. 우리 계산에도 오차가 있어서, 작은 차이는 믿지 않습니다.</p>
             <p><b>이득 신호가 이번 경기에서 맞는다는 뜻은 아닙니다.</b> 가능성 31%라면 10번 중 7번은 빗나갑니다. 또 배당이 바뀌면 이득도 바뀝니다.</p>
           </div></details></div>
-        <div class="panel small"><b>분석 방식</b><br><span class="mute">${esc(r.engine)}</span><br><b>분석 시각</b> <span class="mute">${esc(r.analyzed_at || '-')}</span><br><b>투표 비중</b> <span class="mute">${r.final.map(o => esc(o.member_name) + ' ' + (d.weights[o.member_id] ?? 1).toFixed(2)).join(', ')}</span></div>
+        <div class="panel small"><b>분석 방식</b><br><span class="mute">${esc(r.engine)}</span><br><b>분석 시각</b> <span class="mute">${esc(r.analyzed_at || '-')}</span><br><b>투표 비중</b> <span class="mute">${r.final.map(o => esc(o.member_name) + ' ' + (d.weights[o.member_id] != null ? d.weights[o.member_id].toFixed(2) : '투표 안 함')).join(', ')}</span></div>
       </div>
     </div>
 
@@ -298,7 +298,7 @@ async function renderRecord() {
         <div class="stat"><span class="num">${pct(c.acc_ou, 1)}</span><span>골 수(언더/오버) 적중률</span></div>
       </div>
       ${d.members.length ? `<div class="scroll sec"><table class="stack"><thead><tr><th>분석가</th><th class="r">경기</th><th class="r">승패 적중</th><th class="r">가능성 오차</th><th class="r">골 수 적중</th><th class="r">100원당 손익</th><th class="r">다음 투표 비중</th></tr></thead><tbody>
-        ${d.members.map(s => `<tr><td data-l="분석가">${esc(s.name)}</td><td data-l="경기" class="r num">${esc(s.n)}</td><td data-l="승패 적중" class="r num">${pct(s.acc_1x2, 1)}</td><td data-l="가능성 오차" class="r num">${s.brier_1x2.toFixed(3)}</td><td data-l="골 수 적중" class="r num">${pct(s.acc_ou, 1)}</td><td data-l="100원당 손익" class="r num">${won(s.roi_1x2)}</td><td data-l="다음 투표 비중" class="r num">${s.weight.toFixed(2)}</td></tr>`).join('')}
+        ${d.members.map(s => `<tr><td data-l="분석가">${esc(s.name)}</td><td data-l="경기" class="r num">${esc(s.n)}</td><td data-l="승패 적중" class="r num">${pct(s.acc_1x2, 1)}</td><td data-l="가능성 오차" class="r num">${s.brier_1x2.toFixed(3)}</td><td data-l="골 수 적중" class="r num">${pct(s.acc_ou, 1)}</td><td data-l="100원당 손익" class="r num">${won(s.roi_1x2)}</td><td data-l="다음 투표 비중" class="r num">${s.votes === false ? '<span class="mute">투표 안 함 (비교용)</span>' : s.weight.toFixed(2)}</td></tr>`).join('')}
       </tbody></table></div><p class="small mute">가능성 오차는 "몇 %로 봤는데 실제로 어땠나"를 잰 점수(브라이어 점수)로, 낮을수록 잘 맞힌 것입니다.</p>`
         : '<p class="empty">아직 결과가 들어온 경기가 없습니다. 첫 경기가 끝나면 여기에 성적이 쌓입니다.</p>'}</div>`; }).join('')}
   </div></section>`;
@@ -358,7 +358,7 @@ async function renderBets() {
   const pick = store.get('aa_bet_who') || 'all';
   const shown = pick === 'all' ? b.accounts : b.accounts.filter(a => a.member_id === pick);
   view.innerHTML = `<section class="band"><div class="wrap"><h1>배팅 게임</h1>
-    <p class="lead mute">분석가 3명이 각자 가상 자금 <b>${W(b.start_bankroll)}</b>으로 자기 예측만 믿고 3폴더·5폴더·7폴더 조합 배팅을 합니다. 한 장에 ${W(b.min_stake)}~${W(b.max_stake)}, 경기는 이틀 안에서만 고릅니다. 실제 돈이 아닌 실력 비교용입니다.</p>
+    <p class="lead mute">분석가들이 각자 가상 자금 <b>${W(b.start_bankroll)}</b>으로 자기 예측만 믿고 3폴더·5폴더·7폴더 조합 배팅을 합니다. 한 장에 ${W(b.min_stake)}~${W(b.max_stake)}, 경기는 이틀 안에서만 고릅니다. 실제 돈이 아닌 실력 비교용입니다.</p>
     <div class="grid3">${b.accounts.map(a => `<button type="button" class="panel acc-card" data-who="${esc(a.member_id)}" aria-pressed="${pick === a.member_id}" style="--mc:${esc(col(a.member_id))}">
       <span class="who-badge">${esc(a.name)}</span> <span class="small mute">${esc(a.title)}</span>
       <span class="num acc-value">${W(a.value)}</span>
@@ -427,7 +427,7 @@ async function renderRun() {
         <p><button class="btn ghost" id="rcollect" type="button">목록 가져오기</button></p>
       </details>
       <div class="panel"><h2>비용과 한도</h2><ul class="small mute why" style="margin-top:6px">
-        <li>경기 1개를 분석할 때 Claude 를 6번 부릅니다 (분석가 3명 × 1차 분석·토론). 고른 경기 수만큼만 비용이 듭니다.</li>
+        <li>경기 1개를 분석할 때 Claude 를 8번 부릅니다 (분석가 4명 × 1차 분석·토론). 3명은 Sonnet(경기당 약 0.09달러), 호구형은 Haiku(약 0.005달러)라 경기당 약 0.1달러. 고른 경기 수만큼만 비용이 듭니다.</li>
         <li>경기 목록·자료 API-Football: 오늘 <b class="num">${esc(u.api_football_today ?? '-')}</b> / ${esc(u.api_football_limit ?? 100)}회 (유료 요금제 안, 추가 비용 없음).</li>
         <li>배당 The Odds API: 이번 달 <b class="num">${esc(u.odds_month ?? '-')}</b> / ${esc(u.odds_limit ?? 500)} 크레딧.</li>
         <li class="small">사용량은 마지막 실행 때 기준입니다${last ? ` (${esc(last.at)})` : ''}.</li></ul></div>
@@ -540,7 +540,7 @@ async function renderAdmin() {
   });
   document.getElementById('sync').onclick = e => busy(e.target, async () => { const r = await adminPost('/api/admin/sync'); log(`결과 ${r.settled}경기 채점`); });
   view.querySelectorAll('[data-run]').forEach(b => b.onclick = e => busy(e.target, async () => {
-    log('분석 중… 분석가 3명이 따로 분석한 뒤 토론합니다 (1~2분).');
+    log('분석 중… 분석가들이 따로 분석한 뒤 토론합니다 (1~2분).');
     await adminPost('/api/admin/analyze/' + encodeURIComponent(b.dataset.run), {engine: 'claude'});
     location.hash = '#m-' + encodeURIComponent(b.dataset.run);
   }));
