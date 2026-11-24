@@ -1,6 +1,7 @@
 """API-Football (api-sports.io v3) 클라이언트: 일정, 순위, 팀 통계, 부상자, 상대 전적.
 
-무료 플랜은 하루 100회라서, 모든 요청을 캐시하고 하루 사용량을 세어 한도 전에 멈춘다.
+모든 요청을 캐시하고 하루 사용량을 세어 한도 전에 멈춘다.
+한도는 계정의 실제 요금제에서 읽는다 (/status, 호출 횟수에 안 들어감): 무료 100회, Pro 7,500회 등.
 """
 from __future__ import annotations
 
@@ -21,6 +22,26 @@ class ApiFootball:
         self.daily_limit = daily_limit
         self.cache_hours = cache_hours
         self.transport = transport
+        self.plan: dict | None = None
+
+    def sync_plan(self) -> dict:
+        """계정의 요금제와 오늘 실제 사용량을 읽어 한도를 맞춘다. /status 는 하루 호출 수에 들어가지 않는다."""
+        if not self.key:
+            raise RuntimeError("API_FOOTBALL_KEY 없음")
+        body, _ = self.transport(BASE + "/status", {}, {"x-apisports-key": self.key})
+        r = body.get("response") if isinstance(body, dict) else None
+        if isinstance(r, list):
+            r = r[0] if r else None
+        if not isinstance(r, dict) or "requests" not in r:
+            raise RuntimeError(f"API-Football 상태를 읽지 못함: {body.get('errors') if isinstance(body, dict) else body}")
+        req, sub = r["requests"], r.get("subscription") or {}
+        limit_day, current = int(req.get("limit_day") or 0), int(req.get("current") or 0)
+        mine = self.cache.used(PROVIDER, "day")
+        # 남은 실제 횟수만큼만 더 쓰도록: 우리 계산 사용량 + (요금제 한도 - 실제 사용량)
+        self.daily_limit = mine + max(0, limit_day - current)
+        self.plan = {"plan": sub.get("plan"), "active": sub.get("active"), "end": sub.get("end"),
+                     "limit_day": limit_day, "current": current}
+        return self.plan
 
     def get(self, path: str, cache_hours: float | None = None, **params) -> list | dict:
         ck = self.cache.key(PROVIDER, path, params)
