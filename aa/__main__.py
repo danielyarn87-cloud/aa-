@@ -114,6 +114,10 @@ def cmd_daily(company, args) -> None:
     auto = company.automation
     if args.leagues:
         auto["leagues"] = [int(x) for x in args.leagues.split(",") if x.strip()]
+    else:  # 사이트에서 저장한 기본 리그가 있으면 그것을 쓴다
+        from .daily import default_leagues
+
+        auto["leagues"] = default_leagues(company)
     if args.days:
         auto["collect_days"] = args.days
     if args.within:
@@ -180,7 +184,7 @@ def main(argv=None) -> None:
     dl.add_argument("--days", type=int, help="이번만: 며칠 뒤 경기까지 수집")
     dl.add_argument("--within", type=float, help="이번만: 킥오프 몇 시간 안의 경기를 분석")
     dl.add_argument("--max", type=int, help="이번 실행에서 분석할 최대 경기 수 (오늘 한도와 별도)")
-    dl.add_argument("--light", action="store_true", help="호출 절약: 상대 전적·직전 경기 생략 (경기당 3회)")
+    dl.add_argument("--light", action="store_true", help="호출 절약: 순위표만 쓰고 경기별 호출 생략")
     sub.add_parser("worker", help="정해진 시각마다 자동 실행 (서버 상시 구동용)")
 
     w = sub.add_parser("serve", help="웹사이트 실행")
