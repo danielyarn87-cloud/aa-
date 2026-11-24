@@ -41,6 +41,7 @@ class Member:
     votes: bool = True
     model: str | None = None
     color: str | None = None
+    former_names: list = field(default_factory=list)  # 예전 이름 (화면에서 지금 이름으로 바꿔 보여 줌)
     sees_market: bool = False  # 1차(독립) 분석 때 배당을 볼지. 기본은 가림 (시장 숫자에 끌려가지 않게)
 
     def persona(self) -> str:
@@ -139,6 +140,7 @@ def load_company(path: str | Path) -> Company:
                 model=m.get("model"),
                 color=m.get("color"),
                 sees_market=bool(m.get("sees_market", False)),
+                former_names=list(m.get("former_names") or []),
             )
         )
 
