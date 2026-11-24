@@ -47,6 +47,8 @@ class FakeAF:
     def __call__(self, url, params, headers):
         assert headers.get("x-apisports-key") == "test"
         path = url.split(".io")[1]
+        if path == "/status":  # 요금제 확인 (호출 수에 안 들어가므로 기록하지 않음)
+            return {"errors": [], "response": {"subscription": {"plan": "Free"}, "requests": {"current": 0, "limit_day": 100}}}, {}
         self.calls.append((path, params))
         if path == "/fixtures" and ("league" in params or "date" in params):
             return {"errors": [], "response": [FIXTURE]}, {}
