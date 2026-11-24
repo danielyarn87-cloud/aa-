@@ -37,6 +37,7 @@ class OddsApi:
         self.markets = markets
         self.cache_hours = cache_hours
         self.transport = transport
+        self.remaining: int | None = None
 
     def odds(self, sport_key: str) -> list:
         params = {"regions": self.regions, "markets": self.markets, "oddsFormat": "decimal", "dateFormat": "iso"}
@@ -51,6 +52,10 @@ class OddsApi:
         body, headers = self.transport(f"{BASE}/sports/{sport_key}/odds", {**params, "apiKey": self.key}, {})
         used = headers.get("x-requests-last") or headers.get("X-Requests-Last")
         self.cache.spend(PROVIDER, int(used) if used else cost, sport_key)
+        rem = headers.get("x-requests-remaining") or headers.get("X-Requests-Remaining")
+        if rem is not None:  # 실제 요금제의 남은 크레딧으로 한도를 맞춘다 (유료면 크게 늘어남)
+            self.remaining = int(float(rem))
+            self.monthly = self.cache.used(PROVIDER, "month") + self.remaining
         self.cache.put(ck, PROVIDER, body)
         return body
 
