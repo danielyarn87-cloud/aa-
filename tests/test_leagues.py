@@ -38,7 +38,7 @@ def test_due_matches_by_league_and_saved_default(company):
     now = datetime(2026, 11, 29, 9, 0, tzinfo=KST)
     assert len(due_matches(company, now, 48, leagues=[39])) == 1
     assert due_matches(company, now, 48, leagues=[140]) == []
-    assert default_leagues(company) == [39, 2]
+    assert default_leagues(company) == company.automation["leagues"]
     (company.base_dir / "data" / "settings.json").write_text(json.dumps({"leagues": [140, 3]}), encoding="utf-8")
     assert default_leagues(company) == [140, 3]
 
@@ -68,7 +68,7 @@ def test_leagues_api_and_league_names(company):
     c = create_app(company).test_client()
     j = c.get("/api/leagues").get_json()
     ids = [x["id"] for x in j["leagues"]]
-    assert 39 in ids and 3 in ids and j["defaults"] == [39, 2]
+    assert 39 in ids and 3 in ids and j["defaults"] == company.automation["leagues"]
     assert {x["group"] for x in j["leagues"]} >= {"유럽 5대 리그", "유럽 대회"}
     assert league_of(company, {"league": "챔피언스리그 League Stage - 5"}) == (2, "챔피언스리그")
     assert league_of(company, {"league": "x", "source_ids": {"league": 140}}) == (140, "라리가")
