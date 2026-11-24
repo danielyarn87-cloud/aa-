@@ -33,6 +33,14 @@ def _kickoff(m: dict) -> datetime | None:
         return None
 
 
+def _kickoff_text(text: str) -> datetime | None:
+    """분석 결과에 저장된 '2026-11-25 04:45 KST' 형식의 킥오프."""
+    try:
+        return datetime.strptime(text[:16], "%Y-%m-%d %H:%M").replace(tzinfo=KST)
+    except ValueError:
+        return None
+
+
 def _league_id(m: dict) -> int | None:
     lid = m.get("league_id") or (m.get("source_ids") or {}).get("league")
     return int(lid) if lid is not None else None
@@ -129,6 +137,38 @@ def picked_matches(company: Company, now: datetime, ids: list[str], include_anal
     return [p for _, p in sorted(out)]
 
 
+def catch_up_members(company: Company, ledger: Ledger, now: datetime, client_factory=None, log=print) -> int:
+    """킥오프가 catch_up_hours(기본 48시간) 안이고 이미 분석된 경기 중, 의견이 없는 분석가가 있으면 채운다."""
+    from .pipeline import join_member
+    from .store import load_runs
+
+    hours = float(company.automation.get("catch_up_hours", 48))
+    voters = company.analysts("soccer")
+    reports = company.base_dir / "reports"
+    client, n = None, 0
+    for run in load_runs(reports):
+        ko = _kickoff(run["match"]) or _kickoff_text(run["match"].get("kickoff", ""))
+        if not ko or not (now < ko <= now + timedelta(hours=hours)):
+            continue
+        have = {o["member_id"] for o in run.get("final", [])}
+        missing = [m for m in voters if m.id not in have]
+        if not missing:
+            continue
+        if client is None:
+            client = client_factory() if client_factory else _default_client(company)
+        mock = "모의" in run.get("engine", "")
+        for m in missing:
+            first, final = join_member(company, run, m, client)
+            run["initial"].append(first.to_dict())
+            run["final"].append(final.to_dict())
+            ledger.add_opinions(run["match"]["id"], run["decision"]["department"], run["decision"]["line"], [first, final], mock)
+            n += 1
+            log(f"합류 분석: {m.name} → {run['match']['home']} vs {run['match']['away']}")
+        p = reports / f"{run['match']['id']}.json"
+        p.write_text(json.dumps(run, ensure_ascii=False, indent=2), encoding="utf-8")
+    return n
+
+
 def run_daily(company: Company, client_factory=None, now: datetime | None = None, log=print,
               af_transport=None, odds_transport=None) -> dict:
     auto = company.automation
@@ -186,6 +226,12 @@ def run_daily(company: Company, client_factory=None, now: datetime | None = None
             summary["errors"].append(f"분석 {p.stem}: {e}")
             if client is None:  # 키가 없는 등 분석 자체가 불가능하면 멈춤
                 break
+
+    # 3-2) 나중에 합류한 분석가: 이미 분석된 가까운 경기에 그 사람 의견만 더한다 (팀 결론은 그대로)
+    try:
+        summary["joined"] = catch_up_members(company, ledger, now, client_factory, log=log)
+    except Exception as e:
+        summary["errors"].append(f"합류 분석: {e}")
 
     # 4) AI 가상 배팅: 끝난 배팅 정산 → 비어 있는 3·5·7폴더 새로 걸기
     try:
