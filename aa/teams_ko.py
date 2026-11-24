@@ -118,6 +118,10 @@ NAMES: dict[str, str] = {
     "Gimcheon Sangmu FC": "김천 상무", "FC Anyang": "FC 안양", "Anyang": "FC 안양",
     "Suwon Samsung Bluewings": "수원 삼성", "Bucheon FC 1995": "부천 FC", "Jeonnam Dragons": "전남 드래곤즈",
     "Busan I Park": "부산 아이파크", "Seongnam FC": "성남 FC",
+    "Seoul E-Land FC": "서울 이랜드", "Chungnam Asan": "충남 아산", "Gyeongnam FC": "경남 FC", "Gimpo FC": "김포 FC",
+    "Cheonan City": "천안 시티", "Ansan Greeners": "안산 그리너스", "Hwaseong FC": "화성 FC", "Cheongju FC": "충북 청주",
+    "Chungbuk Cheongju": "충북 청주", "Paju Frontier": "파주 프런티어", "Gimhae FC": "김해 FC", "Yongin FC": "용인 FC",
+    "Busan IPark": "부산 아이파크", "Bucheon FC": "부천 FC", "Jeonnam Dragons FC": "전남 드래곤즈",
     # J1리그
     "Kashima": "가시마 앤틀러스", "Kashima Antlers": "가시마 앤틀러스", "Urawa": "우라와 레즈", "Urawa Red Diamonds": "우라와 레즈",
     "Kawasaki Frontale": "가와사키 프론탈레", "Yokohama F. Marinos": "요코하마 F. 마리노스", "Gamba Osaka": "감바 오사카",
@@ -128,6 +132,30 @@ NAMES: dict[str, str] = {
     "Shimizu S-pulse": "시미즈 S펄스", "Fagiano Okayama": "파지아노 오카야마", "Consadole Sapporo": "콘사도레 삿포로",
     "Jubilo Iwata": "주빌로 이와타", "Sagan Tosu": "사간 도스", "V-Varen Nagasaki": "V-바렌 나가사키",
     "Mito Hollyhock": "미토 홀리호크",
+    # J2리그
+    "Vegalta Sendai": "베갈타 센다이", "Montedio Yamagata": "몬테디오 야마가타", "Ventforet Kofu": "반포레 고후",
+    "Oita Trinita": "오이타 트리니타", "Tokushima Vortis": "도쿠시마 보르티스", "Roasso Kumamoto": "로아소 구마모토",
+    "Ehime FC": "에히메 FC", "Iwaki FC": "이와키 FC", "JEF United Chiba": "제프 유나이티드 지바",
+    "Renofa Yamaguchi": "레노파 야마구치", "Blaublitz Akita": "블라우블리츠 아키타", "Thespakusatsu Gunma": "더스파 군마",
+    "Tochigi SC": "도치기 SC", "Kagoshima United": "가고시마 유나이티드", "Fujieda MYFC": "후지에다 MYFC",
+    "Omiya Ardija": "오미야 아르디자", "RB Omiya Ardija": "오미야 아르디자", "Imabari": "이마바리", "FC Imabari": "이마바리",
+    "Hokkaido Consadole Sapporo": "콘사도레 삿포로", "Kataller Toyama": "가탈레 도야마", "Tokyo Verdy 1969": "도쿄 베르디",
+    "Zweigen Kanazawa": "츠바이겐 가나자와", "Matsumoto Yamaga": "마쓰모토 야마가", "Giravanz Kitakyushu": "기라반츠 기타큐슈",
+    # MLS
+    "Inter Miami": "인터 마이애미", "Inter Miami CF": "인터 마이애미", "Los Angeles Galaxy": "LA 갤럭시", "LA Galaxy": "LA 갤럭시",
+    "Los Angeles FC": "LAFC", "LAFC": "LAFC", "Seattle Sounders": "시애틀 사운더스", "Seattle Sounders FC": "시애틀 사운더스",
+    "Portland Timbers": "포틀랜드 팀버스", "Vancouver Whitecaps": "밴쿠버 화이트캡스", "Vancouver Whitecaps FC": "밴쿠버 화이트캡스",
+    "San Diego": "샌디에이고 FC", "San Diego FC": "샌디에이고 FC", "San Jose Earthquakes": "새너제이 어스퀘이크스",
+    "Real Salt Lake": "레알 솔트레이크", "Colorado Rapids": "콜로라도 래피즈", "Minnesota United FC": "미네소타 유나이티드",
+    "Minnesota United": "미네소타 유나이티드", "Sporting Kansas City": "스포팅 캔자스시티", "St. Louis City": "세인트루이스 시티",
+    "St. Louis City SC": "세인트루이스 시티", "Austin": "오스틴 FC", "Austin FC": "오스틴 FC", "FC Dallas": "FC 댄러스",
+    "Houston Dynamo": "휴스턴 다이너모", "Houston Dynamo FC": "휴스턴 다이너모", "Chicago Fire": "시카고 파이어",
+    "Chicago Fire FC": "시카고 파이어", "Columbus Crew": "콜럼버스 크루", "FC Cincinnati": "FC 신시내티",
+    "Nashville SC": "내슐빌 SC", "Atlanta United FC": "애틀랜타 유나이티드", "Atlanta United": "애틀랜타 유나이티드",
+    "Orlando City SC": "올랜도 시티", "Orlando City": "올랜도 시티", "Charlotte": "샬럿 FC", "Charlotte FC": "샬럿 FC",
+    "DC United": "DC 유나이티드", "D.C. United": "DC 유나이티드", "Philadelphia Union": "필라델피아 유니언",
+    "New York City FC": "뉴욕 시티", "New York Red Bulls": "뉴욕 레드불스", "New England Revolution": "뉴잉글랜드 레볼루션",
+    "CF Montreal": "CF 몽레알", "Toronto FC": "토론토 FC",
 }
 
 
