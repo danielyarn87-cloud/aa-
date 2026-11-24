@@ -360,3 +360,4 @@ pre{background:var(--panel);padding:12px;border-radius:8px;font-size:14px;white-
 @media(prefers-reduced-motion:no-preference){.lv .dot{animation:lvblink 1.2s ease-in-out infinite}}
 @keyframes lvblink{50%{opacity:.25}}
 @media(max-width:720px){.row .mid{grid-column:2}}
+.bettabs{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:16px}
