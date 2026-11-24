@@ -6,8 +6,8 @@
   "league_name": "컨퍼런스리그",
   "kickoff": "2026-11-27 02:45 KST",
   "kickoff_iso": "2026-11-27T02:45:00+09:00",
-  "home": "FK Jablonec",
-  "away": "FC Lugano",
+  "home": "야블로네츠",
+  "away": "루가노",
   "home_en": "FK Jablonec",
   "away_en": "FC Lugano",
   "odds": {
@@ -71,7 +71,7 @@
     "league": 848,
     "season": 2026
   },
-  "table": "FK Jablonec 23위 2점 (0승2무1패, 득실 -1) / FC Lugano 1위 9점 (3승0무0패, 득실 +7)",
+  "table": "야블로네츠 23위 2점 (0승2무1패, 득실 -1) / 루가노 1위 9점 (3승0무0패, 득실 +7)",
   "head_to_head": "자료 없음",
   "schedule": {
     "home_prev": "2026-11-21 Czech Liga",
@@ -83,5 +83,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 18:39 KST"
+  "collected_at": "2026-11-24 19:23 KST"
 }

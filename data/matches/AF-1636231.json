@@ -7,7 +7,7 @@
   "kickoff": "2026-11-27 02:45 KST",
   "kickoff_iso": "2026-11-27T02:45:00+09:00",
   "home": "베식타스",
-  "away": "Hapoel Beer Sheva",
+  "away": "하포엘 베에르셰바",
   "home_en": "Beşiktaş",
   "away_en": "Hapoel Beer Sheva",
   "odds": {
@@ -71,10 +71,10 @@
     "league": 3,
     "season": 2026
   },
-  "table": "베식타스 8위 7점 (2승1무1패, 득실 +3) / Hapoel Beer Sheva 33위 1점 (0승1무3패, 득실 -7)",
+  "table": "베식타스 8위 7점 (2승1무1패, 득실 +3) / 하포엘 베에르셰바 33위 1점 (0승1무3패, 득실 -7)",
   "head_to_head": [
-    "2017-02-23 베식타스 2-1 Hapoel Beer Sheva",
-    "2017-02-16 Hapoel Beer Sheva 1-3 베식타스"
+    "2017-02-23 베식타스 2-1 하포엘 베에르셰바",
+    "2017-02-16 하포엘 베에르셰바 1-3 베식타스"
   ],
   "schedule": {
     "home_prev": "2026-11-22 Süper Lig",
@@ -86,5 +86,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 18:39 KST"
+  "collected_at": "2026-11-24 19:23 KST"
 }

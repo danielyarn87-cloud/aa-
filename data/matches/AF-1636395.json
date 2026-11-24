@@ -7,7 +7,7 @@
   "kickoff": "2026-11-27 02:45 KST",
   "kickoff_iso": "2026-11-27T02:45:00+09:00",
   "home": "브라이턴",
-  "away": "Universitatea Craiova",
+  "away": "우니베르시타테아 크라이오바",
   "home_en": "Brighton",
   "away_en": "Universitatea Craiova",
   "odds": {
@@ -71,7 +71,7 @@
     "league": 848,
     "season": 2026
   },
-  "table": "브라이턴 5위 7점 (2승1무0패, 득실 +5) / Universitatea Craiova 8위 7점 (2승1무0패, 득실 +4)",
+  "table": "브라이턴 5위 7점 (2승1무0패, 득실 +5) / 우니베르시타테아 크라이오바 8위 7점 (2승1무0패, 득실 +4)",
   "head_to_head": "자료 없음",
   "schedule": {
     "home_prev": "2026-11-22 Premier League",
@@ -83,5 +83,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 18:39 KST"
+  "collected_at": "2026-11-24 19:23 KST"
 }

@@ -6,7 +6,7 @@
   "league_name": "컨퍼런스리그",
   "kickoff": "2026-11-27 05:00 KST",
   "kickoff_iso": "2026-11-27T05:00:00+09:00",
-  "home": "CSKA Sofia",
+  "home": "CSKA 소피아",
   "away": "트라브존스포르",
   "home_en": "CSKA Sofia",
   "away_en": "Trabzonspor",
@@ -71,7 +71,7 @@
     "league": 848,
     "season": 2026
   },
-  "table": "CSKA Sofia 28위 1점 (0승1무2패, 득실 -2) / 트라브존스포르 12위 6점 (2승0무1패, 득실 +3)",
+  "table": "CSKA 소피아 28위 1점 (0승1무2패, 득실 -2) / 트라브존스포르 12위 6점 (2승0무1패, 득실 +3)",
   "head_to_head": "자료 없음",
   "schedule": {
     "home_prev": "2026-11-23 First League",
@@ -83,5 +83,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 18:39 KST"
+  "collected_at": "2026-11-24 19:23 KST"
 }

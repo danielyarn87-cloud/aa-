@@ -7,7 +7,7 @@
   "kickoff": "2026-11-27 02:45 KST",
   "kickoff_iso": "2026-11-27T02:45:00+09:00",
   "home": "아약스",
-  "away": "FC Thun",
+  "away": "툰",
   "home_en": "Ajax",
   "away_en": "FC Thun",
   "odds": {
@@ -71,7 +71,7 @@
     "league": 848,
     "season": 2026
   },
-  "table": "아약스 11위 6점 (2승0무1패, 득실 +6) / FC Thun 20위 3점 (1승0무2패, 득실 +0)",
+  "table": "아약스 11위 6점 (2승0무1패, 득실 +6) / 툰 20위 3점 (1승0무2패, 득실 +0)",
   "head_to_head": "자료 없음",
   "schedule": {
     "home_prev": "2026-11-22 Eredivisie",
@@ -83,5 +83,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 18:39 KST"
+  "collected_at": "2026-11-24 19:23 KST"
 }

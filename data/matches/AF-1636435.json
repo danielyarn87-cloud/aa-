@@ -7,7 +7,7 @@
   "kickoff": "2026-11-27 00:30 KST",
   "kickoff_iso": "2026-11-27T00:30:00+09:00",
   "home": "카이라트",
-  "away": "Mjallby AIF",
+  "away": "옐뷔",
   "home_en": "Kairat Almaty",
   "away_en": "Mjallby AIF",
   "odds": {
@@ -71,7 +71,7 @@
     "league": 848,
     "season": 2026
   },
-  "table": "카이라트 27위 2점 (0승2무1패, 득실 -4) / Mjallby AIF 9위 7점 (2승1무0패, 득실 +4)",
+  "table": "카이라트 27위 2점 (0승2무1패, 득실 -4) / 옐뷔 9위 7점 (2승1무0패, 득실 +4)",
   "head_to_head": "자료 없음",
   "schedule": {
     "home_prev": "2026-11-06 UEFA Europa Conference League",
@@ -83,5 +83,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 18:39 KST"
+  "collected_at": "2026-11-24 19:23 KST"
 }

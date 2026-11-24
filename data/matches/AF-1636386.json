@@ -6,7 +6,7 @@
   "league_name": "컨퍼런스리그",
   "kickoff": "2026-11-27 05:00 KST",
   "kickoff_iso": "2026-11-27T05:00:00+09:00",
-  "home": "Borac Banja Luka",
+  "home": "보라츠 바냐루카",
   "away": "아탈란타",
   "home_en": "Borac Banja Luka",
   "away_en": "Atalanta",
@@ -71,7 +71,7 @@
     "league": 848,
     "season": 2026
   },
-  "table": "Borac Banja Luka 21위 3점 (1승0무2패, 득실 -1) / 아탈란타 16위 4점 (1승1무1패, 득실 +0)",
+  "table": "보라츠 바냐루카 21위 3점 (1승0무2패, 득실 -1) / 아탈란타 16위 4점 (1승1무1패, 득실 +0)",
   "head_to_head": "자료 없음",
   "schedule": {
     "home_prev": "2026-11-22 Premijer Liga",
@@ -83,5 +83,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 18:39 KST"
+  "collected_at": "2026-11-24 19:23 KST"
 }

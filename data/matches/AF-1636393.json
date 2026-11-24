@@ -7,7 +7,7 @@
   "kickoff": "2026-11-27 02:45 KST",
   "kickoff_iso": "2026-11-27T02:45:00+09:00",
   "home": "브란",
-  "away": "Aarhus",
+  "away": "오르후스",
   "home_en": "Brann",
   "away_en": "Aarhus",
   "odds": {
@@ -71,7 +71,7 @@
     "league": 848,
     "season": 2026
   },
-  "table": "브란 6위 7점 (2승1무0패, 득실 +4) / Aarhus 24위 2점 (0승2무1패, 득실 -1)",
+  "table": "브란 6위 7점 (2승1무0패, 득실 +4) / 오르후스 24위 2점 (0승2무1패, 득실 -1)",
   "head_to_head": "자료 없음",
   "schedule": {
     "home_prev": "2026-11-23 Eliteserien",
@@ -83,5 +83,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 18:39 KST"
+  "collected_at": "2026-11-24 19:23 KST"
 }

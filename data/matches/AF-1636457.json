@@ -6,7 +6,7 @@
   "league_name": "컨퍼런스리그",
   "kickoff": "2026-11-27 05:00 KST",
   "kickoff_iso": "2026-11-27T05:00:00+09:00",
-  "home": "FC Nordsjaelland",
+  "home": "노르셸란",
   "away": "파나티나이코스",
   "home_en": "FC Nordsjaelland",
   "away_en": "Panathinaikos",
@@ -71,7 +71,7 @@
     "league": 848,
     "season": 2026
   },
-  "table": "FC Nordsjaelland 25위 2점 (0승2무1패, 득실 -2) / 파나티나이코스 2위 9점 (3승0무0패, 득실 +6)",
+  "table": "노르셸란 25위 2점 (0승2무1패, 득실 -2) / 파나티나이코스 2위 9점 (3승0무0패, 득실 +6)",
   "head_to_head": "자료 없음",
   "schedule": {
     "home_prev": "2026-11-23 Superliga",
@@ -83,5 +83,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 18:39 KST"
+  "collected_at": "2026-11-24 19:23 KST"
 }

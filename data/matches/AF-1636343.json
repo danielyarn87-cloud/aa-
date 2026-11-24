@@ -7,7 +7,7 @@
   "kickoff": "2026-11-27 05:00 KST",
   "kickoff_iso": "2026-11-27T05:00:00+09:00",
   "home": "선덜랜드",
-  "away": "Jagiellonia",
+  "away": "야기엘로니아",
   "home_en": "Sunderland",
   "away_en": "Jagiellonia",
   "odds": {
@@ -71,7 +71,7 @@
     "league": 3,
     "season": 2026
   },
-  "table": "선덜랜드 11위 7점 (2승1무1패, 득실 +0) / Jagiellonia 29위 3점 (1승0무3패, 득실 -3)",
+  "table": "선덜랜드 11위 7점 (2승1무1패, 득실 +0) / 야기엘로니아 29위 3점 (1승0무3패, 득실 -3)",
   "head_to_head": "자료 없음",
   "schedule": {
     "home_prev": "2026-11-22 Premier League",
@@ -83,5 +83,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 18:39 KST"
+  "collected_at": "2026-11-24 19:23 KST"
 }

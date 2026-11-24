@@ -6,7 +6,7 @@
   "league_name": "유로파리그",
   "kickoff": "2026-11-27 05:00 KST",
   "kickoff_iso": "2026-11-27T05:00:00+09:00",
-  "home": "Torreense",
+  "home": "토렌스",
   "away": "셀틱",
   "home_en": "Torreense",
   "away_en": "Celtic",
@@ -71,7 +71,7 @@
     "league": 3,
     "season": 2026
   },
-  "table": "Torreense 19위 6점 (2승0무2패, 득실 -2) / 셀틱 32위 3점 (1승0무3패, 득실 -5)",
+  "table": "토렌스 19위 6점 (2승0무2패, 득실 -2) / 셀틱 32위 3점 (1승0무3패, 득실 -5)",
   "head_to_head": "자료 없음",
   "schedule": {
     "home_prev": "2026-11-23 Taça de Portugal",
@@ -83,5 +83,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 18:39 KST"
+  "collected_at": "2026-11-24 19:23 KST"
 }

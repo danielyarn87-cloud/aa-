@@ -6,7 +6,7 @@
   "league_name": "컨퍼런스리그",
   "kickoff": "2026-11-27 05:00 KST",
   "kickoff_iso": "2026-11-27T05:00:00+09:00",
-  "home": "HNK Hajduk Split",
+  "home": "하이두크 스플리트",
   "away": "신트트라위던",
   "home_en": "HNK Hajduk Split",
   "away_en": "St. Truiden",
@@ -61,7 +61,7 @@
     "league": 848,
     "season": 2026
   },
-  "table": "HNK Hajduk Split 13위 6점 (2승0무1패, 득실 +1) / 신트트라위던 10위 7점 (2승1무0패, 득실 +3)",
+  "table": "하이두크 스플리트 13위 6점 (2승0무1패, 득실 +1) / 신트트라위던 10위 7점 (2승1무0패, 득실 +3)",
   "head_to_head": "자료 없음",
   "schedule": {
     "home_prev": "2026-11-21 HNL",
@@ -73,5 +73,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 18:39 KST"
+  "collected_at": "2026-11-24 19:23 KST"
 }

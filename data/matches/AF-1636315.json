@@ -6,7 +6,7 @@
   "league_name": "유로파리그",
   "kickoff": "2026-11-27 02:45 KST",
   "kickoff_iso": "2026-11-27T02:45:00+09:00",
-  "home": "Plzen",
+  "home": "플젠",
   "away": "벤피카",
   "home_en": "Plzen",
   "away_en": "Benfica",
@@ -71,7 +71,7 @@
     "league": 3,
     "season": 2026
   },
-  "table": "Plzen 30위 3점 (1승0무3패, 득실 -4) / 벤피카 1위 12점 (4승0무0패, 득실 +10)",
+  "table": "플젠 30위 3점 (1승0무3패, 득실 -4) / 벤피카 1위 12점 (4승0무0패, 득실 +10)",
   "head_to_head": "자료 없음",
   "schedule": {
     "home_prev": "2026-11-22 Czech Liga",
@@ -83,5 +83,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 18:39 KST"
+  "collected_at": "2026-11-24 19:23 KST"
 }

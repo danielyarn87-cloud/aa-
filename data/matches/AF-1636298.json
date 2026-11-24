@@ -7,7 +7,7 @@
   "kickoff": "2026-11-27 02:45 KST",
   "kickoff_iso": "2026-11-27T02:45:00+09:00",
   "home": "마르세유",
-  "away": "Levski Sofia",
+  "away": "레프스키 소피아",
   "home_en": "Marseille",
   "away_en": "Levski Sofia",
   "odds": {
@@ -71,7 +71,7 @@
     "league": 3,
     "season": 2026
   },
-  "table": "마르세유 31위 3점 (1승0무3패, 득실 -4) / Levski Sofia 10위 7점 (2승1무1패, 득실 +1)",
+  "table": "마르세유 31위 3점 (1승0무3패, 득실 -4) / 레프스키 소피아 10위 7점 (2승1무1패, 득실 +1)",
   "head_to_head": "자료 없음",
   "schedule": {
     "home_prev": "2026-11-23 Ligue 1",
@@ -83,5 +83,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 18:39 KST"
+  "collected_at": "2026-11-24 19:23 KST"
 }
