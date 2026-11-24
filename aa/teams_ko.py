@@ -174,8 +174,16 @@ NAMES: dict[str, str] = {
     "DC United": "DC 유나이티드", "D.C. United": "DC 유나이티드", "Philadelphia Union": "필라델피아 유니언",
     "New York City FC": "뉴욕 시티", "New York Red Bulls": "뉴욕 레드불스", "New England Revolution": "뉴잉글랜드 레볼루션",
     "CF Montreal": "CF 몽레알", "Toronto FC": "토론토 FC",
+    # 유럽대항전 추가
+    "FC Nordsjaelland": "노르셸란", "HNK Hajduk Split": "하이두크 스플리트", "Inter Club d'Escaldes": "인테르 클루브 데스칼데스",
+    "Aarhus": "오르후스", "Ararat-Armenia": "아라라트 아르메니아", "Borac Banja Luka": "보라츠 바냐루카", "CSKA Sofia": "CSKA 소피아",
+    "Egnatia Rrogozhinë": "에그나티아", "FC Iberia 1999": "이베리아 1999", "FC Lugano": "루가노", "FC Thun": "툰",
+    "FK Jablonec": "야블로네츠", "Hapoel Beer Sheva": "하포엘 베에르셰바", "Heart Of Midlothian": "하츠", "Jagiellonia": "야기엘로니아",
+    "Kauno Žalgiris": "카우노 잘기리스", "KuPS": "KuPS 쿠오피오", "Levski Sofia": "레프스키 소피아", "Lillestrom": "릴레스트룀",
+    "Lincoln Red Imps FC": "링컨 레드 임프스", "Mjallby AIF": "옐뷔", "OFI": "OFI 크레타", "Omonia Nicosia": "오모니아",
+    "Plzen": "플젠", "Riga": "리가 FC", "Torreense": "토렌스", "Universitatea Craiova": "우니베르시타테아 크라이오바",
+    "Bolton": "볼턴",
 }
-
 
 def _key(name: str) -> str:
     s = unicodedata.normalize("NFKD", name.translate(_SPECIAL)).encode("ascii", "ignore").decode().lower()
