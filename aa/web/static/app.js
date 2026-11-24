@@ -450,6 +450,28 @@ async function renderTeam() {
 }
 
 /* ---------- 인사평가 ---------- */
+/* 토론 전(1차) 적중률 순위: 누가 처음부터 잘 맞히는지 */
+function firstRank(d, ini) {
+  const rows = d.members.map(x => ({x, i: ini[x.member_id]})).filter(o => o.i && o.i.n);
+  if (!rows.length) return '';
+  rows.sort((a, b) => (b.i.acc_1x2 - a.i.acc_1x2) || (b.i.acc_ou - a.i.acc_ou));
+  const hit = (a, n) => Math.round(a * n);
+  const pp = v => { const t = Math.round(v * 100); return (t > 0 ? '+' : t < 0 ? '−' : '±') + Math.abs(t) + '%p'; };
+  const few = Math.min(...rows.map(o => o.i.n)) < 50;
+  const key = o => Math.round(o.i.acc_1x2 * 1000) + ':' + Math.round(o.i.acc_ou * 1000);
+  const rank = rows.map((o, k) => rows.findIndex(p => key(p) === key(o)) + 1);   /* 같은 성적은 공동 순위 */
+  const tie = r => rank.filter(v => v === r).length > 1;
+  return `<h3 style="margin-top:18px">처음부터 누가 잘 맞히나 <span class="small mute">토론 전 1차 예측 기준</span></h3>
+    <div class="fr-grid">${rows.map((o, k) => `<div class="fr-card" style="--mc:${esc(o.x.color || '#333')}">
+      <div class="fr-head"><span class="fr-rank num">${tie(rank[k]) ? '공동 ' : ''}${rank[k]}위</span><span class="who-badge sm">${esc(o.x.name)}</span>${o.x.votes === false ? '<span class="small mute">비교용</span>' : ''}</div>
+      <div class="fr-nums">
+        <div><span class="small mute">승무패</span><b class="num">${pct(o.i.acc_1x2, 0)}</b><span class="small mute num">${hit(o.i.acc_1x2, o.i.n)} / ${esc(o.i.n)}</span></div>
+        <div><span class="small mute">언더/오버</span><b class="num">${pct(o.i.acc_ou, 0)}</b><span class="small mute num">${hit(o.i.acc_ou, o.i.n)} / ${esc(o.i.n)}</span></div>
+      </div>
+      <div class="small mute">토론 후 변화 · 승무패 <b class="num">${pp(o.x.acc_1x2 - o.i.acc_1x2)}</b> · 언오버 <b class="num">${pp(o.x.acc_ou - o.i.acc_ou)}</b></div>
+    </div>`).join('')}</div>
+    ${few ? '<p class="small mute" style="margin:6px 0 0">표본 적음: 아직 경기 수가 적어 1~2경기로 순위가 바뀝니다. 50경기 이상 쌓이면 실력 차이로 볼 수 있습니다.</p>' : ''}`;
+}
 async function renderRecord() {
   const r = await api('/api/record');
   const cstat = (c, label) => `<div class="rules" style="margin-top:12px">
@@ -465,6 +487,7 @@ async function renderRecord() {
       const cell = (x, k) => x ? pct(x[k], 0) : '-';
       return `<div class="sec"><h2>${esc(d.department)}</h2>
       <h3 style="margin-top:14px">전체 경기</h3>${cstat(d.company, '전체')}
+      ${firstRank(d, ini)}
       <h3 style="margin-top:18px">분석가별 적중률</h3>
       ${d.members.length ? `<div class="scroll"><table class="stack rec"><thead><tr><th>분석가</th><th class="r">채점 경기</th><th class="r">승무패<br>1차 → 최종</th><th class="r">언더/오버<br>1차 → 최종</th><th class="r">가능성 오차</th><th class="r">5,000원당 손익</th><th class="r">투표 비중</th></tr></thead><tbody>
         ${d.members.map(x => { const i = ini[x.member_id]; return `<tr style="--mc:${esc(x.color || '#333')}"><td data-l="분석가"><span class="who-badge sm">${esc(x.name)}</span></td><td data-l="채점 경기" class="r num">${esc(x.n)}</td>
