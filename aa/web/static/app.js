@@ -368,7 +368,7 @@ async function renderRun() {
           <select id="rdays"><option value="1">오늘~내일 (24시간 안 킥오프)</option><option value="2" selected>2일 안</option><option value="3">3일 안</option><option value="7">일주일 안</option></select>
           <label for="rmax">최대 분석 경기 수</label>
           <input id="rmax" type="number" min="1" max="30" value="${esc(store.get('aa_run_max') || 10)}">
-          <label><input type="checkbox" id="rdef" style="width:auto"> 이 리그를 매일 자동 분석(10시·22시)의 기본 리그로 저장</label>
+          <label><input type="checkbox" id="rdef" style="width:auto"> 이 리그를 매일 자동 분석(6시·14시)의 기본 리그로 저장</label>
           <label for="rpw">분석 요청 비밀번호</label>
           <input id="rpw" type="password" autocomplete="current-password" value="${esc(store.get('aa_run_pw'))}">
           <label><input type="checkbox" id="rkeep" style="width:auto" ${store.get('aa_run_pw') ? 'checked' : ''}> 이 기기에서 비밀번호 기억</label>
@@ -428,7 +428,7 @@ async function renderRun() {
       if (!j.configured) { el.innerHTML = '분석 요청 기능이 아직 설정되지 않았습니다 (Cloudflare 에 GH_TOKEN, RUN_PASSWORD 필요).'; return; }
       if (!j.runs.length) { el.textContent = '아직 실행 기록이 없습니다.'; return; }
       const busy = j.runs.some(x => x.status !== 'completed');
-      el.innerHTML = `<table><tbody>${j.runs.map(x => `<tr><td class="num">#${esc(x.number)}</td><td>${x.event === 'schedule' ? '자동 (10시·22시)' : '요청'}</td><td>${esc(when(x.created_at))}</td><td class="r">${label(x)}</td></tr>`).join('')}</tbody></table>
+      el.innerHTML = `<table><tbody>${j.runs.map(x => `<tr><td class="num">#${esc(x.number)}</td><td>${x.event === 'schedule' ? '자동 (6시·14시)' : '요청'}</td><td>${esc(when(x.created_at))}</td><td class="r">${label(x)}</td></tr>`).join('')}</tbody></table>
         <p class="small mute" style="margin:8px 0 0">${busy ? '분석이 끝나면 사이트가 1~2분 안에 새로 고쳐집니다. 이 화면은 15초마다 다시 확인합니다.' : '끝난 분석은 경기 목록에서 볼 수 있습니다.'}</p>`;
     } catch (err) { el.textContent = '상태를 불러오지 못했습니다.'; }
   }
