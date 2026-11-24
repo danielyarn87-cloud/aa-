@@ -44,7 +44,7 @@ def render(run) -> str:
     one, ou = d.one_x_two, d.over_under
     mock = "모의" in run.engine
     L: list[str] = []
-    L.append(f"# [AA 스포츠 분석] {m.title}")
+    L.append(f"# [RAISE 스포츠 분석] {m.title}")
     L.append("")
     L.append(f"{m.league} · {m.kickoff} · 분석 엔진: {run.engine}")
     if mock:
