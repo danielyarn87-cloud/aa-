@@ -53,6 +53,7 @@ data_sources:
     - {name: K리그2, api_football_id: 293, season: 2026, group: 아시아}            # 배당 API 에 없음 → 배당·이득·배팅 게임 제외
     - {name: J1리그, api_football_id: 98, season: 2026, odds_key: soccer_japan_j_league, group: 아시아}
     - {name: J2리그, api_football_id: 99, season: 2026, group: 아시아}             # 배당 API 에 없음
+    - {name: AFC챔피언스리그 엘리트, api_football_id: 17, season: 2026, group: 아시아}  # 배당 API 에 없음 → 분석만
     - {name: MLS, api_football_id: 253, season: 2026, odds_key: soccer_usa_mls, group: 아메리카}
   team_aliases:               # 두 API 의 팀 이름이 다를 때 맞춰 주는 표 (API-Football 이름: The Odds API 이름)
     Manchester City: Manchester City
