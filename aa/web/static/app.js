@@ -80,13 +80,13 @@ async function renderList() {
   const ms = all.filter(m => leagueFilter === 'all' || lgName(m) === leagueFilter);
   const done = ms.filter(m => m.status === 'analyzed');
   const vals = done.filter(m => m.value_alerts && m.value_alerts.length).length;
-  const shown = ms.filter(m => listFilter === 'all' || (listFilter === 'analyzed' ? m.status === 'analyzed' : listFilter === 'pending' ? m.status === 'pending' : (m.value_alerts || []).length));
+  const shown = ms.filter(m => listFilter === 'all' || (listFilter === 'mine' ? m.picked : listFilter === 'analyzed' ? m.status === 'analyzed' : listFilter === 'pending' ? m.status === 'pending' : (m.value_alerts || []).length));
   const days = [...new Set(shown.map(m => dayOf(m.kickoff)))];
   const chip = (k, t) => `<button class="chip" data-f="${k}" aria-pressed="${listFilter === k}">${t}</button>`;
   view.innerHTML = `<section class="band"><div class="wrap">
     <div class="listhead"><div><h1>이번 주 경기</h1>
-      <p class="mute" style="margin:6px 0 0">분석 완료 <b class="num">${done.length}</b> · 분석 대기 <b class="num">${ms.length - done.length}</b> · 이득 신호 <b class="num">${vals}</b></p></div>
-      <div class="chips" role="group" aria-label="경기 거르기">${chip('all', '전체')}${chip('analyzed', '분석 완료')}${chip('value', '이득 신호')}${chip('pending', '분석 대기')}</div></div>
+      <p class="mute" style="margin:6px 0 0">내가 고른 경기 <b class="num">${ms.filter(m => m.picked).length}</b> · 분석 완료 <b class="num">${done.length}</b> · 분석 대기 <b class="num">${ms.length - done.length}</b> · 이득 신호 <b class="num">${vals}</b></p></div>
+      <div class="chips" role="group" aria-label="경기 거르기">${chip('mine', '★ 내가 고른 경기')}${chip('all', '전체')}${chip('analyzed', '분석 완료')}${chip('value', '이득 신호')}${chip('pending', '분석 대기')}</div></div>
     ${Object.keys(lgCount).length > 1 ? `<div class="chips lgchips" role="group" aria-label="리그 거르기">
       <button class="chip" data-lg="all" aria-pressed="${leagueFilter === 'all'}">모든 리그 <span class="num">${all.length}</span></button>
       ${Object.entries(lgCount).sort((a, b) => b[1] - a[1]).map(([n, c]) => `<button class="chip" data-lg="${esc(n)}" aria-pressed="${leagueFilter === n}">${esc(n)} <span class="num">${c}</span></button>`).join('')}</div>` : ''}
@@ -102,7 +102,7 @@ function rowHtml(m) {
   const head = `<span class="time">${esc(timeOf(m.kickoff))}</span><span class="teams">${esc(m.home)} <span class="mute">vs</span> ${esc(m.away)}<br><span class="lg">${esc(m.league)}</span></span>`;
   if (m.status !== 'analyzed') {
     const o = m.odds || {};
-    return `<div class="row">${head}<span class="small mute num odds">${o.home ? `배당 ${esc(o.home)} / ${esc(o.draw)} / ${esc(o.away)}` : '배당 없음'}</span><span class="tags"><span class="tag wait">분석 대기</span></span></div>`;
+    return `<div class="row">${head}<span class="small mute num odds">${o.home ? `배당 ${esc(o.home)} / ${esc(o.draw)} / ${esc(o.away)}` : '배당 없음'}</span><span class="tags">${m.picked ? '<span class="tag value">분석 요청함</span>' : '<span class="tag wait">분석 대기</span>'}</span></div>`;
   }
   const tags = [];
   const od = m.odds || {};
@@ -117,6 +117,7 @@ function rowHtml(m) {
   if (rest.length) tags.push(`<span class="tag value">이득 ${rest.map(k => lab(k) + at(k)).join(' · ')}</span>`);
   if (m.result) tags.push(`<span class="tag ${m.result.hit_1x2 ? 'hit' : m.result.hit_1x2 === false ? 'miss' : ''}">${esc(m.result.score)} ${m.result.hit_1x2 ? '적중' : m.result.hit_1x2 === false ? '빗나감' : ''}</span>`);
   if (m.mock) tags.push('<span class="tag wait">모의</span>');
+  if (m.picked) tags.unshift('<span class="tag mine">내가 고름</span>');
   return `<a class="row" href="#m-${encodeURIComponent(m.id)}">${head}${tri(m.probs)}<span class="tags">${tags.join('')}</span></a>`;
 }
 
@@ -364,74 +365,114 @@ async function renderBets() {
 /* ---------- 분석 요청 (정적 사이트: Cloudflare 함수 /api/run → GitHub Actions) ---------- */
 let runPoll = null;
 async function renderRun() {
-  const L = await api('/api/leagues');
+  const [L, M] = await Promise.all([api('/api/leagues'), api('/api/matches')]);
+  const now = Date.now();
+  const kickMs = k => { const t = Date.parse((k || '').slice(0, 16).replace(' ', 'T') + ':00+09:00'); return isNaN(t) ? 0 : t; };
+  const open = M.matches.filter(m => m.status === 'pending' && kickMs(m.kickoff) > now);
+  let chosen = new Set((store.get('aa_pick_ids') || '').split(',').filter(id => open.some(m => m.id === id)));
+  let lgF = store.get('aa_pick_lg') || 'all';
+  const lgCount = {};
+  open.forEach(m => { lgCount[lgName(m)] = (lgCount[lgName(m)] || 0) + 1; });
+  if (lgF !== 'all' && !lgCount[lgF]) lgF = 'all';
   const saved = store.get('aa_run_leagues');
   let picked = new Set(saved ? saved.split(',').map(Number) : L.defaults);
   const groups = [...new Set(L.leagues.map(l => l.group))];
   const u = L.usage || {};
   const last = L.last_run;
   view.innerHTML = `<section class="band"><div class="wrap"><h1>분석 요청</h1>
-    <p class="lead mute">리그를 고르고 <b>분석 시작</b>을 누르면 분석팀이 경기 자료와 배당을 모아 분석합니다. 끝나면 이 사이트에 자동으로 올라옵니다 (보통 5~20분).</p>
+    <p class="lead mute">6시·14시에는 1주일치 경기 <b>목록만</b> 모읍니다 (Claude 비용 없음). 분석할 경기를 아래에서 직접 골라 <b>고른 경기 분석</b>을 누르세요. 보통 5~20분 뒤 사이트에 올라오고, 경기 목록의 <b>내가 고른 경기</b>에서 따로 볼 수 있습니다.</p>
     <div class="sheet sec"><div>
-      <div class="inline" style="justify-content:space-between"><h2>리그 고르기</h2>
-        <span class="inline"><button class="btn ghost" id="lgDefault" type="button">기본 리그</button><button class="btn ghost" id="lgNone" type="button">모두 해제</button></span></div>
-      ${groups.map(g => `<fieldset class="lgroup"><legend>${esc(g)}</legend><div class="chips">
-        ${L.leagues.filter(l => l.group === g).map(l => `<button type="button" class="chip pickchip" data-id="${l.id}" aria-pressed="${picked.has(l.id)}">${esc(l.name)}</button>`).join('')}
-      </div></fieldset>`).join('')}
-      <p class="small mute" id="pickedText"></p>
+      <div class="inline" style="justify-content:space-between"><h2>경기 고르기 <span class="small mute">분석 대기 ${open.length}경기</span></h2>
+        <span class="inline"><button class="btn ghost" id="pkNone" type="button">선택 해제</button></span></div>
+      <div class="chips lgchips" role="group" aria-label="리그 거르기">
+        <button class="chip" data-plg="all" aria-pressed="${lgF === 'all'}">모든 리그 <span class="num">${open.length}</span></button>
+        ${Object.entries(lgCount).sort((x, y) => y[1] - x[1]).map(([n, c]) => `<button class="chip" data-plg="${esc(n)}" aria-pressed="${lgF === n}">${esc(n)} <span class="num">${c}</span></button>`).join('')}</div>
+      <div id="pkList"></div>
     </div><div>
-      <div class="panel"><h2>분석 조건</h2>
+      <div class="panel pk-panel"><h2>고른 경기 <span class="num" id="pkCount">0</span>개</h2>
+        <ul class="small pk-chosen" id="pkChosen"></ul>
         <div class="form" style="margin-top:12px">
-          <label for="rdays">경기 기간</label>
-          <select id="rdays"><option value="1">오늘~내일 (24시간 안 킥오프)</option><option value="2" selected>2일 안</option><option value="3">3일 안</option><option value="7">일주일 안</option></select>
-          <label for="rmax">최대 분석 경기 수</label>
-          <input id="rmax" type="number" min="1" max="30" value="${esc(store.get('aa_run_max') || 10)}">
-          <label><input type="checkbox" id="rdef" style="width:auto"> 이 리그를 매일 자동 분석(6시·14시)의 기본 리그로 저장</label>
           <label for="rpw">분석 요청 비밀번호</label>
           <input id="rpw" type="password" autocomplete="current-password" value="${esc(store.get('aa_run_pw'))}">
           <label><input type="checkbox" id="rkeep" style="width:auto" ${store.get('aa_run_pw') ? 'checked' : ''}> 이 기기에서 비밀번호 기억</label>
-          <button class="btn" id="rgo" type="button">분석 시작</button>
+          <button class="btn" id="rgo" type="button">고른 경기 분석</button>
         </div>
         <div id="rmsg" class="log" style="margin-top:12px" role="status"></div>
       </div>
       <div class="panel"><h2>진행 상황</h2><div id="rstat" class="small">불러오는 중…</div></div>
+      <details class="panel"><summary><b>경기 목록 새로 가져오기</b> <span class="small mute">(분석 없음, Claude 비용 없음)</span></summary>
+        <p class="small mute">6시·14시를 기다리지 않고 지금 목록을 새로 모읍니다. 고른 리그가 6시·14시 기본 리그로도 저장할 수 있습니다.</p>
+        ${groups.map(g => `<fieldset class="lgroup"><legend>${esc(g)}</legend><div class="chips">
+          ${L.leagues.filter(l => l.group === g).map(l => `<button type="button" class="chip pickchip" data-id="${l.id}" aria-pressed="${picked.has(l.id)}">${esc(l.name)}</button>`).join('')}
+        </div></fieldset>`).join('')}
+        <p class="inline"><button class="btn ghost" id="lgDefault" type="button">기본 리그</button><button class="btn ghost" id="lgNone" type="button">모두 해제</button></p>
+        <label class="small"><input type="checkbox" id="rdef" style="width:auto"> 이 리그를 6시·14시 기본 리그로 저장</label>
+        <p><button class="btn ghost" id="rcollect" type="button">목록 가져오기</button></p>
+      </details>
       <div class="panel"><h2>비용과 한도</h2><ul class="small mute why" style="margin-top:6px">
-        <li>경기 1개를 분석할 때 Claude 를 6번 부릅니다 (분석가 3명 × 1차 분석·토론).</li>
-        <li>경기 자료 API-Football: 오늘 <b class="num">${esc(u.api_football_today ?? '-')}</b> / ${esc(u.api_football_limit ?? 100)}회. 분석할 경기는 경기당 약 6회, 목록에만 올릴 경기는 리그당 2회.</li>
-        <li>배당 The Odds API: 이번 달 <b class="num">${esc(u.odds_month ?? '-')}</b> / ${esc(u.odds_limit ?? 500)} 크레딧. 리그 하나에 2크레딧.</li>
-        <li class="small">사용량은 마지막 분석 때 기준입니다${last ? ` (${esc(last.at)})` : ''}.</li></ul></div>
+        <li>경기 1개를 분석할 때 Claude 를 6번 부릅니다 (분석가 3명 × 1차 분석·토론). 고른 경기 수만큼만 비용이 듭니다.</li>
+        <li>경기 목록·자료 API-Football: 오늘 <b class="num">${esc(u.api_football_today ?? '-')}</b> / ${esc(u.api_football_limit ?? 100)}회 (유료 요금제 안, 추가 비용 없음).</li>
+        <li>배당 The Odds API: 이번 달 <b class="num">${esc(u.odds_month ?? '-')}</b> / ${esc(u.odds_limit ?? 500)} 크레딧.</li>
+        <li class="small">사용량은 마지막 실행 때 기준입니다${last ? ` (${esc(last.at)})` : ''}.</li></ul></div>
     </div></div></div></section>`;
-  const days = document.getElementById('rdays');
-  days.value = store.get('aa_run_days') || '2';
-  const sync = () => {
+  const byId = Object.fromEntries(open.map(m => [m.id, m]));
+  const drawList = () => {
+    const ms = open.filter(m => lgF === 'all' || lgName(m) === lgF);
+    const days = [...new Set(ms.map(m => dayOf(m.kickoff)))];
+    document.getElementById('pkList').innerHTML = ms.length ? days.map(d => `<h3 class="day">${esc(dayLabel(d))}</h3>${ms.filter(m => dayOf(m.kickoff) === d).map(m => {
+      const o = m.odds || {};
+      return `<label class="pk-row${chosen.has(m.id) ? ' on' : ''}"><input type="checkbox" data-pk="${esc(m.id)}" ${chosen.has(m.id) ? 'checked' : ''}>
+        <span class="time">${esc(timeOf(m.kickoff))}</span>
+        <span class="teams">${esc(m.home)} <span class="mute">vs</span> ${esc(m.away)}<br><span class="lg">${esc(lgName(m))}</span></span>
+        <span class="small mute num">${o.home ? `${esc(o.home)} / ${esc(o.draw)} / ${esc(o.away)}` : '배당 없음'}</span></label>`;
+    }).join('')}`).join('') : '<p class="empty">분석을 기다리는 경기가 없습니다. 오른쪽 아래 "경기 목록 새로 가져오기"를 써 보세요.</p>';
+    view.querySelectorAll('[data-pk]').forEach(c => c.onchange = () => { c.checked ? chosen.add(c.dataset.pk) : chosen.delete(c.dataset.pk); c.closest('.pk-row').classList.toggle('on', c.checked); drawChosen(); });
+  };
+  const drawChosen = () => {
+    store.set('aa_pick_ids', [...chosen].join(','));
+    document.getElementById('pkCount').textContent = chosen.size;
+    const list = [...chosen].map(id => byId[id]).filter(Boolean).sort((x, y) => (x.kickoff > y.kickoff ? 1 : -1));
+    document.getElementById('pkChosen').innerHTML = list.length ? list.map(m => `<li>${esc(m.kickoff.slice(5, 16))} ${esc(m.home)} vs ${esc(m.away)}</li>`).join('') : '<li class="mute">왼쪽에서 경기를 체크하세요.</li>';
+  };
+  view.querySelectorAll('[data-plg]').forEach(b => b.onclick = () => {
+    lgF = b.dataset.plg; store.set('aa_pick_lg', lgF);
+    view.querySelectorAll('[data-plg]').forEach(x => x.setAttribute('aria-pressed', x.dataset.plg === lgF));
+    drawList();
+  });
+  document.getElementById('pkNone').onclick = () => { chosen = new Set(); drawList(); drawChosen(); };
+  drawList(); drawChosen();
+  const syncLg = () => {
     view.querySelectorAll('.pickchip').forEach(b => b.setAttribute('aria-pressed', picked.has(+b.dataset.id)));
-    const names = L.leagues.filter(l => picked.has(l.id)).map(l => l.name);
-    document.getElementById('pickedText').textContent = names.length ? `고른 리그 ${names.length}개: ${names.join(', ')}` : '고른 리그가 없습니다.';
     store.set('aa_run_leagues', [...picked].join(','));
   };
-  view.querySelectorAll('.pickchip').forEach(b => b.onclick = () => { const id = +b.dataset.id; picked.has(id) ? picked.delete(id) : picked.add(id); sync(); });
-  document.getElementById('lgDefault').onclick = () => { picked = new Set(L.defaults); sync(); };
-  document.getElementById('lgNone').onclick = () => { picked = new Set(); sync(); };
-  sync();
+  view.querySelectorAll('.pickchip').forEach(b => b.onclick = () => { const id = +b.dataset.id; picked.has(id) ? picked.delete(id) : picked.add(id); syncLg(); });
+  document.getElementById('lgDefault').onclick = () => { picked = new Set(L.defaults); syncLg(); };
+  document.getElementById('lgNone').onclick = () => { picked = new Set(); syncLg(); };
   const msg = t => { document.getElementById('rmsg').textContent = t; };
-  document.getElementById('rgo').onclick = async e => {
-    const btn = e.target;
-    if (!picked.size) { msg('리그를 하나 이상 고르세요.'); return; }
+  const send = async (btn, payload, okText) => {
     const pw = document.getElementById('rpw').value;
     if (!pw) { msg('비밀번호를 넣으세요.'); return; }
-    const max = Math.min(Math.max(+document.getElementById('rmax').value || 10, 1), 30);
-    store.set('aa_run_max', max); store.set('aa_run_days', days.value);
     store.set('aa_run_pw', document.getElementById('rkeep').checked ? pw : '');
     btn.disabled = true; msg('요청 보내는 중…');
     try {
-      const r = await fetch('/api/run', {method: 'POST', headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({password: pw, leagues: [...picked], days: +days.value, max, save_default: document.getElementById('rdef').checked})});
+      const r = await fetch('/api/run', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({password: pw, ...payload})});
       const j = await r.json().catch(() => ({}));
       if (!r.ok) throw new Error(j.error || ('요청 실패 ' + r.status));
-      msg(`분석을 시작했습니다. 리그 ${picked.size}개, ${days.options[days.selectedIndex].text}, 최대 ${max}경기${j.saved_default ? ' · 기본 리그로 저장함' : ''}.\n끝나면 경기 목록에 올라옵니다.`);
+      msg(okText(j));
       setTimeout(status, 4000);
     } catch (err) { msg(err.message); }
     btn.disabled = false;
+  };
+  document.getElementById('rgo').onclick = e => {
+    if (!chosen.size) { msg('분석할 경기를 하나 이상 체크하세요.'); return; }
+    if (chosen.size > 40) { msg('한 번에 40경기까지 고를 수 있습니다.'); return; }
+    const n = chosen.size;
+    send(e.target, {ids: [...chosen]}, () => { const t = `${n}경기 분석을 시작했습니다. 끝나면 경기 목록의 "내가 고른 경기"에 올라옵니다.`; chosen = new Set(); drawList(); drawChosen(); return t; });
+  };
+  document.getElementById('rcollect').onclick = e => {
+    if (!picked.size) { msg('리그를 하나 이상 고르세요.'); return; }
+    send(e.target, {leagues: [...picked], save_default: document.getElementById('rdef').checked},
+      j => `리그 ${picked.size}개 경기 목록을 모으는 중입니다 (분석 없음)${j.saved_default ? ' · 기본 리그로 저장함' : ''}.`);
   };
   const label = x => x.status === 'completed'
     ? (x.conclusion === 'success' ? '<span class="tag hit">끝남</span>' : `<span class="tag miss">${x.conclusion === 'cancelled' ? '취소됨' : '실패'}</span>`)
