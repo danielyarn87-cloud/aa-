@@ -2,6 +2,8 @@
 /* AA 스포츠 분석 화면. 서버 API(/api/...)를 읽는다. window.AA_SNAPSHOT 이 있으면 서버 없이 그 자료로 그린다(미리보기).
    화면 용어는 처음 보는 사람 기준으로 쓴다: 확률→가능성, 기대값→100원당 평균 손익, 가치 알림→이득 신호, 관망→판단 보류. */
 const SNAP = window.AA_SNAPSHOT || null;
+const STATIC = window.AA_STATIC === true;   /* Cloudflare Pages 등 정적 호스팅: api/*.json 파일을 읽는다 */
+const READONLY = !!SNAP || STATIC;
 const view = document.getElementById('view');
 const CONF = {high: '확신 높음', medium: '확신 보통', low: '확신 낮음'};
 const PAL = ['#2563eb', '#15803d', '#ea580c', '#7c3aed', '#0891b2', '#be123c'];
@@ -36,6 +38,15 @@ async function api(path, opts) {
     if (path === '/api/company') return SNAP.company;
     if (path === '/api/record') return SNAP.record;
     throw new Error('미리보기에서는 쓸 수 없는 기능입니다.');
+  }
+  if (STATIC) {
+    const file = path === '/api/matches' ? 'api/matches.json'
+      : path.startsWith('/api/matches/') ? 'api/matches/' + path.split('/').pop() + '.json'
+      : path === '/api/company' ? 'api/company.json' : path === '/api/record' ? 'api/record.json' : null;
+    if (!file) throw new Error('이 사이트에서는 쓸 수 없는 기능입니다.');
+    const r = await fetch(file, {cache: 'no-cache'});
+    if (!r.ok) throw new Error(r.status === 404 ? '아직 분석하지 않은 경기입니다.' : '불러오기 실패 ' + r.status);
+    return r.json();
   }
   const r = await fetch(path, opts);
   const j = await r.json().catch(() => ({}));
@@ -206,7 +217,7 @@ async function renderMatch(id) {
     ${md.sources ? `<details><summary>자료 출처</summary>${list(md.sources)}</details>` : ''}
     ${md.notes ? `<details open><summary>주의</summary>${list(md.notes)}</details>` : ''}
     </div>
-    ${!SNAP && store.get('aa_admin') && !s.result ? `<div class="sec panel"><h3>경기 결과 입력</h3><div class="inline" style="margin-top:8px"><input id="score" placeholder="2-1" inputmode="numeric" aria-label="점수"><button class="btn" id="settle">채점</button><span id="settle-msg" class="small mute"></span></div></div>` : ''}
+    ${!READONLY && store.get('aa_admin') && !s.result ? `<div class="sec panel"><h3>경기 결과 입력</h3><div class="inline" style="margin-top:8px"><input id="score" placeholder="2-1" inputmode="numeric" aria-label="점수"><button class="btn" id="settle">채점</button><span id="settle-msg" class="small mute"></span></div></div>` : ''}
   </div></section>`;
   const b = document.getElementById('settle');
   if (b) b.onclick = async () => {
@@ -259,7 +270,7 @@ async function renderRecord() {
 
 /* ---------- 관리 ---------- */
 async function renderAdmin() {
-  if (SNAP) { view.innerHTML = '<section class="band"><div class="wrap"><h1>관리</h1><p class="lead">미리보기에서는 관리 기능을 쓸 수 없습니다. 서버를 실행하면 경기 수집, 분석, 채점을 여기서 합니다.</p></div></section>'; return; }
+  if (READONLY) { view.innerHTML = '<section class="band"><div class="wrap"><h1>관리</h1><p class="lead">이 사이트는 읽기 전용입니다. 경기 수집·분석·채점은 GitHub Actions 가 하루 두 번 자동으로 하고, 바로 돌리려면 GitHub 저장소의 Actions 탭에서 "Run workflow" 를 누르세요.</p></div></section>'; return; }
   const ms = (await api('/api/matches')).matches.filter(m => m.status === 'pending');
   view.innerHTML = `<section class="band"><div class="wrap"><h1>관리</h1>
     <div class="sheet sec"><div>
@@ -301,7 +312,7 @@ async function route() {
   const h = location.hash.replace(/^#\/?/, '');
   const navKey = !h || h.startsWith('m-') ? 'list' : h;
   document.querySelectorAll('[data-nav]').forEach(a => a.classList.toggle('on', a.dataset.nav === navKey));
-  if (SNAP) document.querySelectorAll('.admin-link').forEach(a => a.hidden = true);
+  if (READONLY) document.querySelectorAll('.admin-link').forEach(a => a.hidden = true);
   try {
     if (h.startsWith('m-')) await renderMatch(decodeURIComponent(h.slice(2)));
     else if (h === 'team') await renderTeam();
