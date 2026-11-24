@@ -160,3 +160,7 @@ pre{background:var(--panel);padding:12px;border-radius:8px;font-size:14px;white-
 .slip table td{padding:6px 8px}
 .grid3 .panel+.panel{margin-top:0}
 .grid3{margin-top:18px}
+.legs .leg{padding:10px 0;border-top:1px solid var(--line)}
+.leg-top{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.leg-why{margin:4px 0 0 18px}
+.leg-why .plus{color:#0d5c35}
