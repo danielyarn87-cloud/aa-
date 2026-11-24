@@ -70,6 +70,18 @@ def _summary(run: dict, result: dict | None) -> dict:
     return out
 
 
+def _plan_limit(base: Path, ds: dict):
+    lim = ds.get("api_football", {}).get("daily_limit", "auto")
+    p = base / "data" / "api_plan.json"
+    if lim == "auto" and p.exists():
+        try:
+            j = json.loads(p.read_text(encoding="utf-8"))
+            return f"{j.get('limit_day')} ({j.get('plan')})"
+        except (json.JSONDecodeError, OSError):
+            pass
+    return 100 if lim == "auto" else lim
+
+
 def league_of(company: Company, m: dict) -> tuple[int | None, str]:
     """경기의 리그 번호와 이름. 예전 자료에는 번호가 없어 리그 이름 앞부분으로 맞춘다."""
     leagues = company.data_sources.get("leagues", [])
@@ -211,7 +223,7 @@ def create_app(company: Company) -> Flask:
             "defaults": default_leagues(company),
             "max_per_run": int(auto.get("max_analyses_per_day", 10)),
             "usage": {"api_football_today": c.used("api_football", "day"),
-                      "api_football_limit": ds.get("api_football", {}).get("daily_limit", 100),
+                      "api_football_limit": _plan_limit(base, ds),
                       "odds_month": c.used("odds_api", "month"),
                       "odds_limit": ds.get("odds_api", {}).get("monthly_credits", 500)},
             "last_run": last,
