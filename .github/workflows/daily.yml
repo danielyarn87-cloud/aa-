@@ -1,0 +1,100 @@
+# 매일 자동 분석 (GitHub Actions, 무료)
+# 순서: 테스트 → 끝난 경기 채점 → 예정 경기 수집 → 새 경기 분석 → 기록 저장 → 사이트 갱신(site 브랜치)
+# Cloudflare Pages 가 site 브랜치를 보고 있다가 새 내용이 올라오면 사이트를 바꾼다.
+# API 키는 저장소 Settings → Secrets and variables → Actions 에 넣는다 (코드에 쓰지 않음).
+name: 매일 분석
+
+on:
+  schedule:
+    - cron: "17 1 * * *"    # 매일 10:17 (한국 시각)
+    - cron: "17 13 * * *"   # 매일 22:17 (한국 시각)
+  workflow_dispatch:         # 원할 때 분석: Actions 탭 → 매일 분석 → "Run workflow" (휴대폰 GitHub 앱에서도 가능)
+    inputs:
+      leagues:
+        description: "리그 번호, 쉼표로 (비우면 company.yaml 설정). 예: 39 프리미어리그, 140 라리가, 135 세리에A, 78 분데스리가, 61 리그1, 2 챔스, 292 K리그1"
+        required: false
+        default: ""
+      days:
+        description: "오늘부터 며칠 뒤 경기까지 수집 (비우면 2)"
+        required: false
+        default: ""
+      within:
+        description: "킥오프 몇 시간 안의 경기를 분석 (비우면 48)"
+        required: false
+        default: ""
+      max:
+        description: "이번에 분석할 최대 경기 수 (비우면 하루 한도 10)"
+        required: false
+        default: ""
+      mock:
+        description: "모의 실행 (Claude API 비용 없이 흐름만 확인)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 설치
+        run: pip install -r requirements.txt pytest
+
+      - name: 테스트
+        run: python -m pytest -q
+
+      - name: 채점 → 수집 → 분석
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+          IN_LEAGUES: ${{ inputs.leagues }}
+          IN_DAYS: ${{ inputs.days }}
+          IN_WITHIN: ${{ inputs.within }}
+          IN_MAX: ${{ inputs.max }}
+          IN_MOCK: ${{ inputs.mock }}
+        run: |
+          ARGS=()
+          [ -n "$IN_LEAGUES" ] && ARGS+=(--leagues "$IN_LEAGUES")
+          [ -n "$IN_DAYS" ] && ARGS+=(--days "$IN_DAYS")
+          [ -n "$IN_WITHIN" ] && ARGS+=(--within "$IN_WITHIN")
+          [ -n "$IN_MAX" ] && ARGS+=(--max "$IN_MAX")
+          [ "$IN_MOCK" = "true" ] && ARGS+=(--mock)
+          python -m aa daily "${ARGS[@]}"
+
+      - name: 기록 저장 (예측·결과·API 캐시)
+        run: |
+          git config user.name "aa-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A data reports
+          if git diff --cached --quiet; then
+            echo "바뀐 기록 없음"
+          else
+            git commit -m "자동 분석 $(TZ=Asia/Seoul date '+%Y-%m-%d %H:%M')"
+            git push
+          fi
+
+      - name: 사이트 만들기
+        run: python tools/export_static.py dist/site
+
+      - name: 사이트 올리기 (site 브랜치)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd dist/site
+          git init -q -b site
+          git add -A
+          git -c user.name="aa-bot" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -q -m "사이트 갱신 $(TZ=Asia/Seoul date '+%Y-%m-%d %H:%M')"
+          git push -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" site
