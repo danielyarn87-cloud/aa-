@@ -167,9 +167,24 @@ function kpiCards(all, waiting, analyzed, vals) {
   const p1 = done.filter(m => m.result.hit_1x2 != null), po = done.filter(m => m.result.hit_ou != null);
   const h1 = p1.filter(m => m.result.hit_1x2).length, ho = po.filter(m => m.result.hit_ou).length;
   const pc = (h, n) => n ? `${Math.round(h / n * 100)}%` : '-';
+  /* 이득 적중: 결과가 나온 경기에서 이득 표시(하늘색·★)가 붙었던 선택 하나하나가 맞았는지, 5,000원씩 걸었다면 손익 */
+  let vn = 0, vh = 0, vpl = 0;
+  done.forEach(m => {
+    const sc = String(m.result.score || '').match(/(\d+)\s*[-:]\s*(\d+)/);
+    if (!sc) return;
+    const a = +sc[1], b = +sc[2], line = parseFloat(m.line) || 2.5;
+    (m.value_alerts || []).forEach(k => {
+      const win = {home: a > b, draw: a === b, away: a < b, over: a + b > line, under: a + b < line}[k];
+      if (win === undefined) return;
+      const o = parseFloat((m.odds || {})[k]) || 0;
+      vn++; if (win) vh++;
+      vpl += win ? (o - 1) * UNIT : -UNIT;
+    });
+  });
   const card = (cls, label, num, sub) => `<div class="kpi ${cls}"><span class="kl">${label}</span><span class="kn">${num}</span><span class="ks">${sub}</span></div>`;
   return `<div class="kpis">
     ${card('k1', '승무패 적중', pc(h1, p1.length), p1.length ? `${h1} / ${p1.length}경기` : '결과 대기')}
+    ${card('k5', '이득 적중', pc(vh, vn), vn ? `${vh} / ${vn}개 · 5,000원씩 <b class="${vpl >= 0 ? 'plus' : ''}">${(vpl >= 0 ? '+' : '−') + Math.abs(Math.round(vpl)).toLocaleString('ko-KR')}원</b>` : '결과 대기')}
     ${card('k2', '언더/오버 적중', pc(ho, po.length), po.length ? `${ho} / ${po.length}경기` : '결과 대기')}
     ${card('k3', '채점한 경기', done.length, '누적')}
     ${card('k4', '분석 대기', waiting, `분석 완료 ${analyzed} · 이득 ${vals}`)}
