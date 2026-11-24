@@ -43,6 +43,10 @@ class ApiFootball:
     def fixtures(self, league: int, season: int, date_from: str, date_to: str, timezone: str = "Asia/Seoul") -> list:
         return self.get("/fixtures", league=league, season=season, **{"from": date_from, "to": date_to}, timezone=timezone)
 
+    def fixtures_on(self, date: str, timezone: str = "Asia/Seoul") -> list:
+        """그날 전 세계 모든 경기 (한 번 호출). 리그를 여러 개 고를 때 리그마다 부르는 것보다 훨씬 싸다."""
+        return self.get("/fixtures", date=date, timezone=timezone)
+
     def fixture(self, fixture_id: int, timezone: str = "Asia/Seoul") -> dict | None:
         res = self.get("/fixtures", id=fixture_id, timezone=timezone)
         return res[0] if res else None
