@@ -43,7 +43,7 @@ async function api(path, opts) {
     const file = path === '/api/matches' ? 'api/matches.json'
       : path.startsWith('/api/matches/') ? 'api/matches/' + path.split('/').pop() + '.json'
       : path === '/api/company' ? 'api/company.json' : path === '/api/record' ? 'api/record.json'
-      : path === '/api/leagues' ? 'api/leagues.json' : null;
+      : path === '/api/leagues' ? 'api/leagues.json' : path === '/api/bets' ? 'api/bets.json' : null;
     if (!file) throw new Error('이 사이트에서는 쓸 수 없는 기능입니다.');
     const r = await fetch(file, {cache: 'no-cache'});
     if (!r.ok) throw new Error(r.status === 404 ? '아직 분석하지 않은 경기입니다.' : '불러오기 실패 ' + r.status);
@@ -105,9 +105,12 @@ function rowHtml(m) {
     return `<div class="row">${head}<span class="small mute num odds">${o.home ? `배당 ${esc(o.home)} / ${esc(o.draw)} / ${esc(o.away)}` : '배당 없음'}</span><span class="tags"><span class="tag wait">분석 대기</span></span></div>`;
   }
   const tags = [];
-  tags.push(`<span class="tag pick">${m.pick_1x2 ? '예측 ' + esc(N[m.pick_1x2]) : '승패 판단 보류'}</span>`);
-  tags.push(`<span class="tag">${m.pick_ou ? esc(N[m.pick_ou + 'S']) + ' ' + esc(m.line) : '골 수 판단 보류'}</span>`);
-  if (m.value_alerts.length) tags.push(`<span class="tag value">이득 ${m.value_alerts.map(k => esc(k === 'over' || k === 'under' ? N[k + 'S'] : N[k])).join(' · ')}</span>`);
+  const od = m.odds || {};
+  const at = k => od[k] ? ` <b class="num">${esc(od[k])}</b>` : '';   // 그 선택의 평균 배당
+  const lab = k => esc(k === 'over' || k === 'under' ? N[k + 'S'] + ' ' + m.line : N[k]);
+  tags.push(`<span class="tag pick">${m.pick_1x2 ? '예측 ' + esc(N[m.pick_1x2]) + at(m.pick_1x2) : '승패 판단 보류'}</span>`);
+  tags.push(`<span class="tag">${m.pick_ou ? lab(m.pick_ou) + at(m.pick_ou) : '골 수 판단 보류'}</span>`);
+  if (m.value_alerts.length) tags.push(`<span class="tag value">이득 ${m.value_alerts.map(k => lab(k) + at(k)).join(' · ')}</span>`);
   if (m.result) tags.push(`<span class="tag ${m.result.hit_1x2 ? 'hit' : m.result.hit_1x2 === false ? 'miss' : ''}">${esc(m.result.score)} ${m.result.hit_1x2 ? '적중' : m.result.hit_1x2 === false ? '빗나감' : ''}</span>`);
   if (m.mock) tags.push('<span class="tag wait">모의</span>');
   return `<a class="row" href="#m-${encodeURIComponent(m.id)}">${head}${tri(m.probs)}<span class="tags">${tags.join('')}</span></a>`;
@@ -279,6 +282,32 @@ async function renderRecord() {
   </div></section>`;
 }
 
+/* ---------- 배팅 게임: AI 3명이 가상 100만원으로 3·5·7폴더 ---------- */
+async function renderBets() {
+  const b = await api('/api/bets');
+  const W = n => (n < 0 ? '−' : '') + Math.abs(Math.round(n)).toLocaleString('ko-KR') + '원';
+  const pctx = p => (p * 100).toFixed(1) + '%';
+  const st = s => s.status === 'won' ? '<span class="tag hit">적중</span>' : s.status === 'lost' ? '<span class="tag miss">실패</span>' : '<span class="tag wait">진행 중</span>';
+  const mark = l => l.hit === true ? '<span class="tag hit">맞음</span>' : l.hit === false ? '<span class="tag miss">틀림</span>' : '';
+  const slip = s => `<div class="panel slip"><div class="inline" style="justify-content:space-between;align-items:baseline">
+      <h3 style="margin:0">${esc(s.size)}폴더 · <span class="num">${W(s.stake)}</span></h3>${st(s)}</div>
+    <p class="small mute" style="margin:4px 0 8px">배당 <b class="num">${esc(s.combined_odds)}</b> · 모두 맞을 가능성 ${pctx(s.prob)} · 적중하면 <b class="num">${W(Math.floor(s.stake * s.combined_odds))}</b>${s.status === 'won' ? ` · 받은 돈 <b class="num">${W(s.payout)}</b>` : ''} · ${esc(s.days.join(', '))} 경기 · ${esc(s.placed_at)}</p>
+    <table><tbody>${s.legs.map(l => `<tr><td>${esc(l.kickoff.slice(5, 16))}</td><td><a href="#m-${encodeURIComponent(l.match_id)}">${esc(l.title)}</a></td><td><b>${esc(l.label)}</b></td><td class="r num">${esc(l.odds)}</td><td class="r small mute">${pctx(l.prob)}</td><td class="r">${mark(l)}</td></tr>`).join('')}</tbody></table></div>`;
+  view.innerHTML = `<section class="band"><div class="wrap"><h1>배팅 게임</h1>
+    <p class="lead mute">분석가 3명이 각자 가상 자금 <b>${W(b.start_bankroll)}</b>으로 자기 예측만 믿고 3폴더·5폴더·7폴더 조합 배팅을 합니다. 한 장에 ${W(b.min_stake)}~${W(b.max_stake)}, 경기는 이틀 안에서만 고릅니다. 실제 돈이 아닌 실력 비교용입니다.</p>
+    <div class="grid3">${b.accounts.map(a => `<div class="panel" style="border-top:4px solid ${esc(a.color || '#0d5c35')}">
+      <h2 style="margin:0">${esc(a.name)} <span class="small mute">${esc(a.title)}</span></h2>
+      <p class="num" style="font-size:28px;margin:8px 0 0">${W(a.value)}</p>
+      <p class="small ${a.profit >= 0 ? '' : 'mute'}" style="margin:2px 0 8px">손익 <b class="num">${a.profit >= 0 ? '+' : ''}${W(a.profit)}</b> (${((a.profit / b.start_bankroll) * 100).toFixed(1)}%)</p>
+      <p class="small mute" style="margin:0">남은 돈 ${W(a.bankroll)} · 걸어 둔 돈 ${W(a.at_risk)} · 적중 ${esc(a.won)}/${esc(a.settled)}장</p></div>`).join('')}</div>
+    ${b.accounts.map(a => {
+      const mine = b.slips.filter(s => s.member_id === a.member_id);
+      return `<h2 style="margin-top:28px">${esc(a.name)}의 배팅</h2>${mine.length ? mine.map(slip).join('') : '<p class="empty">아직 배팅이 없습니다. 분석이 끝난 경기가 생기면 자동으로 겁니다.</p>'}`;
+    }).join('')}
+    <p class="small mute" style="margin-top:24px">고르는 법: 각자 자기 최종 가능성이 45% 이상인 선택 중 100원당 평균 손익이 큰 경기부터 담습니다. 금액은 켈리 기준의 1/4(자신 있을수록 많이)을 한도 안에서 1,000원 단위로. 배당은 북메이커 평균. 배당 자료가 없는 리그(K리그2·J2리그)는 빠집니다.</p>
+  </div></section>`;
+}
+
 /* ---------- 분석 요청 (정적 사이트: Cloudflare 함수 /api/run → GitHub Actions) ---------- */
 let runPoll = null;
 async function renderRun() {
@@ -424,6 +453,7 @@ async function route() {
     if (h.startsWith('m-')) await renderMatch(decodeURIComponent(h.slice(2)));
     else if (h === 'team') await renderTeam();
     else if (h === 'record') await renderRecord();
+    else if (h === 'bets') await renderBets();
     else if (h === 'admin') await renderAdmin();
     else if (h === 'run' && STATIC) await renderRun();
     else await renderList();
