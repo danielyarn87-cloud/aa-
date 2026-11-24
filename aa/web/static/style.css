@@ -4,7 +4,7 @@
    COLOUR 흰 시트(밤에는 검은 잔디), 잔디 초록이 주도, 원정은 깊은 파랑, 가치 표시는 옐로카드 노랑
    TYPE 제목 Black Han Sans(전광판 글씨), 숫자 Barlow Condensed(등번호), 본문 Noto Sans KR
    LAYOUT 노트북: 전광판 띠 아래 왼쪽 사다리 60%, 오른쪽 결론·가치 패널. 휴대폰: 전광판, 사다리, 결론 순, 아래쪽 탭 */
-:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0a110d);--ink:light-dark(#0e1a14,#e8efe9);--mute:light-dark(#56655d,#9fb2a7);--line:light-dark(#dde4df,#22302a);--panel:light-dark(#f2f6f3,#111c16);--pitch:#0d5c35;--pitch2:#0b5130;--chalk:#ffffff;--home:light-dark(#0d5c35,#33a86c);--draw:light-dark(#a7b2ab,#5f6d65);--away:light-dark(#2643a6,#7590f2);--card:#ffd60a;--cardink:#1d1a00;--miss:light-dark(#c8281c,#ff6b5e);--hit:light-dark(#0d7a43,#41c47f);--disp:"Black Han Sans","Noto Sans KR",system-ui,sans-serif;--num:"Barlow Condensed","Noto Sans KR",system-ui,sans-serif}
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0a110d);--ink:light-dark(#0e1a14,#e8efe9);--mute:light-dark(#56655d,#9fb2a7);--line:light-dark(#dde4df,#22302a);--panel:light-dark(#f2f6f3,#111c16);--pitch:#0d5c35;--pitch2:#0b5130;--chalk:#ffffff;--home:light-dark(#dc2626,#f87171);--draw:light-dark(#facc15,#fde047);--away:light-dark(#2563eb,#60a5fa);--card:#ffd60a;--cardink:#1d1a00;--miss:light-dark(#c8281c,#ff6b5e);--hit:light-dark(#0d7a43,#41c47f);--disp:"Black Han Sans","Noto Sans KR",system-ui,sans-serif;--num:"Barlow Condensed","Noto Sans KR",system-ui,sans-serif}
 :root[data-theme=light]{color-scheme:light}
 :root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
@@ -268,3 +268,5 @@ pre{background:var(--panel);padding:12px;border-radius:8px;font-size:14px;white-
 .topup[hidden]{display:none}
 .grid4>.panel{margin:0}
 @media(min-width:721px){.row{grid-template-columns:max-content minmax(180px,1.3fr) minmax(0,.8fr) minmax(0,1.9fr)}}
+.trilegend{display:inline-flex;gap:12px;font-size:13px;color:var(--mute);margin-left:4px}
+.trilegend i{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:4px;vertical-align:-1px}
