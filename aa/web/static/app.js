@@ -304,21 +304,39 @@ async function renderBets() {
   const who = {};
   b.accounts.forEach(a => { who[a.member_id] = a; });
   const col = id => (who[id] && who[id].color) || '#0d5c35';
-  const slip = s => `<div class="panel slip" style="--mc:${esc(col(s.member_id))}">
+  const DOW = '일월화수목금토';
+  const when = k => { const [d, t] = [k.slice(0, 10), k.slice(11, 16)]; const [y, mo, da] = d.split('-').map(Number);
+    return `${mo}.${da} (${DOW[new Date(y, mo - 1, da).getDay()]}) <br>${t}`; };
+  const OPT = {home: '승', draw: '무', away: '패', under: '언더', over: '오버'};
+  const legRows = sz => (l, i) => {
+    const opts = l.opts || (l.market === '1x2' ? {home: null, draw: null, away: null} : {under: null, over: null});
+    if (opts[l.pick] == null) opts[l.pick] = l.odds;
+    const order = l.market === '1x2' ? ['home', 'draw', 'away'] : ['under', 'over'];
+    const btns = order.map(k => `<span class="tk-opt${k === l.pick ? ' on' : ''}">${OPT[k]}<b class="num">${opts[k] != null ? esc(opts[k]) : '-'}</b></span>`).join('');
+    const game = l.market === '1x2' ? '축구 승무패' : `축구 언더오버 <span class="tk-line">U/O ${esc(l.line)}</span>`;
+    return `<tr class="tk-match"><td class="tk-when">${when(l.kickoff)}</td><td class="tk-lg">⚽ ${esc(l.league || '')}</td>
+        <td colspan="2"><a href="#m-${encodeURIComponent(l.match_id)}"><b>${esc(l.home || l.title)}</b> <span class="mute small">vs</span> <b>${esc(l.away || '')}</b></a></td></tr>
+      <tr class="tk-game"><td class="tk-when">${when(l.kickoff)} 마감</td>
+        <td><span class="leg-no">${i + 1}</span> <span class="small mute">${esc(sz)}폴더 조합</span><br><b>${game}</b></td>
+        <td><div class="tk-opts n${order.length}">${btns}</div></td><td class="tk-res">${mark(l)}</td></tr>`;
+  };
+  const slip = s => `<div class="panel slip ticket" style="--mc:${esc(col(s.member_id))}">
     <div class="slip-head">
       <span class="who-badge">${esc(s.member_name)}</span>
       <span class="slip-size">${esc(s.size)}폴더</span>
-      <span class="slip-stake num">${W(s.stake)}</span>
+      <span class="small mute">${esc(s.placed_at)} 배팅</span>
       <span style="margin-left:auto">${st(s)}</span></div>
-    <p class="small mute" style="margin:6px 0 6px">배당 <b class="num">${esc(s.combined_odds)}</b> · 적중하면 <b class="num">${W(Math.floor(s.stake * s.combined_odds))}</b>${s.status === 'won' ? ` · 받은 돈 <b class="num">${W(s.payout)}</b>` : ''} · ${esc(s.days.join(', '))} 경기 · ${esc(s.placed_at)}</p>
-    <p class="small" style="margin:0 0 10px;padding:8px 10px;background:var(--soft, #f3f5f4);border-radius:8px">${howText(s)}</p>
-    <div class="legs">${s.legs.map((l, i) => `<div class="leg">
-      <div class="leg-top"><span class="leg-no">${i + 1}</span>
-        <span class="leg-pick">${esc(l.label)} <span class="num">@${esc(l.odds)}</span></span> ${mark(l)}</div>
-      <div class="leg-match"><a href="#m-${encodeURIComponent(l.match_id)}">${esc(l.title)}</a> <span class="small mute">${esc(l.kickoff.slice(5, 16))}</span></div>
-      <div class="small leg-why">AI 가능성 <b>${pctx(l.prob)}</b> · 본전 가능성(1÷배당) ${pctx(l.breakeven ?? 1 / l.odds)} · 100원당 <b class="${(l.ev ?? 0) >= 0 ? 'plus' : ''}">${won100((l.ev ?? (l.prob * l.odds - 1)) * 100)}</b></div>
-      ${l.reason ? `<div class="small mute leg-why">“${esc(l.reason)}”</div>` : ''}
-    </div>`).join('')}</div></div>`;
+    <div class="tk-scroll"><table class="tk">
+      <thead><tr><th>개최일시</th><th>종목 · 대회</th><th>대상경기(홈 vs 원정) · 게임주제</th><th>결과</th></tr></thead>
+      <tbody>${s.legs.map(legRows(s.size)).join('')}</tbody></table></div>
+    <table class="tk-sum"><thead><tr><th>선택경기수</th><th>예상배당률</th><th>개별투표금액</th><th>예상적중금액</th></tr></thead>
+      <tbody><tr><td>${esc(s.legs.length)}경기</td><td class="num">${esc(s.combined_odds)}배</td><td class="num">${W(s.stake)}</td><td class="num">${W(Math.floor(s.stake * s.combined_odds))}</td></tr>
+      <tr class="tk-total"><td colspan="4">총투표금액 <b class="num">${W(s.stake)}</b>${s.status === 'won' ? ` · 받은 돈 <b class="num">${W(s.payout)}</b>` : ''}</td></tr></tbody></table>
+    <div class="tk-explain"><h3>설명</h3>
+      <p class="small">${howText(s)}</p>
+      <ol class="small">${s.legs.map(l => `<li><b>${esc(l.title)} → ${esc(l.label)} @${esc(l.odds)}</b><br>
+        AI 가능성 <b>${pctx(l.prob)}</b> · 본전 가능성(1÷배당) ${pctx(l.breakeven ?? 1 / l.odds)} · 100원당 <b class="${(l.ev ?? 0) >= 0 ? 'plus' : ''}">${won100((l.ev ?? (l.prob * l.odds - 1)) * 100)}</b>
+        ${l.reason ? `<br><span class="mute">“${esc(l.reason)}”</span>` : ''}</li>`).join('')}</ol></div></div>`;
   const pick = store.get('aa_bet_who') || 'all';
   const shown = pick === 'all' ? b.accounts : b.accounts.filter(a => a.member_id === pick);
   view.innerHTML = `<section class="band"><div class="wrap"><h1>배팅 게임</h1>
