@@ -8,8 +8,8 @@
   "away": "Brentford",
   "odds": {
     "line": 2.5,
-    "home": 2.04,
-    "best_home": 2.22,
+    "home": 2.03,
+    "best_home": 2.2,
     "draw": 3.77,
     "best_draw": 4.04,
     "away": 3.3,
@@ -91,5 +91,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 10:55 KST"
+  "collected_at": "2026-11-24 14:31 KST"
 }
