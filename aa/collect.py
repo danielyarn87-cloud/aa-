@@ -13,7 +13,7 @@ from zoneinfo import ZoneInfo
 from .config import Company
 from .ledger import Ledger
 from .sources.api_football import ApiFootball
-from .sources.cache import ApiCache
+from .sources.cache import ApiCache, BudgetExceeded
 from .sources.odds_api import OddsApi
 
 SHRINK_GAMES = 3  # 경기 수가 적을 때 리그 평균 쪽으로 당기는 강도 (가상의 리그 평균 경기 3개를 섞음)
@@ -64,6 +64,28 @@ def _venue_stats(ts: dict, side: str, league_avg: dict) -> dict:
     }
 
 
+def _venue_from_table(row: dict | None, side: str, league_avg: dict) -> dict:
+    """팀 통계를 따로 부르지 않고 순위표의 홈/원정 성적으로 득실을 낸다 (호출 절약용, 경기 목록에만 쓰는 수준)."""
+    v = (row or {}).get(side) or {}
+    played = int(_f(v.get("played")))
+    goals = v.get("goals") or {}
+    gf = round(_f(goals.get("for")) / played, 3) if played else 0.0
+    ga = round(_f(goals.get("against")) / played, 3) if played else 0.0
+    lf = league_avg["home_goals"] if side == "home" else league_avg["away_goals"]
+    la = league_avg["away_goals"] if side == "home" else league_avg["home_goals"]
+    out = {
+        "설명": f"{'홈' if side == 'home' else '원정'} 경기 경기당 득실 ({played}경기, 순위표 기준, 리그 평균 쪽으로 {SHRINK_GAMES}경기만큼 보정)",
+        "xg_for": _shrink(gf, played, lf),
+        "xg_against": _shrink(ga, played, la),
+        "raw_goals_for": gf,
+        "raw_goals_against": ga,
+        "played": played,
+    }
+    if "win" in v:
+        out["record"] = f"{v['win']}승 {v.get('draw', 0)}무 {v.get('lose', 0)}패"
+    return out
+
+
 def _injuries(items: list, team_id: int) -> tuple[list[str], list[str]]:
     out, doubt = [], []
     for it in items:
@@ -89,17 +111,26 @@ def build_match(af: ApiFootball, league_cfg: dict, fixture: dict, odds_events: l
     season = league_cfg["season"]
     standings = af.standings(league_cfg["api_football_id"], season)
     lavg = league_averages(standings)
-    ts_h = af.team_stats(league_cfg["api_football_id"], season, home["id"])
-    ts_a = af.team_stats(league_cfg["api_football_id"], season, away["id"])
-    inj = af.injuries(fx["id"])
-    h_out, h_doubt = _injuries(inj, home["id"])
-    a_out, a_doubt = _injuries(inj, away["id"])
+    rh, ra = _row(standings, home["id"]), _row(standings, away["id"])
+    if light:  # 목록용: 리그당 한 번 받은 순위표만 쓰고 경기별 호출은 하지 않는다
+        st_h, st_a = _venue_from_table(rh, "home", lavg), _venue_from_table(ra, "away", lavg)
+        h_out = h_doubt = a_out = a_doubt = []
+        lineup_note = "호출 절약 수집이라 부상자 목록을 받지 않음"
+    else:
+        st_h = _venue_stats(af.team_stats(league_cfg["api_football_id"], season, home["id"]), "home", lavg)
+        st_a = _venue_stats(af.team_stats(league_cfg["api_football_id"], season, away["id"]), "away", lavg)
+        inj = af.injuries(fx["id"])
+        h_out, h_doubt = _injuries(inj, home["id"])
+        a_out, a_doubt = _injuries(inj, away["id"])
+        lineup_note = "API-Football 부상자 목록 기준, 라인업 미발표"
 
     kickoff = datetime.fromisoformat(fx["date"]).astimezone(ZoneInfo(tz))
     data: dict = {
         "id": f"AF-{fx['id']}",
         "sport": "soccer",
         "league": f"{league_cfg['name']} {lg.get('round', '')}".strip(),
+        "league_id": league_cfg["api_football_id"],
+        "league_name": league_cfg["name"],
         "kickoff": kickoff.strftime("%Y-%m-%d %H:%M KST"),
         "kickoff_iso": kickoff.isoformat(),
         "home": home["name"],
@@ -109,17 +140,17 @@ def build_match(af: ApiFootball, league_cfg: dict, fixture: dict, odds_events: l
         "stats": {
             "basis": "venue",
             "metric": "goals",
-            "설명": "API-Football 팀 통계의 홈/원정 경기당 득실 (xG 아님)",
-            "home": _venue_stats(ts_h, "home", lavg),
-            "away": _venue_stats(ts_a, "away", lavg),
+            "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+            "home": st_h,
+            "away": st_a,
         },
         "lineup": {"home_absent": h_out, "home_doubtful": h_doubt, "away_absent": a_out, "away_doubtful": a_doubt,
-                   "confirmed": False, "설명": "API-Football 부상자 목록 기준, 라인업 미발표"},
+                   "confirmed": False, "설명": lineup_note},
+        "collected_detail": "light" if light else "full",
         "venue": (fx.get("venue") or {}).get("name"),
         "source_ids": {"api_football_fixture": fx["id"], "home_team": home["id"], "away_team": away["id"],
                        "league": league_cfg["api_football_id"], "season": season},
     }
-    rh, ra = _row(standings, home["id"]), _row(standings, away["id"])
     if rh and ra:
         def t(r):
             a = r["all"]
@@ -185,31 +216,57 @@ def collect(company: Company, days: int = 3, leagues: list[int] | None = None, l
     for lc in ds.get("leagues", []):
         if leagues and lc["api_football_id"] not in leagues:
             continue
-        fixtures = af.fixtures(lc["api_football_id"], lc["season"], start.isoformat(), end.isoformat(), tz)
-        fixtures = [f for f in fixtures if f["fixture"]["status"]["short"] in ("NS", "TBD")]
-        if not fixtures:
-            continue
-        events = None
-        if with_odds and lc.get("odds_key"):
-            try:
-                events = od.odds(lc["odds_key"])
-            except Exception as e:  # 배당이 없어도 경기 자료는 만든다
-                log(f"  배당 수집 실패 ({lc['name']}): {e}")
-        log(f"{lc['name']}: 예정 경기 {len(fixtures)}개")
-        for f in fixtures:
-            if limit is not None and len(written) >= limit:
-                return written
-            this_light = light
-            if not light and full_within_hours is not None:
-                ko = datetime.fromisoformat(f["fixture"]["date"])
-                this_light = ko > now + timedelta(hours=full_within_hours)
-            m = build_match(af, lc, f, events, ds.get("team_aliases", {}), dept.over_under_line, this_light, tz)
-            path = out_dir / f"{m['id']}.json"
-            path.write_text(json.dumps(m, ensure_ascii=False, indent=2), encoding="utf-8")
-            written.append(path)
-            log(f"  - {m['kickoff']} {m['home']} vs {m['away']} → {path.name}")
+        try:
+            written += _collect_league(af, od, lc, ds, dept, out_dir, now, start, end, tz, light, with_odds,
+                                       full_within_hours, None if limit is None else limit - len(written), log)
+        except BudgetExceeded as e:  # 한도에 닿으면 여기까지 모은 것만 쓴다
+            log(f"{lc['name']}: {e}")
+            break
+        if limit is not None and len(written) >= limit:
+            break
     log(f"API-Football 오늘 사용량: {cache.used('api_football', 'day')} / {af.daily_limit}, "
         f"The Odds API 이번 달 사용량: {cache.used('odds_api', 'month')} / {od.monthly}")
+    return written
+
+
+def _collect_league(af, od, lc, ds, dept, out_dir, now, start, end, tz, light, with_odds, full_within_hours,
+                    room, log) -> list[Path]:
+    written: list[Path] = []
+    fixtures = af.fixtures(lc["api_football_id"], lc["season"], start.isoformat(), end.isoformat(), tz)
+    fixtures = [f for f in fixtures if f["fixture"]["status"]["short"] in ("NS", "TBD")]
+    if not fixtures:
+        return written
+    events = None
+    if with_odds and lc.get("odds_key"):
+        try:
+            events = od.odds(lc["odds_key"])
+        except Exception as e:  # 배당이 없어도 경기 자료는 만든다
+            log(f"  배당 수집 실패 ({lc['name']}): {e}")
+    log(f"{lc['name']}: 예정 경기 {len(fixtures)}개")
+    for f in fixtures:
+        if room is not None and len(written) >= room:
+            return written
+        this_light = light
+        if not light and full_within_hours is not None:
+            ko = datetime.fromisoformat(f["fixture"]["date"])
+            this_light = ko > now + timedelta(hours=full_within_hours)
+        try:
+            m = build_match(af, lc, f, events, ds.get("team_aliases", {}), dept.over_under_line, this_light, tz)
+        except BudgetExceeded:
+            if this_light:
+                raise
+            log("  API 한도가 가까워 이 경기부터는 호출 절약 방식으로 모읍니다")
+            light = True
+            m = build_match(af, lc, f, events, ds.get("team_aliases", {}), dept.over_under_line, True, tz)
+        path = out_dir / f"{m['id']}.json"
+        if m.get("collected_detail") == "light" and path.exists():  # 자세히 모은 자료는 배당만 새로 고친다
+            old = json.loads(path.read_text(encoding="utf-8"))
+            if old.get("collected_detail", "full") == "full":
+                old["odds"], old["kickoff"], old["kickoff_iso"] = m["odds"], m["kickoff"], m["kickoff_iso"]
+                m = old
+        path.write_text(json.dumps(m, ensure_ascii=False, indent=2), encoding="utf-8")
+        written.append(path)
+        log(f"  - {m['kickoff']} {m['home']} vs {m['away']} → {path.name}")
     return written
 
 
