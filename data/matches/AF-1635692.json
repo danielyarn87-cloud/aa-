@@ -1,0 +1,89 @@
+{
+  "id": "AF-1635692",
+  "sport": "soccer",
+  "league": "챔피언스리그 League Stage - 5",
+  "kickoff": "2026-11-25 05:00 KST",
+  "kickoff_iso": "2026-11-25T05:00:00+09:00",
+  "home": "Manchester City",
+  "away": "Napoli",
+  "odds": {
+    "line": 2.5,
+    "home": 1.28,
+    "best_home": 1.32,
+    "draw": 6.23,
+    "best_draw": 6.8,
+    "away": 9.03,
+    "best_away": 10.5,
+    "over": 1.31,
+    "best_over": 1.31,
+    "under": 3.47,
+    "best_under": 3.51,
+    "source": "The Odds API 평균 배당 (승무패 23곳, 언더/오버 3곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 2.319,
+    "away_goals": 1.722
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 팀 통계의 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 2.791,
+      "xg_against": 2.033,
+      "raw_goals_for": 3.5,
+      "raw_goals_against": 2.5,
+      "played": 2,
+      "record": "1승 0무 1패",
+      "form": "WLWW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.433,
+      "xg_against": 2.791,
+      "raw_goals_for": 1.0,
+      "raw_goals_against": 3.5,
+      "played": 2,
+      "record": "0승 0무 2패",
+      "form": "LLWL"
+    }
+  },
+  "lineup": {
+    "home_absent": [
+      "M. Nunes (Injury)",
+      "A. Semenyo (Knee Injury)"
+    ],
+    "home_doubtful": [],
+    "away_absent": [
+      "Alisson Santos (Muscle Injury)",
+      "B. Badiashile (Muscle Injury)",
+      "A. Buongiorno (Knee Injury)",
+      "David Neres (Thigh Injury)",
+      "G. Di Lorenzo (Muscle Injury)",
+      "S. Lobotka (Ankle Injury)",
+      "L. Marianucci (Off the roster)",
+      "R. Marin (Red Card)",
+      "A. Meret (Back Injury)",
+      "A. Vergara (Injury)"
+    ],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "venue": "Etihad Stadium",
+  "source_ids": {
+    "api_football_fixture": 1635692,
+    "home_team": 50,
+    "away_team": 492,
+    "league": 2,
+    "season": 2026
+  },
+  "table": "Manchester City 7위 9점 (3승0무1패, 득실 +5) / Napoli 27위 3점 (1승0무3패, 득실 -5)",
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 14:43 KST"
+}
