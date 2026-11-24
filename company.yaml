@@ -20,7 +20,8 @@ automation:
   collect_days: 2               # 오늘부터 며칠 뒤 경기까지 모을지
   analyze_within_hours: 48      # 킥오프가 이 시간 안에 있는 경기만 분석
   max_analyses_per_day: 10      # 하루 분석 경기 수 상한 (Claude API 비용 관리, 경기당 호출 6회)
-  leagues: [39]                 # 자동으로 다룰 리그 (API-Football 번호). 처음엔 프리미어리그만
+  leagues: [39, 2]              # 자동으로 다룰 리그 (API-Football 번호). 39 프리미어리그, 2 챔피언스리그
+  light: false                  # true 면 모든 경기를 호출 절약 방식으로 (킥오프 48시간 밖 경기는 늘 절약 방식)
 
 # 데이터 공급처. API 키는 여기 적지 말고 환경변수로 넣으세요 (API_FOOTBALL_KEY, ODDS_API_KEY).
 data_sources:
