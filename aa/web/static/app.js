@@ -12,6 +12,8 @@ const TH = 0.05;
 const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
 const pct = (x, d = 0) => x == null ? '-' : (x * 100).toFixed(d) + '%';
 /* 기대값을 100원당 평균 손익으로: 0.097 → +10원 */
+const OX = h => h === true ? '<span class="ox o">○</span>' : h === false ? '<span class="ox x">✕</span>' : '';
+const rate = (h, n) => n ? `${h}/${n} <b>${Math.round(h / n * 100)}%</b>` : '-';
 const won = x => x == null ? '-' : (x >= 0 ? '+' : '−') + Math.abs(Math.round(x * 100)) + '원';
 /* 결과 이름: 팀 이름을 쓴다 */
 const names = (home, away, line) => {
@@ -90,6 +92,7 @@ async function renderList() {
     ${Object.keys(lgCount).length > 1 ? `<div class="chips lgchips" role="group" aria-label="리그 거르기">
       <button class="chip" data-lg="all" aria-pressed="${leagueFilter === 'all'}">모든 리그 <span class="num">${all.length}</span></button>
       ${Object.entries(lgCount).sort((a, b) => b[1] - a[1]).map(([n, c]) => `<button class="chip" data-lg="${esc(n)}" aria-pressed="${leagueFilter === n}">${esc(n)} <span class="num">${c}</span></button>`).join('')}</div>` : ''}
+    ${accBar(shown, listFilter === 'mine' ? '내가 고른 경기' : leagueFilter !== 'all' ? leagueFilter : '이번 목록')}
     <p class="small mute" style="margin:0"><span class="tag pick">예측</span> 가장 유력하다고 본 결과 · 하늘색 <span class="tag value">이득</span> 우리가 본 가능성에 비해 배당이 후한 선택 · <span class="tag both"><span class="star">★ 예측+이득</span></span> 노란 바탕 빨간 글씨, 둘 다 해당 (가장 강한 신호)</p>
     ${shown.length ? days.map(d => `<h2 class="day">${esc(dayLabel(d))}</h2>${shown.filter(m => dayOf(m.kickoff) === d).map(rowHtml).join('')}`).join('')
       : `<p class="empty">조건에 맞는 경기가 없습니다.${STATIC ? ' <a href="#run">분석 요청</a>에서 리그를 골라 경기를 가져오세요.' : ''}</p>`}
@@ -104,6 +107,16 @@ async function renderList() {
     pickBar();
   });
   pickBar();
+}
+function accBar(ms, label) {
+  const done = ms.filter(m => m.result);
+  if (!done.length) return `<div class="accbar"><b>${esc(label)} 적중률</b><span class="mute">아직 결과가 나온 경기가 없습니다. 경기가 끝나면 자동으로 채점됩니다.</span></div>`;
+  const p1 = done.filter(m => m.result.hit_1x2 != null), po = done.filter(m => m.result.hit_ou != null);
+  return `<div class="accbar"><b>${esc(label)} 적중률</b>
+    <span>결과 나온 <b class="num">${done.length}</b>경기</span>
+    <span>승무패 <span class="num">${rate(p1.filter(m => m.result.hit_1x2).length, p1.length)}</span></span>
+    <span>언더/오버 <span class="num">${rate(po.filter(m => m.result.hit_ou).length, po.length)}</span></span>
+    <a href="#record" class="small">분석가별 보기 →</a></div>`;
 }
 const pickSet = () => new Set((store.get('aa_pick_ids') || '').split(',').filter(Boolean));
 function pickBar() {
@@ -132,7 +145,10 @@ function rowHtml(m) {
   tags.push(`<span class="tag ${both(m.pick_ou) ? 'both' : ''}">${m.pick_ou ? (both(m.pick_ou) ? star : '') + lab(m.pick_ou) + at(m.pick_ou) : '골 수 판단 보류'}</span>`);
   const rest = va.filter(k => k !== m.pick_1x2 && k !== m.pick_ou);
   if (rest.length) tags.push(`<span class="tag value">이득 ${rest.map(k => lab(k) + at(k)).join(' · ')}</span>`);
-  if (m.result) tags.push(`<span class="tag ${m.result.hit_1x2 ? 'hit' : m.result.hit_1x2 === false ? 'miss' : ''}">${esc(m.result.score)} ${m.result.hit_1x2 ? '적중' : m.result.hit_1x2 === false ? '빗나감' : ''}</span>`);
+  if (m.result) {
+    tags.push(`<span class="tag ${m.result.hit_1x2 ? 'hit' : m.result.hit_1x2 === false ? 'miss' : ''}">${esc(m.result.score)} 승무패 ${m.result.hit_1x2 ? '적중' : m.result.hit_1x2 === false ? '빗나감' : '보류'}</span>`);
+    if (m.result.hit_ou != null) tags.push(`<span class="tag ${m.result.hit_ou ? 'hit' : 'miss'}">언오버 ${m.result.hit_ou ? '적중' : '빗나감'}</span>`);
+  }
   if (m.mock) tags.push('<span class="tag wait">모의</span>');
   if (m.picked) tags.unshift('<span class="tag mine">내가 고름</span>');
   return `<a class="row" href="#m-${encodeURIComponent(m.id)}">${head}${tri(m.probs)}<span class="tags">${tags.join('')}</span></a>`;
@@ -238,9 +254,9 @@ async function renderMatch(id) {
       </article>`).join('')}
     </div></div>
 
-    <div class="sec"><h2>토론 전후 변화</h2><div class="scroll"><table class="stack">
-      <thead><tr><th>분석가</th><th>처음 고른 결과</th><th>최종</th><th class="r">처음 가능성 (승/무/패)</th><th class="r">최종 가능성 (승/무/패)</th><th class="r">오버 가능성</th></tr></thead><tbody>
-      ${r.final.map(o => { const f = first[o.member_id] || o; return `<tr><td data-l="분석가"><b>${esc(o.member_name)}</b></td><td data-l="처음 고른 결과">${esc(N[f.pick_1x2])}</td><td data-l="최종"><b>${esc(N[o.pick_1x2])}</b></td><td data-l="처음 가능성" class="r num">${pct(f.probs.home)}/${pct(f.probs.draw)}/${pct(f.probs.away)}</td><td data-l="최종 가능성" class="r num">${pct(o.probs.home)}/${pct(o.probs.draw)}/${pct(o.probs.away)}</td><td data-l="오버 가능성" class="r num">${pct(f.over_prob)}→${pct(o.over_prob)}</td></tr>`; }).join('')}
+    <div class="sec"><h2>토론 전후 변화${s.result ? ` <span class="small mute">결과 ${esc(s.result.score)} · ○ 맞음 ✕ 틀림</span>` : ''}</h2><div class="scroll"><table class="stack">
+      <thead><tr><th>분석가</th><th>처음 고른 결과</th><th>최종</th><th>골 수 (처음→최종)</th><th class="r">처음 가능성 (승/무/패)</th><th class="r">최종 가능성 (승/무/패)</th><th class="r">오버 가능성</th></tr></thead><tbody>
+      ${r.final.map(o => { const f = first[o.member_id] || o; return `<tr><td data-l="분석가"><b>${esc(o.member_name)}</b></td><td data-l="처음 고른 결과">${esc(N[f.pick_1x2])} ${OX(f.hit_1x2)}</td><td data-l="최종"><b>${esc(N[o.pick_1x2])}</b> ${OX(o.hit_1x2)}</td><td data-l="골 수">${esc(N[f.pick_ou + 'S'])} ${OX(f.hit_ou)} → ${esc(N[o.pick_ou + 'S'])} ${OX(o.hit_ou)}</td><td data-l="처음 가능성" class="r num">${pct(f.probs.home)}/${pct(f.probs.draw)}/${pct(f.probs.away)}</td><td data-l="최종 가능성" class="r num">${pct(o.probs.home)}/${pct(o.probs.draw)}/${pct(o.probs.away)}</td><td data-l="오버 가능성" class="r num">${pct(f.over_prob)}→${pct(o.over_prob)}</td></tr>`; }).join('')}
       </tbody></table></div></div>
 
     <div class="sec"><h2>분석에 쓴 자료</h2><div class="facts">
@@ -288,23 +304,35 @@ async function renderTeam() {
 /* ---------- 인사평가 ---------- */
 async function renderRecord() {
   const r = await api('/api/record');
+  const cstat = (c, label) => `<div class="rules" style="margin-top:12px">
+        <div class="stat"><span class="num">${esc(c.settled)}</span><span>${label} 채점한 경기</span></div>
+        <div class="stat"><span class="num">${pct(c.acc_1x2, 1)}</span><span>팀 결론 승무패 적중률 (예측 ${esc(c.picks_1x2)}, 판단 보류 ${esc(c.passes_1x2)})</span></div>
+        <div class="stat"><span class="num">${pct(c.acc_ou, 1)}</span><span>팀 결론 언더/오버 적중률</span></div>
+        <div class="stat"><span class="num">${won(c.roi_1x2)}</span><span>승무패 예측을 100원씩 샀다면 경기당 평균 손익</span></div>
+      </div>`;
   view.innerHTML = `<section class="band"><div class="wrap"><h1>인사평가</h1>
-    <p class="lead mute">경기가 끝나면 모든 예측을 채점합니다. ${esc(r.min_samples)}경기 이상 채점된 분석가는 성적에 따라 다음 경기 투표 비중이 바뀝니다. 모의 실행은 빠집니다.</p>
-    ${r.departments.map(d => { const c = d.company; return `<div class="sec"><h2>${esc(d.department)}</h2>
-      <div class="rules" style="margin-top:12px">
-        <div class="stat"><span class="num">${esc(c.settled)}</span><span>채점한 경기</span></div>
-        <div class="stat"><span class="num">${pct(c.acc_1x2, 1)}</span><span>승패 적중률 (예측 ${esc(c.picks_1x2)}, 판단 보류 ${esc(c.passes_1x2)})</span></div>
-        <div class="stat"><span class="num">${won(c.roi_1x2)}</span><span>승패 예측을 100원씩 샀다면 경기당 평균 손익</span></div>
-        <div class="stat"><span class="num">${pct(c.acc_ou, 1)}</span><span>골 수(언더/오버) 적중률</span></div>
-      </div>
-      ${d.members.length ? `<div class="scroll sec"><table class="stack"><thead><tr><th>분석가</th><th class="r">경기</th><th class="r">승패 적중</th><th class="r">가능성 오차</th><th class="r">골 수 적중</th><th class="r">100원당 손익</th><th class="r">다음 투표 비중</th></tr></thead><tbody>
-        ${d.members.map(s => `<tr><td data-l="분석가">${esc(s.name)}</td><td data-l="경기" class="r num">${esc(s.n)}</td><td data-l="승패 적중" class="r num">${pct(s.acc_1x2, 1)}</td><td data-l="가능성 오차" class="r num">${s.brier_1x2.toFixed(3)}</td><td data-l="골 수 적중" class="r num">${pct(s.acc_ou, 1)}</td><td data-l="100원당 손익" class="r num">${won(s.roi_1x2)}</td><td data-l="다음 투표 비중" class="r num">${s.votes === false ? '<span class="mute">투표 안 함 (비교용)</span>' : s.weight.toFixed(2)}</td></tr>`).join('')}
-      </tbody></table></div><p class="small mute">가능성 오차는 "몇 %로 봤는데 실제로 어땠나"를 잰 점수(브라이어 점수)로, 낮을수록 잘 맞힌 것입니다.</p>`
+    <p class="lead mute">경기가 끝나면 모든 예측을 자동으로 채점합니다. <b>1차</b>는 혼자 처음 낸 분석, <b>최종</b>은 토론 뒤 고친 분석입니다. ${esc(r.min_samples)}경기 이상 채점된 분석가는 성적에 따라 투표 비중이 바뀝니다 (호구형은 투표 안 하는 비교용). 모의 실행은 빠집니다.</p>
+    ${r.departments.map(d => {
+      const ini = Object.fromEntries((d.members_initial || []).map(x => [x.member_id, x]));
+      const mine = Object.fromEntries((d.members_mine || []).map(x => [x.member_id, x]));
+      const cell = (x, k) => x ? pct(x[k], 0) : '-';
+      return `<div class="sec"><h2>${esc(d.department)}</h2>
+      <h3 style="margin-top:14px">전체 경기</h3>${cstat(d.company, '전체')}
+      <h3 style="margin-top:14px">★ 내가 고른 경기</h3>${d.company_mine && d.company_mine.settled ? cstat(d.company_mine, '내가 고른') : '<p class="empty">내가 고른 경기 중 아직 결과가 나온 경기가 없습니다. 분석 요청한 경기가 끝나면 여기에 쌓입니다.</p>'}
+      <h3 style="margin-top:18px">분석가별 적중률</h3>
+      ${d.members.length ? `<div class="scroll"><table class="stack rec"><thead><tr><th>분석가</th><th class="r">채점 경기</th><th class="r">승무패<br>1차 → 최종</th><th class="r">언더/오버<br>1차 → 최종</th><th class="r">내가 고른 경기<br>승무패 · 언오버</th><th class="r">가능성 오차</th><th class="r">100원당 손익</th><th class="r">투표 비중</th></tr></thead><tbody>
+        ${d.members.map(x => { const i = ini[x.member_id], m = mine[x.member_id]; return `<tr style="--mc:${esc(x.color || '#333')}"><td data-l="분석가"><span class="who-badge sm">${esc(x.name)}</span></td><td data-l="채점 경기" class="r num">${esc(x.n)}</td>
+          <td data-l="승무패 1차→최종" class="r num">${cell(i, 'acc_1x2')} → <b>${pct(x.acc_1x2, 0)}</b></td>
+          <td data-l="언오버 1차→최종" class="r num">${cell(i, 'acc_ou')} → <b>${pct(x.acc_ou, 0)}</b></td>
+          <td data-l="내가 고른 경기" class="r num">${m ? `${pct(m.acc_1x2, 0)} · ${pct(m.acc_ou, 0)} <span class="mute">(${esc(m.n)})</span>` : '-'}</td>
+          <td data-l="가능성 오차" class="r num">${x.brier_1x2.toFixed(3)}</td><td data-l="100원당 손익" class="r num">${won(x.roi_1x2)}</td>
+          <td data-l="투표 비중" class="r num">${x.votes === false ? '<span class="mute">투표 안 함</span>' : x.weight.toFixed(2)}</td></tr>`; }).join('')}
+      </tbody></table></div><p class="small mute">1차 → 최종: 혼자 판단했을 때와 토론 뒤의 적중률입니다. 토론으로 나아졌는지 볼 수 있습니다. 가능성 오차(브라이어 점수)는 낮을수록 잘 맞힌 것입니다.</p>`
         : '<p class="empty">아직 결과가 들어온 경기가 없습니다. 첫 경기가 끝나면 여기에 성적이 쌓입니다.</p>'}</div>`; }).join('')}
   </div></section>`;
 }
 
-/* ---------- 배팅 게임: AI 3명이 가상 100만원으로 3·5·7폴더 ---------- */
+/* ---------- 배팅 게임: 분석가들이 가상 100만원으로 3·5·7폴더 ---------- */
 async function renderBets() {
   const b = await api('/api/bets');
   const W = n => (n < 0 ? '−' : '') + Math.abs(Math.round(n)).toLocaleString('ko-KR') + '원';
@@ -359,23 +387,55 @@ async function renderBets() {
   const shown = pick === 'all' ? b.accounts : b.accounts.filter(a => a.member_id === pick);
   view.innerHTML = `<section class="band"><div class="wrap"><h1>배팅 게임</h1>
     <p class="lead mute">분석가들이 각자 가상 자금 <b>${W(b.start_bankroll)}</b>으로 자기 예측만 믿고 3폴더·5폴더·7폴더 조합 배팅을 합니다. 한 장에 ${W(b.min_stake)}~${W(b.max_stake)}, 경기는 이틀 안에서만 고릅니다. 실제 돈이 아닌 실력 비교용입니다.</p>
-    <div class="grid3">${b.accounts.map(a => `<button type="button" class="panel acc-card" data-who="${esc(a.member_id)}" aria-pressed="${pick === a.member_id}" style="--mc:${esc(col(a.member_id))}">
+    <div class="grid4">${b.accounts.map(a => { const bs = a.by_size || {}; return `<div class="panel acc-card" aria-pressed="${pick === a.member_id}" style="--mc:${esc(col(a.member_id))}">
       <span class="who-badge">${esc(a.name)}</span> <span class="small mute">${esc(a.title)}</span>
       <span class="num acc-value">${W(a.value)}</span>
-      <span class="small" style="display:block;margin:2px 0 8px">손익 <b class="num">${a.profit >= 0 ? '+' : ''}${W(a.profit)}</b> (${((a.profit / b.start_bankroll) * 100).toFixed(1)}%)</span>
-      <span class="small mute" style="display:block">남은 돈 ${W(a.bankroll)} · 걸어 둔 돈 ${W(a.at_risk)} · 적중 ${esc(a.won)}/${esc(a.settled)}장</span>
-      <span class="small acc-hint">${pick === a.member_id ? '이 사람 배팅만 보는 중' : '눌러서 이 사람 배팅만 보기'}</span></button>`).join('')}</div>
-    <div class="chips" style="margin-top:14px"><button class="chip" data-who="all" aria-pressed="${pick === 'all'}">세 사람 모두 보기</button></div>
+      <span class="small" style="display:block;margin:2px 0 8px">손익 <b class="num">${a.profit >= 0 ? '+' : ''}${W(a.profit)}</b> (${((a.profit / (b.start_bankroll + (a.deposited || 0))) * 100).toFixed(1)}%)${a.deposited ? ` · <span class="mute">추가로 넣은 돈 ${W(a.deposited)}</span>` : ''}</span>
+      <div class="acc-rates">
+        <div><span>배팅 적중</span><b class="num">${rate(a.won, a.settled)}</b></div>
+        <div><span>경기별 적중</span><b class="num">${rate(a.legs_hit || 0, a.legs_settled || 0)}</b></div>
+        <div class="small mute">${['3', '5', '7'].map(k => `${k}폴더 ${bs[k] ? `${bs[k].won}/${bs[k].settled}` : '0/0'}`).join(' · ')}</div>
+      </div>
+      <span class="small mute" style="display:block">남은 돈 ${W(a.bankroll)} · 걸어 둔 돈 ${W(a.at_risk)}</span>
+      <div class="acc-actions"><button type="button" class="btn ghost sm" data-who="${esc(a.member_id)}">${pick === a.member_id ? '모두 보기' : '이 사람 배팅만'}</button>
+        ${STATIC ? `<button type="button" class="btn ghost sm" data-topup="${esc(a.member_id)}">＋ 금액 넣기</button>` : ''}</div>
+      <div class="topup" id="tu-${esc(a.member_id)}" hidden>
+        <div class="chips">${[100000, 500000, 1000000].map(v => `<button type="button" class="chip" data-amt="${v}">${W(v)}</button>`).join('')}</div>
+        <input type="number" min="10000" max="10000000" step="10000" placeholder="직접 입력 (원)" class="tu-amt">
+        <input type="password" placeholder="분석 요청 비밀번호" class="tu-pw" value="${esc(store.get('aa_run_pw'))}" autocomplete="current-password">
+        <button type="button" class="btn sm tu-go">넣기</button><p class="small tu-msg" role="status"></p>
+      </div></div>`; }).join('')}</div>
+    <div class="chips" style="margin-top:14px"><button class="chip" data-who="all" aria-pressed="${pick === 'all'}">모두 보기</button></div>
     ${shown.map(a => {
       const mine = b.slips.filter(s => s.member_id === a.member_id);
-      return `<h2 class="who-title" style="--mc:${esc(col(a.member_id))}"><span class="dot"></span>${esc(a.name)}의 배팅 <span class="small mute">${mine.length}장</span></h2>${mine.length ? mine.map(slip).join('') : '<p class="empty">아직 배팅이 없습니다. 분석이 끝난 경기가 생기면 자동으로 겁니다.</p>'}`;
+      return `<h2 class="who-title" style="--mc:${esc(col(a.member_id))}"><span class="dot"></span>${esc(a.name)}의 배팅 <span class="small mute">${mine.length}장 · 배팅 적중 ${rate(a.won, a.settled)}</span></h2>${mine.length ? mine.map(slip).join('') : '<p class="empty">아직 배팅이 없습니다. 분석이 끝난 경기가 생기면 자동으로 겁니다.</p>'}`;
     }).join('')}
-    <p class="small mute" style="margin-top:24px">고르는 법: 각 분석가가 경기마다 자기 최종 가능성으로 승무패·언더오버 중 가장 이득인 선택 하나를 고릅니다(가능성 45% 미만은 제외). 그중 100원당 평균 손익이 큰 경기부터 3·5·7개를 담습니다. 금액은 켈리 기준의 1/4(자신 있을수록 많이)을 한도 안에서 1,000원 단위로. 배당은 북메이커 평균. 배당 자료가 없는 리그·대회(K리그2·J2리그·AFC챔피언스리그)는 빠집니다.</p>
+    <p class="small mute" style="margin-top:24px">고르는 법: 각 분석가가 경기마다 자기 최종 가능성으로 승무패·언더오버 중 가장 이득인 선택 하나를 고릅니다(가능성 45% 미만은 제외). 그중 100원당 평균 손익이 큰 경기부터 3·5·7개를 담습니다. 금액은 켈리 기준의 1/4(자신 있을수록 많이)을 한도 안에서 1,000원 단위로. 배당은 북메이커 평균. 배당 자료가 없는 리그·대회(K리그2·J2리그·AFC챔피언스리그)는 빠집니다. 추가로 넣은 돈은 손익에서 빼고 계산합니다.</p>
   </div></section>`;
   view.querySelectorAll('[data-who]').forEach(el => el.onclick = () => {
     const w = el.dataset.who;
     store.set('aa_bet_who', w === pick && w !== 'all' ? 'all' : w);
     renderBets();
+  });
+  view.querySelectorAll('[data-topup]').forEach(el => el.onclick = () => {
+    const box = document.getElementById('tu-' + el.dataset.topup); box.hidden = !box.hidden;
+  });
+  view.querySelectorAll('.topup').forEach(box => {
+    const who = box.id.slice(3), amt = box.querySelector('.tu-amt'), msg = box.querySelector('.tu-msg');
+    box.querySelectorAll('[data-amt]').forEach(c => c.onclick = () => { amt.value = c.dataset.amt; });
+    box.querySelector('.tu-go').onclick = async e => {
+      const v = Math.floor(+amt.value / 1000) * 1000, pw = box.querySelector('.tu-pw').value;
+      if (!(v >= 10000 && v <= 10000000)) { msg.textContent = '1만원 ~ 1,000만원 사이로 넣으세요.'; return; }
+      if (!pw) { msg.textContent = '비밀번호를 넣으세요.'; return; }
+      e.target.disabled = true; msg.textContent = '넣는 중…';
+      try {
+        const r = await fetch('/api/topup', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({password: pw, member_id: who, amount: v})});
+        const j = await r.json().catch(() => ({}));
+        if (!r.ok) throw new Error(j.error || ('실패 ' + r.status));
+        msg.textContent = `${W(v)} 넣었습니다. 1~2분 뒤 사이트가 새로 만들어지면 잔액에 보입니다.`;
+      } catch (err) { msg.textContent = err.message; }
+      e.target.disabled = false;
+    };
   });
 }
 
