@@ -183,6 +183,12 @@ NAMES: dict[str, str] = {
     "Lincoln Red Imps FC": "링컨 레드 임프스", "Mjallby AIF": "옐뷔", "OFI": "OFI 크레타", "Omonia Nicosia": "오모니아",
     "Plzen": "플젠", "Riga": "리가 FC", "Torreense": "토렌스", "Universitatea Craiova": "우니베르시타테아 크라이오바",
     "Bolton": "볼턴",
+    "ADO Den Haag": "ADO 덴하흐", "Academico Viseu": "아카데미쿠 비제우", "Amed": "아메드", "Asan Mugunghwa": "충남아산",
+    "Cambuur": "캄뷔르", "Erzurumspor FK": "에르주룸스포르", "Estac Troyes": "트루아", "Gençlerbirliği S.K.": "겐칠레르비를리이",
+    "Gimhae City": "김해 FC", "Gimpo Citizen": "김포 FC", "KVC Westerlo": "베스테를로", "Kortrijk": "코르트레이크", "Le Mans": "르망",
+    "Lommel United": "로멜", "Malaga": "말라가", "Maritimo": "마리티모", "Newcastle Jets": "뉴캐슬 제츠", "Paju Citizen": "파주 시민",
+    "QPR": "QPR", "RAAL La Louvière": "라루비에르", "SK Beveren": "베버런", "SV Elversberg": "엘버스베르크", "Suwon Bluewings": "수원 삼성",
+    "Vitória SC": "비토리아 기마랑이스", "Yongin City": "용인 FC", "Çorum FK": "초룸 FK",
 }
 
 def _key(name: str) -> str:
