@@ -362,3 +362,8 @@ pre{background:var(--panel);padding:12px;border-radius:8px;font-size:14px;white-
 @media(max-width:720px){.row .mid{grid-column:2}}
 .bettabs{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:16px}
 .brand .logo{display:block;width:36px;height:36px;border-radius:9px;box-shadow:0 0 0 1px rgba(244,241,232,.35)}
+.fr-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:8px}
+.fr-card{border:1px solid var(--line);border-top:4px solid var(--mc);border-radius:10px;padding:12px 14px;display:grid;gap:8px;background:color-mix(in srgb,var(--mc) 6%,#fff);color:#1d2520}
+.fr-head{display:flex;align-items:center;gap:8px}.fr-rank{font-size:18px;font-weight:700;color:var(--mc)}
+.fr-nums{display:grid;grid-template-columns:1fr 1fr;gap:8px}.fr-nums>div{display:flex;flex-direction:column}
+.fr-nums b{font-size:30px;line-height:1.1}
