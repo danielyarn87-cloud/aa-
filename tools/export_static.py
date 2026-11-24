@@ -1,0 +1,61 @@
+"""정적 사이트 내보내기: Cloudflare Pages 같은 무료 정적 호스팅에 올릴 폴더를 만든다.
+
+dist/site/
+  index.html            화면 (읽기 전용 모드)
+  static/               style.css, app.js
+  manifest.webmanifest
+  api/matches.json      경기 목록
+  api/matches/<id>.json 경기 분석 전체
+  api/company.json      조직도
+  api/record.json       인사평가
+같은 JSON 파일을 나중에 모바일 앱이 그대로 읽을 수 있다.
+
+사용법: python tools/export_static.py [출력 폴더]
+"""
+from __future__ import annotations
+
+import json
+import shutil
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+from aa.config import load_company  # noqa: E402
+from aa.web.app import create_app  # noqa: E402
+
+
+def _write(path: Path, data) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+
+
+def export(out: Path, company_path: Path = ROOT / "company.yaml") -> Path:
+    company = load_company(company_path)
+    c = create_app(company).test_client()
+    if out.exists():
+        shutil.rmtree(out)
+    static = ROOT / "aa" / "web" / "static"
+    shutil.copytree(static, out / "static", ignore=shutil.ignore_patterns("index.html"))
+    shutil.copy(static / "manifest.webmanifest", out / "manifest.webmanifest")
+
+    matches = c.get("/api/matches").get_json()
+    _write(out / "api" / "matches.json", matches)
+    for m in matches["matches"]:
+        if m["status"] == "analyzed":
+            _write(out / "api" / "matches" / f"{m['id']}.json", c.get(f"/api/matches/{m['id']}").get_json())
+    _write(out / "api" / "company.json", c.get("/api/company").get_json())
+    _write(out / "api" / "record.json", c.get("/api/record").get_json())
+
+    html = (static / "index.html").read_text(encoding="utf-8")
+    html = html.replace('<script src="/static/app.js"></script>', '<script>window.AA_STATIC=true;</script>\n<script src="/static/app.js"></script>')
+    (out / "index.html").write_text(html, encoding="utf-8")
+    # Cloudflare Pages: JSON 은 늘 새로 받도록
+    (out / "_headers").write_text("/api/*\n  Cache-Control: no-cache\n", encoding="utf-8")
+    return out
+
+
+if __name__ == "__main__":
+    target = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "dist" / "site"
+    print(export(target))
