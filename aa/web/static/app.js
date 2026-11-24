@@ -92,7 +92,7 @@ async function renderList() {
     ${Object.keys(lgCount).length > 1 ? `<div class="chips lgchips" role="group" aria-label="리그 거르기"><span class="lglabel">리그</span>
       <button class="chip" data-lg="all" aria-pressed="${leagueFilter === 'all'}">모든 리그 <span class="num">${all.length}</span></button>
       ${Object.entries(lgCount).sort((a, b) => b[1] - a[1]).map(([n, c]) => `<button class="chip" data-lg="${esc(n)}" aria-pressed="${leagueFilter === n}">${esc(n)} <span class="num">${c}</span></button>`).join('')}</div>` : ''}
-    ${accBar(shown, listFilter === 'mine' ? '내가 고른 경기' : leagueFilter !== 'all' ? leagueFilter : '이번 목록')}
+    ${accBoard(all, leagueFilter)}
     <p class="small mute" style="margin:0"><span class="tag pick">예측</span> 가장 유력하다고 본 결과 · 하늘색 <span class="tag value">이득</span> 우리가 본 가능성에 비해 배당이 후한 선택 · <span class="tag both"><span class="star">★ 예측+이득</span></span> 노란 바탕 빨간 글씨, 둘 다 해당 (가장 강한 신호) · 막대 <span class="trilegend"><span><i class="h"></i>홈 승</span><span><i class="d"></i>무</span><span><i class="a"></i>원정 승</span></span></p>
     ${shown.length ? days.map(d => `<h2 class="day">${esc(dayLabel(d))}</h2>${shown.filter(m => dayOf(m.kickoff) === d).map(rowHtml).join('')}`).join('')
       : `<p class="empty">조건에 맞는 경기가 없습니다.${STATIC ? ' <a href="#run">분석 요청</a>에서 리그를 골라 경기를 가져오세요.' : ''}</p>`}
@@ -108,15 +108,17 @@ async function renderList() {
   });
   pickBar();
 }
-function accBar(ms, label) {
-  const done = ms.filter(m => m.result);
-  if (!done.length) return `<div class="accbar"><b>${esc(label)} 적중률</b><span class="mute">아직 결과가 나온 경기가 없습니다. 경기가 끝나면 자동으로 채점됩니다.</span></div>`;
-  const p1 = done.filter(m => m.result.hit_1x2 != null), po = done.filter(m => m.result.hit_ou != null);
-  return `<div class="accbar"><b>${esc(label)} 적중률</b>
-    <span>결과 나온 <b class="num">${done.length}</b>경기</span>
-    <span>승무패 <span class="num">${rate(p1.filter(m => m.result.hit_1x2).length, p1.length)}</span></span>
-    <span>언더/오버 <span class="num">${rate(po.filter(m => m.result.hit_ou).length, po.length)}</span></span>
-    <a href="#record" class="small">분석가별 보기 →</a></div>`;
+function accBoard(all, lg) {
+  const box = (ms, label, cls = '') => {
+    const done = ms.filter(m => m.result);
+    const p1 = done.filter(m => m.result.hit_1x2 != null), po = done.filter(m => m.result.hit_ou != null);
+    const h1 = p1.filter(m => m.result.hit_1x2).length, ho = po.filter(m => m.result.hit_ou).length;
+    const big = (h, n) => n ? `<span class="acc-big">${Math.round(h / n * 100)}<small>%</small></span><span class="acc-sub">${h} / ${n}경기 적중</span>` : '<span class="acc-big none">-</span><span class="acc-sub">결과 대기</span>';
+    return `<div class="accbox ${cls}"><div class="acc-head">${label}<span>채점 ${done.length}경기</span></div>
+      <div class="acc-pair"><div><span class="acc-k">승무패</span>${big(h1, p1.length)}</div><div><span class="acc-k">언더/오버</span>${big(ho, po.length)}</div></div></div>`;
+  };
+  return `<div class="accboard">${box(all, '누적 적중률 · 전체')}${box(all.filter(m => m.picked), '★ 내가 고른 경기', 'mine')}${lg !== 'all' ? box(all.filter(m => lgName(m) === lg), esc(lg), 'lg') : ''}</div>
+    <p class="small mute" style="margin:-4px 0 12px">팀 결론 기준 누적입니다. 분석가별·1차/최종 적중률은 <a href="#record">인사평가</a>에서 볼 수 있습니다.</p>`;
 }
 const pickSet = () => new Set((store.get('aa_pick_ids') || '').split(',').filter(Boolean));
 function pickBar() {
