@@ -182,6 +182,14 @@ NAMES: dict[str, str] = {
     "Newcastle Jets": "뉴캐슬 제츠", "Newcastle Jets FC": "뉴캐슬 제츠", "Perth Glory": "퍼스 글로리",
     "Macarthur": "맥아서 FC", "Macarthur FC": "맥아서 FC", "Western United": "웨스턴 유나이티드", "Western United FC": "웨스턴 유나이티드",
     "Auckland": "오클랜드 FC", "Auckland FC": "오클랜드 FC",
+    # AFC챔피언스리그 2
+    "Al Faisaly": "알파이살리", "Al Hussein": "알후세인", "Al Kuwait": "알쿠웨이트", "Al Seeb": "알시브",
+    "Al Shorta": "알쇼르타", "Al Taawon": "알타아운", "Al-Jazira": "알자지라", "Al-Nahda": "알나흐다",
+    "Al-Rayyan SC": "알라이얀", "Arkadag": "아르카다그", "BG Pathum United": "BG 빠툼 유나이티드", "East Bengal II": "이스트 벵골",
+    "Gol Gohar": "골고하르", "Home United": "홈 유나이티드", "Khalidiya": "알할리디야", "Kitchee": "킷치",
+    "Kuching FA": "쿠칭 FA", "Muharraq": "알무하라크", "Nasaf": "나사프", "Persib Bandung": "페르시브 반둥",
+    "Phnom Penh Crown": "프놈펜 크라운", "Svay Rieng": "스바이리엥", "Tampines Rovers": "탐피네스 로버스", "Viettel": "비엣텔",
+    "Wofoo Tai Po": "타이포",
     # 유럽대항전 추가
     "FC Nordsjaelland": "노르셸란", "HNK Hajduk Split": "하이두크 스플리트", "Inter Club d'Escaldes": "인테르 클루브 데스칼데스",
     "Aarhus": "오르후스", "Ararat-Armenia": "아라라트 아르메니아", "Borac Banja Luka": "보라츠 바냐루카", "CSKA Sofia": "CSKA 소피아",
