@@ -41,6 +41,7 @@ class Member:
     votes: bool = True
     model: str | None = None
     color: str | None = None
+    sees_market: bool = False  # 1차(독립) 분석 때 배당을 볼지. 기본은 가림 (시장 숫자에 끌려가지 않게)
 
     def persona(self) -> str:
         return self.persona_path.read_text(encoding="utf-8")
@@ -133,6 +134,7 @@ def load_company(path: str | Path) -> Company:
                 votes=bool(m.get("votes", role == "analyst")),
                 model=m.get("model"),
                 color=m.get("color"),
+                sees_market=bool(m.get("sees_market", False)),
             )
         )
 
