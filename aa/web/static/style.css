@@ -303,3 +303,14 @@ pre{background:var(--panel);padding:12px;border-radius:8px;font-size:14px;white-
 .ressearch{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 4px;padding:12px;border:2px solid #1e3a8a;border-radius:12px;background:#f5f8ff}
 .ressearch input[type=search]{flex:1 1 260px;min-height:42px;font-size:16px;padding:6px 12px}
 .ressearch input[type=date],.ressearch select{min-height:42px;font-size:15px;padding:4px 8px}
+
+/* 누적 숫자 카드 네 칸 (연한 색) */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:14px 0 12px}
+.kpi{display:flex;flex-direction:column;gap:2px;border-radius:12px;padding:14px 16px}
+.kl{font-size:14px;font-weight:600}.kn{font-family:var(--num);font-size:40px;font-weight:700;line-height:1.05}.ks{font-size:13px}
+.k1{background:#E1F5EE;color:#085041}.k1 .ks{color:#0F6E56}
+.k2{background:#EEEDFE;color:#3C3489}.k2 .ks{color:#534AB7}
+.k3{background:#FAEEDA;color:#633806}.k3 .ks{color:#854F0B}
+.k4{background:#E6F1FB;color:#0C447C}.k4 .ks{color:#185FA5}
+.lgtoggle{display:flex;justify-content:space-between;align-items:center;width:100%;font:inherit;font-size:15px;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;margin-bottom:8px}
+.lgchips[hidden]{display:none}
