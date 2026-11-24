@@ -72,6 +72,7 @@ function dayLabel(d) {
 /* ---------- 경기 목록 ---------- */
 let listFilter = 'all';
 let leagueFilter = store.get('aa_league') || 'all';
+let resQuery = '', resDate = '', resHit = 'all';
 const lgName = m => m.league_name || (m.league || '').split(' ')[0] || '기타';
 async function renderList() {
   const data = await api('/api/matches');
@@ -79,24 +80,53 @@ async function renderList() {
   const lgCount = {};
   all.forEach(m => { lgCount[lgName(m)] = (lgCount[lgName(m)] || 0) + 1; });
   if (leagueFilter !== 'all' && !lgCount[leagueFilter]) leagueFilter = 'all';
-  const ms = all.filter(m => leagueFilter === 'all' || lgName(m) === leagueFilter);
+  const inLg = all.filter(m => leagueFilter === 'all' || lgName(m) === leagueFilter);
+  const finished = inLg.filter(m => m.result);                // 결과가 나온 경기는 '경기 결과' 탭으로
+  const ms = inLg.filter(m => !m.result);
   const done = ms.filter(m => m.status === 'analyzed');
   const vals = done.filter(m => m.value_alerts && m.value_alerts.length).length;
-  const shown = ms.filter(m => listFilter === 'all' || (listFilter === 'mine' ? m.picked : listFilter === 'analyzed' ? m.status === 'analyzed' : listFilter === 'pending' ? m.status === 'pending' : (m.value_alerts || []).length));
+  const isRes = listFilter === 'results';
+  const shown = isRes ? [] : ms.filter(m => listFilter === 'all' || (listFilter === 'mine' ? m.picked : listFilter === 'analyzed' ? m.status === 'analyzed' : listFilter === 'pending' ? m.status === 'pending' : (m.value_alerts || []).length));
   const days = [...new Set(shown.map(m => dayOf(m.kickoff)))];
   const chip = (k, t, cls = '') => `<button class="seg ${cls}" data-f="${k}" aria-pressed="${listFilter === k}">${t}</button>`;
   view.innerHTML = `<section class="band"><div class="wrap">
     <div class="listhead"><div><h1>이번 주 경기</h1>
-      <p class="mute" style="margin:6px 0 0">내가 고른 경기 <b class="num">${ms.filter(m => m.picked).length}</b> · 분석 완료 <b class="num">${done.length}</b> · 분석 대기 <b class="num">${ms.length - done.length}</b> · 이득 신호 <b class="num">${vals}</b></p></div>
-      <div class="segbar" role="group" aria-label="경기 거르기">${chip('mine', '★ 내가 고른 경기', 'mine')}${chip('all', '전체')}${chip('analyzed', '분석 완료')}${chip('value', '이득 신호')}${chip('pending', '분석 대기')}</div></div>
+      <p class="mute" style="margin:6px 0 0">내가 고른 경기 <b class="num">${ms.filter(m => m.picked).length}</b> · 분석 완료 <b class="num">${done.length}</b> · 분석 대기 <b class="num">${ms.length - done.length}</b> · 이득 신호 <b class="num">${vals}</b> · 경기 결과 <b class="num">${finished.length}</b></p></div>
+      <div class="segbar" role="group" aria-label="경기 거르기">${chip('mine', '★ 내가 고른 경기', 'mine')}${chip('all', '전체')}${chip('analyzed', '분석 완료')}${chip('value', '이득 신호')}${chip('pending', '분석 대기')}${chip('results', `경기 결과 <span class="num">${finished.length}</span>`, 'res')}</div></div>
     ${Object.keys(lgCount).length > 1 ? `<div class="chips lgchips" role="group" aria-label="리그 거르기"><span class="lglabel">리그</span>
       <button class="chip" data-lg="all" aria-pressed="${leagueFilter === 'all'}">모든 리그 <span class="num">${all.length}</span></button>
       ${Object.entries(lgCount).sort((a, b) => b[1] - a[1]).map(([n, c]) => `<button class="chip" data-lg="${esc(n)}" aria-pressed="${leagueFilter === n}">${esc(n)} <span class="num">${c}</span></button>`).join('')}</div>` : ''}
     ${accBoard(all, leagueFilter)}
     <p class="small mute" style="margin:0"><span class="tag pick">예측</span> 가장 유력하다고 본 결과 · 하늘색 <span class="tag value">이득</span> 우리가 본 가능성에 비해 배당이 후한 선택 · <span class="tag both"><span class="star">★ 예측+이득</span></span> 노란 바탕 빨간 글씨, 둘 다 해당 (가장 강한 신호) · 막대 <span class="trilegend"><span><i class="h"></i>홈 승</span><span><i class="d"></i>무</span><span><i class="a"></i>원정 승</span></span></p>
-    ${shown.length ? days.map(d => `<h2 class="day">${esc(dayLabel(d))}</h2>${shown.filter(m => dayOf(m.kickoff) === d).map(rowHtml).join('')}`).join('')
+    ${isRes ? `<div class="ressearch">
+        <input type="search" id="rq" placeholder="팀 이름·리그로 검색 (예: 대전, 챔피언스리그)" value="${esc(resQuery)}">
+        <input type="date" id="rd" value="${esc(resDate)}" title="날짜">
+        <select id="rh"><option value="all">적중 여부 전체</option><option value="hit">승무패 맞힌 경기</option><option value="miss">승무패 틀린 경기</option><option value="mine">내가 고른 경기만</option></select>
+        <button type="button" class="btn ghost sm" id="rclear">초기화</button></div><div id="reslist"></div>`
+      : shown.length ? days.map(d => `<h2 class="day">${esc(dayLabel(d))}</h2>${shown.filter(m => dayOf(m.kickoff) === d).map(rowHtml).join('')}`).join('')
       : `<p class="empty">조건에 맞는 경기가 없습니다.${STATIC ? ' <a href="#run">분석 요청</a>에서 리그를 골라 경기를 가져오세요.' : ''}</p>`}
   </div></section>`;
+  if (isRes) {
+    const rq = document.getElementById('rq'), rd = document.getElementById('rd'), rh = document.getElementById('rh');
+    rh.value = resHit;
+    const draw = () => {
+      resQuery = rq.value.trim(); resDate = rd.value; resHit = rh.value;
+      const q = resQuery.toLowerCase();
+      const list = finished.filter(m => (!q || `${m.home} ${m.away} ${m.league} ${lgName(m)}`.toLowerCase().includes(q))
+        && (!resDate || dayOf(m.kickoff) === resDate)
+        && (resHit === 'all' || (resHit === 'hit' ? m.result.hit_1x2 === true : resHit === 'miss' ? m.result.hit_1x2 === false : m.picked)))
+        .sort((x, y) => (x.kickoff < y.kickoff ? 1 : -1));            // 최근 경기부터
+      const ds = [...new Set(list.map(m => dayOf(m.kickoff)))];
+      const h1 = list.filter(m => m.result.hit_1x2 != null), ho = list.filter(m => m.result.hit_ou != null);
+      document.getElementById('reslist').innerHTML = list.length
+        ? `<p class="small" style="margin:6px 0 0"><b>${list.length}</b>경기 · 승무패 ${rate(h1.filter(m => m.result.hit_1x2).length, h1.length)} · 언더/오버 ${rate(ho.filter(m => m.result.hit_ou).length, ho.length)}</p>`
+          + ds.map(d => `<h2 class="day">${esc(dayLabel(d))}</h2>${list.filter(m => dayOf(m.kickoff) === d).map(rowHtml).join('')}`).join('')
+        : '<p class="empty">조건에 맞는 경기 결과가 없습니다.</p>';
+    };
+    rq.oninput = draw; rd.onchange = draw; rh.onchange = draw;
+    document.getElementById('rclear').onclick = () => { rq.value = ''; rd.value = ''; rh.value = 'all'; draw(); };
+    draw();
+  }
   view.querySelectorAll('[data-f]').forEach(b => b.onclick = () => { listFilter = b.dataset.f; renderList(); });
   view.querySelectorAll('[data-lg]').forEach(b => b.onclick = () => { leagueFilter = b.dataset.lg; store.set('aa_league', leagueFilter); renderList(); });
   view.querySelectorAll('[data-pick]').forEach(b => b.onclick = () => {
