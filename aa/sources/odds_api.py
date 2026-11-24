@@ -16,8 +16,12 @@ BASE = "https://api.the-odds-api.com/v4"
 PROVIDER = "odds_api"
 
 
+_SPECIAL = str.maketrans({"ø": "o", "Ø": "O", "æ": "ae", "Æ": "AE", "ß": "ss", "đ": "d", "Đ": "D", "ł": "l", "Ł": "L", "ı": "i"})
+
+
 def norm_team(name: str) -> str:
-    s = unicodedata.normalize("NFKD", name).encode("ascii", "ignore").decode().lower()
+    """두 API 의 팀 이름을 비교하기 위해 단순화한다 (악센트·특수 글자·FC 같은 말 제거)."""
+    s = unicodedata.normalize("NFKD", name.translate(_SPECIAL)).encode("ascii", "ignore").decode().lower()
     s = re.sub(r"\b(fc|afc|cf|sc|ac|club|de|the)\b", " ", s)
     s = s.replace("&", "and")
     return re.sub(r"[^a-z0-9]+", "", s)
