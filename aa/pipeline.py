@@ -13,6 +13,31 @@ from .sports import get_sport
 from .voting import decide
 
 
+_PROBS = {"type": "object", "properties": {k: {"type": "number"} for k in ("home", "draw", "away")},
+          "required": ["home", "draw", "away"]}
+_TEXTS = {"type": "array", "items": {"type": "string"}}
+_OPINION = {
+    "probs": _PROBS,
+    "pick_1x2": {"type": "string", "enum": ["home", "draw", "away"]},
+    "over_prob": {"type": "number"},
+    "pick_ou": {"type": "string", "enum": ["over", "under"]},
+    "confidence": {"type": "string", "enum": ["high", "medium", "low"]},
+    "key_reasons": _TEXTS,
+    "risks": _TEXTS,
+    "summary": {"type": "string"},
+}
+_REQ = ["probs", "pick_1x2", "over_prob", "pick_ou", "confidence", "key_reasons", "risks", "summary"]
+SCHEMAS = {
+    "initial": {"type": "object", "properties": _OPINION, "required": _REQ},
+    "debate": {"type": "object",
+               "properties": {"rebuttal": {"type": "string"}, "concession": {"type": "string"},
+                              "changed": {"type": "string"}, **_OPINION},
+               "required": ["rebuttal", "concession", "changed", *_REQ]},
+    "lead": {"type": "object", "properties": {"headline": {"type": "string"}, "comment": {"type": "string"}},
+             "required": ["headline", "comment"]},
+}
+
+
 @dataclass
 class AnalysisRun:
     match: Match
@@ -57,7 +82,7 @@ def _market_text(match: Match, m1: dict, margin: float, mou: dict, line: float) 
 
 
 def _ask(client, company: Company, member: Member, stage: str, prompt: str, ctx: dict) -> dict:
-    ctx = {**ctx, "member_id": member.id, "stage": stage, "model": member.model}
+    ctx = {**ctx, "member_id": member.id, "stage": stage, "model": member.model, "schema": SCHEMAS.get(stage)}
     system = _system(company, member)
     last_err: Exception | None = None
     for attempt in range(2):
@@ -66,6 +91,7 @@ def _ask(client, company: Company, member: Member, stage: str, prompt: str, ctx:
             return extract_json(text)
         except Exception as e:  # 형식이 깨지면 한 번 더 요청
             last_err = e
+            print(f"[{member.name} {stage}] 답변 형식 오류: {e} / 답변 앞부분: {text[:300]!r}")
     raise RuntimeError(f"{member.name} 의 답변을 읽지 못했습니다: {last_err}")
 
 
