@@ -149,7 +149,7 @@ def place(company: Company, book: dict, runs: list[dict], now: datetime, log=pri
         if ko_ and ko_ > now and ko_.astimezone(KST).date() in window:
             upcoming.append(r)
     placed = 0
-    for m in company.voters("soccer"):
+    for m in company.analysts("soccer"):
         acc = book["accounts"].setdefault(m.id, {"name": m.name, "bankroll": book.get("start_bankroll", START_BANKROLL)})
         best = []
         for r in upcoming:
@@ -217,7 +217,7 @@ def summary(company: Company) -> dict:
     book = load(company)
     start = book.get("start_bankroll", START_BANKROLL)
     accs = []
-    for m in company.voters("soccer"):
+    for m in company.analysts("soccer"):
         a = book["accounts"].get(m.id, {"name": m.name, "bankroll": start})
         mine = [s for s in book["slips"] if s["member_id"] == m.id]
         open_ = [s for s in mine if s["status"] == "open"]
