@@ -141,6 +141,21 @@ NAMES: dict[str, str] = {
     "Omiya Ardija": "오미야 아르디자", "RB Omiya Ardija": "오미야 아르디자", "Imabari": "이마바리", "FC Imabari": "이마바리",
     "Hokkaido Consadole Sapporo": "콘사도레 삿포로", "Kataller Toyama": "가탈레 도야마", "Tokyo Verdy 1969": "도쿄 베르디",
     "Zweigen Kanazawa": "츠바이겐 가나자와", "Matsumoto Yamaga": "마쓰모토 야마가", "Giravanz Kitakyushu": "기라반츠 기타큐슈",
+    # AFC 챔피언스리그 (서아시아·동남아·호주 등)
+    "Al-Hilal Saudi FC": "알힐랄", "Al Hilal": "알힐랄", "Al-Nassr": "알나스르", "Al Nassr": "알나스르",
+    "Al-Ahli Jeddah": "알아흘리", "Al Ahli": "알아흘리", "Al-Ittihad FC": "알이티하드", "Al Ittihad": "알이티하드",
+    "Al Sadd": "알사드", "Al-Duhail SC": "알두하일", "Al Duhail": "알두하일", "Al-Gharafa": "알가라파",
+    "Al Wasl": "알와슬", "Shabab Al Ahli Dubai": "샤밥 알아흘리", "Shabab Al Ahli": "샤밥 알아흘리", "Sharjah": "샤르자",
+    "Al Sharjah": "샤르자", "Al Wahda": "알와흐다", "Al Ain": "알아인", "Persepolis": "페르세폴리스",
+    "Esteghlal": "에스테그랄", "Tractor Sazi": "트랙터", "Tractor": "트랙터", "Pakhtakor": "파흐타코르",
+    "Nasaf Qarshi": "나사프", "Shanghai Port": "상하이 포트", "Shanghai Shenhua": "상하이 선화",
+    "Chengdu Rongcheng": "청두 룽청", "Beijing Guoan": "베이징 궈안", "Buriram United": "부리람 유나이티드",
+    "Johor Darul Tazim": "조호르 다룰 탁짐", "Melbourne City": "멜버른 시티",
+    "Central Coast Mariners": "센트럴코스트 매리너스", "Melbourne Victory": "멜버른 빅토리",
+    "Machida Zelvia FC": "마치다 젤비아", "Kashiwa": "가시와 레이솔",
+    # J2·K리그 추가
+    "Vanraure Hachinohe": "반라우레 하치노헤", "Tegevajaro Miyazaki": "테게바자로 미야자키", "Tochigi City": "도치기 시티",
+    "Lincoln": "링컨 시티", "Lincoln City": "링컨 시티",
     # MLS
     "Inter Miami": "인터 마이애미", "Inter Miami CF": "인터 마이애미", "Los Angeles Galaxy": "LA 갤럭시", "LA Galaxy": "LA 갤럭시",
     "Los Angeles FC": "LAFC", "LAFC": "LAFC", "Seattle Sounders": "시애틀 사운더스", "Seattle Sounders FC": "시애틀 사운더스",
