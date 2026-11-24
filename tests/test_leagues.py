@@ -72,3 +72,30 @@ def test_leagues_api_and_league_names(company):
     assert {x["group"] for x in j["leagues"]} >= {"유럽 5대 리그", "유럽 대회"}
     assert league_of(company, {"league": "챔피언스리그 League Stage - 5"}) == (2, "챔피언스리그")
     assert league_of(company, {"league": "x", "source_ids": {"league": 140}}) == (140, "라리가")
+
+
+def test_korean_team_names_and_main_line(company):
+    from aa.sources.odds_api import OddsApi
+    from aa.teams_ko import ko
+
+    paths = collect(company, days=7, leagues=[39], af_transport=FakeAF(), odds_transport=fake_odds,
+                    today=datetime(2026, 11, 24), log=lambda *_: None)
+    m = json.loads(paths[0].read_text(encoding="utf-8"))
+    assert (m["home"], m["away"]) == ("아스널", "맨체스터 시티")
+    assert (m["home_en"], m["away_en"]) == ("Arsenal", "Manchester City")   # 배당 찾기용 영어 이름은 남긴다
+    assert "아스널" in m["table"] and m["odds"]["line"] == 2.5
+    assert ko("FC Porto") == ko("Porto") == "포르투" and ko("Bodø/Glimt") == "보되/글림트" and ko("Nobody FC") == "Nobody FC"
+
+    def tot(pt, o, u):
+        return {"key": "totals", "outcomes": [{"name": "Over", "price": o, "point": pt},
+                                              {"name": "Under", "price": u, "point": pt}]}
+    ev = {"home_team": "A", "away_team": "B", "bookmakers": [
+        {"key": "x", "markets": [tot(3.5, 1.9, 1.9), tot(2.5, 1.2, 4.5)]},
+        {"key": "y", "markets": [tot(3.5, 1.95, 1.85)]},
+        {"key": "z", "markets": [tot(2.5, 1.15, 5.35), tot(3.25, 1.9, 1.9)]},   # 0.25 단위는 무시
+    ]}
+    assert OddsApi.main_line(ev) == 3.5                       # 3.5 를 낸 북메이커가 더 많다
+    c = OddsApi.consensus(ev)
+    assert c["line"] == 3.5 and c["over"] == 1.92 and "2곳" in c["source"]
+    assert OddsApi.consensus(ev, line=2.5)["over"] == 1.17     # 기준점을 정해 주면 그대로
+    assert OddsApi.main_line({"bookmakers": []}, 2.5) == 2.5
