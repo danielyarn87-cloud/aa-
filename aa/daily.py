@@ -69,6 +69,9 @@ def run_daily(company: Company, client_factory=None, now: datetime | None = None
     ledger = Ledger(company.base_dir / "data" / "ledger.sqlite")
     summary: dict = {"at": now.astimezone(KST).strftime("%Y-%m-%d %H:%M KST"), "settled": 0, "collected": 0, "analyzed": [], "errors": []}
 
+    # 0) 기록부에 빠진 분석이 있으면 채워 넣기 (기록부를 새로 만든 경우 등)
+    ledger.backfill_from_reports(company.base_dir / "reports")
+
     # 1) 끝난 경기 채점
     try:
         summary["settled"] = sync_results(company, ledger, af_transport=af_transport, log=log)
