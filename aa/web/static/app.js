@@ -96,13 +96,30 @@ async function renderList() {
   </div></section>`;
   view.querySelectorAll('[data-f]').forEach(b => b.onclick = () => { listFilter = b.dataset.f; renderList(); });
   view.querySelectorAll('[data-lg]').forEach(b => b.onclick = () => { leagueFilter = b.dataset.lg; store.set('aa_league', leagueFilter); renderList(); });
+  view.querySelectorAll('[data-pick]').forEach(b => b.onclick = () => {
+    const s = pickSet(); const id = b.dataset.pick;
+    s.has(id) ? s.delete(id) : s.add(id);
+    store.set('aa_pick_ids', [...s].join(','));
+    b.setAttribute('aria-pressed', s.has(id)); b.textContent = s.has(id) ? '✓ 분석에 담음' : '＋ 분석하기';
+    pickBar();
+  });
+  pickBar();
+}
+const pickSet = () => new Set((store.get('aa_pick_ids') || '').split(',').filter(Boolean));
+function pickBar() {
+  let bar = document.getElementById('pickbar');
+  const n = pickSet().size;
+  if (!STATIC || !n || location.hash === '#run') { if (bar) bar.remove(); return; }
+  if (!bar) { bar = document.createElement('div'); bar.id = 'pickbar'; document.body.appendChild(bar); }
+  bar.innerHTML = `<span><b class="num">${n}</b>경기 담음</span><a class="btn" href="#run">분석 요청하러 가기 →</a><button type="button" class="btn ghost" id="pickClear">비우기</button>`;
+  document.getElementById('pickClear').onclick = () => { store.set('aa_pick_ids', ''); renderList(); };
 }
 function rowHtml(m) {
   const N = names(m.home, m.away, m.line);
   const head = `<span class="time">${esc(timeOf(m.kickoff))}</span><span class="teams">${esc(m.home)} <span class="mute">vs</span> ${esc(m.away)}<br><span class="lg">${esc(m.league)}</span></span>`;
   if (m.status !== 'analyzed') {
     const o = m.odds || {};
-    return `<div class="row">${head}<span class="small mute num odds">${o.home ? `배당 ${esc(o.home)} / ${esc(o.draw)} / ${esc(o.away)}` : '배당 없음'}</span><span class="tags">${m.picked ? '<span class="tag value">분석 요청함</span>' : '<span class="tag wait">분석 대기</span>'}</span></div>`;
+    return `<div class="row">${head}<span class="small mute num odds">${o.home ? `배당 ${esc(o.home)} / ${esc(o.draw)} / ${esc(o.away)}` : '배당 없음'}</span><span class="tags">${m.picked ? '<span class="tag value">분석 요청함</span>' : STATIC ? `<button type="button" class="pk-toggle" data-pick="${esc(m.id)}" aria-pressed="${pickSet().has(m.id)}">${pickSet().has(m.id) ? '✓ 분석에 담음' : '＋ 분석하기'}</button>` : '<span class="tag wait">분석 대기</span>'}</span></div>`;
   }
   const tags = [];
   const od = m.odds || {};
@@ -559,3 +576,4 @@ async function route() {
 window.addEventListener('hashchange', route);
 route();
 }
+window.addEventListener('hashchange', () => { if (typeof pickBar === 'function') pickBar(); });
