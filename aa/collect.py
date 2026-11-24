@@ -14,6 +14,7 @@ from .config import Company
 from .ledger import Ledger
 from .sources.api_football import ApiFootball
 from .sources.cache import ApiCache, BudgetExceeded
+from .teams_ko import ko as ko_name
 from .sources.odds_api import OddsApi
 
 SHRINK_GAMES = 3  # 경기 수가 적을 때 리그 평균 쪽으로 당기는 강도 (가상의 리그 평균 경기 3개를 섞음)
@@ -133,8 +134,10 @@ def build_match(af: ApiFootball, league_cfg: dict, fixture: dict, odds_events: l
         "league_name": league_cfg["name"],
         "kickoff": kickoff.strftime("%Y-%m-%d %H:%M KST"),
         "kickoff_iso": kickoff.isoformat(),
-        "home": home["name"],
-        "away": away["name"],
+        "home": ko_name(home["name"]),
+        "away": ko_name(away["name"]),
+        "home_en": home["name"],
+        "away_en": away["name"],
         "odds": {"line": line},
         "league_avg": lavg,
         "stats": {
@@ -155,12 +158,12 @@ def build_match(af: ApiFootball, league_cfg: dict, fixture: dict, odds_events: l
         def t(r):
             a = r["all"]
             return f"{r['rank']}위 {r['points']}점 ({a['win']}승{a['draw']}무{a['lose']}패, 득실 {r['goalsDiff']:+d})"
-        data["table"] = f"{home['name']} {t(rh)} / {away['name']} {t(ra)}"
+        data["table"] = f"{data['home']} {t(rh)} / {data['away']} {t(ra)}"
 
     if not light:
         h2h = af.h2h(home["id"], away["id"])
         data["head_to_head"] = [
-            f"{x['fixture']['date'][:10]} {x['teams']['home']['name']} {x['goals']['home']}-{x['goals']['away']} {x['teams']['away']['name']}"
+            f"{x['fixture']['date'][:10]} {ko_name(x['teams']['home']['name'])} {x['goals']['home']}-{x['goals']['away']} {ko_name(x['teams']['away']['name'])}"
             for x in h2h
         ] or "자료 없음"
         sched = {}
@@ -176,7 +179,7 @@ def build_match(af: ApiFootball, league_cfg: dict, fixture: dict, odds_events: l
     if odds_events is not None:
         ev = OddsApi.find_event(odds_events, home["name"], away["name"], aliases)
         if ev:
-            data["odds"] = OddsApi.consensus(ev, line)
+            data["odds"] = OddsApi.consensus(ev, fallback_line=line)  # 기준점은 경기마다 시장의 주 기준점
         else:
             data["odds"]["note"] = "The Odds API 에서 이 경기를 찾지 못함 (팀 이름 별칭을 확인하세요)"
     data["sources"] = ["API-Football (일정·순위·팀 통계·부상자·상대 전적)"] + (["The Odds API (배당)"] if odds_events is not None else [])
@@ -266,7 +269,10 @@ def _collect_league(af, od, lc, ds, dept, out_dir, now, start, end, tz, light, w
                 m = old
         path.write_text(json.dumps(m, ensure_ascii=False, indent=2), encoding="utf-8")
         written.append(path)
-        log(f"  - {m['kickoff']} {m['home']} vs {m['away']} → {path.name}")
+        log(f"  - {m['kickoff']} {m['home']} vs {m['away']} (언더/오버 {m['odds'].get('line')}) → {path.name}")
+        for en in (m.get("home_en"), m.get("away_en")):
+            if en and ko_name(en) == en:
+                log(f"    한글 이름 없음: {en} → aa/teams_ko.py 에 더하세요")
     return written
 
 
