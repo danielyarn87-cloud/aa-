@@ -54,10 +54,14 @@ def export(out: Path, company_path: Path = ROOT / "company.yaml") -> Path:
     _write(out / "api" / "bets.json", c.get("/api/bets").get_json())
 
     html = (static / "index.html").read_text(encoding="utf-8")
-    html = html.replace('<script src="/static/app.js"></script>', '<script>window.AA_STATIC=true;</script>\n<script src="/static/app.js"></script>')
+    # 화면 파일이 바뀌면 주소도 바뀌게 해서 브라우저가 옛 화면을 쓰지 않게 함
+    import hashlib
+    ver = hashlib.sha1((static / "app.js").read_bytes() + (static / "style.css").read_bytes()).hexdigest()[:10]
+    html = html.replace('/static/style.css"', f'/static/style.css?v={ver}"')
+    html = html.replace('<script src="/static/app.js"></script>', f'<script>window.AA_STATIC=true;</script>\n<script src="/static/app.js?v={ver}"></script>')
     (out / "index.html").write_text(html, encoding="utf-8")
     # Cloudflare Pages: JSON 은 늘 새로 받도록
-    (out / "_headers").write_text("/api/*\n  Cache-Control: no-cache\n", encoding="utf-8")
+    (out / "_headers").write_text("/api/*\n  Cache-Control: no-cache\n/\n  Cache-Control: no-cache\n/index.html\n  Cache-Control: no-cache\n/static/*\n  Cache-Control: no-cache\n", encoding="utf-8")
     return out
 
 
