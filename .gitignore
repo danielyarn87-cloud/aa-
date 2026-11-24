@@ -1,0 +1,7 @@
+.env
+__pycache__/
+.pytest_cache/
+data/*.sqlite
+data/daily_log.jsonl
+data/matches/
+dist/
