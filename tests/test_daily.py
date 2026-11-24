@@ -11,6 +11,7 @@ KST = ZoneInfo("Asia/Seoul")
 
 def test_daily_collects_and_analyzes_within_limits(company):
     company.automation["leagues"] = [39]  # 가짜 API 는 어느 리그든 같은 경기를 돌려주므로 한 리그만
+    company.automation["auto_analyze"] = True
     now = datetime(2026, 11, 28, 12, 0, tzinfo=KST)  # 킥오프(11/30 01:30 KST) 37.5시간 전
     s = run_daily(company, client_factory=MockClient, now=now, log=lambda *_: None,
                   af_transport=FakeAF(), odds_transport=fake_odds)
@@ -26,6 +27,7 @@ def test_daily_collects_and_analyzes_within_limits(company):
 
 def test_daily_respects_window_and_cap(company):
     company.automation["leagues"] = [39]
+    company.automation["auto_analyze"] = True
     early = datetime(2026, 11, 25, 12, 0, tzinfo=KST)  # 킥오프 4일 전: 수집은 하되 분석은 아직
     company.automation["collect_days"] = 7
     company.automation["analyze_within_hours"] = 48   # 이 시험은 48시간 창 기준
@@ -66,6 +68,7 @@ def test_export_static_site(tmp_path):
 
 def test_ledger_backfill_from_reports(company):
     from aa.ledger import Ledger
+    company.automation["auto_analyze"] = True
     now = datetime(2026, 11, 28, 12, 0, tzinfo=KST)
     run_daily(company, client_factory=MockClient, now=now, log=lambda *_: None, af_transport=FakeAF(), odds_transport=fake_odds)
     (company.base_dir / "data" / "ledger.sqlite").unlink()
@@ -87,3 +90,20 @@ def test_collect_is_detailed_only_for_matches_to_analyze(company):
     collect(company, days=2, leagues=[39], af_transport=af, odds_transport=fake_odds, today=near,
             log=lambda *_: None, full_within_hours=48)
     assert any(p == "/fixtures/headtohead" for p, _ in af.calls)      # 가까우면 자세히
+
+
+def test_auto_off_collects_only_then_picked_ids_are_analyzed(company):
+    from aa.daily import load_picked
+
+    company.automation["leagues"] = [39]
+    company.automation["auto_analyze"] = False
+    now = datetime(2026, 11, 28, 12, 0, tzinfo=KST)
+    s = run_daily(company, client_factory=MockClient, now=now, log=lambda *_: None,
+                  af_transport=FakeAF(), odds_transport=fake_odds)
+    assert s["collected"] == 1 and s["analyzed"] == []          # 6시·14시: 목록만, Claude 비용 없음
+    company.automation["only_ids"] = ["AF-9001", "AF-없는경기"]
+    company.automation["max_analyses_per_day"] = 0              # 고른 경기는 하루 한도와 상관없이 분석
+    s = run_daily(company, client_factory=MockClient, now=now, log=lambda *_: None,
+                  af_transport=FakeAF(), odds_transport=fake_odds)
+    assert s["analyzed"] == ["AF-9001"] and not s["errors"]
+    assert set(load_picked(company)) == {"AF-9001", "AF-없는경기"}
