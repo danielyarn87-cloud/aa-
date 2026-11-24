@@ -1,0 +1,93 @@
+{
+  "id": "AF-1593710",
+  "sport": "soccer",
+  "league": "A리그 Regular Season - 6",
+  "league_id": 188,
+  "league_name": "A리그",
+  "kickoff": "2026-11-28 17:40 KST",
+  "kickoff_iso": "2026-11-28T17:40:00+09:00",
+  "home": "센트럴코스트 매리너스",
+  "away": "오클랜드 FC",
+  "home_en": "Central Coast Mariners",
+  "away_en": "Auckland",
+  "odds": {
+    "line": 2.5,
+    "home": 3.57,
+    "best_home": 3.95,
+    "draw": 3.58,
+    "best_draw": 3.81,
+    "away": 1.87,
+    "best_away": 1.98,
+    "over": 1.66,
+    "best_over": 1.7,
+    "under": 2.09,
+    "best_under": 2.2,
+    "source": "The Odds API 평균 배당 (승무패 16곳, 언더/오버 10곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.679,
+    "away_goals": 1.036
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.407,
+      "xg_against": 1.022,
+      "raw_goals_for": 1.0,
+      "raw_goals_against": 1.0,
+      "played": 2,
+      "record": "0승 2무 0패",
+      "form": "DLDLD"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.222,
+      "xg_against": 2.207,
+      "raw_goals_for": 1.5,
+      "raw_goals_against": 3.0,
+      "played": 2,
+      "record": "0승 1무 1패",
+      "form": "WLDDD"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": null,
+  "source_ids": {
+    "api_football_fixture": 1593710,
+    "home_team": 941,
+    "away_team": 24608,
+    "league": 188,
+    "season": 2026
+  },
+  "table": "센트럴코스트 매리너스 10위 3점 (0승3무2패, 득실 -5) / 오클랜드 FC 8위 6점 (1승3무1패, 득실 -1)",
+  "head_to_head": [
+    "2026-04-19 오클랜드 FC 0-1 센트럴코스트 매리너스",
+    "2026-01-24 오클랜드 FC 2-2 센트럴코스트 매리너스",
+    "2025-12-12 센트럴코스트 매리너스 1-2 오클랜드 FC",
+    "2025-03-16 오클랜드 FC 2-2 센트럴코스트 매리너스",
+    "2024-12-28 센트럴코스트 매리너스 1-4 오클랜드 FC"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 A-League",
+    "home_days_rest": 7,
+    "away_prev": "2026-11-21 A-League",
+    "away_days_rest": 7
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-25 06:51 KST"
+}
