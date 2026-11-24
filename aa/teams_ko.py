@@ -153,6 +153,9 @@ NAMES: dict[str, str] = {
     "Johor Darul Tazim": "조호르 다룰 탁짐", "Melbourne City": "멜버른 시티",
     "Central Coast Mariners": "센트럴코스트 매리너스", "Melbourne Victory": "멜버른 빅토리",
     "Machida Zelvia FC": "마치다 젤비아", "Kashiwa": "가시와 레이솔",
+    "Port FC": "포트 FC", "Công An Nhân Dân": "꽁안 하노이", "Cong An Ha Noi": "꽁안 하노이", "Ratchaburi": "랏차부리",
+    "Johor Darul Takzim FC": "조호르 다룰 탁짐", "Al-Qadisiyah FC": "알카디시야", "Al Qadsiah": "알카디시야",
+    "SHANGHAI SIPG": "상하이 포트",
     # J2·K리그 추가
     "Vanraure Hachinohe": "반라우레 하치노헤", "Tegevajaro Miyazaki": "테게바자로 미야자키", "Tochigi City": "도치기 시티",
     "Lincoln": "링컨 시티", "Lincoln City": "링컨 시티",
