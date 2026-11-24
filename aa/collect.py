@@ -166,7 +166,9 @@ def _clients(company: Company, cache: ApiCache, af_transport=None, odds_transpor
 
 def collect(company: Company, days: int = 3, leagues: list[int] | None = None, limit: int | None = None,
             light: bool = False, with_odds: bool = True, af_transport=None, odds_transport=None,
-            today: datetime | None = None, log=print) -> list[Path]:
+            today: datetime | None = None, log=print, full_within_hours: float | None = None) -> list[Path]:
+    """full_within_hours 가 있으면, 킥오프가 그 시간 안인 경기만 자세히(상대 전적·직전 경기까지) 모으고
+    나머지는 가볍게 모은다. 분석할 경기에만 호출을 쓰기 위함."""
     ds = company.data_sources
     tz = ds.get("timezone", "Asia/Seoul")
     cache = ApiCache(company.base_dir / "data" / "api_cache.sqlite")
@@ -174,7 +176,10 @@ def collect(company: Company, days: int = 3, leagues: list[int] | None = None, l
     dept = company.department_for_sport("soccer")
     out_dir = company.base_dir / "data" / "matches"
     out_dir.mkdir(parents=True, exist_ok=True)
-    start = (today or datetime.now(ZoneInfo(tz))).date()
+    now = today or datetime.now(ZoneInfo(tz))
+    if now.tzinfo is None:
+        now = now.replace(tzinfo=ZoneInfo(tz))
+    start = now.date()
     end = start + timedelta(days=days)
     written: list[Path] = []
     for lc in ds.get("leagues", []):
@@ -194,7 +199,11 @@ def collect(company: Company, days: int = 3, leagues: list[int] | None = None, l
         for f in fixtures:
             if limit is not None and len(written) >= limit:
                 return written
-            m = build_match(af, lc, f, events, ds.get("team_aliases", {}), dept.over_under_line, light, tz)
+            this_light = light
+            if not light and full_within_hours is not None:
+                ko = datetime.fromisoformat(f["fixture"]["date"])
+                this_light = ko > now + timedelta(hours=full_within_hours)
+            m = build_match(af, lc, f, events, ds.get("team_aliases", {}), dept.over_under_line, this_light, tz)
             path = out_dir / f"{m['id']}.json"
             path.write_text(json.dumps(m, ensure_ascii=False, indent=2), encoding="utf-8")
             written.append(path)
