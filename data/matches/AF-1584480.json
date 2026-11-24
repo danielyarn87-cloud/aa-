@@ -7,7 +7,7 @@
   "kickoff": "2026-11-29 01:00 KST",
   "kickoff_iso": "2026-11-29T01:00:00+09:00",
   "home": "가지안테프",
-  "away": "Amed",
+  "away": "아메드",
   "home_en": "Gaziantep FK",
   "away_en": "Amed",
   "odds": {
@@ -61,7 +61,7 @@
     "league": 203,
     "season": 2026
   },
-  "table": "가지안테프 16위 8점 (2승2무8패, 득실 -11) / Amed 4위 23점 (7승2무3패, 득실 +11)",
+  "table": "가지안테프 16위 8점 (2승2무8패, 득실 -11) / 아메드 4위 23점 (7승2무3패, 득실 +11)",
   "head_to_head": "자료 없음",
   "schedule": {
     "home_prev": "2026-11-21 Süper Lig",
@@ -73,5 +73,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 19:44 KST"
+  "collected_at": "2026-11-24 20:10 KST"
 }

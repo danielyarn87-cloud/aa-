@@ -7,7 +7,7 @@
   "kickoff": "2026-11-28 04:45 KST",
   "kickoff_iso": "2026-11-28T04:45:00+09:00",
   "home": "루뱅",
-  "away": "Kortrijk",
+  "away": "코르트레이크",
   "home_en": "OH Leuven",
   "away_en": "Kortrijk",
   "odds": {
@@ -71,13 +71,13 @@
     "league": 144,
     "season": 2026
   },
-  "table": "루뱅 13위 12점 (3승3무6패, 득실 -6) / Kortrijk 18위 4점 (1승1무10패, 득실 -20)",
+  "table": "루뱅 13위 12점 (3승3무6패, 득실 -6) / 코르트레이크 18위 4점 (1승1무10패, 득실 -20)",
   "head_to_head": [
-    "2025-03-08 Kortrijk 2-0 루뱅",
-    "2024-09-22 루뱅 1-1 Kortrijk",
-    "2024-01-27 Kortrijk 0-0 루뱅",
-    "2023-09-01 루뱅 3-0 Kortrijk",
-    "2023-07-15 루뱅 None-None Kortrijk"
+    "2025-03-08 코르트레이크 2-0 루뱅",
+    "2024-09-22 루뱅 1-1 코르트레이크",
+    "2024-01-27 코르트레이크 0-0 루뱅",
+    "2023-09-01 루뱅 3-0 코르트레이크",
+    "2023-07-15 루뱅 None-None 코르트레이크"
   ],
   "schedule": {
     "home_prev": "2026-11-23 Jupiler Pro League",
@@ -89,5 +89,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 19:44 KST"
+  "collected_at": "2026-11-24 20:10 KST"
 }

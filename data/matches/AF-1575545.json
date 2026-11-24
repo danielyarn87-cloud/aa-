@@ -6,7 +6,7 @@
   "league_name": "프리메이라리가",
   "kickoff": "2026-11-29 03:00 KST",
   "kickoff_iso": "2026-11-29T03:00:00+09:00",
-  "home": "Academico Viseu",
+  "home": "아카데미쿠 비제우",
   "away": "알베르카",
   "home_en": "Academico Viseu",
   "away_en": "Alverca",
@@ -71,11 +71,11 @@
     "league": 94,
     "season": 2026
   },
-  "table": "Academico Viseu 6위 20점 (6승2무3패, 득실 +2) / 알베르카 11위 12점 (3승3무5패, 득실 -1)",
+  "table": "아카데미쿠 비제우 6위 20점 (6승2무3패, 득실 +2) / 알베르카 11위 12점 (3승3무5패, 득실 -1)",
   "head_to_head": [
-    "2025-02-09 Academico Viseu 2-2 알베르카",
-    "2024-08-30 알베르카 0-4 Academico Viseu",
-    "2018-09-30 알베르카 0-3 Academico Viseu"
+    "2025-02-09 아카데미쿠 비제우 2-2 알베르카",
+    "2024-08-30 알베르카 0-4 아카데미쿠 비제우",
+    "2018-09-30 알베르카 0-3 아카데미쿠 비제우"
   ],
   "schedule": {
     "home_prev": "2026-11-09 Primeira Liga",
@@ -87,5 +87,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 19:44 KST"
+  "collected_at": "2026-11-24 20:10 KST"
 }

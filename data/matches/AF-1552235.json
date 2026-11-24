@@ -6,7 +6,7 @@
   "league_name": "에레디비시",
   "kickoff": "2026-11-29 20:15 KST",
   "kickoff_iso": "2026-11-29T20:15:00+09:00",
-  "home": "ADO Den Haag",
+  "home": "ADO 덴하흐",
   "away": "위트레흐트",
   "home_en": "ADO Den Haag",
   "away_en": "Utrecht",
@@ -71,13 +71,13 @@
     "league": 88,
     "season": 2026
   },
-  "table": "ADO Den Haag 17위 9점 (2승3무8패, 득실 -12) / 위트레흐트 15위 12점 (3승3무7패, 득실 -14)",
+  "table": "ADO 덴하흐 17위 9점 (2승3무8패, 득실 -12) / 위트레흐트 15위 12점 (3승3무7패, 득실 -14)",
   "head_to_head": [
-    "2021-04-04 ADO Den Haag 1-4 위트레흐트",
-    "2020-12-06 위트레흐트 1-1 ADO Den Haag",
-    "2020-01-24 위트레흐트 4-0 ADO Den Haag",
-    "2019-08-04 ADO Den Haag 2-4 위트레흐트",
-    "2019-04-06 ADO Den Haag 5-0 위트레흐트"
+    "2021-04-04 ADO 덴하흐 1-4 위트레흐트",
+    "2020-12-06 위트레흐트 1-1 ADO 덴하흐",
+    "2020-01-24 위트레흐트 4-0 ADO 덴하흐",
+    "2019-08-04 ADO 덴하흐 2-4 위트레흐트",
+    "2019-04-06 ADO 덴하흐 5-0 위트레흐트"
   ],
   "schedule": {
     "home_prev": "2026-11-22 Eredivisie",
@@ -89,5 +89,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 19:44 KST"
+  "collected_at": "2026-11-24 20:10 KST"
 }

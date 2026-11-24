@@ -6,8 +6,8 @@
   "league_name": "벨기에 프로리그",
   "kickoff": "2026-11-29 00:00 KST",
   "kickoff_iso": "2026-11-29T00:00:00+09:00",
-  "home": "KVC Westerlo",
-  "away": "RAAL La Louvière",
+  "home": "베스테를로",
+  "away": "라루비에르",
   "home_en": "KVC Westerlo",
   "away_en": "RAAL La Louvière",
   "odds": {
@@ -71,10 +71,10 @@
     "league": 144,
     "season": 2026
   },
-  "table": "KVC Westerlo 9위 14점 (4승2무6패, 득실 -5) / RAAL La Louvière 17위 7점 (2승1무9패, 득실 -14)",
+  "table": "베스테를로 9위 14점 (4승2무6패, 득실 -5) / 라루비에르 17위 7점 (2승1무9패, 득실 -14)",
   "head_to_head": [
-    "2025-12-20 KVC Westerlo 2-1 RAAL La Louvière",
-    "2025-10-18 RAAL La Louvière 0-0 KVC Westerlo"
+    "2025-12-20 베스테를로 2-1 라루비에르",
+    "2025-10-18 라루비에르 0-0 베스테를로"
   ],
   "schedule": {
     "home_prev": "2026-11-21 Jupiler Pro League",
@@ -86,5 +86,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 19:44 KST"
+  "collected_at": "2026-11-24 20:10 KST"
 }

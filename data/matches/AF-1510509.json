@@ -6,7 +6,7 @@
   "league_name": "K리그2",
   "kickoff": "2026-11-28 14:00 KST",
   "kickoff_iso": "2026-11-28T14:00:00+09:00",
-  "home": "Gimhae City",
+  "home": "김해 FC",
   "away": "성남 FC",
   "home_en": "Gimhae City",
   "away_en": "Seongnam FC",
@@ -60,10 +60,10 @@
     "league": 293,
     "season": 2026
   },
-  "table": "Gimhae City 17위 18점 (3승9무19패, 득실 -37) / 성남 FC 11위 35점 (8승11무12패, 득실 -3)",
+  "table": "김해 FC 17위 18점 (3승9무19패, 득실 -37) / 성남 FC 11위 35점 (8승11무12패, 득실 -3)",
   "head_to_head": [
-    "2026-07-29 Gimhae City 0-1 성남 FC",
-    "2026-06-05 성남 FC 1-1 Gimhae City"
+    "2026-07-29 김해 FC 0-1 성남 FC",
+    "2026-06-05 성남 FC 1-1 김해 FC"
   ],
   "schedule": {
     "home_prev": "2026-11-22 K League 2",
@@ -74,5 +74,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-24 19:44 KST"
+  "collected_at": "2026-11-24 20:10 KST"
 }

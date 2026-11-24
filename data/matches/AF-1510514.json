@@ -6,8 +6,8 @@
   "league_name": "K리그2",
   "kickoff": "2026-11-28 14:00 KST",
   "kickoff_iso": "2026-11-28T14:00:00+09:00",
-  "home": "Yongin City",
-  "away": "Paju Citizen",
+  "home": "용인 FC",
+  "away": "파주 시민",
   "home_en": "Yongin City",
   "away_en": "Paju Citizen",
   "odds": {
@@ -60,9 +60,9 @@
     "league": 293,
     "season": 2026
   },
-  "table": "Yongin City 13위 33점 (7승12무12패, 득실 -12) / Paju Citizen 12위 35점 (9승8무14패, 득실 -7)",
+  "table": "용인 FC 13위 33점 (7승12무12패, 득실 -12) / 파주 시민 12위 35점 (9승8무14패, 득실 -7)",
   "head_to_head": [
-    "2026-07-04 Paju Citizen 0-1 Yongin City"
+    "2026-07-04 파주 시민 0-1 용인 FC"
   ],
   "schedule": {
     "home_prev": "2026-11-21 K League 2",
@@ -73,5 +73,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-24 19:44 KST"
+  "collected_at": "2026-11-24 20:10 KST"
 }

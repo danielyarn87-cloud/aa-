@@ -6,7 +6,7 @@
   "league_name": "K리그2",
   "kickoff": "2026-11-29 14:00 KST",
   "kickoff_iso": "2026-11-29T14:00:00+09:00",
-  "home": "Gimpo Citizen",
+  "home": "김포 FC",
   "away": "화성 FC",
   "home_en": "Gimpo Citizen",
   "away_en": "Hwaseong",
@@ -60,13 +60,13 @@
     "league": 293,
     "season": 2026
   },
-  "table": "Gimpo Citizen 8위 39점 (9승12무10패, 득실 -3) / 화성 FC 6위 48점 (13승9무9패, 득실 +12)",
+  "table": "김포 FC 8위 39점 (9승12무10패, 득실 -3) / 화성 FC 6위 48점 (13승9무9패, 득실 +12)",
   "head_to_head": [
-    "2026-04-19 화성 FC 2-2 Gimpo Citizen",
-    "2025-11-01 Gimpo Citizen 5-1 화성 FC",
-    "2025-08-02 화성 FC 0-1 Gimpo Citizen",
-    "2025-05-10 Gimpo Citizen 1-0 화성 FC",
-    "2021-11-09 Gimpo Citizen 1-0 화성 FC"
+    "2026-04-19 화성 FC 2-2 김포 FC",
+    "2025-11-01 김포 FC 5-1 화성 FC",
+    "2025-08-02 화성 FC 0-1 김포 FC",
+    "2025-05-10 김포 FC 1-0 화성 FC",
+    "2021-11-09 김포 FC 1-0 화성 FC"
   ],
   "schedule": {
     "home_prev": "2026-11-21 K League 2",
@@ -77,5 +77,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-24 19:44 KST"
+  "collected_at": "2026-11-24 20:10 KST"
 }

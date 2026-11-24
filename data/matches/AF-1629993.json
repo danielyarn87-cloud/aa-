@@ -7,7 +7,7 @@
   "kickoff": "2026-12-01 19:00 KST",
   "kickoff_iso": "2026-12-01T19:00:00+09:00",
   "home": "비셀 고베",
-  "away": "Newcastle Jets",
+  "away": "뉴캐슬 제츠",
   "home_en": "Vissel Kobe",
   "away_en": "Newcastle Jets",
   "odds": {
@@ -70,5 +70,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-24 19:44 KST"
+  "collected_at": "2026-11-24 20:10 KST"
 }

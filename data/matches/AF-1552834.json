@@ -7,7 +7,7 @@
   "kickoff": "2026-11-29 04:45 KST",
   "kickoff_iso": "2026-11-29T04:45:00+09:00",
   "home": "니스",
-  "away": "Estac Troyes",
+  "away": "트루아",
   "home_en": "Nice",
   "away_en": "Estac Troyes",
   "odds": {
@@ -73,13 +73,13 @@
     "league": 61,
     "season": 2026
   },
-  "table": "니스 7위 17점 (5승2무4패, 득실 +2) / Estac Troyes 14위 11점 (3승2무6패, 득실 -8)",
+  "table": "니스 7위 17점 (5승2무4패, 득실 +2) / 트루아 14위 11점 (3승2무6패, 득실 -8)",
   "head_to_head": [
-    "2023-04-30 Estac Troyes 0-1 니스",
-    "2022-10-09 니스 3-2 Estac Troyes",
-    "2022-04-24 니스 1-0 Estac Troyes",
-    "2021-10-17 Estac Troyes 1-0 니스",
-    "2018-04-01 Estac Troyes 0-2 니스"
+    "2023-04-30 트루아 0-1 니스",
+    "2022-10-09 니스 3-2 트루아",
+    "2022-04-24 니스 1-0 트루아",
+    "2021-10-17 트루아 1-0 니스",
+    "2018-04-01 트루아 0-2 니스"
   ],
   "schedule": {
     "home_prev": "2026-11-22 Ligue 1",
@@ -91,5 +91,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 19:44 KST"
+  "collected_at": "2026-11-24 20:10 KST"
 }

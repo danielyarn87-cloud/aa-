@@ -7,7 +7,7 @@
   "kickoff": "2026-11-28 23:30 KST",
   "kickoff_iso": "2026-11-28T23:30:00+09:00",
   "home": "쾰른",
-  "away": "SV Elversberg",
+  "away": "엘버스베르크",
   "home_en": "1. FC Köln",
   "away_en": "SV Elversberg",
   "odds": {
@@ -71,11 +71,11 @@
     "league": 78,
     "season": 2026
   },
-  "table": "쾰른 14위 10점 (2승4무4패, 득실 -4) / SV Elversberg 9위 13점 (4승1무5패, 득실 -2)",
+  "table": "쾰른 14위 10점 (2승4무4패, 득실 -4) / 엘버스베르크 9위 13점 (4승1무5패, 득실 -2)",
   "head_to_head": [
-    "2025-01-25 쾰른 1-0 SV Elversberg",
-    "2024-08-10 SV Elversberg 2-2 쾰른",
-    "2021-07-24 쾰른 2-1 SV Elversberg"
+    "2025-01-25 쾰른 1-0 엘버스베르크",
+    "2024-08-10 엘버스베르크 2-2 쾰른",
+    "2021-07-24 쾰른 2-1 엘버스베르크"
   ],
   "schedule": {
     "home_prev": "2026-11-21 Bundesliga",
@@ -87,5 +87,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 19:43 KST"
+  "collected_at": "2026-11-24 20:10 KST"
 }

@@ -7,7 +7,7 @@
   "kickoff": "2026-11-29 14:00 KST",
   "kickoff_iso": "2026-11-29T14:00:00+09:00",
   "home": "전남 드래곤즈",
-  "away": "Suwon Bluewings",
+  "away": "수원 삼성",
   "home_en": "Jeonnam Dragons",
   "away_en": "Suwon Bluewings",
   "odds": {
@@ -60,13 +60,13 @@
     "league": 293,
     "season": 2026
   },
-  "table": "전남 드래곤즈 16위 25점 (5승10무16패, 득실 -19) / Suwon Bluewings 1위 69점 (21승6무4패, 득실 +29)",
+  "table": "전남 드래곤즈 16위 25점 (5승10무16패, 득실 -19) / 수원 삼성 1위 69점 (21승6무4패, 득실 +29)",
   "head_to_head": [
-    "2026-03-14 Suwon Bluewings 2-0 전남 드래곤즈",
-    "2025-10-25 Suwon Bluewings 2-2 전남 드래곤즈",
-    "2025-07-19 전남 드래곤즈 3-4 Suwon Bluewings",
-    "2025-03-29 Suwon Bluewings 2-1 전남 드래곤즈",
-    "2024-08-18 Suwon Bluewings 2-1 전남 드래곤즈"
+    "2026-03-14 수원 삼성 2-0 전남 드래곤즈",
+    "2025-10-25 수원 삼성 2-2 전남 드래곤즈",
+    "2025-07-19 전남 드래곤즈 3-4 수원 삼성",
+    "2025-03-29 수원 삼성 2-1 전남 드래곤즈",
+    "2024-08-18 수원 삼성 2-1 전남 드래곤즈"
   ],
   "schedule": {
     "home_prev": "2026-11-22 K League 2",
@@ -77,5 +77,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-24 19:44 KST"
+  "collected_at": "2026-11-24 20:10 KST"
 }

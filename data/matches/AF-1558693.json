@@ -6,7 +6,7 @@
   "league_name": "벨기에 프로리그",
   "kickoff": "2026-11-29 04:45 KST",
   "kickoff_iso": "2026-11-29T04:45:00+09:00",
-  "home": "Lommel United",
+  "home": "로멜",
   "away": "쥘테 바레험",
   "home_en": "Lommel United",
   "away_en": "Zulte Waregem",
@@ -61,13 +61,13 @@
     "league": 144,
     "season": 2026
   },
-  "table": "Lommel United 8위 16점 (4승4무4패, 득실 +1) / 쥘테 바레험 15위 12점 (3승3무6패, 득실 -7)",
+  "table": "로멜 8위 16점 (4승4무4패, 득실 +1) / 쥘테 바레험 15위 12점 (3승3무6패, 득실 -7)",
   "head_to_head": [
-    "2025-03-08 쥘테 바레험 0-1 Lommel United",
-    "2024-12-14 Lommel United 1-2 쥘테 바레험",
-    "2024-05-01 Lommel United 1-0 쥘테 바레험",
-    "2024-04-27 쥘테 바레험 1-1 Lommel United",
-    "2024-02-10 쥘테 바레험 0-3 Lommel United"
+    "2025-03-08 쥘테 바레험 0-1 로멜",
+    "2024-12-14 로멜 1-2 쥘테 바레험",
+    "2024-05-01 로멜 1-0 쥘테 바레험",
+    "2024-04-27 쥘테 바레험 1-1 로멜",
+    "2024-02-10 쥘테 바레험 0-3 로멜"
   ],
   "schedule": {
     "home_prev": "2026-11-23 Jupiler Pro League",
@@ -79,5 +79,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 19:44 KST"
+  "collected_at": "2026-11-24 20:10 KST"
 }

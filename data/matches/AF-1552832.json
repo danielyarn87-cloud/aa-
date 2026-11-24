@@ -6,7 +6,7 @@
   "league_name": "리그1",
   "kickoff": "2026-11-29 04:45 KST",
   "kickoff_iso": "2026-11-29T04:45:00+09:00",
-  "home": "Le Mans",
+  "home": "르망",
   "away": "릴",
   "home_en": "Le Mans",
   "away_en": "Lille",
@@ -75,9 +75,9 @@
     "league": 61,
     "season": 2026
   },
-  "table": "Le Mans 13위 11점 (2승5무4패, 득실 -6) / 릴 3위 21점 (6승3무2패, 득실 +6)",
+  "table": "르망 13위 11점 (2승5무4패, 득실 -6) / 릴 3위 21점 (6승3무2패, 득실 +6)",
   "head_to_head": [
-    "2018-01-06 Le Mans 2-4 릴"
+    "2018-01-06 르망 2-4 릴"
   ],
   "schedule": {
     "home_prev": "2026-11-23 Ligue 1",
@@ -89,5 +89,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 19:44 KST"
+  "collected_at": "2026-11-24 20:10 KST"
 }
