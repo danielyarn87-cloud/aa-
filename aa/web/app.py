@@ -7,6 +7,7 @@
   GET  /api/matches/<id>          경기 분석 전체 (분석가 의견, 토론, 투표, 기초 모델)
   GET  /api/company               조직도
   GET  /api/record                인사평가 (회사·분석가 성적, 투표 비중)
+  GET  /api/leagues               고를 수 있는 리그, 기본 리그, API 사용량 (사이트의 '분석 요청' 화면)
 관리 API (헤더 X-Admin-Token = 환경변수 AA_ADMIN_TOKEN)
   POST /api/admin/collect         {"days": 3, "league": "39"}
   POST /api/admin/analyze/<id>    {"engine": "claude" | "mock"}
@@ -64,6 +65,21 @@ def _summary(run: dict, result: dict | None) -> dict:
             "hit_ou": None if ou["pick"] is None else (ou["pick"] == "over") == (total > d["line"]),
         }
     return out
+
+
+def league_of(company: Company, m: dict) -> tuple[int | None, str]:
+    """경기의 리그 번호와 이름. 예전 자료에는 번호가 없어 리그 이름 앞부분으로 맞춘다."""
+    leagues = company.data_sources.get("leagues", [])
+    lid = m.get("league_id") or (m.get("source_ids") or {}).get("league")
+    if lid is not None:
+        name = next((lc["name"] for lc in leagues if lc["api_football_id"] == int(lid)), None)
+        if name:
+            return int(lid), name
+    text = str(m.get("league", ""))
+    for lc in sorted(leagues, key=lambda x: -len(x["name"])):
+        if text.startswith(lc["name"]):
+            return lc["api_football_id"], lc["name"]
+    return None, text.split(" ")[0] if text else "기타"
 
 
 def create_app(company: Company) -> Flask:
@@ -125,7 +141,11 @@ def create_app(company: Company) -> Flask:
         res = results()
         runs = load_runs(reports)
         analyzed = {r["match"]["id"] for r in runs}
-        items = [_summary(r, res.get(r["match"]["id"])) for r in runs]
+        items = []
+        for r in runs:
+            s = _summary(r, res.get(r["match"]["id"]))
+            s["league_id"], s["league_name"] = league_of(company, r["match"])
+            items.append(s)
         for p in sorted(pending_dir.glob("*.json")) if pending_dir.exists() else []:
             m = json.loads(p.read_text(encoding="utf-8"))
             if m["id"] in analyzed:
@@ -133,7 +153,9 @@ def create_app(company: Company) -> Flask:
             ko = m.get("kickoff_iso")
             if ko and datetime.fromisoformat(ko) < datetime.now(timezone.utc):
                 continue  # 분석하지 못하고 지나간 경기는 숨김
-            items.append({"id": m["id"], "league": m["league"], "kickoff": m["kickoff"], "home": m["home"],
+            lid, lname = league_of(company, m)
+            items.append({"id": m["id"], "league": m["league"], "league_id": lid, "league_name": lname,
+                          "kickoff": m["kickoff"], "home": m["home"],
                           "away": m["away"], "status": "pending", "odds": m.get("odds", {})})
         items.sort(key=lambda x: x["kickoff"])
         return jsonify({"company": company.name, "matches": items})
@@ -165,6 +187,30 @@ def create_app(company: Company) -> Flask:
         return jsonify({"name": company.name, "departments": depts,
                         "policy": {"consensus_share": p.consensus_share, "value_threshold": p.value_threshold,
                                    "min_samples_for_weight": p.min_samples_for_weight}})
+
+    @app.get("/api/leagues")
+    def leagues():
+        from ..daily import default_leagues
+        from ..sources.cache import ApiCache
+
+        ds, auto = company.data_sources, company.automation
+        c = ApiCache(base / "data" / "api_cache.sqlite")
+        log = base / "data" / "daily_log.jsonl"
+        last = None
+        if log.exists():
+            lines = log.read_text(encoding="utf-8").strip().splitlines()
+            last = json.loads(lines[-1]) if lines else None
+        return jsonify({
+            "leagues": [{"id": lc["api_football_id"], "name": lc["name"], "group": lc.get("group", "기타"),
+                         "has_odds": bool(lc.get("odds_key"))} for lc in ds.get("leagues", [])],
+            "defaults": default_leagues(company),
+            "max_per_run": int(auto.get("max_analyses_per_day", 10)),
+            "usage": {"api_football_today": c.used("api_football", "day"),
+                      "api_football_limit": ds.get("api_football", {}).get("daily_limit", 100),
+                      "odds_month": c.used("odds_api", "month"),
+                      "odds_limit": ds.get("odds_api", {}).get("monthly_credits", 500)},
+            "last_run": last,
+        })
 
     @app.get("/api/record")
     def record():
