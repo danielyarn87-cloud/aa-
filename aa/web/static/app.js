@@ -86,13 +86,13 @@ async function renderList() {
   const done = ms.filter(m => m.status === 'analyzed');
   const vals = done.filter(m => m.value_alerts && m.value_alerts.length).length;
   const isRes = listFilter === 'results';
-  const shown = isRes ? [] : ms.filter(m => listFilter === 'all' || (listFilter === 'mine' ? m.picked : listFilter === 'analyzed' ? m.status === 'analyzed' : listFilter === 'pending' ? m.status === 'pending' : (m.value_alerts || []).length));
+  const shown = isRes ? [] : ms.filter(m => listFilter === 'all' || (listFilter === 'analyzed' ? m.status === 'analyzed' : listFilter === 'pending' ? m.status === 'pending' : (m.value_alerts || []).length));
   const days = [...new Set(shown.map(m => dayOf(m.kickoff)))];
   const chip = (k, t, cls = '') => `<button class="seg ${cls}" data-f="${k}" aria-pressed="${listFilter === k}">${t}</button>`;
   view.innerHTML = `<section class="band"><div class="wrap">
     <div class="listhead"><div><h1>이번 주 경기</h1>
-      <p class="mute" style="margin:6px 0 0">내가 고른 경기 <b class="num">${ms.filter(m => m.picked).length}</b> · 분석 완료 <b class="num">${done.length}</b> · 분석 대기 <b class="num">${ms.length - done.length}</b> · 이득 신호 <b class="num">${vals}</b> · 경기 결과 <b class="num">${finished.length}</b></p></div>
-      <div class="segbar" role="group" aria-label="경기 거르기">${chip('mine', '★ 내가 고른 경기', 'mine')}${chip('all', '전체')}${chip('analyzed', '분석 완료')}${chip('value', '이득 신호')}${chip('pending', '분석 대기')}${chip('results', `경기 결과 <span class="num">${finished.length}</span>`, 'res')}</div></div>
+      <p class="mute" style="margin:6px 0 0">분석 완료 <b class="num">${done.length}</b> · 분석 대기 <b class="num">${ms.length - done.length}</b> · 이득 신호 <b class="num">${vals}</b> · 경기 결과 <b class="num">${finished.length}</b></p></div>
+      <div class="segbar" role="group" aria-label="경기 거르기">${chip('all', '전체')}${chip('analyzed', '분석 완료')}${chip('value', '이득 신호')}${chip('pending', '분석 대기')}${chip('results', `경기 결과 <span class="num">${finished.length}</span>`, 'res')}</div></div>
     ${Object.keys(lgCount).length > 1 ? `<div class="chips lgchips" role="group" aria-label="리그 거르기"><span class="lglabel">리그</span>
       <button class="chip" data-lg="all" aria-pressed="${leagueFilter === 'all'}">모든 리그 <span class="num">${all.length}</span></button>
       ${Object.entries(lgCount).sort((a, b) => b[1] - a[1]).map(([n, c]) => `<button class="chip" data-lg="${esc(n)}" aria-pressed="${leagueFilter === n}">${esc(n)} <span class="num">${c}</span></button>`).join('')}</div>` : ''}
@@ -101,7 +101,7 @@ async function renderList() {
     ${isRes ? `<div class="ressearch">
         <input type="search" id="rq" placeholder="팀 이름·리그로 검색 (예: 대전, 챔피언스리그)" value="${esc(resQuery)}">
         <input type="date" id="rd" value="${esc(resDate)}" title="날짜">
-        <select id="rh"><option value="all">적중 여부 전체</option><option value="hit">승무패 맞힌 경기</option><option value="miss">승무패 틀린 경기</option><option value="mine">내가 고른 경기만</option></select>
+        <select id="rh"><option value="all">적중 여부 전체</option><option value="hit">승무패 맞힌 경기</option><option value="miss">승무패 틀린 경기</option></select>
         <button type="button" class="btn ghost sm" id="rclear">초기화</button></div><div id="reslist"></div>`
       : shown.length ? days.map(d => `<h2 class="day">${esc(dayLabel(d))}</h2>${shown.filter(m => dayOf(m.kickoff) === d).map(rowHtml).join('')}`).join('')
       : `<p class="empty">조건에 맞는 경기가 없습니다.${STATIC ? ' <a href="#run">분석 요청</a>에서 리그를 골라 경기를 가져오세요.' : ''}</p>`}
@@ -114,7 +114,7 @@ async function renderList() {
       const q = resQuery.toLowerCase();
       const list = finished.filter(m => (!q || `${m.home} ${m.away} ${m.league} ${lgName(m)}`.toLowerCase().includes(q))
         && (!resDate || dayOf(m.kickoff) === resDate)
-        && (resHit === 'all' || (resHit === 'hit' ? m.result.hit_1x2 === true : resHit === 'miss' ? m.result.hit_1x2 === false : m.picked)))
+        && (resHit === 'all' || (resHit === 'hit' ? m.result.hit_1x2 === true : m.result.hit_1x2 === false)))
         .sort((x, y) => (x.kickoff < y.kickoff ? 1 : -1));            // 최근 경기부터
       const ds = [...new Set(list.map(m => dayOf(m.kickoff)))];
       const h1 = list.filter(m => m.result.hit_1x2 != null), ho = list.filter(m => m.result.hit_ou != null);
@@ -147,7 +147,7 @@ function accBoard(all, lg) {
     return `<div class="accbox ${cls}"><div class="acc-head">${label}<span>채점 ${done.length}경기</span></div>
       <div class="acc-pair"><div><span class="acc-k">승무패</span>${big(h1, p1.length)}</div><div><span class="acc-k">언더/오버</span>${big(ho, po.length)}</div></div></div>`;
   };
-  return `<div class="accboard">${box(all, '누적 적중률 · 전체')}${box(all.filter(m => m.picked), '★ 내가 고른 경기', 'mine')}${lg !== 'all' ? box(all.filter(m => lgName(m) === lg), esc(lg), 'lg') : ''}</div>
+  return `<div class="accboard">${box(all, '누적 적중률 · 전체')}${lg !== 'all' ? box(all.filter(m => lgName(m) === lg), esc(lg), 'lg') : ''}</div>
     <p class="small mute" style="margin:-4px 0 12px">팀 결론 기준 누적입니다. 분석가별·1차/최종 적중률은 <a href="#record">인사평가</a>에서 볼 수 있습니다.</p>`;
 }
 const pickSet = () => new Set((store.get('aa_pick_ids') || '').split(',').filter(Boolean));
@@ -182,7 +182,6 @@ function rowHtml(m) {
     if (m.result.hit_ou != null) tags.push(`<span class="tag ${m.result.hit_ou ? 'hit' : 'miss'}">언오버 ${m.result.hit_ou ? '적중' : '빗나감'}</span>`);
   }
   if (m.mock) tags.push('<span class="tag wait">모의</span>');
-  if (m.picked) tags.unshift('<span class="tag mine">내가 고름</span>');
   return `<a class="row" href="#m-${encodeURIComponent(m.id)}">${head}${tri(m.probs)}<span class="tags">${tags.join('')}</span></a>`;
 }
 
@@ -346,17 +345,14 @@ async function renderRecord() {
     <p class="lead mute">경기가 끝나면 모든 예측을 자동으로 채점합니다. <b>1차</b>는 혼자 처음 낸 분석, <b>최종</b>은 토론 뒤 고친 분석입니다. ${esc(r.min_samples)}경기 이상 채점된 분석가는 성적에 따라 투표 비중이 바뀝니다 (호구형은 투표 안 하는 비교용). 모의 실행은 빠집니다.</p>
     ${r.departments.map(d => {
       const ini = Object.fromEntries((d.members_initial || []).map(x => [x.member_id, x]));
-      const mine = Object.fromEntries((d.members_mine || []).map(x => [x.member_id, x]));
       const cell = (x, k) => x ? pct(x[k], 0) : '-';
       return `<div class="sec"><h2>${esc(d.department)}</h2>
       <h3 style="margin-top:14px">전체 경기</h3>${cstat(d.company, '전체')}
-      <h3 style="margin-top:14px">★ 내가 고른 경기</h3>${d.company_mine && d.company_mine.settled ? cstat(d.company_mine, '내가 고른') : '<p class="empty">내가 고른 경기 중 아직 결과가 나온 경기가 없습니다. 분석 요청한 경기가 끝나면 여기에 쌓입니다.</p>'}
       <h3 style="margin-top:18px">분석가별 적중률</h3>
-      ${d.members.length ? `<div class="scroll"><table class="stack rec"><thead><tr><th>분석가</th><th class="r">채점 경기</th><th class="r">승무패<br>1차 → 최종</th><th class="r">언더/오버<br>1차 → 최종</th><th class="r">내가 고른 경기<br>승무패 · 언오버</th><th class="r">가능성 오차</th><th class="r">100원당 손익</th><th class="r">투표 비중</th></tr></thead><tbody>
-        ${d.members.map(x => { const i = ini[x.member_id], m = mine[x.member_id]; return `<tr style="--mc:${esc(x.color || '#333')}"><td data-l="분석가"><span class="who-badge sm">${esc(x.name)}</span></td><td data-l="채점 경기" class="r num">${esc(x.n)}</td>
+      ${d.members.length ? `<div class="scroll"><table class="stack rec"><thead><tr><th>분석가</th><th class="r">채점 경기</th><th class="r">승무패<br>1차 → 최종</th><th class="r">언더/오버<br>1차 → 최종</th><th class="r">가능성 오차</th><th class="r">100원당 손익</th><th class="r">투표 비중</th></tr></thead><tbody>
+        ${d.members.map(x => { const i = ini[x.member_id]; return `<tr style="--mc:${esc(x.color || '#333')}"><td data-l="분석가"><span class="who-badge sm">${esc(x.name)}</span></td><td data-l="채점 경기" class="r num">${esc(x.n)}</td>
           <td data-l="승무패 1차→최종" class="r num">${cell(i, 'acc_1x2')} → <b>${pct(x.acc_1x2, 0)}</b></td>
           <td data-l="언오버 1차→최종" class="r num">${cell(i, 'acc_ou')} → <b>${pct(x.acc_ou, 0)}</b></td>
-          <td data-l="내가 고른 경기" class="r num">${m ? `${pct(m.acc_1x2, 0)} · ${pct(m.acc_ou, 0)} <span class="mute">(${esc(m.n)})</span>` : '-'}</td>
           <td data-l="가능성 오차" class="r num">${x.brier_1x2.toFixed(3)}</td><td data-l="100원당 손익" class="r num">${won(x.roi_1x2)}</td>
           <td data-l="투표 비중" class="r num">${x.votes === false ? '<span class="mute">투표 안 함</span>' : x.weight.toFixed(2)}</td></tr>`; }).join('')}
       </tbody></table></div><p class="small mute">1차 → 최종: 혼자 판단했을 때와 토론 뒤의 적중률입니다. 토론으로 나아졌는지 볼 수 있습니다. 가능성 오차(브라이어 점수)는 낮을수록 잘 맞힌 것입니다.</p>`
@@ -489,7 +485,7 @@ async function renderRun() {
   const u = L.usage || {};
   const last = L.last_run;
   view.innerHTML = `<section class="band"><div class="wrap"><h1>분석 요청</h1>
-    <p class="lead mute">6시·14시에는 1주일치 경기 <b>목록만</b> 모읍니다 (Claude 비용 없음). 분석할 경기를 아래에서 직접 골라 <b>고른 경기 분석</b>을 누르세요. 보통 5~20분 뒤 사이트에 올라오고, 경기 목록의 <b>내가 고른 경기</b>에서 따로 볼 수 있습니다.</p>
+    <p class="lead mute">6시·14시에는 1주일치 경기 <b>목록만</b> 모읍니다 (Claude 비용 없음). 분석할 경기를 아래에서 직접 골라 <b>고른 경기 분석</b>을 누르세요. 보통 5~20분 뒤 경기 목록에 올라옵니다.</p>
     <div class="sheet sec"><div>
       <div class="inline" style="justify-content:space-between"><h2>경기 고르기 <span class="small mute">분석 대기 ${open.length}경기</span></h2>
         <span class="inline"><button class="btn ghost" id="pkNone" type="button">선택 해제</button></span></div>
@@ -576,7 +572,7 @@ async function renderRun() {
     if (!chosen.size) { msg('분석할 경기를 하나 이상 체크하세요.'); return; }
     if (chosen.size > 40) { msg('한 번에 40경기까지 고를 수 있습니다.'); return; }
     const n = chosen.size;
-    send(e.target, {ids: [...chosen]}, () => { const t = `${n}경기 분석을 시작했습니다. 끝나면 경기 목록의 "내가 고른 경기"에 올라옵니다.`; chosen = new Set(); drawList(); drawChosen(); return t; });
+    send(e.target, {ids: [...chosen]}, () => { const t = `${n}경기 분석을 시작했습니다. 끝나면 경기 목록에 올라옵니다.`; chosen = new Set(); drawList(); drawChosen(); return t; });
   };
   document.getElementById('rcollect').onclick = e => {
     if (!picked.size) { msg('리그를 하나 이상 고르세요.'); return; }
