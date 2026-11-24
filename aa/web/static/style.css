@@ -343,3 +343,14 @@ pre{background:var(--panel);padding:12px;border-radius:8px;font-size:14px;white-
   .wrap{padding-left:12px;padding-right:12px}
 }
 @media (max-width:600px){.tk-sum{font-size:12px;table-layout:fixed}.tk-sum th,.tk-sum td{padding:6px 3px;white-space:normal;word-break:keep-all}.ticket{padding:10px}}
+/* 실시간 스코어: 빨노파 막대 앞 */
+.row .mid{display:flex;align-items:center;gap:10px;min-width:0}
+.row .mid>.tri,.row .mid>.odds{flex:1;min-width:0}
+.lv{display:inline-flex;align-items:center;gap:5px;flex:none;padding:3px 8px;border-radius:6px;background:var(--line);font-size:14px;white-space:nowrap}
+.lv[hidden]{display:none}
+.lv b{font-size:16px}
+.lv.on{background:#fde2e2;color:#b91c1c}
+.lv .dot{width:8px;height:8px;border-radius:50%;background:#dc2626;display:inline-block}
+@media(prefers-reduced-motion:no-preference){.lv .dot{animation:lvblink 1.2s ease-in-out infinite}}
+@keyframes lvblink{50%{opacity:.25}}
+@media(max-width:720px){.row .mid{grid-column:2}}
