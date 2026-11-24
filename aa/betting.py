@@ -33,11 +33,37 @@ def path_of(company: Company) -> Path:
     return company.base_dir / "data" / "betting.json"
 
 
+def topups_path(company: Company) -> Path:
+    return company.base_dir / "data" / "topups.json"
+
+
+def _apply_topups(company: Company, book: dict) -> None:
+    """사이트에서 넣어 준 추가 금액(data/topups.json)을 계좌에 반영한다. 한 번 반영한 것은 다시 넣지 않는다."""
+    p = topups_path(company)
+    try:
+        items = json.loads(p.read_text(encoding="utf-8")).get("topups", []) if p.exists() else []
+    except (OSError, ValueError):
+        items = []
+    applied = book.setdefault("applied_topups", [])
+    names = {m.id: m.name for m in company.members}
+    for t in items:
+        tid, mid, amount = str(t.get("id")), t.get("member_id"), int(t.get("amount") or 0)
+        if tid in applied or mid not in names or amount <= 0:
+            continue
+        acc = book["accounts"].setdefault(mid, {"name": names[mid], "bankroll": book.get("start_bankroll", START_BANKROLL)})
+        acc["bankroll"] += amount
+        acc["deposited"] = acc.get("deposited", 0) + amount
+        applied.append(tid)
+
+
 def load(company: Company) -> dict:
     p = path_of(company)
     if p.exists():
-        return json.loads(p.read_text(encoding="utf-8"))
-    return {"start_bankroll": START_BANKROLL, "accounts": {}, "slips": []}
+        book = json.loads(p.read_text(encoding="utf-8"))
+    else:
+        book = {"start_bankroll": START_BANKROLL, "accounts": {}, "slips": []}
+    _apply_topups(company, book)
+    return book
 
 
 def save(company: Company, book: dict) -> None:
@@ -224,9 +250,15 @@ def summary(company: Company) -> dict:
         done = [s for s in mine if s["status"] != "open"]
         at_risk = sum(s["stake"] for s in open_)
         value = a["bankroll"] + at_risk           # 걸어 둔 돈까지 합친 평가액
-        accs.append({"member_id": m.id, "name": m.name, "title": m.title, "color": m.color,
-                     "bankroll": a["bankroll"], "at_risk": at_risk, "value": value, "profit": value - start,
+        deposited = a.get("deposited", 0)         # 사이트에서 추가로 넣어 준 돈
+        legs = [l for s in mine for l in s["legs"] if l.get("hit") is not None]
+        by_size = {str(n): {"won": sum(1 for s in done if s["size"] == n and s["status"] == "won"),
+                            "settled": sum(1 for s in done if s["size"] == n)} for n in SIZES}
+        accs.append({"member_id": m.id, "name": m.name, "title": m.title, "color": m.color, "votes": m.votes,
+                     "bankroll": a["bankroll"], "at_risk": at_risk, "value": value, "deposited": deposited,
+                     "profit": value - start - deposited,
                      "won": sum(1 for s in done if s["status"] == "won"), "settled": len(done),
+                     "legs_hit": sum(1 for l in legs if l["hit"]), "legs_settled": len(legs), "by_size": by_size,
                      "staked": sum(s["stake"] for s in done), "returned": sum(s["payout"] or 0 for s in done)})
     slips = sorted(book["slips"], key=lambda s: s["placed_at"], reverse=True)
     # 예전 배팅에는 이유가 저장돼 있지 않아 분석 글에서 채운다
