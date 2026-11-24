@@ -28,6 +28,7 @@ def test_daily_respects_window_and_cap(company):
     company.automation["leagues"] = [39]
     early = datetime(2026, 11, 25, 12, 0, tzinfo=KST)  # 킥오프 4일 전: 수집은 하되 분석은 아직
     company.automation["collect_days"] = 7
+    company.automation["analyze_within_hours"] = 48   # 이 시험은 48시간 창 기준
     s = run_daily(company, client_factory=MockClient, now=early, log=lambda *_: None,
                   af_transport=FakeAF(), odds_transport=fake_odds)
     assert s["collected"] == 1 and s["analyzed"] == []
