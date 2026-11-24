@@ -1,0 +1,93 @@
+{
+  "id": "AF-1552235",
+  "sport": "soccer",
+  "league": "에레디비시 Regular Season - 14",
+  "league_id": 88,
+  "league_name": "에레디비시",
+  "kickoff": "2026-11-29 20:15 KST",
+  "kickoff_iso": "2026-11-29T20:15:00+09:00",
+  "home": "ADO Den Haag",
+  "away": "위트레흐트",
+  "home_en": "ADO Den Haag",
+  "away_en": "Utrecht",
+  "odds": {
+    "line": 2.5,
+    "home": 2.62,
+    "best_home": 3.0,
+    "draw": 3.44,
+    "best_draw": 3.85,
+    "away": 2.27,
+    "best_away": 2.48,
+    "over": 1.56,
+    "best_over": 1.62,
+    "under": 2.29,
+    "best_under": 2.35,
+    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 11곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.821,
+    "away_goals": 2.077
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.807,
+      "xg_against": 2.159,
+      "raw_goals_for": 1.8,
+      "raw_goals_against": 2.2,
+      "played": 6,
+      "record": "2승 1무 3패",
+      "form": "WLLWL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.826,
+      "xg_against": 2.407,
+      "raw_goals_for": 1.7,
+      "raw_goals_against": 2.7,
+      "played": 6,
+      "record": "2승 1무 3패",
+      "form": "WDLLL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "WerkTalent Stadion",
+  "source_ids": {
+    "api_football_fixture": 1552235,
+    "home_team": 198,
+    "away_team": 207,
+    "league": 88,
+    "season": 2026
+  },
+  "table": "ADO Den Haag 17위 9점 (2승3무8패, 득실 -12) / 위트레흐트 15위 12점 (3승3무7패, 득실 -14)",
+  "head_to_head": [
+    "2021-04-04 ADO Den Haag 1-4 위트레흐트",
+    "2020-12-06 위트레흐트 1-1 ADO Den Haag",
+    "2020-01-24 위트레흐트 4-0 ADO Den Haag",
+    "2019-08-04 ADO Den Haag 2-4 위트레흐트",
+    "2019-04-06 ADO Den Haag 5-0 위트레흐트"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Eredivisie",
+    "home_days_rest": 6,
+    "away_prev": "2026-11-22 Eredivisie",
+    "away_days_rest": 7
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

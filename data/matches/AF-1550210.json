@@ -1,0 +1,93 @@
+{
+  "id": "AF-1550210",
+  "sport": "soccer",
+  "league": "세리에A Regular Season - 13",
+  "league_id": 135,
+  "league_name": "세리에A",
+  "kickoff": "2026-11-28 23:00 KST",
+  "kickoff_iso": "2026-11-28T23:00:00+09:00",
+  "home": "프로시노네",
+  "away": "파르마",
+  "home_en": "Frosinone",
+  "away_en": "Parma",
+  "odds": {
+    "line": 3.5,
+    "home": 1.51,
+    "best_home": 1.57,
+    "draw": 4.69,
+    "best_draw": 5.09,
+    "away": 5.37,
+    "best_away": 6.1,
+    "over": 2.04,
+    "best_over": 2.12,
+    "under": 1.76,
+    "best_under": 1.84,
+    "source": "The Odds API 평균 배당 (승무패 25곳, 언더/오버 14곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.667,
+    "away_goals": 1.492
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 2.356,
+      "xg_against": 1.164,
+      "raw_goals_for": 2.7,
+      "raw_goals_against": 1.0,
+      "played": 6,
+      "record": "5승 0무 1패",
+      "form": "DWWLL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.184,
+      "xg_against": 1.75,
+      "raw_goals_for": 1.0,
+      "raw_goals_against": 1.8,
+      "played": 5,
+      "record": "1승 0무 4패",
+      "form": "LDWLL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Stadio Benito Stirpe",
+  "source_ids": {
+    "api_football_fixture": 1550210,
+    "home_team": 512,
+    "away_team": 523,
+    "league": 135,
+    "season": 2026
+  },
+  "table": "프로시노네 7위 20점 (6승2무4패, 득실 +5) / 파르마 17위 8점 (2승2무8패, 득실 -12)",
+  "head_to_head": [
+    "2023-02-24 프로시노네 3-4 파르마",
+    "2022-10-01 파르마 2-1 프로시노네",
+    "2022-01-21 파르마 0-1 프로시노네",
+    "2021-08-20 프로시노네 2-2 파르마",
+    "2019-12-05 파르마 2-1 프로시노네"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-23 Serie A",
+    "home_days_rest": 5,
+    "away_prev": "2026-11-22 Serie A",
+    "away_days_rest": 6
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:43 KST"
+}

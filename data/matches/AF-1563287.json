@@ -1,0 +1,93 @@
+{
+  "id": "AF-1563287",
+  "sport": "soccer",
+  "league": "챔피언십 Regular Season - 18",
+  "league_id": 40,
+  "league_name": "챔피언십",
+  "kickoff": "2026-11-29 00:00 KST",
+  "kickoff_iso": "2026-11-29T00:00:00+09:00",
+  "home": "버밍엄",
+  "away": "볼턴",
+  "home_en": "Birmingham",
+  "away_en": "Bolton",
+  "odds": {
+    "line": 2.5,
+    "home": 1.44,
+    "best_home": 1.55,
+    "draw": 4.09,
+    "best_draw": 4.54,
+    "away": 5.51,
+    "best_away": 6.41,
+    "over": 1.56,
+    "best_over": 1.6,
+    "under": 2.3,
+    "best_under": 2.38,
+    "source": "The Odds API 평균 배당 (승무패 17곳, 언더/오버 10곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.651,
+    "away_goals": 1.271
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (8경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 2.196,
+      "xg_against": 1.074,
+      "raw_goals_for": 2.4,
+      "raw_goals_against": 1.0,
+      "played": 8,
+      "record": "4승 4무 0패",
+      "form": "LWWWL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (8경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.365,
+      "xg_against": 1.759,
+      "raw_goals_for": 1.4,
+      "raw_goals_against": 1.8,
+      "played": 8,
+      "record": "3승 2무 3패",
+      "form": "LLWLD"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": null,
+  "source_ids": {
+    "api_football_fixture": 1563287,
+    "home_team": 54,
+    "away_team": 68,
+    "league": 40,
+    "season": 2026
+  },
+  "table": "버밍엄 4위 29점 (8승5무3패, 득실 +13) / 볼턴 17위 18점 (5승3무8패, 득실 -9)",
+  "head_to_head": [
+    "2025-03-04 볼턴 3-1 버밍엄",
+    "2024-10-22 버밍엄 2-0 볼턴",
+    "2019-02-12 버밍엄 0-1 볼턴",
+    "2018-08-22 볼턴 1-0 버밍엄",
+    "2018-04-03 볼턴 0-1 버밍엄"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Championship",
+    "home_days_rest": 7,
+    "away_prev": "2026-11-22 Championship",
+    "away_days_rest": 7
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

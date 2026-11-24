@@ -1,0 +1,93 @@
+{
+  "id": "AF-1558690",
+  "sport": "soccer",
+  "league": "벨기에 프로리그 Regular Season - 13",
+  "league_id": 144,
+  "league_name": "벨기에 프로리그",
+  "kickoff": "2026-11-29 02:15 KST",
+  "kickoff_iso": "2026-11-29T02:15:00+09:00",
+  "home": "세르클러 브뤼허",
+  "away": "메헬렌",
+  "home_en": "Cercle Brugge",
+  "away_en": "KV Mechelen",
+  "odds": {
+    "line": 2.5,
+    "home": 1.91,
+    "best_home": 1.97,
+    "draw": 3.55,
+    "best_draw": 3.75,
+    "away": 3.43,
+    "best_away": 3.7,
+    "over": 1.65,
+    "best_over": 1.7,
+    "under": 2.15,
+    "best_under": 2.2,
+    "source": "The Odds API 평균 배당 (승무패 17곳, 언더/오버 9곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.815,
+    "away_goals": 1.333
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.405,
+      "xg_against": 1.578,
+      "raw_goals_for": 1.2,
+      "raw_goals_against": 1.7,
+      "played": 6,
+      "record": "2승 1무 3패",
+      "form": "LLWWW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.978,
+      "xg_against": 1.605,
+      "raw_goals_for": 0.8,
+      "raw_goals_against": 1.5,
+      "played": 6,
+      "record": "1승 2무 3패",
+      "form": "WWWLL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Jan Breydel Stadion",
+  "source_ids": {
+    "api_football_fixture": 1558690,
+    "home_team": 741,
+    "away_team": 266,
+    "league": 144,
+    "season": 2026
+  },
+  "table": "세르클러 브뤼허 14위 12점 (3승3무6패, 득실 -7) / 메헬렌 16위 12점 (3승3무6패, 득실 -11)",
+  "head_to_head": [
+    "2025-12-13 세르클러 브뤼허 2-3 메헬렌",
+    "2025-09-21 메헬렌 0-0 세르클러 브뤼허",
+    "2025-01-12 세르클러 브뤼허 1-0 메헬렌",
+    "2024-09-22 메헬렌 2-0 세르클러 브뤼허",
+    "2024-03-02 세르클러 브뤼허 2-3 메헬렌"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 Jupiler Pro League",
+    "home_days_rest": 7,
+    "away_prev": "2026-11-22 Jupiler Pro League",
+    "away_days_rest": 6
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

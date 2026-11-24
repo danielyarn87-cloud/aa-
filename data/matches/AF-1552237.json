@@ -1,0 +1,93 @@
+{
+  "id": "AF-1552237",
+  "sport": "soccer",
+  "league": "에레디비시 Regular Season - 14",
+  "league_id": 88,
+  "league_name": "에레디비시",
+  "kickoff": "2026-11-29 22:30 KST",
+  "kickoff_iso": "2026-11-29T22:30:00+09:00",
+  "home": "페예노르트",
+  "away": "아약스",
+  "home_en": "Feyenoord",
+  "away_en": "Ajax",
+  "odds": {
+    "line": 3.5,
+    "home": 2.06,
+    "best_home": 2.18,
+    "draw": 3.85,
+    "best_draw": 4.2,
+    "away": 2.92,
+    "best_away": 3.25,
+    "over": 1.92,
+    "best_over": 1.98,
+    "under": 1.81,
+    "best_under": 1.87,
+    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 11곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.821,
+    "away_goals": 2.077
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 2.14,
+      "xg_against": 1.559,
+      "raw_goals_for": 2.3,
+      "raw_goals_against": 1.3,
+      "played": 6,
+      "record": "2승 3무 1패",
+      "form": "WDDLL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 2.892,
+      "xg_against": 1.274,
+      "raw_goals_for": 3.3,
+      "raw_goals_against": 1.0,
+      "played": 6,
+      "record": "5승 1무 0패",
+      "form": "WWWDW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "De Kuip",
+  "source_ids": {
+    "api_football_fixture": 1552237,
+    "home_team": 209,
+    "away_team": 194,
+    "league": 88,
+    "season": 2026
+  },
+  "table": "페예노르트 5위 25점 (7승4무2패, 득실 +18) / 아약스 2위 28점 (8승4무1패, 득실 +20)",
+  "head_to_head": [
+    "2026-03-22 페예노르트 1-1 아약스",
+    "2025-12-14 아약스 2-0 페예노르트",
+    "2025-02-02 아약스 2-1 페예노르트",
+    "2024-10-30 페예노르트 0-2 아약스",
+    "2024-04-07 페예노르트 6-0 아약스"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Eredivisie",
+    "home_days_rest": 7,
+    "away_prev": "2026-11-22 Eredivisie",
+    "away_days_rest": 7
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

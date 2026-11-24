@@ -1,0 +1,97 @@
+{
+  "id": "AF-1557477",
+  "sport": "soccer",
+  "league": "프리미어리그 Regular Season - 12",
+  "league_id": 39,
+  "league_name": "프리미어리그",
+  "kickoff": "2026-11-30 01:30 KST",
+  "kickoff_iso": "2026-11-30T01:30:00+09:00",
+  "home": "아스널",
+  "away": "맨체스터 시티",
+  "home_en": "Arsenal",
+  "away_en": "Manchester City",
+  "odds": {
+    "line": 2.5,
+    "home": 1.96,
+    "best_home": 2.08,
+    "draw": 3.68,
+    "best_draw": 3.87,
+    "away": 3.59,
+    "best_away": 3.75,
+    "over": 1.72,
+    "best_over": 1.79,
+    "under": 2.1,
+    "best_under": 2.19,
+    "source": "The Odds API 평균 배당 (승무패 25곳, 언더/오버 16곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.582,
+    "away_goals": 1.173
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.843,
+      "xg_against": 0.69,
+      "raw_goals_for": 2.0,
+      "raw_goals_against": 0.4,
+      "played": 5,
+      "record": "5승 0무 0패",
+      "form": "WWWWD"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.69,
+      "xg_against": 1.343,
+      "raw_goals_for": 2.0,
+      "raw_goals_against": 1.2,
+      "played": 5,
+      "record": "3승 0무 2패",
+      "form": "WLLLD"
+    }
+  },
+  "lineup": {
+    "home_absent": [
+      "B. Saka (Thigh Problems)"
+    ],
+    "home_doubtful": [],
+    "away_absent": [
+      "A. Semenyo (Jumpers Knee)"
+    ],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Emirates Stadium",
+  "source_ids": {
+    "api_football_fixture": 1557477,
+    "home_team": 42,
+    "away_team": 50,
+    "league": 39,
+    "season": 2026
+  },
+  "table": "아스널 1위 28점 (9승1무1패, 득실 +10) / 맨체스터 시티 3위 22점 (7승1무3패, 득실 +8)",
+  "head_to_head": [
+    "2026-08-16 아스널 3-0 맨체스터 시티",
+    "2026-04-19 맨체스터 시티 2-1 아스널",
+    "2026-03-22 아스널 0-2 맨체스터 시티",
+    "2025-09-21 아스널 1-1 맨체스터 시티",
+    "2025-02-02 아스널 5-1 맨체스터 시티"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Premier League",
+    "home_days_rest": 7,
+    "away_prev": "2026-11-21 Premier League",
+    "away_days_rest": 8
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:43 KST"
+}

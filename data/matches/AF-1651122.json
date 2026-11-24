@@ -1,0 +1,92 @@
+{
+  "id": "AF-1651122",
+  "sport": "soccer",
+  "league": "MLS Round of 16",
+  "league_id": 253,
+  "league_name": "MLS",
+  "kickoff": "2026-11-29 08:30 KST",
+  "kickoff_iso": "2026-11-29T08:30:00+09:00",
+  "home": "FC 신시내티",
+  "away": "내슐빌 SC",
+  "home_en": "FC Cincinnati",
+  "away_en": "Nashville SC",
+  "odds": {
+    "line": 3.5,
+    "home": 2.97,
+    "best_home": 3.32,
+    "draw": 3.68,
+    "best_draw": 4.0,
+    "away": 2.09,
+    "best_away": 2.25,
+    "over": 2.12,
+    "best_over": 2.2,
+    "under": 1.67,
+    "best_under": 1.73,
+    "source": "The Odds API 평균 배당 (승무패 19곳, 언더/오버 10곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.78,
+    "away_goals": 1.349
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (17경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 2.222,
+      "xg_against": 1.817,
+      "raw_goals_for": 2.3,
+      "raw_goals_against": 1.9,
+      "played": 17,
+      "record": "9승 3무 5패",
+      "form": "DWLWW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (17경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.392,
+      "xg_against": 0.777,
+      "raw_goals_for": 1.4,
+      "raw_goals_against": 0.6,
+      "played": 17,
+      "record": "8승 6무 3패",
+      "form": "WDWWL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "TQL Stadium",
+  "source_ids": {
+    "api_football_fixture": 1651122,
+    "home_team": 2242,
+    "away_team": 9569,
+    "league": 253,
+    "season": 2026
+  },
+  "head_to_head": [
+    "2026-11-22 내슐빌 SC 0-1 FC 신시내티",
+    "2026-11-07 FC 신시내티 0-2 내슐빌 SC",
+    "2026-08-30 내슐빌 SC 4-0 FC 신시내티",
+    "2025-09-13 FC 신시내티 2-1 내슐빌 SC",
+    "2025-03-30 내슐빌 SC 1-2 FC 신시내티"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-23 Major League Soccer",
+    "home_days_rest": 6,
+    "away_prev": "2026-11-23 Major League Soccer",
+    "away_days_rest": 6
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

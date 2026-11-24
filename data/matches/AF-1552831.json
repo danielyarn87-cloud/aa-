@@ -1,0 +1,98 @@
+{
+  "id": "AF-1552831",
+  "sport": "soccer",
+  "league": "리그1 Regular Season - 12",
+  "league_id": 61,
+  "league_name": "리그1",
+  "kickoff": "2026-11-29 04:45 KST",
+  "kickoff_iso": "2026-11-29T04:45:00+09:00",
+  "home": "르아브르",
+  "away": "스트라스부르",
+  "home_en": "Le Havre",
+  "away_en": "Strasbourg",
+  "odds": {
+    "line": 2.5,
+    "home": 2.99,
+    "best_home": 3.16,
+    "draw": 3.58,
+    "best_draw": 3.9,
+    "away": 2.2,
+    "best_away": 2.32,
+    "over": 1.61,
+    "best_over": 1.68,
+    "under": 2.26,
+    "best_under": 2.38,
+    "source": "The Odds API 평균 배당 (승무패 22곳, 언더/오버 11곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.626,
+    "away_goals": 1.323
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.875,
+      "xg_against": 1.908,
+      "raw_goals_for": 0.5,
+      "raw_goals_against": 2.2,
+      "played": 6,
+      "record": "0승 1무 5패",
+      "form": "LLLLL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.441,
+      "xg_against": 2.342,
+      "raw_goals_for": 1.5,
+      "raw_goals_against": 2.7,
+      "played": 6,
+      "record": "1승 0무 5패",
+      "form": "LLWLL"
+    }
+  },
+  "lineup": {
+    "home_absent": [
+      "F. Mambimbi (Achilles Tendon Problems)",
+      "Stephan Zagadou (Jumpers Knee)"
+    ],
+    "home_doubtful": [],
+    "away_absent": [
+      "J. Panichelli (Jumpers Knee)"
+    ],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Stade Océane",
+  "source_ids": {
+    "api_football_fixture": 1552831,
+    "home_team": 111,
+    "away_team": 95,
+    "league": 61,
+    "season": 2026
+  },
+  "table": "르아브르 18위 2점 (0승2무9패, 득실 -15) / 스트라스부르 16위 10점 (3승1무7패, 득실 -5)",
+  "head_to_head": [
+    "2026-02-08 르아브르 2-1 스트라스부르",
+    "2025-09-14 스트라스부르 1-0 르아브르",
+    "2025-05-17 스트라스부르 2-3 르아브르",
+    "2024-12-15 르아브르 0-3 스트라스부르",
+    "2024-05-04 르아브르 3-1 스트라스부르"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 Ligue 1",
+    "home_days_rest": 8,
+    "away_prev": "2026-11-22 Ligue 1",
+    "away_days_rest": 7
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

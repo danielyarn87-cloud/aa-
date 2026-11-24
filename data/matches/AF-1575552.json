@@ -1,0 +1,93 @@
+{
+  "id": "AF-1575552",
+  "sport": "soccer",
+  "league": "프리메이라리가 Regular Season - 12",
+  "league_id": 94,
+  "league_name": "프리메이라리가",
+  "kickoff": "2026-11-29 00:30 KST",
+  "kickoff_iso": "2026-11-29T00:30:00+09:00",
+  "home": "모레이렌스",
+  "away": "산타 클라라",
+  "home_en": "Moreirense",
+  "away_en": "Santa Clara",
+  "odds": {
+    "line": 2.5,
+    "home": 3.46,
+    "best_home": 3.9,
+    "draw": 3.02,
+    "best_draw": 3.15,
+    "away": 2.12,
+    "best_away": 2.26,
+    "over": 2.29,
+    "best_over": 2.43,
+    "under": 1.54,
+    "best_under": 1.57,
+    "source": "The Odds API 평균 배당 (승무패 18곳, 언더/오버 10곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.265,
+    "away_goals": 1.367
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.349,
+      "xg_against": 1.638,
+      "raw_goals_for": 1.4,
+      "raw_goals_against": 1.8,
+      "played": 5,
+      "record": "2승 1무 2패",
+      "form": "DLWWL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.388,
+      "xg_against": 0.724,
+      "raw_goals_for": 1.4,
+      "raw_goals_against": 0.4,
+      "played": 5,
+      "record": "4승 1무 0패",
+      "form": "DWLWL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Parque Joaquim de Almeida Freitas",
+  "source_ids": {
+    "api_football_fixture": 1575552,
+    "home_team": 215,
+    "away_team": 227,
+    "league": 94,
+    "season": 2026
+  },
+  "table": "모레이렌스 9위 14점 (4승2무5패, 득실 -5) / 산타 클라라 4위 21점 (6승3무2패, 득실 +8)",
+  "head_to_head": [
+    "2026-07-22 산타 클라라 2-1 모레이렌스",
+    "2026-01-24 모레이렌스 1-0 산타 클라라",
+    "2025-08-17 산타 클라라 0-1 모레이렌스",
+    "2025-03-09 산타 클라라 1-1 모레이렌스",
+    "2024-10-05 모레이렌스 1-0 산타 클라라"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-08 Primeira Liga",
+    "home_days_rest": 20,
+    "away_prev": "2026-11-12 Friendlies Clubs",
+    "away_days_rest": 16
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

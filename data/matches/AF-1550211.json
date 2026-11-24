@@ -1,0 +1,95 @@
+{
+  "id": "AF-1550211",
+  "sport": "soccer",
+  "league": "세리에A Regular Season - 13",
+  "league_id": 135,
+  "league_name": "세리에A",
+  "kickoff": "2026-11-29 04:45 KST",
+  "kickoff_iso": "2026-11-29T04:45:00+09:00",
+  "home": "인터 밀란",
+  "away": "제노아",
+  "home_en": "Inter",
+  "away_en": "Genoa",
+  "odds": {
+    "line": 2.5,
+    "home": 1.31,
+    "best_home": 1.36,
+    "draw": 5.4,
+    "best_draw": 5.8,
+    "away": 8.97,
+    "best_away": 11.0,
+    "over": 1.58,
+    "best_over": 1.66,
+    "under": 2.33,
+    "best_under": 2.5,
+    "source": "The Odds API 평균 배당 (승무패 24곳, 언더/오버 12곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.667,
+    "away_goals": 1.492
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 2.689,
+      "xg_against": 1.297,
+      "raw_goals_for": 3.2,
+      "raw_goals_against": 1.2,
+      "played": 6,
+      "record": "6승 0무 0패",
+      "form": "WWLWD"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.184,
+      "xg_against": 1.375,
+      "raw_goals_for": 1.0,
+      "raw_goals_against": 1.2,
+      "played": 5,
+      "record": "2승 0무 3패",
+      "form": "WWWLW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [
+      "L. Venturino (Jumpers Knee)"
+    ],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": null,
+  "source_ids": {
+    "api_football_fixture": 1550211,
+    "home_team": 505,
+    "away_team": 495,
+    "league": 135,
+    "season": 2026
+  },
+  "table": "인터 밀란 3위 29점 (9승2무1패, 득실 +15) / 제노아 10위 16점 (5승1무6패, 득실 -3)",
+  "head_to_head": [
+    "2026-02-28 인터 밀란 2-0 제노아",
+    "2025-12-14 제노아 1-2 인터 밀란",
+    "2025-02-22 인터 밀란 1-0 제노아",
+    "2024-08-17 제노아 2-2 인터 밀란",
+    "2024-03-04 인터 밀란 2-1 제노아"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-23 Serie A",
+    "home_days_rest": 6,
+    "away_prev": "2026-11-22 Serie A",
+    "away_days_rest": 6
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:43 KST"
+}

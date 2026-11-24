@@ -1,0 +1,93 @@
+{
+  "id": "AF-1575231",
+  "sport": "soccer",
+  "league": "분데스리가 Regular Season - 11",
+  "league_id": 78,
+  "league_name": "분데스리가",
+  "kickoff": "2026-11-29 02:30 KST",
+  "kickoff_iso": "2026-11-29T02:30:00+09:00",
+  "home": "슈투트가르트",
+  "away": "프랑크푸르트",
+  "home_en": "VfB Stuttgart",
+  "away_en": "Eintracht Frankfurt",
+  "odds": {
+    "line": 3.5,
+    "home": 1.7,
+    "best_home": 1.8,
+    "draw": 4.48,
+    "best_draw": 4.8,
+    "away": 3.93,
+    "best_away": 4.5,
+    "over": 1.68,
+    "best_over": 1.77,
+    "under": 2.15,
+    "best_under": 2.25,
+    "source": "The Odds API 평균 배당 (승무패 23곳, 언더/오버 10곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 2.067,
+    "away_goals": 1.322
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (4경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.914,
+      "xg_against": 1.309,
+      "raw_goals_for": 1.8,
+      "raw_goals_against": 1.3,
+      "played": 4,
+      "record": "2승 0무 2패",
+      "form": "LLWWD"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.496,
+      "xg_against": 2.4,
+      "raw_goals_for": 1.6,
+      "raw_goals_against": 2.6,
+      "played": 5,
+      "record": "1승 2무 2패",
+      "form": "WLWDW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "MHPArena",
+  "source_ids": {
+    "api_football_fixture": 1575231,
+    "home_team": 172,
+    "away_team": 169,
+    "league": 78,
+    "season": 2026
+  },
+  "table": "슈투트가르트 8위 13점 (4승1무5패, 득실 +0) / 프랑크푸르트 7위 15점 (4승3무3패, 득실 -4)",
+  "head_to_head": [
+    "2026-05-16 프랑크푸르트 2-2 슈투트가르트",
+    "2026-01-13 슈투트가르트 3-2 프랑크푸르트",
+    "2025-03-29 프랑크푸르트 1-0 슈투트가르트",
+    "2024-11-10 슈투트가르트 2-3 프랑크푸르트",
+    "2024-04-13 슈투트가르트 3-0 프랑크푸르트"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Bundesliga",
+    "home_days_rest": 7,
+    "away_prev": "2026-11-21 Bundesliga",
+    "away_days_rest": 7
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

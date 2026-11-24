@@ -1,0 +1,93 @@
+{
+  "id": "AF-1570466",
+  "sport": "soccer",
+  "league": "라리가 Regular Season - 14",
+  "league_id": 140,
+  "league_name": "라리가",
+  "kickoff": "2026-11-29 02:30 KST",
+  "kickoff_iso": "2026-11-29T02:30:00+09:00",
+  "home": "엘체",
+  "away": "아틀레티코 마드리드",
+  "home_en": "Elche",
+  "away_en": "Atletico Madrid",
+  "odds": {
+    "line": 2.5,
+    "home": 6.0,
+    "best_home": 6.6,
+    "draw": 4.55,
+    "best_draw": 4.83,
+    "away": 1.49,
+    "best_away": 1.59,
+    "over": 1.54,
+    "best_over": 1.58,
+    "under": 2.39,
+    "best_under": 2.47,
+    "source": "The Odds API 평균 배당 (승무패 19곳, 언더/오버 9곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.597,
+    "away_goals": 1.279
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.999,
+      "xg_against": 1.96,
+      "raw_goals_for": 0.7,
+      "raw_goals_against": 2.3,
+      "played": 6,
+      "record": "0승 1무 5패",
+      "form": "DWLLD"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (7경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.784,
+      "xg_against": 0.969,
+      "raw_goals_for": 2.0,
+      "raw_goals_against": 0.7,
+      "played": 7,
+      "record": "6승 0무 1패",
+      "form": "WWWLW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": null,
+  "source_ids": {
+    "api_football_fixture": 1570466,
+    "home_team": 797,
+    "away_team": 530,
+    "league": 140,
+    "season": 2026
+  },
+  "table": "엘체 19위 11점 (2승5무6패, 득실 -6) / 아틀레티코 마드리드 3위 31점 (10승1무2패, 득실 +16)",
+  "head_to_head": [
+    "2026-04-22 엘체 3-2 아틀레티코 마드리드",
+    "2025-08-23 아틀레티코 마드리드 1-1 엘체",
+    "2025-01-15 엘체 0-4 아틀레티코 마드리드",
+    "2023-05-14 엘체 1-0 아틀레티코 마드리드",
+    "2022-12-29 아틀레티코 마드리드 2-0 엘체"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-24 La Liga",
+    "home_days_rest": 4,
+    "away_prev": "2026-11-23 La Liga",
+    "away_days_rest": 5
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:43 KST"
+}

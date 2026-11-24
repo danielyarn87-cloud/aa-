@@ -1,0 +1,81 @@
+{
+  "id": "AF-1606793",
+  "sport": "soccer",
+  "league": "J2리그 Regular Season - 20",
+  "league_id": 99,
+  "league_name": "J2리그",
+  "kickoff": "2026-11-29 14:00 KST",
+  "kickoff_iso": "2026-11-29T14:00:00+09:00",
+  "home": "알비렉스 니가타",
+  "away": "반포레 고후",
+  "home_en": "Albirex Niigata",
+  "away_en": "Ventforet Kofu",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.389,
+    "away_goals": 1.194
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (10경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.551,
+      "xg_against": 1.122,
+      "raw_goals_for": 1.6,
+      "raw_goals_against": 1.1,
+      "played": 10,
+      "record": "8승 0무 2패",
+      "form": "LWWLW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (9경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.824,
+      "xg_against": 2.372,
+      "raw_goals_for": 0.7,
+      "raw_goals_against": 2.7,
+      "played": 9,
+      "record": "1승 2무 6패",
+      "form": "DLLLL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Denka Big Swan Stadium",
+  "source_ids": {
+    "api_football_fixture": 1606793,
+    "home_team": 311,
+    "away_team": 308,
+    "league": 99,
+    "season": 2026
+  },
+  "table": "알비렉스 니가타 1위 35점 (11승2무5패, 득실 +0) / 반포레 고후 20위 12점 (3승3무12패, 득실 -25)",
+  "head_to_head": [
+    "2026-11-03 반포레 고후 0-1 알비렉스 니가타",
+    "2022-09-14 반포레 고후 1-2 알비렉스 니가타",
+    "2022-03-19 알비렉스 니가타 2-0 반포레 고후",
+    "2021-09-25 알비렉스 니가타 1-0 반포레 고후",
+    "2021-06-05 반포레 고후 2-2 알비렉스 니가타"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 J2 League",
+    "home_days_rest": 8,
+    "away_prev": "2026-11-21 J2 League",
+    "away_days_rest": 8
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

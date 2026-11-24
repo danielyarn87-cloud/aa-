@@ -1,0 +1,93 @@
+{
+  "id": "AF-1575551",
+  "sport": "soccer",
+  "league": "프리메이라리가 Regular Season - 12",
+  "league_id": 94,
+  "league_name": "프리메이라리가",
+  "kickoff": "2026-11-28 05:15 KST",
+  "kickoff_iso": "2026-11-28T05:15:00+09:00",
+  "home": "Maritimo",
+  "away": "나시오날",
+  "home_en": "Maritimo",
+  "away_en": "Nacional",
+  "odds": {
+    "line": 2.5,
+    "home": 2.04,
+    "best_home": 2.19,
+    "draw": 3.22,
+    "best_draw": 3.4,
+    "away": 3.42,
+    "best_away": 3.68,
+    "over": 2.01,
+    "best_over": 2.09,
+    "under": 1.71,
+    "best_under": 1.73,
+    "source": "The Odds API 평균 배당 (승무패 18곳, 언더/오버 10곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.265,
+    "away_goals": 1.367
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.974,
+      "xg_against": 1.638,
+      "raw_goals_for": 0.8,
+      "raw_goals_against": 1.8,
+      "played": 5,
+      "record": "1승 1무 3패",
+      "form": "LDLLL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.013,
+      "xg_against": 1.599,
+      "raw_goals_for": 0.8,
+      "raw_goals_against": 1.8,
+      "played": 5,
+      "record": "0승 1무 4패",
+      "form": "LLWLW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": null,
+  "source_ids": {
+    "api_football_fixture": 1575551,
+    "home_team": 214,
+    "away_team": 225,
+    "league": 94,
+    "season": 2026
+  },
+  "table": "Maritimo 15위 8점 (2승2무6패, 득실 -12) / 나시오날 13위 10점 (3승1무7패, 득실 -8)",
+  "head_to_head": [
+    "2025-08-03 Maritimo 3-0 나시오날",
+    "2024-07-23 Maritimo 2-0 나시오날",
+    "2024-01-21 Maritimo 3-1 나시오날",
+    "2023-08-12 나시오날 1-2 Maritimo",
+    "2022-07-30 Maritimo 1-0 나시오날"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Taça de Portugal",
+    "home_days_rest": 6,
+    "away_prev": "2026-11-09 Primeira Liga",
+    "away_days_rest": 19
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

@@ -1,0 +1,83 @@
+{
+  "id": "AF-1647400",
+  "sport": "soccer",
+  "league": "K리그1 Relegation Group - 37",
+  "league_id": 292,
+  "league_name": "K리그1",
+  "kickoff": "2026-11-28 16:30 KST",
+  "kickoff_iso": "2026-11-28T16:30:00+09:00",
+  "home": "부천 FC",
+  "away": "김천 상무",
+  "home_en": "Bucheon FC 1995",
+  "away_en": "Gimcheon Sangmu FC",
+  "odds": {
+    "line": 2.5,
+    "note": "The Odds API 에서 이 경기를 찾지 못함 (팀 이름 별칭을 확인하세요)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.217,
+    "away_goals": 1.288
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (19경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.116,
+      "xg_against": 1.557,
+      "raw_goals_for": 1.1,
+      "raw_goals_against": 1.6,
+      "played": 19,
+      "record": "3승 8무 8패",
+      "form": "LLLDL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (18경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.127,
+      "xg_against": 1.117,
+      "raw_goals_for": 1.1,
+      "raw_goals_against": 1.1,
+      "played": 18,
+      "record": "4승 10무 4패",
+      "form": "DLDWL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Bucheon Stadium",
+  "source_ids": {
+    "api_football_fixture": 1647400,
+    "home_team": 2745,
+    "away_team": 2768,
+    "league": 292,
+    "season": 2026
+  },
+  "table": "부천 FC 11위 32점 (7승11무15패, 득실 -15) / 김천 상무 10위 34점 (5승19무9패, 득실 -8)",
+  "head_to_head": [
+    "2026-09-19 부천 FC 0-2 김천 상무",
+    "2026-07-11 김천 상무 1-1 부천 FC",
+    "2026-04-25 부천 FC 0-2 김천 상무",
+    "2025-05-14 부천 FC 3-1 김천 상무",
+    "2023-10-07 김천 상무 3-1 부천 FC"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 K League 1",
+    "home_days_rest": 6,
+    "away_prev": "2026-11-22 K League 1",
+    "away_days_rest": 6
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

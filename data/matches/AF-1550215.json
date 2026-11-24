@@ -1,0 +1,95 @@
+{
+  "id": "AF-1550215",
+  "sport": "soccer",
+  "league": "세리에A Regular Season - 13",
+  "league_id": 135,
+  "league_name": "세리에A",
+  "kickoff": "2026-11-29 20:30 KST",
+  "kickoff_iso": "2026-11-29T20:30:00+09:00",
+  "home": "우디네세",
+  "away": "피오렌티나",
+  "home_en": "Udinese",
+  "away_en": "Fiorentina",
+  "odds": {
+    "line": 2.5,
+    "home": 3.05,
+    "best_home": 3.4,
+    "draw": 3.52,
+    "best_draw": 3.81,
+    "away": 2.21,
+    "best_away": 2.36,
+    "over": 1.71,
+    "best_over": 1.79,
+    "under": 2.12,
+    "best_under": 2.22,
+    "source": "The Odds API 평균 배당 (승무패 25곳, 언더/오버 16곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.667,
+    "away_goals": 1.492
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.022,
+      "xg_against": 2.031,
+      "raw_goals_for": 0.7,
+      "raw_goals_against": 2.3,
+      "played": 6,
+      "record": "0승 1무 5패",
+      "form": "LDLLD"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.631,
+      "xg_against": 2.222,
+      "raw_goals_for": 1.7,
+      "raw_goals_against": 2.5,
+      "played": 6,
+      "record": "2승 0무 4패",
+      "form": "LDWDL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [
+      "R. Sottil (Back Injury)"
+    ],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Bluenergy Stadium - Stadio Friuli",
+  "source_ids": {
+    "api_football_fixture": 1550215,
+    "home_team": 494,
+    "away_team": 502,
+    "league": 135,
+    "season": 2026
+  },
+  "table": "우디네세 19위 6점 (1승3무8패, 득실 -13) / 피오렌티나 16위 9점 (2승3무7패, 득실 -11)",
+  "head_to_head": [
+    "2026-03-02 우디네세 3-0 피오렌티나",
+    "2025-12-21 피오렌티나 5-1 우디네세",
+    "2025-05-25 우디네세 2-3 피오렌티나",
+    "2024-12-23 피오렌티나 1-2 우디네세",
+    "2024-01-14 피오렌티나 2-2 우디네세"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Serie A",
+    "home_days_rest": 6,
+    "away_prev": "2026-11-24 Serie A",
+    "away_days_rest": 5
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:43 KST"
+}

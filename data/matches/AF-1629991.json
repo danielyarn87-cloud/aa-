@@ -1,0 +1,74 @@
+{
+  "id": "AF-1629991",
+  "sport": "soccer",
+  "league": "AFC챔피언스리그 엘리트 League Phase - 6",
+  "league_id": 17,
+  "league_name": "AFC챔피언스리그 엘리트",
+  "kickoff": "2026-12-01 19:00 KST",
+  "kickoff_iso": "2026-12-01T19:00:00+09:00",
+  "home": "가시와 레이솔",
+  "away": "꽁안 하노이",
+  "home_en": "Kashiwa Reysol",
+  "away_en": "Công An Nhân Dân",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.568,
+    "away_goals": 1.514
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 2.341,
+      "xg_against": 1.108,
+      "raw_goals_for": 3.5,
+      "raw_goals_against": 0.5,
+      "played": 2,
+      "record": "2승 0무 0패",
+      "form": "LWDW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (3경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.757,
+      "xg_against": 1.784,
+      "raw_goals_for": 2.0,
+      "raw_goals_against": 2.0,
+      "played": 3,
+      "record": "2승 0무 1패",
+      "form": "WLLWD"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Sankyo Frontier Kashiwa Stadium",
+  "source_ids": {
+    "api_football_fixture": 1629991,
+    "home_team": 281,
+    "away_team": 16400,
+    "league": 17,
+    "season": 2026
+  },
+  "head_to_head": "자료 없음",
+  "schedule": {
+    "home_prev": "2026-11-24 AFC Champions League Elite",
+    "home_days_rest": 7,
+    "away_prev": "2026-11-19 ASEAN Club Championship",
+    "away_days_rest": 11
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

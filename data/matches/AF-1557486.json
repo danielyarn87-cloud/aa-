@@ -2,17 +2,21 @@
   "id": "AF-1557486",
   "sport": "soccer",
   "league": "프리미어리그 Regular Season - 12",
+  "league_id": 39,
+  "league_name": "프리미어리그",
   "kickoff": "2026-11-29 23:05 KST",
   "kickoff_iso": "2026-11-29T23:05:00+09:00",
-  "home": "Sunderland",
-  "away": "Tottenham",
+  "home": "선덜랜드",
+  "away": "토트넘",
+  "home_en": "Sunderland",
+  "away_en": "Tottenham",
   "odds": {
     "line": 2.5,
-    "home": 3.46,
-    "best_home": 3.85,
-    "draw": 3.39,
+    "home": 3.48,
+    "best_home": 3.9,
+    "draw": 3.38,
     "best_draw": 3.67,
-    "away": 2.1,
+    "away": 2.09,
     "best_away": 2.2,
     "over": 1.94,
     "best_over": 2.04,
@@ -28,7 +32,7 @@
   "stats": {
     "basis": "venue",
     "metric": "goals",
-    "설명": "API-Football 팀 통계의 홈/원정 경기당 득실 (xG 아님)",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
       "xg_for": 0.843,
@@ -62,6 +66,7 @@
     "confirmed": false,
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
+  "collected_detail": "full",
   "venue": "Stadium of Light",
   "source_ids": {
     "api_football_fixture": 1557486,
@@ -70,13 +75,13 @@
     "league": 39,
     "season": 2026
   },
-  "table": "Sunderland 18위 9점 (2승3무6패, 득실 -9) / Tottenham 10위 15점 (4승3무4패, 득실 +1)",
+  "table": "선덜랜드 18위 9점 (2승3무6패, 득실 -9) / 토트넘 10위 15점 (4승3무4패, 득실 +1)",
   "head_to_head": [
-    "2026-04-12 Sunderland 1-0 Tottenham",
-    "2026-01-04 Tottenham 1-1 Sunderland",
-    "2017-01-31 Sunderland 0-0 Tottenham",
-    "2016-09-18 Tottenham 1-0 Sunderland",
-    "2016-01-16 Tottenham 4-1 Sunderland"
+    "2026-04-12 선덜랜드 1-0 토트넘",
+    "2026-01-04 토트넘 1-1 선덜랜드",
+    "2017-01-31 선덜랜드 0-0 토트넘",
+    "2016-09-18 토트넘 1-0 선덜랜드",
+    "2016-01-16 토트넘 4-1 선덜랜드"
   ],
   "schedule": {
     "home_prev": "2026-11-22 Premier League",
@@ -88,5 +93,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 14:31 KST"
+  "collected_at": "2026-11-24 19:43 KST"
 }

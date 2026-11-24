@@ -1,0 +1,83 @@
+{
+  "id": "AF-1575232",
+  "sport": "soccer",
+  "league": "분데스리가 Regular Season - 11",
+  "league_id": 78,
+  "league_name": "분데스리가",
+  "kickoff": "2026-11-30 01:30 KST",
+  "kickoff_iso": "2026-11-30T01:30:00+09:00",
+  "home": "호펜하임",
+  "away": "아우크스부르크",
+  "home_en": "1899 Hoffenheim",
+  "away_en": "FC Augsburg",
+  "odds": {
+    "line": 2.5,
+    "note": "The Odds API 에서 이 경기를 찾지 못함 (팀 이름 별칭을 확인하세요)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 2.067,
+    "away_goals": 1.322
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 2.15,
+      "xg_against": 1.496,
+      "raw_goals_for": 2.2,
+      "raw_goals_against": 1.6,
+      "played": 5,
+      "record": "3승 0무 2패",
+      "form": "WWLWL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (4경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 2.167,
+      "xg_against": 2.772,
+      "raw_goals_for": 2.8,
+      "raw_goals_against": 3.3,
+      "played": 4,
+      "record": "1승 0무 3패",
+      "form": "LDLLW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "SNP Arena",
+  "source_ids": {
+    "api_football_fixture": 1575232,
+    "home_team": 167,
+    "away_team": 170,
+    "league": 78,
+    "season": 2026
+  },
+  "table": "호펜하임 11위 12점 (4승0무6패, 득실 -2) / 아우크스부르크 10위 12점 (3승3무4패, 득실 +2)",
+  "head_to_head": [
+    "2026-04-10 아우크스부르크 2-2 호펜하임",
+    "2025-11-29 호펜하임 3-0 아우크스부르크",
+    "2025-03-29 호펜하임 1-1 아우크스부르크",
+    "2025-01-06 호펜하임 3-1 아우크스부르크",
+    "2024-11-10 아우크스부르크 0-0 호펜하임"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 Bundesliga",
+    "home_days_rest": 8,
+    "away_prev": "2026-11-22 Bundesliga",
+    "away_days_rest": 7
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

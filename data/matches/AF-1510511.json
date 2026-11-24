@@ -1,0 +1,81 @@
+{
+  "id": "AF-1510511",
+  "sport": "soccer",
+  "league": "K리그2 Regular Season - 34",
+  "league_id": 293,
+  "league_name": "K리그2",
+  "kickoff": "2026-11-29 14:00 KST",
+  "kickoff_iso": "2026-11-29T14:00:00+09:00",
+  "home": "경남 FC",
+  "away": "서울 이랜드",
+  "home_en": "Gyeongnam FC",
+  "away_en": "Seoul E-Land FC",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.451,
+    "away_goals": 1.292
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (15경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.492,
+      "xg_against": 1.132,
+      "raw_goals_for": 1.5,
+      "raw_goals_against": 1.1,
+      "played": 15,
+      "record": "8승 3무 4패",
+      "form": "DLWLL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (15경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.465,
+      "xg_against": 1.159,
+      "raw_goals_for": 1.5,
+      "raw_goals_against": 1.1,
+      "played": 15,
+      "record": "8승 4무 3패",
+      "form": "WWLWD"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Changwon Football Centre Stadium",
+  "source_ids": {
+    "api_football_fixture": 1510511,
+    "home_team": 2751,
+    "away_team": 2749,
+    "league": 293,
+    "season": 2026
+  },
+  "table": "경남 FC 9위 38점 (9승11무11패, 득실 -6) / 서울 이랜드 4위 58점 (17승7무7패, 득실 +19)",
+  "head_to_head": [
+    "2026-03-07 서울 이랜드 1-0 경남 FC",
+    "2025-11-01 경남 FC 0-0 서울 이랜드",
+    "2025-08-16 경남 FC 1-1 서울 이랜드",
+    "2025-04-26 서울 이랜드 2-1 경남 FC",
+    "2024-11-03 경남 FC 0-3 서울 이랜드"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 K League 2",
+    "home_days_rest": 8,
+    "away_prev": "2026-11-22 K League 2",
+    "away_days_rest": 6
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

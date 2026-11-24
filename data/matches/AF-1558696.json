@@ -1,0 +1,83 @@
+{
+  "id": "AF-1558696",
+  "sport": "soccer",
+  "league": "벨기에 프로리그 Regular Season - 13",
+  "league_id": 144,
+  "league_name": "벨기에 프로리그",
+  "kickoff": "2026-11-29 21:30 KST",
+  "kickoff_iso": "2026-11-29T21:30:00+09:00",
+  "home": "신트트라위던",
+  "away": "헹크",
+  "home_en": "St. Truiden",
+  "away_en": "Genk",
+  "odds": {
+    "line": 2.5,
+    "note": "The Odds API 에서 이 경기를 찾지 못함 (팀 이름 별칭을 확인하세요)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.815,
+    "away_goals": 1.333
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.738,
+      "xg_against": 1.444,
+      "raw_goals_for": 1.7,
+      "raw_goals_against": 1.5,
+      "played": 6,
+      "record": "2승 1무 3패",
+      "form": "LLLWD"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.978,
+      "xg_against": 1.805,
+      "raw_goals_for": 0.8,
+      "raw_goals_against": 1.8,
+      "played": 6,
+      "record": "0승 2무 4패",
+      "form": "WWLLW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Daio Wasabi Stayen",
+  "source_ids": {
+    "api_football_fixture": 1558696,
+    "home_team": 735,
+    "away_team": 742,
+    "league": 144,
+    "season": 2026
+  },
+  "table": "신트트라위던 11위 12점 (3승3무6패, 득실 +0) / 헹크 6위 18점 (5승3무4패, 득실 +6)",
+  "head_to_head": [
+    "2026-03-15 헹크 1-0 신트트라위던",
+    "2025-09-28 신트트라위던 1-2 헹크",
+    "2025-01-07 신트트라위던 0-4 헹크",
+    "2024-12-01 신트트라위던 2-2 헹크",
+    "2024-10-20 헹크 3-2 신트트라위던"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Jupiler Pro League",
+    "home_days_rest": 7,
+    "away_prev": "2026-11-22 Jupiler Pro League",
+    "away_days_rest": 7
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

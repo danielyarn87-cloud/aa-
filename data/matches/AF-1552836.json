@@ -1,0 +1,95 @@
+{
+  "id": "AF-1552836",
+  "sport": "soccer",
+  "league": "리그1 Regular Season - 12",
+  "league_id": 61,
+  "league_name": "리그1",
+  "kickoff": "2026-11-30 01:15 KST",
+  "kickoff_iso": "2026-11-30T01:15:00+09:00",
+  "home": "툴루즈",
+  "away": "렌",
+  "home_en": "Toulouse",
+  "away_en": "Rennes",
+  "odds": {
+    "line": 2.5,
+    "home": 2.51,
+    "best_home": 2.64,
+    "draw": 3.61,
+    "best_draw": 3.92,
+    "away": 2.55,
+    "best_away": 2.65,
+    "over": 1.57,
+    "best_over": 1.65,
+    "under": 2.33,
+    "best_under": 2.48,
+    "source": "The Odds API 평균 배당 (승무패 22곳, 언더/오버 11곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.626,
+    "away_goals": 1.323
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.36,
+      "xg_against": 1.246,
+      "raw_goals_for": 1.2,
+      "raw_goals_against": 1.2,
+      "played": 5,
+      "record": "2승 1무 2패",
+      "form": "WDLWD"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.496,
+      "xg_against": 2.485,
+      "raw_goals_for": 1.6,
+      "raw_goals_against": 3.0,
+      "played": 5,
+      "record": "1승 1무 3패",
+      "form": "LWLLD"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [
+      "E. Lepaul (Sprained Ankle)"
+    ],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Stadium de Toulouse",
+  "source_ids": {
+    "api_football_fixture": 1552836,
+    "home_team": 96,
+    "away_team": 94,
+    "league": 61,
+    "season": 2026
+  },
+  "table": "툴루즈 12위 14점 (3승5무3패, 득실 +1) / 렌 9위 17점 (5승2무4패, 득실 +0)",
+  "head_to_head": [
+    "2026-02-28 렌 1-0 툴루즈",
+    "2025-10-29 툴루즈 2-2 렌",
+    "2025-05-03 툴루즈 2-1 렌",
+    "2024-11-10 렌 0-2 툴루즈",
+    "2024-04-13 렌 1-2 툴루즈"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Ligue 1",
+    "home_days_rest": 7,
+    "away_prev": "2026-11-23 Ligue 1",
+    "away_days_rest": 7
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

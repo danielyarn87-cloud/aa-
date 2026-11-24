@@ -1,0 +1,81 @@
+{
+  "id": "AF-1606792",
+  "sport": "soccer",
+  "league": "J2리그 Regular Season - 20",
+  "league_id": 99,
+  "league_name": "J2리그",
+  "kickoff": "2026-11-29 14:00 KST",
+  "kickoff_iso": "2026-11-29T14:00:00+09:00",
+  "home": "오이타 트리니타",
+  "away": "도쿠시마 보르티스",
+  "home_en": "Oita Trinita",
+  "away_en": "Tokushima Vortis",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.389,
+    "away_goals": 1.194
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (9경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.697,
+      "xg_against": 1.348,
+      "raw_goals_for": 1.8,
+      "raw_goals_against": 1.4,
+      "played": 9,
+      "record": "4승 3무 2패",
+      "form": "LWLLD"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (9경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.973,
+      "xg_against": 1.397,
+      "raw_goals_for": 0.9,
+      "raw_goals_against": 1.4,
+      "played": 9,
+      "record": "3승 1무 5패",
+      "form": "LLLWL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Resonac Dome Oita",
+  "source_ids": {
+    "api_football_fixture": 1606792,
+    "home_team": 298,
+    "away_team": 299,
+    "league": 99,
+    "season": 2026
+  },
+  "table": "오이타 트리니타 12위 23점 (5승8무5패, 득실 +0) / 도쿠시마 보르티스 14위 20점 (6승2무10패, 득실 -5)",
+  "head_to_head": [
+    "2026-08-29 도쿠시마 보르티스 1-0 오이타 트리니타",
+    "2025-06-21 도쿠시마 보르티스 2-0 오이타 트리니타",
+    "2025-04-13 오이타 트리니타 1-1 도쿠시마 보르티스",
+    "2024-09-14 도쿠시마 보르티스 3-1 오이타 트리니타",
+    "2024-06-01 오이타 트리니타 1-2 도쿠시마 보르티스"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 J2 League",
+    "home_days_rest": 8,
+    "away_prev": "2026-11-22 J2 League",
+    "away_days_rest": 7
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

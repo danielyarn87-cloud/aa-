@@ -1,0 +1,93 @@
+{
+  "id": "AF-1570463",
+  "sport": "soccer",
+  "league": "라리가 Regular Season - 14",
+  "league_id": 140,
+  "league_name": "라리가",
+  "kickoff": "2026-11-28 22:00 KST",
+  "kickoff_iso": "2026-11-28T22:00:00+09:00",
+  "home": "레알 베티스",
+  "away": "라요 바예카노",
+  "home_en": "Real Betis",
+  "away_en": "Rayo Vallecano",
+  "odds": {
+    "line": 3.5,
+    "home": 1.56,
+    "best_home": 1.65,
+    "draw": 4.35,
+    "best_draw": 4.75,
+    "away": 5.23,
+    "best_away": 6.0,
+    "over": 2.32,
+    "best_over": 2.42,
+    "under": 1.58,
+    "best_under": 1.66,
+    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 9곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.597,
+    "away_goals": 1.279
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.866,
+      "xg_against": 1.293,
+      "raw_goals_for": 2.0,
+      "raw_goals_against": 1.3,
+      "played": 6,
+      "record": "5승 0무 1패",
+      "form": "LDWWD"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.093,
+      "xg_against": 2.066,
+      "raw_goals_for": 1.0,
+      "raw_goals_against": 2.3,
+      "played": 6,
+      "record": "0승 2무 4패",
+      "form": "DLWLL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Estadio de La Cartuja",
+  "source_ids": {
+    "api_football_fixture": 1570463,
+    "home_team": 543,
+    "away_team": 728,
+    "league": 140,
+    "season": 2026
+  },
+  "table": "레알 베티스 4위 27점 (8승3무2패, 득실 +5) / 라요 바예카노 16위 12점 (3승3무6패, 득실 -7)",
+  "head_to_head": [
+    "2026-02-21 레알 베티스 1-1 라요 바예카노",
+    "2025-12-15 라요 바예카노 0-0 레알 베티스",
+    "2025-05-15 라요 바예카노 2-2 레알 베티스",
+    "2024-12-22 레알 베티스 1-1 라요 바예카노",
+    "2024-03-17 라요 바예카노 2-0 레알 베티스"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 La Liga",
+    "home_days_rest": 6,
+    "away_prev": "2026-11-22 La Liga",
+    "away_days_rest": 6
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:43 KST"
+}

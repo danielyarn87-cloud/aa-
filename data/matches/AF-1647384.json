@@ -1,0 +1,93 @@
+{
+  "id": "AF-1647384",
+  "sport": "soccer",
+  "league": "K리그1 Championship Group - 37",
+  "league_id": 292,
+  "league_name": "K리그1",
+  "kickoff": "2026-11-28 14:00 KST",
+  "kickoff_iso": "2026-11-28T14:00:00+09:00",
+  "home": "FC 서울",
+  "away": "대전 하나시티즌",
+  "home_en": "FC Seoul",
+  "away_en": "Daejeon Citizen",
+  "odds": {
+    "line": 2.5,
+    "home": 2.23,
+    "best_home": 2.48,
+    "draw": 3.38,
+    "best_draw": 3.65,
+    "away": 2.66,
+    "best_away": 2.9,
+    "over": 1.65,
+    "best_over": 1.68,
+    "under": 2.07,
+    "best_under": 2.11,
+    "source": "The Odds API 평균 배당 (승무패 18곳, 언더/오버 10곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.217,
+    "away_goals": 1.288
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (18경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.545,
+      "xg_against": 0.955,
+      "raw_goals_for": 1.6,
+      "raw_goals_against": 0.9,
+      "played": 18,
+      "record": "9승 4무 5패",
+      "form": "DDLLW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (18경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.727,
+      "xg_against": 1.117,
+      "raw_goals_for": 1.8,
+      "raw_goals_against": 1.1,
+      "played": 18,
+      "record": "8승 5무 5패",
+      "form": "WWDWW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Seoul World Cup Stadium",
+  "source_ids": {
+    "api_football_fixture": 1647384,
+    "home_team": 2766,
+    "away_team": 2750,
+    "league": 292,
+    "season": 2026
+  },
+  "table": "FC 서울 1위 67점 (20승7무6패, 득실 +32) / 대전 하나시티즌 3위 49점 (13승10무10패, 득실 +12)",
+  "head_to_head": [
+    "2026-08-15 FC 서울 4-2 대전 하나시티즌",
+    "2026-05-16 대전 하나시티즌 1-2 FC 서울",
+    "2026-04-18 FC 서울 0-1 대전 하나시티즌",
+    "2025-11-01 대전 하나시티즌 3-1 FC 서울",
+    "2025-07-27 대전 하나시티즌 0-1 FC 서울"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 K League 1",
+    "home_days_rest": 7,
+    "away_prev": "2026-11-21 K League 1",
+    "away_days_rest": 6
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

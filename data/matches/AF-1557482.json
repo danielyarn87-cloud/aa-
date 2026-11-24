@@ -2,23 +2,27 @@
   "id": "AF-1557482",
   "sport": "soccer",
   "league": "프리미어리그 Regular Season - 12",
+  "league_id": 39,
+  "league_name": "프리미어리그",
   "kickoff": "2026-11-29 02:30 KST",
   "kickoff_iso": "2026-11-29T02:30:00+09:00",
-  "home": "Ipswich",
-  "away": "Aston Villa",
+  "home": "입스위치",
+  "away": "애스턴 빌라",
+  "home_en": "Ipswich",
+  "away_en": "Aston Villa",
   "odds": {
-    "line": 2.5,
-    "home": 3.55,
-    "best_home": 3.85,
-    "draw": 3.84,
+    "line": 3.5,
+    "home": 3.58,
+    "best_home": 3.9,
+    "draw": 3.85,
     "best_draw": 4.16,
-    "away": 1.93,
-    "best_away": 2.05,
-    "over": 1.53,
-    "best_over": 1.55,
-    "under": 2.5,
-    "best_under": 2.51,
-    "source": "The Odds API 평균 배당 (승무패 25곳, 언더/오버 3곳 북메이커)"
+    "away": 1.92,
+    "best_away": 2.01,
+    "over": 2.34,
+    "best_over": 2.45,
+    "under": 1.57,
+    "best_under": 1.65,
+    "source": "The Odds API 평균 배당 (승무패 25곳, 언더/오버 11곳 북메이커)"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -28,7 +32,7 @@
   "stats": {
     "basis": "venue",
     "metric": "goals",
-    "설명": "API-Football 팀 통계의 홈/원정 경기당 득실 (xG 아님)",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
       "xg_for": 1.343,
@@ -61,6 +65,7 @@
     "confirmed": false,
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
+  "collected_detail": "full",
   "venue": "Portman Road",
   "source_ids": {
     "api_football_fixture": 1557482,
@@ -69,13 +74,13 @@
     "league": 39,
     "season": 2026
   },
-  "table": "Ipswich 16위 11점 (3승2무6패, 득실 -7) / Aston Villa 12위 14점 (3승5무3패, 득실 -3)",
+  "table": "입스위치 16위 11점 (3승2무6패, 득실 -7) / 애스턴 빌라 12위 14점 (3승5무3패, 득실 -3)",
   "head_to_head": [
-    "2025-02-15 Aston Villa 1-1 Ipswich",
-    "2024-09-29 Ipswich 2-2 Aston Villa",
-    "2019-01-26 Aston Villa 2-1 Ipswich",
-    "2018-08-18 Ipswich 1-1 Aston Villa",
-    "2018-04-21 Ipswich 0-4 Aston Villa"
+    "2025-02-15 애스턴 빌라 1-1 입스위치",
+    "2024-09-29 입스위치 2-2 애스턴 빌라",
+    "2019-01-26 애스턴 빌라 2-1 입스위치",
+    "2018-08-18 입스위치 1-1 애스턴 빌라",
+    "2018-04-21 입스위치 0-4 애스턴 빌라"
   ],
   "schedule": {
     "home_prev": "2026-11-22 Premier League",
@@ -87,5 +92,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 14:31 KST"
+  "collected_at": "2026-11-24 19:43 KST"
 }

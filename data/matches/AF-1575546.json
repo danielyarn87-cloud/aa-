@@ -1,0 +1,93 @@
+{
+  "id": "AF-1575546",
+  "sport": "soccer",
+  "league": "프리메이라리가 Regular Season - 12",
+  "league_id": 94,
+  "league_name": "프리메이라리가",
+  "kickoff": "2026-11-29 00:30 KST",
+  "kickoff_iso": "2026-11-29T00:30:00+09:00",
+  "home": "아로카",
+  "away": "히우 아브",
+  "home_en": "Arouca",
+  "away_en": "Rio Ave",
+  "odds": {
+    "line": 2.5,
+    "home": 1.63,
+    "best_home": 1.7,
+    "draw": 3.68,
+    "best_draw": 3.9,
+    "away": 4.5,
+    "best_away": 5.2,
+    "over": 1.84,
+    "best_over": 1.93,
+    "under": 1.88,
+    "best_under": 1.94,
+    "source": "The Odds API 평균 배당 (승무패 19곳, 언더/오버 13곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.265,
+    "away_goals": 1.367
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.599,
+      "xg_against": 0.888,
+      "raw_goals_for": 1.8,
+      "raw_goals_against": 0.6,
+      "played": 5,
+      "record": "4승 0무 1패",
+      "form": "DWWWL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.888,
+      "xg_against": 1.474,
+      "raw_goals_for": 0.6,
+      "raw_goals_against": 1.6,
+      "played": 5,
+      "record": "1승 0무 4패",
+      "form": "LWLLL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": null,
+  "source_ids": {
+    "api_football_fixture": 1575546,
+    "home_team": 240,
+    "away_team": 226,
+    "league": 94,
+    "season": 2026
+  },
+  "table": "아로카 5위 20점 (6승2무3패, 득실 +5) / 히우 아브 17위 7점 (2승1무8패, 득실 -15)",
+  "head_to_head": [
+    "2026-07-11 히우 아브 2-1 아로카",
+    "2026-01-31 히우 아브 0-3 아로카",
+    "2025-08-23 아로카 3-3 히우 아브",
+    "2025-02-10 아로카 1-1 히우 아브",
+    "2024-09-01 히우 아브 1-0 아로카"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 Taça de Portugal",
+    "home_days_rest": 7,
+    "away_prev": "2026-11-22 Taça de Portugal",
+    "away_days_rest": 6
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

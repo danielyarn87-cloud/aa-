@@ -1,0 +1,93 @@
+{
+  "id": "AF-1570471",
+  "sport": "soccer",
+  "league": "라리가 Regular Season - 14",
+  "league_id": 140,
+  "league_name": "라리가",
+  "kickoff": "2026-11-30 05:00 KST",
+  "kickoff_iso": "2026-11-30T05:00:00+09:00",
+  "home": "레알 소시에다드",
+  "away": "세비야",
+  "home_en": "Real Sociedad",
+  "away_en": "Sevilla",
+  "odds": {
+    "line": 2.5,
+    "home": 2.1,
+    "best_home": 2.22,
+    "draw": 3.59,
+    "best_draw": 3.82,
+    "away": 3.23,
+    "best_away": 3.5,
+    "over": 1.77,
+    "best_over": 1.86,
+    "under": 2.03,
+    "best_under": 2.12,
+    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 15곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.597,
+    "away_goals": 1.279
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.399,
+      "xg_against": 1.226,
+      "raw_goals_for": 1.3,
+      "raw_goals_against": 1.2,
+      "played": 6,
+      "record": "4승 1무 1패",
+      "form": "WWLWL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.56,
+      "xg_against": 1.866,
+      "raw_goals_for": 1.7,
+      "raw_goals_against": 2.0,
+      "played": 6,
+      "record": "2승 2무 2패",
+      "form": "LWLDD"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Anoeta",
+  "source_ids": {
+    "api_football_fixture": 1570471,
+    "home_team": 548,
+    "away_team": 536,
+    "league": 140,
+    "season": 2026
+  },
+  "table": "레알 소시에다드 5위 22점 (7승1무5패, 득실 +0) / 세비야 6위 19점 (5승4무4패, 득실 -2)",
+  "head_to_head": [
+    "2026-05-04 세비야 1-0 레알 소시에다드",
+    "2025-10-24 레알 소시에다드 2-1 세비야",
+    "2025-03-09 레알 소시에다드 0-1 세비야",
+    "2024-11-03 세비야 0-2 레알 소시에다드",
+    "2024-03-02 세비야 3-2 레알 소시에다드"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-23 La Liga",
+    "home_days_rest": 7,
+    "away_prev": "2026-11-22 La Liga",
+    "away_days_rest": 8
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:43 KST"
+}

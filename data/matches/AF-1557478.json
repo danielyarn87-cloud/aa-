@@ -2,23 +2,27 @@
   "id": "AF-1557478",
   "sport": "soccer",
   "league": "프리미어리그 Regular Season - 12",
+  "league_id": 39,
+  "league_name": "프리미어리그",
   "kickoff": "2026-11-29 23:05 KST",
   "kickoff_iso": "2026-11-29T23:05:00+09:00",
-  "home": "Brighton",
-  "away": "Newcastle",
+  "home": "브라이턴",
+  "away": "뉴캐슬",
+  "home_en": "Brighton",
+  "away_en": "Newcastle",
   "odds": {
-    "line": 2.5,
-    "home": 1.53,
-    "best_home": 1.59,
-    "draw": 4.46,
-    "best_draw": 4.75,
-    "away": 5.37,
+    "line": 3.5,
+    "home": 1.54,
+    "best_home": 1.6,
+    "draw": 4.44,
+    "best_draw": 4.72,
+    "away": 5.38,
     "best_away": 5.9,
-    "over": 1.53,
-    "best_over": 1.55,
-    "under": 2.5,
-    "best_under": 2.51,
-    "source": "The Odds API 평균 배당 (승무패 25곳, 언더/오버 3곳 북메이커)"
+    "over": 2.33,
+    "best_over": 2.4,
+    "under": 1.57,
+    "best_under": 1.67,
+    "source": "The Odds API 평균 배당 (승무패 25곳, 언더/오버 11곳 북메이커)"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -28,7 +32,7 @@
   "stats": {
     "basis": "venue",
     "metric": "goals",
-    "설명": "API-Football 팀 통계의 홈/원정 경기당 득실 (xG 아님)",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
       "xg_for": 2.468,
@@ -65,6 +69,7 @@
     "confirmed": false,
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
+  "collected_detail": "full",
   "venue": "Amex Stadium",
   "source_ids": {
     "api_football_fixture": 1557478,
@@ -73,13 +78,13 @@
     "league": 39,
     "season": 2026
   },
-  "table": "Brighton 2위 22점 (7승1무3패, 득실 +17) / Newcastle 13위 13점 (3승4무4패, 득실 -3)",
+  "table": "브라이턴 2위 22점 (7승1무3패, 득실 +17) / 뉴캐슬 13위 13점 (3승4무4패, 득실 -3)",
   "head_to_head": [
-    "2026-05-02 Newcastle 3-1 Brighton",
-    "2025-10-18 Brighton 2-1 Newcastle",
-    "2025-05-04 Brighton 1-1 Newcastle",
-    "2025-03-02 Newcastle 1-2 Brighton",
-    "2024-10-19 Newcastle 0-1 Brighton"
+    "2026-05-02 뉴캐슬 3-1 브라이턴",
+    "2025-10-18 브라이턴 2-1 뉴캐슬",
+    "2025-05-04 브라이턴 1-1 뉴캐슬",
+    "2025-03-02 뉴캐슬 1-2 브라이턴",
+    "2024-10-19 뉴캐슬 0-1 브라이턴"
   ],
   "schedule": {
     "home_prev": "2026-11-22 Premier League",
@@ -91,5 +96,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 14:31 KST"
+  "collected_at": "2026-11-24 19:43 KST"
 }

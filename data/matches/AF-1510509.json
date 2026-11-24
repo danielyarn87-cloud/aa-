@@ -1,0 +1,78 @@
+{
+  "id": "AF-1510509",
+  "sport": "soccer",
+  "league": "K리그2 Regular Season - 34",
+  "league_id": 293,
+  "league_name": "K리그2",
+  "kickoff": "2026-11-28 14:00 KST",
+  "kickoff_iso": "2026-11-28T14:00:00+09:00",
+  "home": "Gimhae City",
+  "away": "성남 FC",
+  "home_en": "Gimhae City",
+  "away_en": "Seongnam FC",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.451,
+    "away_goals": 1.292
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (15경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.992,
+      "xg_against": 2.049,
+      "raw_goals_for": 0.9,
+      "raw_goals_against": 2.2,
+      "played": 15,
+      "record": "0승 5무 10패",
+      "form": "LWDLL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (15경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.215,
+      "xg_against": 1.492,
+      "raw_goals_for": 1.2,
+      "raw_goals_against": 1.5,
+      "played": 15,
+      "record": "4승 4무 7패",
+      "form": "LLDLW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Gimhae Sports Complex",
+  "source_ids": {
+    "api_football_fixture": 1510509,
+    "home_team": 7076,
+    "away_team": 2757,
+    "league": 293,
+    "season": 2026
+  },
+  "table": "Gimhae City 17위 18점 (3승9무19패, 득실 -37) / 성남 FC 11위 35점 (8승11무12패, 득실 -3)",
+  "head_to_head": [
+    "2026-07-29 Gimhae City 0-1 성남 FC",
+    "2026-06-05 성남 FC 1-1 Gimhae City"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 K League 2",
+    "home_days_rest": 6,
+    "away_prev": "2026-11-21 K League 2",
+    "away_days_rest": 6
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

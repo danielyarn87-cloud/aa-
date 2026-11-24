@@ -1,0 +1,93 @@
+{
+  "id": "AF-1575548",
+  "sport": "soccer",
+  "league": "프리메이라리가 Regular Season - 12",
+  "league_id": 94,
+  "league_name": "프리메이라리가",
+  "kickoff": "2026-12-01 05:15 KST",
+  "kickoff_iso": "2026-12-01T05:15:00+09:00",
+  "home": "카사 피아",
+  "away": "브라가",
+  "home_en": "Casa Pia",
+  "away_en": "SC Braga",
+  "odds": {
+    "line": 2.5,
+    "home": 6.87,
+    "best_home": 7.8,
+    "draw": 4.19,
+    "best_draw": 4.5,
+    "away": 1.41,
+    "best_away": 1.45,
+    "over": 1.85,
+    "best_over": 1.99,
+    "under": 1.87,
+    "best_under": 1.91,
+    "source": "The Odds API 평균 배당 (승무패 17곳, 언더/오버 10곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.265,
+    "away_goals": 1.367
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.599,
+      "xg_against": 2.388,
+      "raw_goals_for": 0.2,
+      "raw_goals_against": 3.0,
+      "played": 5,
+      "record": "0승 0무 5패",
+      "form": "WLWLD"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.122,
+      "xg_against": 1.088,
+      "raw_goals_for": 1.0,
+      "raw_goals_against": 1.0,
+      "played": 6,
+      "record": "2승 2무 2패",
+      "form": "LLLWW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": null,
+  "source_ids": {
+    "api_football_fixture": 1575548,
+    "home_team": 4716,
+    "away_team": 217,
+    "league": 94,
+    "season": 2026
+  },
+  "table": "카사 피아 16위 8점 (2승2무7패, 득실 -14) / 브라가 8위 17점 (5승2무4패, 득실 +2)",
+  "head_to_head": [
+    "2026-04-23 카사 피아 0-1 브라가",
+    "2025-10-26 브라가 4-0 카사 피아",
+    "2025-05-10 카사 피아 2-1 브라가",
+    "2024-12-29 브라가 1-2 카사 피아",
+    "2024-05-05 브라가 4-3 카사 피아"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 Taça de Portugal",
+    "home_days_rest": 9,
+    "away_prev": "2026-11-22 Taça de Portugal",
+    "away_days_rest": 8
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

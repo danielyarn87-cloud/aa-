@@ -2,19 +2,23 @@
   "id": "AF-1557485",
   "sport": "soccer",
   "league": "프리미어리그 Regular Season - 12",
+  "league_id": 39,
+  "league_name": "프리미어리그",
   "kickoff": "2026-11-28 05:00 KST",
   "kickoff_iso": "2026-11-28T05:00:00+09:00",
-  "home": "Nottingham Forest",
-  "away": "Chelsea",
+  "home": "노팅엄 포리스트",
+  "away": "첼시",
+  "home_en": "Nottingham Forest",
+  "away_en": "Chelsea",
   "odds": {
     "line": 2.5,
-    "home": 2.6,
+    "home": 2.61,
     "best_home": 2.8,
     "draw": 3.42,
     "best_draw": 3.73,
     "away": 2.61,
-    "best_away": 2.78,
-    "over": 1.74,
+    "best_away": 2.8,
+    "over": 1.75,
     "best_over": 1.81,
     "under": 2.07,
     "best_under": 2.16,
@@ -28,7 +32,7 @@
   "stats": {
     "basis": "venue",
     "metric": "goals",
-    "설명": "API-Football 팀 통계의 홈/원정 경기당 득실 (xG 아님)",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
       "xg_for": 0.968,
@@ -60,6 +64,7 @@
     "confirmed": false,
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
+  "collected_detail": "full",
   "venue": "City Ground",
   "source_ids": {
     "api_football_fixture": 1557485,
@@ -68,13 +73,13 @@
     "league": 39,
     "season": 2026
   },
-  "table": "Nottingham Forest 17위 9점 (2승3무6패, 득실 -6) / Chelsea 8위 16점 (5승1무5패, 득실 +0)",
+  "table": "노팅엄 포리스트 17위 9점 (2승3무6패, 득실 -6) / 첼시 8위 16점 (5승1무5패, 득실 +0)",
   "head_to_head": [
-    "2026-05-04 Chelsea 1-3 Nottingham Forest",
-    "2025-10-18 Nottingham Forest 0-3 Chelsea",
-    "2025-05-25 Nottingham Forest 0-1 Chelsea",
-    "2024-10-06 Chelsea 1-1 Nottingham Forest",
-    "2024-05-11 Nottingham Forest 2-3 Chelsea"
+    "2026-05-04 첼시 1-3 노팅엄 포리스트",
+    "2025-10-18 노팅엄 포리스트 0-3 첼시",
+    "2025-05-25 노팅엄 포리스트 0-1 첼시",
+    "2024-10-06 첼시 1-1 노팅엄 포리스트",
+    "2024-05-11 노팅엄 포리스트 2-3 첼시"
   ],
   "schedule": {
     "home_prev": "2026-11-22 Premier League",
@@ -86,5 +91,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 14:31 KST"
+  "collected_at": "2026-11-24 19:43 KST"
 }

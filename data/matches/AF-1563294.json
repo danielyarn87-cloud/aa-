@@ -1,0 +1,93 @@
+{
+  "id": "AF-1563294",
+  "sport": "soccer",
+  "league": "챔피언십 Regular Season - 18",
+  "league_id": 40,
+  "league_name": "챔피언십",
+  "kickoff": "2026-11-28 05:00 KST",
+  "kickoff_iso": "2026-11-28T05:00:00+09:00",
+  "home": "사우샘프턴",
+  "away": "미들즈브러",
+  "home_en": "Southampton",
+  "away_en": "Middlesbrough",
+  "odds": {
+    "line": 3.5,
+    "home": 2.66,
+    "best_home": 2.92,
+    "draw": 3.51,
+    "best_draw": 3.85,
+    "away": 2.25,
+    "best_away": 2.43,
+    "over": 2.22,
+    "best_over": 2.33,
+    "under": 1.58,
+    "best_under": 1.61,
+    "source": "The Odds API 평균 배당 (승무패 19곳, 언더/오버 8곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.651,
+    "away_goals": 1.271
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (8경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 2.487,
+      "xg_against": 0.783,
+      "raw_goals_for": 2.8,
+      "raw_goals_against": 0.6,
+      "played": 8,
+      "record": "7승 1무 0패",
+      "form": "WWDLW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (8경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.51,
+      "xg_against": 1.396,
+      "raw_goals_for": 1.6,
+      "raw_goals_against": 1.3,
+      "played": 8,
+      "record": "3승 3무 2패",
+      "form": "WWLDW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "St. Mary's Stadium",
+  "source_ids": {
+    "api_football_fixture": 1563294,
+    "home_team": 41,
+    "away_team": 70,
+    "league": 40,
+    "season": 2026
+  },
+  "table": "사우샘프턴 6위 27점 (9승4무3패, 득실 +16) / 미들즈브러 1위 32점 (9승5무2패, 득실 +13)",
+  "head_to_head": [
+    "2026-05-12 사우샘프턴 2-1 미들즈브러",
+    "2026-05-09 미들즈브러 0-0 사우샘프턴",
+    "2026-01-04 미들즈브러 4-0 사우샘프턴",
+    "2025-09-27 사우샘프턴 1-1 미들즈브러",
+    "2024-03-29 사우샘프턴 1-1 미들즈브러"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 Championship",
+    "home_days_rest": 6,
+    "away_prev": "2026-11-22 Championship",
+    "away_days_rest": 6
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

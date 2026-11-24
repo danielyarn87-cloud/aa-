@@ -1,0 +1,83 @@
+{
+  "id": "AF-1575549",
+  "sport": "soccer",
+  "league": "프리메이라리가 Regular Season - 12",
+  "league_id": 94,
+  "league_name": "프리메이라리가",
+  "kickoff": "2026-11-30 05:30 KST",
+  "kickoff_iso": "2026-11-30T05:30:00+09:00",
+  "home": "포르투",
+  "away": "스포르팅 CP",
+  "home_en": "FC Porto",
+  "away_en": "Sporting CP",
+  "odds": {
+    "line": 2.5,
+    "note": "The Odds API 에서 이 경기를 찾지 못함 (팀 이름 별칭을 확인하세요)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.265,
+    "away_goals": 1.367
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 2.099,
+      "xg_against": 0.763,
+      "raw_goals_for": 2.6,
+      "raw_goals_against": 0.4,
+      "played": 5,
+      "record": "5승 0무 0패",
+      "form": "WWWWW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 2.013,
+      "xg_against": 0.974,
+      "raw_goals_for": 2.4,
+      "raw_goals_against": 0.8,
+      "played": 5,
+      "record": "3승 2무 0패",
+      "form": "DWLWW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": null,
+  "source_ids": {
+    "api_football_fixture": 1575549,
+    "home_team": 212,
+    "away_team": 228,
+    "league": 94,
+    "season": 2026
+  },
+  "table": "포르투 1위 33점 (11승0무0패, 득실 +22) / 스포르팅 CP 3위 24점 (7승3무1패, 득실 +13)",
+  "head_to_head": [
+    "2026-04-22 포르투 0-0 스포르팅 CP",
+    "2026-03-03 스포르팅 CP 1-0 포르투",
+    "2026-02-09 포르투 1-1 스포르팅 CP",
+    "2025-08-30 스포르팅 CP 1-2 포르투",
+    "2025-02-07 포르투 1-1 스포르팅 CP"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 Taça de Portugal",
+    "home_days_rest": 8,
+    "away_prev": "2026-11-22 Taça de Portugal",
+    "away_days_rest": 8
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

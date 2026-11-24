@@ -1,0 +1,83 @@
+{
+  "id": "AF-1556713",
+  "sport": "soccer",
+  "league": "스코틀랜드 프리미어십 Regular Season - 15",
+  "league_id": 179,
+  "league_name": "스코틀랜드 프리미어십",
+  "kickoff": "2026-11-29 00:00 KST",
+  "kickoff_iso": "2026-11-29T00:00:00+09:00",
+  "home": "던디 유나이티드",
+  "away": "세인트 존스톤",
+  "home_en": "Dundee Utd",
+  "away_en": "ST Johnstone",
+  "odds": {
+    "line": 2.5,
+    "note": "The Odds API 에서 이 경기를 찾지 못함 (팀 이름 별칭을 확인하세요)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.481,
+    "away_goals": 1.519
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.294,
+      "xg_against": 1.306,
+      "raw_goals_for": 1.2,
+      "raw_goals_against": 1.2,
+      "played": 6,
+      "record": "2승 3무 1패",
+      "form": "DWDDW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (7경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.086,
+      "xg_against": 1.634,
+      "raw_goals_for": 0.9,
+      "raw_goals_against": 1.7,
+      "played": 7,
+      "record": "1승 2무 4패",
+      "form": "LDDWL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Tannadice Park",
+  "source_ids": {
+    "api_football_fixture": 1556713,
+    "home_team": 1386,
+    "away_team": 258,
+    "league": 179,
+    "season": 2026
+  },
+  "table": "던디 유나이티드 5위 20점 (5승5무3패, 득실 +4) / 세인트 존스톤 6위 17점 (4승5무5패, 득실 -4)",
+  "head_to_head": [
+    "2026-10-17 세인트 존스톤 1-1 던디 유나이티드",
+    "2025-04-12 던디 유나이티드 1-0 세인트 존스톤",
+    "2024-12-26 세인트 존스톤 1-2 던디 유나이티드",
+    "2024-08-24 던디 유나이티드 2-0 세인트 존스톤",
+    "2023-05-06 세인트 존스톤 1-0 던디 유나이티드"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Premiership",
+    "home_days_rest": 7,
+    "away_prev": "2026-11-22 Premiership",
+    "away_days_rest": 7
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

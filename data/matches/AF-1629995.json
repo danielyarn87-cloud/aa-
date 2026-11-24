@@ -1,0 +1,63 @@
+{
+  "id": "AF-1629995",
+  "sport": "soccer",
+  "league": "AFC챔피언스리그 엘리트 League Phase - 6",
+  "league_id": 17,
+  "league_name": "AFC챔피언스리그 엘리트",
+  "kickoff": "2026-12-01 21:15 KST",
+  "kickoff_iso": "2026-12-01T21:15:00+09:00",
+  "home": "부리람 유나이티드",
+  "away": "교토 상가",
+  "home_en": "Buriram United",
+  "away_en": "Kyoto Sanga",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.568,
+    "away_goals": 1.514
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (0경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.568,
+      "xg_against": 1.514,
+      "raw_goals_for": 0.0,
+      "raw_goals_against": 0.0,
+      "played": 0
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (0경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.514,
+      "xg_against": 1.568,
+      "raw_goals_for": 0.0,
+      "raw_goals_against": 0.0,
+      "played": 0
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "호출 절약 수집이라 부상자 목록을 받지 않음"
+  },
+  "collected_detail": "light",
+  "venue": "Chang Arena",
+  "source_ids": {
+    "api_football_fixture": 1629995,
+    "home_team": 2780,
+    "away_team": 302,
+    "league": 17,
+    "season": 2026
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

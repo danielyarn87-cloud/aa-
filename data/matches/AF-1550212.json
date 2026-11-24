@@ -1,0 +1,93 @@
+{
+  "id": "AF-1550212",
+  "sport": "soccer",
+  "league": "세리에A Regular Season - 13",
+  "league_id": 135,
+  "league_name": "세리에A",
+  "kickoff": "2026-12-01 02:30 KST",
+  "kickoff_iso": "2026-12-01T02:30:00+09:00",
+  "home": "레체",
+  "away": "아탈란타",
+  "home_en": "Lecce",
+  "away_en": "Atalanta",
+  "odds": {
+    "line": 2.5,
+    "home": 3.7,
+    "best_home": 4.0,
+    "draw": 3.75,
+    "best_draw": 4.04,
+    "away": 1.89,
+    "best_away": 1.98,
+    "over": 1.6,
+    "best_over": 1.68,
+    "under": 2.29,
+    "best_under": 2.39,
+    "source": "The Odds API 평균 배당 (승무패 24곳, 언더/오버 14곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.667,
+    "away_goals": 1.492
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.25,
+      "xg_against": 2.059,
+      "raw_goals_for": 1.0,
+      "raw_goals_against": 2.4,
+      "played": 5,
+      "record": "1승 0무 4패",
+      "form": "LLLDL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.309,
+      "xg_against": 1.75,
+      "raw_goals_for": 1.2,
+      "raw_goals_against": 1.8,
+      "played": 5,
+      "record": "1승 1무 3패",
+      "form": "DDLWD"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Stadio Via del Mare",
+  "source_ids": {
+    "api_football_fixture": 1550212,
+    "home_team": 867,
+    "away_team": 499,
+    "league": 135,
+    "season": 2026
+  },
+  "table": "레체 15위 10점 (3승1무8패, 득실 -13) / 아탈란타 12위 15점 (4승3무5패, 득실 -3)",
+  "head_to_head": [
+    "2026-04-06 레체 0-3 아탈란타",
+    "2025-09-14 아탈란타 4-1 레체",
+    "2025-04-27 아탈란타 1-1 레체",
+    "2024-08-19 레체 0-4 아탈란타",
+    "2024-05-18 레체 0-2 아탈란타"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 Serie A",
+    "home_days_rest": 9,
+    "away_prev": "2026-11-23 Serie A",
+    "away_days_rest": 7
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:43 KST"
+}

@@ -1,0 +1,93 @@
+{
+  "id": "AF-1550207",
+  "sport": "soccer",
+  "league": "세리에A Regular Season - 13",
+  "league_id": 135,
+  "league_name": "세리에A",
+  "kickoff": "2026-11-30 02:00 KST",
+  "kickoff_iso": "2026-11-30T02:00:00+09:00",
+  "home": "AS 로마",
+  "away": "몬차",
+  "home_en": "AS Roma",
+  "away_en": "Monza",
+  "odds": {
+    "line": 3.5,
+    "home": 1.19,
+    "best_home": 1.23,
+    "draw": 7.2,
+    "best_draw": 8.2,
+    "away": 11.99,
+    "best_away": 15.0,
+    "over": 1.86,
+    "best_over": 1.97,
+    "under": 1.91,
+    "best_under": 2.01,
+    "source": "The Odds API 평균 배당 (승무패 25곳, 언더/오버 15곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.667,
+    "away_goals": 1.492
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 2.422,
+      "xg_against": 1.031,
+      "raw_goals_for": 2.8,
+      "raw_goals_against": 0.8,
+      "played": 6,
+      "record": "5승 1무 0패",
+      "form": "DWWWW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.364,
+      "xg_against": 2.356,
+      "raw_goals_for": 1.3,
+      "raw_goals_against": 2.7,
+      "played": 6,
+      "record": "0승 1무 5패",
+      "form": "LLLLW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Stadio Olimpico",
+  "source_ids": {
+    "api_football_fixture": 1550207,
+    "home_team": 497,
+    "away_team": 1579,
+    "league": 135,
+    "season": 2026
+  },
+  "table": "AS 로마 2위 30점 (9승3무0패, 득실 +25) / 몬차 14위 10점 (3승1무8패, 득실 -5)",
+  "head_to_head": [
+    "2025-02-24 AS 로마 4-0 몬차",
+    "2024-10-06 몬차 1-1 AS 로마",
+    "2024-03-02 몬차 1-4 AS 로마",
+    "2023-10-22 AS 로마 1-0 몬차",
+    "2023-05-03 몬차 1-1 AS 로마"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Serie A",
+    "home_days_rest": 8,
+    "away_prev": "2026-11-24 Serie A",
+    "away_days_rest": 5
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:43 KST"
+}

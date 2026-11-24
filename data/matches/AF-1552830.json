@@ -1,0 +1,97 @@
+{
+  "id": "AF-1552830",
+  "sport": "soccer",
+  "league": "리그1 Regular Season - 12",
+  "league_id": 61,
+  "league_name": "리그1",
+  "kickoff": "2026-11-28 04:45 KST",
+  "kickoff_iso": "2026-11-28T04:45:00+09:00",
+  "home": "브레스트",
+  "away": "파리 FC",
+  "home_en": "Stade Brestois 29",
+  "away_en": "Paris FC",
+  "odds": {
+    "line": 2.5,
+    "home": 3.2,
+    "best_home": 3.45,
+    "draw": 3.41,
+    "best_draw": 3.69,
+    "away": 2.17,
+    "best_away": 2.28,
+    "over": 1.79,
+    "best_over": 1.91,
+    "under": 1.99,
+    "best_under": 2.07,
+    "source": "The Odds API 평균 배당 (승무패 22곳, 언더/오버 14곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.626,
+    "away_goals": 1.323
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.86,
+      "xg_against": 1.246,
+      "raw_goals_for": 2.0,
+      "raw_goals_against": 1.2,
+      "played": 5,
+      "record": "2승 1무 2패",
+      "form": "DLWWW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.121,
+      "xg_against": 1.235,
+      "raw_goals_for": 1.0,
+      "raw_goals_against": 1.0,
+      "played": 5,
+      "record": "2승 1무 2패",
+      "form": "WLWWW"
+    }
+  },
+  "lineup": {
+    "home_absent": [
+      "B. Chardonnet (Calf Injury)"
+    ],
+    "home_doubtful": [],
+    "away_absent": [
+      "N. Sangui (Muscle Bruise)"
+    ],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Stade Francis-Le-Blé",
+  "source_ids": {
+    "api_football_fixture": 1552830,
+    "home_team": 106,
+    "away_team": 114,
+    "league": 61,
+    "season": 2026
+  },
+  "table": "브레스트 6위 18점 (5승3무3패, 득실 +7) / 파리 FC 2위 23점 (7승2무2패, 득실 +11)",
+  "head_to_head": [
+    "2026-05-03 파리 FC 4-0 브레스트",
+    "2025-09-14 브레스트 1-2 파리 FC",
+    "2019-01-21 파리 FC 0-1 브레스트",
+    "2018-08-10 브레스트 1-1 파리 FC",
+    "2018-02-24 파리 FC 0-1 브레스트"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Ligue 1",
+    "home_days_rest": 6,
+    "away_prev": "2026-11-22 Ligue 1",
+    "away_days_rest": 5
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

@@ -1,0 +1,93 @@
+{
+  "id": "AF-1558695",
+  "sport": "soccer",
+  "league": "벨기에 프로리그 Regular Season - 13",
+  "league_id": 144,
+  "league_name": "벨기에 프로리그",
+  "kickoff": "2026-11-30 02:30 KST",
+  "kickoff_iso": "2026-11-30T02:30:00+09:00",
+  "home": "스탕다르 리에주",
+  "away": "클뤼프 브뤼허",
+  "home_en": "Standard Liege",
+  "away_en": "Club Brugge KV",
+  "odds": {
+    "line": 3.5,
+    "home": 5.08,
+    "best_home": 6.0,
+    "draw": 4.41,
+    "best_draw": 4.72,
+    "away": 1.49,
+    "best_away": 1.57,
+    "over": 2.04,
+    "best_over": 2.12,
+    "under": 1.72,
+    "best_under": 1.82,
+    "source": "The Odds API 평균 배당 (승무패 18곳, 언더/오버 8곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.815,
+    "away_goals": 1.333
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.605,
+      "xg_against": 0.911,
+      "raw_goals_for": 1.5,
+      "raw_goals_against": 0.7,
+      "played": 6,
+      "record": "3승 2무 1패",
+      "form": "LLDWW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 2.444,
+      "xg_against": 1.272,
+      "raw_goals_for": 3.0,
+      "raw_goals_against": 1.0,
+      "played": 6,
+      "record": "5승 0무 1패",
+      "form": "WWWDW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Maurice Dufrasnestadion",
+  "source_ids": {
+    "api_football_fixture": 1558695,
+    "home_team": 733,
+    "away_team": 569,
+    "league": 144,
+    "season": 2026
+  },
+  "table": "스탕다르 리에주 7위 18점 (5승3무4패, 득실 +3) / 클뤼프 브뤼허 2위 31점 (10승1무1패, 득실 +22)",
+  "head_to_head": [
+    "2026-02-08 클뤼프 브뤼허 3-0 스탕다르 리에주",
+    "2025-09-27 스탕다르 리에주 1-2 클뤼프 브뤼허",
+    "2025-02-23 클뤼프 브뤼허 1-2 스탕다르 리에주",
+    "2024-08-04 스탕다르 리에주 1-0 클뤼프 브뤼허",
+    "2023-12-03 클뤼프 브뤼허 2-0 스탕다르 리에주"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-23 Jupiler Pro League",
+    "home_days_rest": 6,
+    "away_prev": "2026-11-22 Jupiler Pro League",
+    "away_days_rest": 7
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

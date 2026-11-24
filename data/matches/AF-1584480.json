@@ -1,0 +1,77 @@
+{
+  "id": "AF-1584480",
+  "sport": "soccer",
+  "league": "쉬페르리그 Regular Season - 13",
+  "league_id": 203,
+  "league_name": "쉬페르리그",
+  "kickoff": "2026-11-29 01:00 KST",
+  "kickoff_iso": "2026-11-29T01:00:00+09:00",
+  "home": "가지안테프",
+  "away": "Amed",
+  "home_en": "Gaziantep FK",
+  "away_en": "Amed",
+  "odds": {
+    "line": 2.5,
+    "note": "The Odds API 에서 이 경기를 찾지 못함 (팀 이름 별칭을 확인하세요)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.676,
+    "away_goals": 1.333
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.892,
+      "xg_against": 1.644,
+      "raw_goals_for": 0.5,
+      "raw_goals_against": 1.8,
+      "played": 6,
+      "record": "0승 2무 4패",
+      "form": "LLLLL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.625,
+      "xg_against": 2.003,
+      "raw_goals_for": 1.8,
+      "raw_goals_against": 2.2,
+      "played": 5,
+      "record": "1승 2무 2패",
+      "form": "WWWLL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Gaziantep Stadyumu",
+  "source_ids": {
+    "api_football_fixture": 1584480,
+    "home_team": 3573,
+    "away_team": 3579,
+    "league": 203,
+    "season": 2026
+  },
+  "table": "가지안테프 16위 8점 (2승2무8패, 득실 -11) / Amed 4위 23점 (7승2무3패, 득실 +11)",
+  "head_to_head": "자료 없음",
+  "schedule": {
+    "home_prev": "2026-11-21 Süper Lig",
+    "home_days_rest": 7,
+    "away_prev": "2026-11-21 Süper Lig",
+    "away_days_rest": 7
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

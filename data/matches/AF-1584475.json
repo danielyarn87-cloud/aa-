@@ -1,0 +1,93 @@
+{
+  "id": "AF-1584475",
+  "sport": "soccer",
+  "league": "쉬페르리그 Regular Season - 13",
+  "league_id": 203,
+  "league_name": "쉬페르리그",
+  "kickoff": "2026-11-28 02:00 KST",
+  "kickoff_iso": "2026-11-28T02:00:00+09:00",
+  "home": "알라니아스포르",
+  "away": "코니아스포르",
+  "home_en": "Alanyaspor",
+  "away_en": "Konyaspor",
+  "odds": {
+    "line": 2.5,
+    "home": 2.45,
+    "best_home": 2.61,
+    "draw": 3.17,
+    "best_draw": 3.42,
+    "away": 2.75,
+    "best_away": 3.0,
+    "over": 1.99,
+    "best_over": 2.06,
+    "under": 1.75,
+    "best_under": 1.84,
+    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 14곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.676,
+    "away_goals": 1.333
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.128,
+      "xg_against": 1.25,
+      "raw_goals_for": 0.8,
+      "raw_goals_against": 1.2,
+      "played": 5,
+      "record": "1승 2무 2패",
+      "form": "LLLLL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.75,
+      "xg_against": 1.503,
+      "raw_goals_for": 0.4,
+      "raw_goals_against": 1.4,
+      "played": 5,
+      "record": "0승 1무 4패",
+      "form": "LWLLL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Alanya Oba Stadium",
+  "source_ids": {
+    "api_football_fixture": 1584475,
+    "home_team": 996,
+    "away_team": 607,
+    "league": 203,
+    "season": 2026
+  },
+  "table": "알라니아스포르 14위 12점 (3승3무6패, 득실 -10) / 코니아스포르 15위 8점 (2승2무8패, 득실 -10)",
+  "head_to_head": [
+    "2026-02-14 알라니아스포르 2-1 코니아스포르",
+    "2025-09-13 코니아스포르 1-2 알라니아스포르",
+    "2025-05-25 코니아스포르 1-2 알라니아스포르",
+    "2025-01-03 알라니아스포르 2-1 코니아스포르",
+    "2024-04-20 코니아스포르 0-2 알라니아스포르"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Süper Lig",
+    "home_days_rest": 5,
+    "away_prev": "2026-11-22 Süper Lig",
+    "away_days_rest": 5
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

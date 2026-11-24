@@ -1,0 +1,81 @@
+{
+  "id": "AF-1606787",
+  "sport": "soccer",
+  "league": "J2리그 Regular Season - 20",
+  "league_id": 99,
+  "league_name": "J2리그",
+  "kickoff": "2026-11-29 13:00 KST",
+  "kickoff_iso": "2026-11-29T13:00:00+09:00",
+  "home": "반라우레 하치노헤",
+  "away": "후지에다 MYFC",
+  "home_en": "Vanraure Hachinohe",
+  "away_en": "Fujieda MYFC",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.389,
+    "away_goals": 1.194
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (9경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.872,
+      "xg_against": 1.348,
+      "raw_goals_for": 0.7,
+      "raw_goals_against": 1.4,
+      "played": 9,
+      "record": "2승 1무 6패",
+      "form": "LLLDW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (8경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.126,
+      "xg_against": 1.761,
+      "raw_goals_for": 1.1,
+      "raw_goals_against": 1.9,
+      "played": 8,
+      "record": "1승 3무 4패",
+      "form": "DLLWL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Prifoods Stadium",
+  "source_ids": {
+    "api_football_fixture": 1606787,
+    "home_team": 4326,
+    "away_team": 4317,
+    "league": 99,
+    "season": 2026
+  },
+  "table": "반라우레 하치노헤 17위 18점 (5승3무10패, 득실 -13) / 후지에다 MYFC 15위 19점 (4승7무7패, 득실 -4)",
+  "head_to_head": [
+    "2026-09-05 후지에다 MYFC 0-0 반라우레 하치노헤",
+    "2022-09-10 후지에다 MYFC 2-0 반라우레 하치노헤",
+    "2022-03-27 반라우레 하치노헤 1-0 후지에다 MYFC",
+    "2021-11-14 후지에다 MYFC 2-0 반라우레 하치노헤",
+    "2021-07-04 반라우레 하치노헤 1-0 후지에다 MYFC"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 J2 League",
+    "home_days_rest": 7,
+    "away_prev": "2026-11-21 J2 League",
+    "away_days_rest": 7
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

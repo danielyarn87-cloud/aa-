@@ -1,0 +1,81 @@
+{
+  "id": "AF-1606786",
+  "sport": "soccer",
+  "league": "J2리그 Regular Season - 20",
+  "league_id": 99,
+  "league_name": "J2리그",
+  "kickoff": "2026-11-28 14:00 KST",
+  "kickoff_iso": "2026-11-28T14:00:00+09:00",
+  "home": "오미야 아르디자",
+  "away": "이마바리",
+  "home_en": "Omiya Ardija",
+  "away_en": "Imabari",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.389,
+    "away_goals": 1.194
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (9경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.772,
+      "xg_against": 1.198,
+      "raw_goals_for": 1.9,
+      "raw_goals_against": 1.2,
+      "played": 9,
+      "record": "5승 3무 1패",
+      "form": "WWWWL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (10경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.968,
+      "xg_against": 1.551,
+      "raw_goals_for": 0.9,
+      "raw_goals_against": 1.6,
+      "played": 10,
+      "record": "3승 1무 6패",
+      "form": "DLLLW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "NACK5 Stadium Omiya",
+  "source_ids": {
+    "api_football_fixture": 1606786,
+    "home_team": 313,
+    "away_team": 10075,
+    "league": 99,
+    "season": 2026
+  },
+  "table": "오미야 아르디자 3위 33점 (9승6무3패, 득실 +11) / 이마바리 19위 15점 (4승3무11패, 득실 -17)",
+  "head_to_head": [
+    "2026-08-15 이마바리 2-3 오미야 아르디자",
+    "2025-09-20 오미야 아르디자 2-3 이마바리",
+    "2025-04-20 이마바리 0-0 오미야 아르디자",
+    "2024-10-19 오미야 아르디자 1-1 이마바리",
+    "2024-04-27 이마바리 1-4 오미야 아르디자"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 J2 League",
+    "home_days_rest": 7,
+    "away_prev": "2026-11-21 J2 League",
+    "away_days_rest": 7
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

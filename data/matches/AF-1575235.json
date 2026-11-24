@@ -1,0 +1,93 @@
+{
+  "id": "AF-1575235",
+  "sport": "soccer",
+  "league": "분데스리가 Regular Season - 11",
+  "league_id": 78,
+  "league_name": "분데스리가",
+  "kickoff": "2026-11-28 23:30 KST",
+  "kickoff_iso": "2026-11-28T23:30:00+09:00",
+  "home": "함부르크",
+  "away": "바이에른 뮌헨",
+  "home_en": "Hamburger SV",
+  "away_en": "Bayern München",
+  "odds": {
+    "line": 3.5,
+    "home": 9.39,
+    "best_home": 10.5,
+    "draw": 6.92,
+    "best_draw": 8.4,
+    "away": 1.23,
+    "best_away": 1.29,
+    "over": 1.64,
+    "best_over": 1.75,
+    "under": 2.19,
+    "best_under": 2.28,
+    "source": "The Odds API 평균 배당 (승무패 23곳, 언더/오버 9곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 2.067,
+    "away_goals": 1.322
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (4경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.743,
+      "xg_against": 1.595,
+      "raw_goals_for": 1.5,
+      "raw_goals_against": 1.8,
+      "played": 4,
+      "record": "3승 0무 1패",
+      "form": "WLLWL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.621,
+      "xg_against": 1.4,
+      "raw_goals_for": 1.8,
+      "raw_goals_against": 1.0,
+      "played": 5,
+      "record": "3승 2무 0패",
+      "form": "WWDWD"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Volksparkstadion",
+  "source_ids": {
+    "api_football_fixture": 1575235,
+    "home_team": 175,
+    "away_team": 157,
+    "league": 78,
+    "season": 2026
+  },
+  "table": "함부르크 12위 12점 (4승0무6패, 득실 -14) / 바이에른 뮌헨 2위 22점 (6승4무0패, 득실 +20)",
+  "head_to_head": [
+    "2026-01-31 함부르크 2-2 바이에른 뮌헨",
+    "2025-09-13 바이에른 뮌헨 5-0 함부르크",
+    "2018-03-10 바이에른 뮌헨 6-0 함부르크",
+    "2017-10-21 함부르크 0-1 바이에른 뮌헨",
+    "2017-02-25 바이에른 뮌헨 8-0 함부르크"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-23 Bundesliga",
+    "home_days_rest": 5,
+    "away_prev": "2026-11-21 Bundesliga",
+    "away_days_rest": 7
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:43 KST"
+}

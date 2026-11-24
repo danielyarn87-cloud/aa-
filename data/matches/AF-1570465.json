@@ -1,0 +1,93 @@
+{
+  "id": "AF-1570465",
+  "sport": "soccer",
+  "league": "라리가 Regular Season - 14",
+  "league_id": 140,
+  "league_name": "라리가",
+  "kickoff": "2026-11-30 00:15 KST",
+  "kickoff_iso": "2026-11-30T00:15:00+09:00",
+  "home": "데포르티보",
+  "away": "바르셀로나",
+  "home_en": "Deportivo La Coruna",
+  "away_en": "Barcelona",
+  "odds": {
+    "line": 3.5,
+    "home": 9.67,
+    "best_home": 11.5,
+    "draw": 6.61,
+    "best_draw": 7.8,
+    "away": 1.24,
+    "best_away": 1.3,
+    "over": 1.64,
+    "best_over": 1.76,
+    "under": 2.2,
+    "best_under": 2.28,
+    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 9곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.597,
+    "away_goals": 1.279
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.399,
+      "xg_against": 1.093,
+      "raw_goals_for": 1.3,
+      "raw_goals_against": 1.0,
+      "played": 6,
+      "record": "2승 3무 1패",
+      "form": "DLWDL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 3.093,
+      "xg_against": 1.199,
+      "raw_goals_for": 4.0,
+      "raw_goals_against": 1.0,
+      "played": 6,
+      "record": "6승 0무 0패",
+      "form": "WLWWW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Estadio Municipal de Riazor",
+  "source_ids": {
+    "api_football_fixture": 1570465,
+    "home_team": 544,
+    "away_team": 529,
+    "league": 140,
+    "season": 2026
+  },
+  "table": "데포르티보 12위 15점 (3승6무4패, 득실 -1) / 바르셀로나 1위 36점 (12승0무1패, 득실 +36)",
+  "head_to_head": [
+    "2018-04-29 데포르티보 2-4 바르셀로나",
+    "2017-12-17 바르셀로나 4-0 데포르티보",
+    "2017-03-12 데포르티보 2-1 바르셀로나",
+    "2016-10-15 바르셀로나 4-0 데포르티보",
+    "2016-04-20 데포르티보 0-8 바르셀로나"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 La Liga",
+    "home_days_rest": 8,
+    "away_prev": "2026-11-22 La Liga",
+    "away_days_rest": 7
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:43 KST"
+}

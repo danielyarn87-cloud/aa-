@@ -1,0 +1,93 @@
+{
+  "id": "AF-1647386",
+  "sport": "soccer",
+  "league": "K리그1 Championship Group - 37",
+  "league_id": 292,
+  "league_name": "K리그1",
+  "kickoff": "2026-11-29 16:30 KST",
+  "kickoff_iso": "2026-11-29T16:30:00+09:00",
+  "home": "인천 유나이티드",
+  "away": "강원 FC",
+  "home_en": "Incheon United",
+  "away_en": "Gangwon FC",
+  "odds": {
+    "line": 2.5,
+    "home": 2.39,
+    "best_home": 2.55,
+    "draw": 2.95,
+    "best_draw": 3.15,
+    "away": 2.75,
+    "best_away": 3.06,
+    "over": 2.32,
+    "best_over": 2.38,
+    "under": 1.53,
+    "best_under": 1.6,
+    "source": "The Odds API 평균 배당 (승무패 18곳, 언더/오버 10곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.217,
+    "away_goals": 1.288
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (18경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.374,
+      "xg_against": 1.041,
+      "raw_goals_for": 1.4,
+      "raw_goals_against": 1.0,
+      "played": 18,
+      "record": "8승 4무 6패",
+      "form": "DWWLW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (17경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.213,
+      "xg_against": 1.118,
+      "raw_goals_for": 1.2,
+      "raw_goals_against": 1.1,
+      "played": 17,
+      "record": "6승 6무 5패",
+      "form": "DDLWL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Sungui Arena Park",
+  "source_ids": {
+    "api_football_fixture": 1647386,
+    "home_team": 2763,
+    "away_team": 2746,
+    "league": 292,
+    "season": 2026
+  },
+  "table": "인천 유나이티드 6위 46점 (12승10무11패, 득실 +8) / 강원 FC 5위 48점 (11승15무7패, 득실 +10)",
+  "head_to_head": [
+    "2026-10-18 강원 FC 1-1 인천 유나이티드",
+    "2026-09-27 강원 FC 0-0 인천 유나이티드",
+    "2026-05-02 인천 유나이티드 0-1 강원 FC",
+    "2024-10-06 인천 유나이티드 1-3 강원 FC",
+    "2024-06-30 인천 유나이티드 0-1 강원 FC"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 K League 1",
+    "home_days_rest": 8,
+    "away_prev": "2026-11-21 K League 1",
+    "away_days_rest": 8
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

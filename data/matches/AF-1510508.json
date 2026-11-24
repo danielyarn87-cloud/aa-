@@ -1,0 +1,78 @@
+{
+  "id": "AF-1510508",
+  "sport": "soccer",
+  "league": "K리그2 Regular Season - 34",
+  "league_id": 293,
+  "league_name": "K리그2",
+  "kickoff": "2026-11-29 14:00 KST",
+  "kickoff_iso": "2026-11-29T14:00:00+09:00",
+  "home": "천안 시티",
+  "away": "대구 FC",
+  "home_en": "Cheonan City",
+  "away_en": "Daegu FC",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.451,
+    "away_goals": 1.292
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (15경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.075,
+      "xg_against": 0.882,
+      "raw_goals_for": 1.0,
+      "raw_goals_against": 0.8,
+      "played": 15,
+      "record": "5승 7무 3패",
+      "form": "WWDWW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (15경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.715,
+      "xg_against": 1.409,
+      "raw_goals_for": 1.8,
+      "raw_goals_against": 1.4,
+      "played": 15,
+      "record": "7승 5무 3패",
+      "form": "WWDWW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Cheonan Stadium",
+  "source_ids": {
+    "api_football_fixture": 1510508,
+    "home_team": 7060,
+    "away_team": 2747,
+    "league": 293,
+    "season": 2026
+  },
+  "table": "천안 시티 10위 36점 (8승12무11패, 득실 -2) / 대구 FC 3위 59점 (17승8무6패, 득실 +21)",
+  "head_to_head": [
+    "2026-04-18 대구 FC 1-2 천안 시티",
+    "2023-04-12 대구 FC 2-1 천안 시티"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 K League 2",
+    "home_days_rest": 6,
+    "away_prev": "2026-11-22 K League 2",
+    "away_days_rest": 7
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

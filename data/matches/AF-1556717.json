@@ -1,0 +1,93 @@
+{
+  "id": "AF-1556717",
+  "sport": "soccer",
+  "league": "스코틀랜드 프리미어십 Regular Season - 15",
+  "league_id": 179,
+  "league_name": "스코틀랜드 프리미어십",
+  "kickoff": "2026-11-29 00:00 KST",
+  "kickoff_iso": "2026-11-29T00:00:00+09:00",
+  "home": "세인트 미렌",
+  "away": "킬마녹",
+  "home_en": "ST Mirren",
+  "away_en": "Kilmarnock",
+  "odds": {
+    "line": 2.5,
+    "home": 2.06,
+    "best_home": 2.21,
+    "draw": 3.52,
+    "best_draw": 3.8,
+    "away": 3.1,
+    "best_away": 3.35,
+    "over": 1.55,
+    "best_over": 1.58,
+    "under": 2.28,
+    "best_under": 2.38,
+    "source": "The Odds API 평균 배당 (승무패 16곳, 언더/오버 10곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.481,
+    "away_goals": 1.519
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (7경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.214,
+      "xg_against": 1.646,
+      "raw_goals_for": 1.1,
+      "raw_goals_against": 1.7,
+      "played": 7,
+      "record": "2승 2무 3패",
+      "form": "WDLLL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (7경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.086,
+      "xg_against": 1.844,
+      "raw_goals_for": 0.9,
+      "raw_goals_against": 2.0,
+      "played": 7,
+      "record": "1승 1무 5패",
+      "form": "LLDLL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "The SMISA Stadium",
+  "source_ids": {
+    "api_football_fixture": 1556717,
+    "home_team": 251,
+    "away_team": 250,
+    "league": 179,
+    "season": 2026
+  },
+  "table": "세인트 미렌 9위 14점 (4승2무8패, 득실 -13) / 킬마녹 12위 9점 (2승3무9패, 득실 -18)",
+  "head_to_head": [
+    "2026-09-02 킬마녹 0-1 세인트 미렌",
+    "2026-05-09 세인트 미렌 0-3 킬마녹",
+    "2026-02-11 킬마녹 4-3 세인트 미렌",
+    "2025-12-27 세인트 미렌 0-0 킬마녹",
+    "2025-10-04 킬마녹 2-0 세인트 미렌"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Premiership",
+    "home_days_rest": 7,
+    "away_prev": "2026-11-22 Premiership",
+    "away_days_rest": 7
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

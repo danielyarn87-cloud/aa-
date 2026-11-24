@@ -1,0 +1,93 @@
+{
+  "id": "AF-1558689",
+  "sport": "soccer",
+  "league": "벨기에 프로리그 Regular Season - 13",
+  "league_id": 144,
+  "league_name": "벨기에 프로리그",
+  "kickoff": "2026-11-30 00:00 KST",
+  "kickoff_iso": "2026-11-30T00:00:00+09:00",
+  "home": "앤트워프",
+  "away": "안데를레흐트",
+  "home_en": "Antwerp",
+  "away_en": "Anderlecht",
+  "odds": {
+    "line": 2.5,
+    "home": 3.27,
+    "best_home": 3.65,
+    "draw": 3.55,
+    "best_draw": 4.11,
+    "away": 1.82,
+    "best_away": 1.97,
+    "over": 1.59,
+    "best_over": 1.65,
+    "under": 2.25,
+    "best_under": 2.36,
+    "source": "The Odds API 평균 배당 (승무패 18곳, 언더/오버 10곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.815,
+    "away_goals": 1.333
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.938,
+      "xg_against": 1.911,
+      "raw_goals_for": 2.0,
+      "raw_goals_against": 2.2,
+      "played": 6,
+      "record": "2승 2무 2패",
+      "form": "LWLDD"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.911,
+      "xg_against": 1.738,
+      "raw_goals_for": 0.7,
+      "raw_goals_against": 1.7,
+      "played": 6,
+      "record": "2승 1무 3패",
+      "form": "WLWDW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Bosuilstadion",
+  "source_ids": {
+    "api_football_fixture": 1558689,
+    "home_team": 740,
+    "away_team": 554,
+    "league": 144,
+    "season": 2026
+  },
+  "table": "앤트워프 12위 12점 (3승3무6패, 득실 -6) / 안데를레흐트 5위 23점 (7승2무3패, 득실 +3)",
+  "head_to_head": [
+    "2026-02-12 앤트워프 0-4 안데를레흐트",
+    "2026-02-05 안데를레흐트 0-1 앤트워프",
+    "2025-12-21 앤트워프 2-2 안데를레흐트",
+    "2025-09-20 안데를레흐트 0-0 앤트워프",
+    "2025-05-01 앤트워프 1-3 안데를레흐트"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Jupiler Pro League",
+    "home_days_rest": 7,
+    "away_prev": "2026-11-23 Jupiler Pro League",
+    "away_days_rest": 6
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

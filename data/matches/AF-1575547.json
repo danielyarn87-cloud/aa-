@@ -1,0 +1,93 @@
+{
+  "id": "AF-1575547",
+  "sport": "soccer",
+  "league": "프리메이라리가 Regular Season - 12",
+  "league_id": 94,
+  "league_name": "프리메이라리가",
+  "kickoff": "2026-12-01 05:15 KST",
+  "kickoff_iso": "2026-12-01T05:15:00+09:00",
+  "home": "벤피카",
+  "away": "파말리캉",
+  "home_en": "Benfica",
+  "away_en": "Famalicao",
+  "odds": {
+    "line": 3.5,
+    "home": 1.14,
+    "best_home": 1.18,
+    "draw": 7.26,
+    "best_draw": 8.2,
+    "away": 13.42,
+    "best_away": 15.0,
+    "over": 1.95,
+    "best_over": 2.03,
+    "under": 1.75,
+    "best_under": 1.8,
+    "source": "The Odds API 평균 배당 (승무패 17곳, 언더/오버 8곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.265,
+    "away_goals": 1.367
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.724,
+      "xg_against": 1.013,
+      "raw_goals_for": 2.0,
+      "raw_goals_against": 0.8,
+      "played": 5,
+      "record": "4승 1무 0패",
+      "form": "LWWWW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.656,
+      "xg_against": 1.222,
+      "raw_goals_for": 1.8,
+      "raw_goals_against": 1.2,
+      "played": 6,
+      "record": "2승 2무 2패",
+      "form": "WLWLW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": null,
+  "source_ids": {
+    "api_football_fixture": 1575547,
+    "home_team": 211,
+    "away_team": 242,
+    "league": 94,
+    "season": 2026
+  },
+  "table": "벤피카 2위 28점 (9승1무1패, 득실 +20) / 파말리캉 10위 13점 (3승4무4패, 득실 +1)",
+  "head_to_head": [
+    "2026-05-02 파말리캉 2-2 벤피카",
+    "2025-12-22 벤피카 1-0 파말리캉",
+    "2025-01-17 벤피카 4-0 파말리캉",
+    "2024-08-11 파말리캉 2-0 벤피카",
+    "2024-05-05 파말리캉 2-0 벤피카"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-23 Taça de Portugal",
+    "home_days_rest": 7,
+    "away_prev": "2026-11-07 Primeira Liga",
+    "away_days_rest": 23
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

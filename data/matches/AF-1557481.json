@@ -2,21 +2,25 @@
   "id": "AF-1557481",
   "sport": "soccer",
   "league": "프리미어리그 Regular Season - 12",
+  "league_id": 39,
+  "league_name": "프리미어리그",
   "kickoff": "2026-11-29 23:05 KST",
   "kickoff_iso": "2026-11-29T23:05:00+09:00",
-  "home": "Fulham",
-  "away": "Bournemouth",
+  "home": "풀럼",
+  "away": "본머스",
+  "home_en": "Fulham",
+  "away_en": "Bournemouth",
   "odds": {
     "line": 2.5,
-    "home": 2.6,
+    "home": 2.59,
     "best_home": 2.8,
-    "draw": 3.49,
+    "draw": 3.46,
     "best_draw": 3.73,
-    "away": 2.56,
+    "away": 2.58,
     "best_away": 2.72,
     "over": 1.73,
     "best_over": 1.81,
-    "under": 2.09,
+    "under": 2.08,
     "best_under": 2.15,
     "source": "The Odds API 평균 배당 (승무패 25곳, 언더/오버 16곳 북메이커)"
   },
@@ -28,7 +32,7 @@
   "stats": {
     "basis": "venue",
     "metric": "goals",
-    "설명": "API-Football 팀 통계의 홈/원정 경기당 득실 (xG 아님)",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
       "xg_for": 1.468,
@@ -61,6 +65,7 @@
     "confirmed": false,
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
+  "collected_detail": "full",
   "venue": "Craven Cottage",
   "source_ids": {
     "api_football_fixture": 1557481,
@@ -69,13 +74,13 @@
     "league": 39,
     "season": 2026
   },
-  "table": "Fulham 15위 11점 (2승5무4패, 득실 -2) / Bournemouth 5위 18점 (5승3무3패, 득실 +4)",
+  "table": "풀럼 15위 11점 (2승5무4패, 득실 -2) / 본머스 5위 18점 (5승3무3패, 득실 +4)",
   "head_to_head": [
-    "2026-05-09 Fulham 0-1 Bournemouth",
-    "2025-10-03 Bournemouth 3-1 Fulham",
-    "2025-04-14 Bournemouth 1-0 Fulham",
-    "2024-12-29 Fulham 2-2 Bournemouth",
-    "2024-02-10 Fulham 3-1 Bournemouth"
+    "2026-05-09 풀럼 0-1 본머스",
+    "2025-10-03 본머스 3-1 풀럼",
+    "2025-04-14 본머스 1-0 풀럼",
+    "2024-12-29 풀럼 2-2 본머스",
+    "2024-02-10 풀럼 3-1 본머스"
   ],
   "schedule": {
     "home_prev": "2026-11-21 Premier League",
@@ -87,5 +92,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 14:31 KST"
+  "collected_at": "2026-11-24 19:43 KST"
 }

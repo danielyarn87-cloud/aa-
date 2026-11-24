@@ -1,0 +1,93 @@
+{
+  "id": "AF-1570467",
+  "sport": "soccer",
+  "league": "라리가 Regular Season - 14",
+  "league_id": 140,
+  "league_name": "라리가",
+  "kickoff": "2026-12-01 05:00 KST",
+  "kickoff_iso": "2026-12-01T05:00:00+09:00",
+  "home": "에스파뇰",
+  "away": "헤타페",
+  "home_en": "Espanyol",
+  "away_en": "Getafe",
+  "odds": {
+    "line": 2.5,
+    "home": 2.04,
+    "best_home": 2.19,
+    "draw": 3.15,
+    "best_draw": 3.33,
+    "away": 3.94,
+    "best_away": 4.3,
+    "over": 2.44,
+    "best_over": 2.57,
+    "under": 1.54,
+    "best_under": 1.6,
+    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 12곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.597,
+    "away_goals": 1.279
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.199,
+      "xg_against": 1.226,
+      "raw_goals_for": 1.0,
+      "raw_goals_against": 1.2,
+      "played": 6,
+      "record": "1승 2무 3패",
+      "form": "LLWDW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.426,
+      "xg_against": 2.066,
+      "raw_goals_for": 0.0,
+      "raw_goals_against": 2.3,
+      "played": 6,
+      "record": "0승 0무 6패",
+      "form": "DLWLL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "RCDE Stadium",
+  "source_ids": {
+    "api_football_fixture": 1570467,
+    "home_team": 540,
+    "away_team": 546,
+    "league": 140,
+    "season": 2026
+  },
+  "table": "에스파뇰 11위 15점 (4승3무6패, 득실 +0) / 헤타페 18위 12점 (3승3무7패, 득실 -13)",
+  "head_to_head": [
+    "2026-03-21 에스파뇰 1-2 헤타페",
+    "2025-12-13 헤타페 0-1 에스파뇰",
+    "2025-04-18 에스파뇰 1-0 헤타페",
+    "2024-12-09 헤타페 1-0 에스파뇰",
+    "2024-01-06 에스파뇰 0-1 헤타페"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 La Liga",
+    "home_days_rest": 10,
+    "away_prev": "2026-11-23 La Liga",
+    "away_days_rest": 8
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:43 KST"
+}

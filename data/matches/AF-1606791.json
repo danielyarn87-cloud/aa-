@@ -1,0 +1,80 @@
+{
+  "id": "AF-1606791",
+  "sport": "soccer",
+  "league": "J2리그 Regular Season - 20",
+  "league_id": 99,
+  "league_name": "J2리그",
+  "kickoff": "2026-11-29 14:00 KST",
+  "kickoff_iso": "2026-11-29T14:00:00+09:00",
+  "home": "테게바자로 미야자키",
+  "away": "사간 도스",
+  "home_en": "Tegevajaro Miyazaki",
+  "away_en": "Sagan Tosu",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.389,
+    "away_goals": 1.194
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (10경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.551,
+      "xg_against": 0.968,
+      "raw_goals_for": 1.6,
+      "raw_goals_against": 0.9,
+      "played": 10,
+      "record": "5승 4무 1패",
+      "form": "WWWWD"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (9경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.824,
+      "xg_against": 1.247,
+      "raw_goals_for": 0.7,
+      "raw_goals_against": 1.2,
+      "played": 9,
+      "record": "2승 2무 5패",
+      "form": "LWLWD"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Unilever Stadium Shintomi",
+  "source_ids": {
+    "api_football_fixture": 1606791,
+    "home_team": 10409,
+    "away_team": 295,
+    "league": 99,
+    "season": 2026
+  },
+  "table": "테게바자로 미야자키 4위 33점 (9승6무3패, 득실 +11) / 사간 도스 11위 24점 (7승3무8패, 득실 -2)",
+  "head_to_head": [
+    "2026-09-05 사간 도스 2-0 테게바자로 미야자키",
+    "2026-05-02 사간 도스 1-1 테게바자로 미야자키",
+    "2026-02-21 테게바자로 미야자키 2-1 사간 도스",
+    "2023-06-07 사간 도스 5-1 테게바자로 미야자키"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 J2 League",
+    "home_days_rest": 8,
+    "away_prev": "2026-11-21 J2 League",
+    "away_days_rest": 8
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

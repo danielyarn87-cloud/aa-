@@ -1,0 +1,93 @@
+{
+  "id": "AF-1584483",
+  "sport": "soccer",
+  "league": "쉬페르리그 Regular Season - 13",
+  "league_id": 203,
+  "league_name": "쉬페르리그",
+  "kickoff": "2026-11-28 22:00 KST",
+  "kickoff_iso": "2026-11-28T22:00:00+09:00",
+  "home": "삼순스포르",
+  "away": "Gençlerbirliği S.K.",
+  "home_en": "Samsunspor",
+  "away_en": "Gençlerbirliği S.K.",
+  "odds": {
+    "line": 2.5,
+    "home": 1.8,
+    "best_home": 1.93,
+    "draw": 3.53,
+    "best_draw": 3.77,
+    "away": 3.75,
+    "best_away": 4.13,
+    "over": 1.8,
+    "best_over": 1.89,
+    "under": 1.93,
+    "best_under": 1.99,
+    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 14곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.676,
+    "away_goals": 1.333
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.225,
+      "xg_against": 2.111,
+      "raw_goals_for": 1.0,
+      "raw_goals_against": 2.5,
+      "played": 6,
+      "record": "1승 1무 4패",
+      "form": "LLLWL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.625,
+      "xg_against": 2.378,
+      "raw_goals_for": 0.2,
+      "raw_goals_against": 2.8,
+      "played": 5,
+      "record": "1승 0무 4패",
+      "form": "LLWLW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Samsun 19 Mayis Stadyumu",
+  "source_ids": {
+    "api_football_fixture": 1584483,
+    "home_team": 3603,
+    "away_team": 997,
+    "league": 203,
+    "season": 2026
+  },
+  "table": "삼순스포르 17위 7점 (2승1무9패, 득실 -16) / Gençlerbirliği S.K. 12위 14점 (4승2무6패, 득실 -8)",
+  "head_to_head": [
+    "2026-01-18 Gençlerbirliği S.K. 1-1 삼순스포르",
+    "2025-08-09 삼순스포르 2-1 Gençlerbirliği S.K.",
+    "2023-03-18 Gençlerbirliği S.K. 0-1 삼순스포르",
+    "2022-10-08 삼순스포르 2-0 Gençlerbirliği S.K.",
+    "2022-02-15 Gençlerbirliği S.K. 2-2 삼순스포르"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 Süper Lig",
+    "home_days_rest": 7,
+    "away_prev": "2026-11-21 Süper Lig",
+    "away_days_rest": 7
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

@@ -1,0 +1,93 @@
+{
+  "id": "AF-1556716",
+  "sport": "soccer",
+  "league": "스코틀랜드 프리미어십 Regular Season - 15",
+  "league_id": 179,
+  "league_name": "스코틀랜드 프리미어십",
+  "kickoff": "2026-11-29 00:00 KST",
+  "kickoff_iso": "2026-11-29T00:00:00+09:00",
+  "home": "레인저스",
+  "away": "폴커크",
+  "home_en": "Rangers",
+  "away_en": "Falkirk",
+  "odds": {
+    "line": 3.5,
+    "home": 1.22,
+    "best_home": 1.26,
+    "draw": 5.37,
+    "best_draw": 6.25,
+    "away": 9.1,
+    "best_away": 11.0,
+    "over": 2.06,
+    "best_over": 2.12,
+    "under": 1.68,
+    "best_under": 1.73,
+    "source": "The Odds API 평균 배당 (승무패 13곳, 언더/오버 8곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.481,
+    "away_goals": 1.519
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.805,
+      "xg_against": 0.945,
+      "raw_goals_for": 2.0,
+      "raw_goals_against": 0.6,
+      "played": 5,
+      "record": "4승 0무 1패",
+      "form": "DWDWW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (7경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.576,
+      "xg_against": 1.144,
+      "raw_goals_for": 1.6,
+      "raw_goals_against": 1.0,
+      "played": 7,
+      "record": "3승 3무 1패",
+      "form": "WWWWW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Ibrox Stadium",
+  "source_ids": {
+    "api_football_fixture": 1556716,
+    "home_team": 257,
+    "away_team": 1389,
+    "league": 179,
+    "season": 2026
+  },
+  "table": "레인저스 2위 30점 (9승3무1패, 득실 +13) / 폴커크 3위 24점 (7승3무4패, 득실 +7)",
+  "head_to_head": [
+    "2026-09-02 폴커크 1-2 레인저스",
+    "2026-05-16 폴커크 2-5 레인저스",
+    "2026-04-12 폴커크 3-6 레인저스",
+    "2025-11-30 레인저스 0-0 폴커크",
+    "2025-10-05 폴커크 1-1 레인저스"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Premiership",
+    "home_days_rest": 6,
+    "away_prev": "2026-11-22 Premiership",
+    "away_days_rest": 7
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

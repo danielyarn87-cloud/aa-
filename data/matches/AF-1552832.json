@@ -1,0 +1,93 @@
+{
+  "id": "AF-1552832",
+  "sport": "soccer",
+  "league": "리그1 Regular Season - 12",
+  "league_id": 61,
+  "league_name": "리그1",
+  "kickoff": "2026-11-29 04:45 KST",
+  "kickoff_iso": "2026-11-29T04:45:00+09:00",
+  "home": "Le Mans",
+  "away": "릴",
+  "home_en": "Le Mans",
+  "away_en": "Lille",
+  "odds": {
+    "line": 2.5,
+    "home": 3.73,
+    "best_home": 3.95,
+    "draw": 3.41,
+    "best_draw": 3.65,
+    "away": 1.99,
+    "best_away": 2.12,
+    "over": 2.01,
+    "best_over": 2.12,
+    "under": 1.78,
+    "best_under": 1.91,
+    "source": "The Odds API 평균 배당 (승무패 22곳, 언더/오버 15곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.626,
+    "away_goals": 1.323
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.485,
+      "xg_against": 1.621,
+      "raw_goals_for": 1.4,
+      "raw_goals_against": 1.8,
+      "played": 5,
+      "record": "1승 3무 1패",
+      "form": "LDLDW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.371,
+      "xg_against": 1.11,
+      "raw_goals_for": 1.4,
+      "raw_goals_against": 0.8,
+      "played": 5,
+      "record": "3승 1무 1패",
+      "form": "DDWWL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [
+      "A. Ueda (Foot Injury)",
+      "Tiago Santos (Jumpers Knee)",
+      "H. Igamane (Jumpers Knee)"
+    ],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Stade Marie-Marvingt",
+  "source_ids": {
+    "api_football_fixture": 1552832,
+    "home_team": 1298,
+    "away_team": 79,
+    "league": 61,
+    "season": 2026
+  },
+  "table": "Le Mans 13위 11점 (2승5무4패, 득실 -6) / 릴 3위 21점 (6승3무2패, 득실 +6)",
+  "head_to_head": [
+    "2018-01-06 Le Mans 2-4 릴"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-23 Ligue 1",
+    "home_days_rest": 6,
+    "away_prev": "2026-11-22 Ligue 1",
+    "away_days_rest": 7
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

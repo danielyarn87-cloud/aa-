@@ -1,0 +1,92 @@
+{
+  "id": "AF-1556167",
+  "sport": "soccer",
+  "league": "J1리그 Regular Season - 17",
+  "league_id": 98,
+  "league_name": "J1리그",
+  "kickoff": "2026-11-29 15:00 KST",
+  "kickoff_iso": "2026-11-29T15:00:00+09:00",
+  "home": "나고야 그램퍼스",
+  "away": "아비스파 후쿠오카",
+  "home_en": "Nagoya Grampus",
+  "away_en": "Avispa Fukuoka",
+  "odds": {
+    "line": 2.5,
+    "home": 2.08,
+    "best_home": 2.1,
+    "draw": 3.24,
+    "best_draw": 3.3,
+    "away": 3.26,
+    "best_away": 3.3,
+    "over": 1.86,
+    "best_over": 1.88,
+    "under": 1.78,
+    "best_under": 1.8,
+    "source": "The Odds API 평균 배당 (승무패 4곳, 언더/오버 4곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.444,
+    "away_goals": 1.389
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (10경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.718,
+      "xg_against": 1.397,
+      "raw_goals_for": 1.8,
+      "raw_goals_against": 1.4,
+      "played": 10,
+      "record": "6승 1무 3패",
+      "form": "WLLDL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (10경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.09,
+      "xg_against": 1.564,
+      "raw_goals_for": 1.0,
+      "raw_goals_against": 1.6,
+      "played": 10,
+      "record": "3승 0무 7패",
+      "form": "WLLDW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Toyota Stadium",
+  "source_ids": {
+    "api_football_fixture": 1556167,
+    "home_team": 288,
+    "away_team": 316,
+    "league": 98,
+    "season": 2026
+  },
+  "head_to_head": [
+    "2026-04-19 나고야 그램퍼스 2-2 아비스파 후쿠오카",
+    "2026-03-07 아비스파 후쿠오카 1-5 나고야 그램퍼스",
+    "2025-12-06 나고야 그램퍼스 1-0 아비스파 후쿠오카",
+    "2025-05-17 아비스파 후쿠오카 1-1 나고야 그램퍼스",
+    "2024-10-04 아비스파 후쿠오카 1-0 나고야 그램퍼스"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 J1 League",
+    "home_days_rest": 8,
+    "away_prev": "2026-11-21 J1 League",
+    "away_days_rest": 8
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

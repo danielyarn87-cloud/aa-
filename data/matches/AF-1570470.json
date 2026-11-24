@@ -1,0 +1,93 @@
+{
+  "id": "AF-1570470",
+  "sport": "soccer",
+  "league": "라리가 Regular Season - 14",
+  "league_id": 140,
+  "league_name": "라리가",
+  "kickoff": "2026-11-29 05:00 KST",
+  "kickoff_iso": "2026-11-29T05:00:00+09:00",
+  "home": "레알 마드리드",
+  "away": "알라베스",
+  "home_en": "Real Madrid",
+  "away_en": "Alaves",
+  "odds": {
+    "line": 3.5,
+    "home": 1.14,
+    "best_home": 1.18,
+    "draw": 8.58,
+    "best_draw": 10.5,
+    "away": 15.49,
+    "best_away": 19.5,
+    "over": 1.86,
+    "best_over": 1.95,
+    "under": 1.91,
+    "best_under": 1.99,
+    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 12곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.597,
+    "away_goals": 1.279
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 2.666,
+      "xg_against": 0.893,
+      "raw_goals_for": 3.2,
+      "raw_goals_against": 0.7,
+      "played": 6,
+      "record": "6승 0무 0패",
+      "form": "WWWWW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.893,
+      "xg_against": 1.732,
+      "raw_goals_for": 0.7,
+      "raw_goals_against": 1.8,
+      "played": 6,
+      "record": "0승 3무 3패",
+      "form": "LDLDW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": null,
+  "source_ids": {
+    "api_football_fixture": 1570470,
+    "home_team": 541,
+    "away_team": 542,
+    "league": 140,
+    "season": 2026
+  },
+  "table": "레알 마드리드 2위 33점 (11승0무2패, 득실 +22) / 알라베스 9위 16점 (4승4무5패, 득실 +0)",
+  "head_to_head": [
+    "2026-04-21 레알 마드리드 2-1 알라베스",
+    "2025-12-14 알라베스 1-2 레알 마드리드",
+    "2025-04-13 알라베스 0-1 레알 마드리드",
+    "2024-09-24 레알 마드리드 3-2 알라베스",
+    "2024-05-14 레알 마드리드 5-0 알라베스"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 La Liga",
+    "home_days_rest": 7,
+    "away_prev": "2026-11-21 La Liga",
+    "away_days_rest": 7
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:43 KST"
+}

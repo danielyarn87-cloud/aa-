@@ -1,0 +1,77 @@
+{
+  "id": "AF-1510513",
+  "sport": "soccer",
+  "league": "K리그2 Regular Season - 34",
+  "league_id": 293,
+  "league_name": "K리그2",
+  "kickoff": "2026-11-29 14:00 KST",
+  "kickoff_iso": "2026-11-29T14:00:00+09:00",
+  "home": "수원 FC",
+  "away": "충북 청주",
+  "home_en": "Suwon City FC",
+  "away_en": "Cheongju",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.451,
+    "away_goals": 1.292
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (15경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.825,
+      "xg_against": 0.799,
+      "raw_goals_for": 1.9,
+      "raw_goals_against": 0.7,
+      "played": 15,
+      "record": "9승 5무 1패",
+      "form": "WLWWW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (15경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.215,
+      "xg_against": 1.409,
+      "raw_goals_for": 1.2,
+      "raw_goals_against": 1.4,
+      "played": 15,
+      "record": "3승 9무 3패",
+      "form": "WLLLD"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Suwon Sports Complex",
+  "source_ids": {
+    "api_football_fixture": 1510513,
+    "home_team": 2756,
+    "away_team": 7061,
+    "league": 293,
+    "season": 2026
+  },
+  "table": "수원 FC 2위 63점 (18승9무4패, 득실 +27) / 충북 청주 14위 33점 (6승15무10패, 득실 -13)",
+  "head_to_head": [
+    "2026-03-01 충북 청주 1-4 수원 FC"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 K League 2",
+    "home_days_rest": 7,
+    "away_prev": "2026-11-21 K League 2",
+    "away_days_rest": 8
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

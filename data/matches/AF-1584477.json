@@ -1,0 +1,93 @@
+{
+  "id": "AF-1584477",
+  "sport": "soccer",
+  "league": "쉬페르리그 Regular Season - 13",
+  "league_id": 203,
+  "league_name": "쉬페르리그",
+  "kickoff": "2026-11-29 19:30 KST",
+  "kickoff_iso": "2026-11-29T19:30:00+09:00",
+  "home": "Çorum FK",
+  "away": "코자엘리스포르",
+  "home_en": "Çorum FK",
+  "away_en": "Kocaelispor",
+  "odds": {
+    "line": 2.5,
+    "home": 1.84,
+    "best_home": 1.94,
+    "draw": 3.44,
+    "best_draw": 3.64,
+    "away": 3.96,
+    "best_away": 4.3,
+    "over": 1.89,
+    "best_over": 2.01,
+    "under": 1.84,
+    "best_under": 1.92,
+    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 14곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.676,
+    "away_goals": 1.333
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.378,
+      "xg_against": 1.625,
+      "raw_goals_for": 1.2,
+      "raw_goals_against": 1.8,
+      "played": 5,
+      "record": "2승 0무 3패",
+      "form": "WLWLL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.244,
+      "xg_against": 1.359,
+      "raw_goals_for": 1.2,
+      "raw_goals_against": 1.2,
+      "played": 6,
+      "record": "3승 0무 3패",
+      "form": "LWDWD"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Corum Stadyumu",
+  "source_ids": {
+    "api_football_fixture": 1584477,
+    "home_team": 6343,
+    "away_team": 7411,
+    "league": 203,
+    "season": 2026
+  },
+  "table": "Çorum FK 11위 16점 (5승1무6패, 득실 -2) / 코자엘리스포르 8위 20점 (6승2무4패, 득실 +4)",
+  "head_to_head": [
+    "2025-02-15 코자엘리스포르 2-0 Çorum FK",
+    "2024-09-22 Çorum FK 0-2 코자엘리스포르",
+    "2024-05-16 Çorum FK 2-1 코자엘리스포르",
+    "2024-04-07 Çorum FK 1-1 코자엘리스포르",
+    "2023-11-12 코자엘리스포르 2-1 Çorum FK"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-24 Süper Lig",
+    "home_days_rest": 5,
+    "away_prev": "2026-11-22 Süper Lig",
+    "away_days_rest": 7
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

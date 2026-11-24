@@ -1,0 +1,76 @@
+{
+  "id": "AF-1629992",
+  "sport": "soccer",
+  "league": "AFC챔피언스리그 엘리트 League Phase - 6",
+  "league_id": 17,
+  "league_name": "AFC챔피언스리그 엘리트",
+  "kickoff": "2026-12-01 19:00 KST",
+  "kickoff_iso": "2026-12-01T19:00:00+09:00",
+  "home": "포항 스틸러스",
+  "away": "상하이 포트",
+  "home_en": "Pohang Steelers",
+  "away_en": "SHANGHAI SIPG",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.568,
+    "away_goals": 1.514
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.541,
+      "xg_against": 1.908,
+      "raw_goals_for": 1.5,
+      "raw_goals_against": 2.5,
+      "played": 2,
+      "record": "0승 1무 1패",
+      "form": "LLLD"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 2.908,
+      "xg_against": 2.141,
+      "raw_goals_for": 5.0,
+      "raw_goals_against": 3.0,
+      "played": 2,
+      "record": "2승 0무 0패",
+      "form": "WDLW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Pohang Steel Yard",
+  "source_ids": {
+    "api_football_fixture": 1629992,
+    "home_team": 2764,
+    "away_team": 836,
+    "league": 17,
+    "season": 2026
+  },
+  "head_to_head": [
+    "2024-10-01 포항 스틸러스 3-0 상하이 포트"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 K League 1",
+    "home_days_rest": 10,
+    "away_prev": "2026-11-20 FA Cup",
+    "away_days_rest": 10
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-24 19:44 KST"
+}

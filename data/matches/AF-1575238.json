@@ -1,0 +1,93 @@
+{
+  "id": "AF-1575238",
+  "sport": "soccer",
+  "league": "분데스리가 Regular Season - 11",
+  "league_id": 78,
+  "league_name": "분데스리가",
+  "kickoff": "2026-11-28 23:30 KST",
+  "kickoff_iso": "2026-11-28T23:30:00+09:00",
+  "home": "파더보른",
+  "away": "샬케",
+  "home_en": "SC Paderborn 07",
+  "away_en": "FC Schalke 04",
+  "odds": {
+    "line": 2.5,
+    "home": 2.39,
+    "best_home": 2.54,
+    "draw": 3.45,
+    "best_draw": 3.73,
+    "away": 2.8,
+    "best_away": 2.95,
+    "over": 1.75,
+    "best_over": 1.84,
+    "under": 2.05,
+    "best_under": 2.16,
+    "source": "The Odds API 평균 배당 (승무패 23곳, 언더/오버 15곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 2.067,
+    "away_goals": 1.322
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.525,
+      "xg_against": 1.246,
+      "raw_goals_for": 1.2,
+      "raw_goals_against": 1.2,
+      "played": 5,
+      "record": "2승 1무 2패",
+      "form": "DWDDL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.121,
+      "xg_against": 1.775,
+      "raw_goals_for": 1.0,
+      "raw_goals_against": 1.6,
+      "played": 5,
+      "record": "1승 1무 3패",
+      "form": "LDLLD"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Home Deluxe Arena",
+  "source_ids": {
+    "api_football_fixture": 1575238,
+    "home_team": 185,
+    "away_team": 174,
+    "league": 78,
+    "season": 2026
+  },
+  "table": "파더보른 15위 10점 (2승4무4패, 득실 -7) / 샬케 16위 7점 (1승4무5패, 득실 -6)",
+  "head_to_head": [
+    "2026-04-26 파더보른 2-3 샬케",
+    "2025-11-28 샬케 2-1 파더보른",
+    "2025-05-02 샬케 0-2 파더보른",
+    "2024-12-06 파더보른 2-4 샬케",
+    "2024-03-09 샬케 3-3 파더보른"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 Bundesliga",
+    "home_days_rest": 7,
+    "away_prev": "2026-11-22 Bundesliga",
+    "away_days_rest": 6
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-24 19:43 KST"
+}
