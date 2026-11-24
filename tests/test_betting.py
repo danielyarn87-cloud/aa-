@@ -70,3 +70,26 @@ def test_many_leagues_use_one_call_per_day(company):
             today=datetime(2026, 11, 28), light=True, log=lambda *_: None)
     fx = [p for p, q in af.calls if p == "/fixtures"]
     assert len(fx) == 2 and all("date" in q for p, q in af.calls if p == "/fixtures")  # 리그 3개라도 날짜 2번
+
+
+def test_real_plan_limit_from_status(company):
+    from aa.collect import _clients
+    from aa.sources.cache import ApiCache
+
+    def af(url, params, headers):
+        assert url.endswith("/status")
+        return {"errors": [], "response": {"subscription": {"plan": "Pro", "active": True},
+                                           "requests": {"current": 120, "limit_day": 7500}}}, {}
+    a, _ = _clients(company, ApiCache(company.base_dir / "data" / "c.sqlite"), af_transport=af)
+    assert a.daily_limit == 7380 and a.plan["plan"] == "Pro"                 # 남은 실제 횟수만큼
+    assert json.loads((company.base_dir / "data" / "api_plan.json").read_text(encoding="utf-8"))["limit_day"] == 7500
+
+
+def test_odds_limit_follows_remaining_header(company):
+    from aa.sources.cache import ApiCache
+    from aa.sources.odds_api import OddsApi
+
+    o = OddsApi(ApiCache(company.base_dir / "data" / "c2.sqlite"), monthly_credits=500, api_key="k",
+                transport=lambda u, p, h: ([], {"x-requests-last": "2", "x-requests-remaining": "19800"}))
+    o.odds("soccer_epl")
+    assert o.remaining == 19800 and o.monthly == 2 + 19800
