@@ -47,6 +47,9 @@ class ClaudeClient:
             try:
                 with urllib.request.urlopen(req, timeout=self.timeout) as resp:
                     data = json.loads(resp.read().decode("utf-8"))
+                from .credit import record
+
+                record(model, data.get("usage"))
                 for b in data.get("content", []):
                     if b.get("type") == "tool_use":
                         return json.dumps(b.get("input", {}), ensure_ascii=False)
