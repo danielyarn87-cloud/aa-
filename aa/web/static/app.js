@@ -65,7 +65,8 @@ async function api(path, opts) {
     const file = path === '/api/matches' ? 'api/matches.json'
       : path.startsWith('/api/matches/') ? 'api/matches/' + path.split('/').pop() + '.json'
       : path === '/api/company' ? 'api/company.json' : path === '/api/record' ? 'api/record.json'
-      : path === '/api/leagues' ? 'api/leagues.json' : path === '/api/bets' ? 'api/bets.json' : null;
+      : path === '/api/leagues' ? 'api/leagues.json' : path === '/api/bets' ? 'api/bets.json'
+      : path === '/api/credit' ? 'api/credit.json' : null;
     if (!file) throw new Error('이 사이트에서는 쓸 수 없는 기능입니다.');
     const r = await fetch(file, {cache: 'no-cache'});
     if (!r.ok) throw new Error(r.status === 404 ? '아직 분석하지 않은 경기입니다.' : '불러오기 실패 ' + r.status);
@@ -97,6 +98,7 @@ let lgOpen = !!store.get('aa_lg_open');
 const lgName = m => m.league_name || (m.league || '').split(' ')[0] || '기타';
 async function renderList() {
   const data = await api('/api/matches');
+  const credit = await api('/api/credit').catch(() => null);
   const all = data.matches;
   const lgCount = {};
   all.forEach(m => { lgCount[lgName(m)] = (lgCount[lgName(m)] || 0) + 1; });
@@ -113,7 +115,7 @@ async function renderList() {
   view.innerHTML = `<section class="band"><div class="wrap">
     <div class="listhead"><div><h1>누적 적중률 · 전체</h1></div>
       <div class="segbar" role="group" aria-label="경기 거르기">${chip('all', '전체')}${chip('analyzed', '분석 완료')}${chip('value', '이득 신호')}${chip('pending', '분석 대기')}${chip('results', `경기 결과 <span class="num">${finished.length}</span>`, 'res')}</div></div>
-    ${kpiCards(all, ms.length - done.length, done.length, vals)}
+    ${kpiCards(all, ms.length - done.length, done.length, vals, credit)}
     ${Object.keys(lgCount).length > 1 ? `<button type="button" class="lgtoggle" id="lgtoggle" aria-expanded="${lgOpen}"><span><b>리그</b> · ${leagueFilter === 'all' ? `모든 리그 (${all.length})` : `${esc(leagueFilter)} (${lgCount[leagueFilter]})`}</span><span>${lgOpen ? '접기 ▴' : '펼치기 ▾'}</span></button>
     <div class="chips lgchips" role="group" aria-label="리그 거르기" ${lgOpen ? '' : 'hidden'}>
       <button class="chip" data-lg="all" aria-pressed="${leagueFilter === 'all'}">모든 리그 <span class="num">${all.length}</span></button>
@@ -161,8 +163,9 @@ async function renderList() {
   });
   pickBar();
   liveTick();
+  wireCredit();
 }
-function kpiCards(all, waiting, analyzed, vals) {
+function kpiCards(all, waiting, analyzed, vals, credit) {
   const done = all.filter(m => m.result);
   const p1 = done.filter(m => m.result.hit_1x2 != null), po = done.filter(m => m.result.hit_ou != null);
   const h1 = p1.filter(m => m.result.hit_1x2).length, ho = po.filter(m => m.result.hit_ou).length;
@@ -188,7 +191,45 @@ function kpiCards(all, waiting, analyzed, vals) {
     ${card('k2', '언더/오버 적중', pc(ho, po.length), po.length ? `${ho} / ${po.length}경기` : '결과 대기')}
     ${card('k3', '채점한 경기', done.length, '누적')}
     ${card('k4', '분석 대기', waiting, `분석 완료 ${analyzed} · 이득 ${vals}`)}
+    ${creditCard(credit)}
   </div>`;
+}
+/* Claude 크레딧: Console 잔액은 밖에서 못 읽어서, 입력한 잔액에서 분석할 때 쓴 만큼(실제 토큰 수 × 가격)을 뺀 추정값 */
+const usd = v => '$' + (+v).toFixed(2);
+const kst = iso => new Date(iso).toLocaleString('ko-KR', {timeZone: 'Asia/Seoul', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false});
+function creditCard(c) {
+  const has = c && c.balance != null;
+  const sub = has
+    ? `${esc(kst(c.set_at))} 입력 ${usd(c.set_usd)}${c.added ? ` · 충전 +${usd(c.added)}` : ''} · 이후 사용 −${usd(c.spent)}`
+    : 'Console 잔액을 넣으면 분석할 때마다 자동으로 빠집니다';
+  return `<div class="kpi k6"><span class="kl">Claude 크레딧 (추정)</span>
+    <span class="kn">${has ? '<small>약 </small>' + usd(c.balance) : '-'}</span><span class="ks">${sub}</span>
+    ${STATIC ? `<button type="button" class="cr-open">갱신</button>
+    <div class="cr-form" hidden>
+      <input type="text" inputmode="decimal" class="cr-val" placeholder="예: 48.75 또는 +20">
+      <input type="password" class="cr-pw" placeholder="분석 요청 비밀번호" value="${esc(store.get('aa_run_pw'))}" autocomplete="current-password">
+      <button type="button" class="btn sm cr-go">저장</button>
+      <p class="small cr-msg" role="status">Console 에 보이는 잔액을 그대로 넣으세요. 충전한 금액만 더하려면 앞에 + 를 붙이세요.</p>
+    </div>` : ''}</div>`;
+}
+function wireCredit() {
+  const box = view.querySelector('.k6');
+  if (!box || !box.querySelector('.cr-open')) return;
+  const f = box.querySelector('.cr-form'), msg = box.querySelector('.cr-msg');
+  box.querySelector('.cr-open').onclick = () => { f.hidden = !f.hidden; box.classList.toggle('open', !f.hidden); if (!f.hidden) box.querySelector('.cr-val').focus(); };
+  box.querySelector('.cr-go').onclick = async e => {
+    const v = box.querySelector('.cr-val').value.trim(), pw = box.querySelector('.cr-pw').value;
+    if (!/^\+?\$?\d+(\.\d{1,2})?$/.test(v.replace(/,/g, ''))) { msg.textContent = '달러 금액으로 넣으세요. 예: 48.75 또는 +20'; return; }
+    if (!pw) { msg.textContent = '비밀번호를 넣으세요.'; return; }
+    e.target.disabled = true; msg.textContent = '저장 중…';
+    try {
+      const r = await fetch('/api/credit', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({password: pw, value: v})});
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(j.error || ('실패 ' + r.status));
+      msg.textContent = (j.type === 'add' ? `충전 +${usd(j.usd)} 저장` : `잔액 ${usd(j.usd)} 저장`) + '했습니다. 2~3분 뒤 사이트가 새로 만들어지면 카드에 보입니다.';
+    } catch (err) { msg.textContent = err.message; }
+    e.target.disabled = false;
+  };
 }
 const pickSet = () => new Set((store.get('aa_pick_ids') || '').split(',').filter(Boolean));
 function pickBar() {
