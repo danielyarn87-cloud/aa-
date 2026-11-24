@@ -36,6 +36,26 @@ from ..teams_ko import ko as ko_name
 STATIC = Path(__file__).parent / "static"
 
 
+def renamed(obj, company: Company):
+    """이름을 바꾼 분석가: 저장된 예전 이름(글 속 언급 포함)을 지금 이름으로 바꿔 보여 준다."""
+    pairs = [(old, m.name) for m in company.members for old in m.former_names if old and old != m.name]
+    if not pairs:
+        return obj
+
+    def fix(x):
+        if isinstance(x, str):
+            for a, b in pairs:
+                x = x.replace(a, b)
+            return x
+        if isinstance(x, list):
+            return [fix(v) for v in x]
+        if isinstance(x, dict):
+            return {k: fix(v) for k, v in x.items()}
+        return x
+
+    return fix(obj)
+
+
 def _summary(run: dict, result: dict | None) -> dict:
     d = run["decision"]
     one, ou = d["one_x_two"], d["over_under"]
@@ -191,7 +211,13 @@ def create_app(company: Company) -> Flask:
         r = results().get(mid)
         run["summary"] = _summary(run, r)
         run["members"] = {m.id: {"name": m.name, "title": m.title, "color": getattr(m, "color", None)} for m in company.members}
-        return jsonify(run)
+        if r:  # 결과가 나왔으면 분석가마다 처음(1차)·최종 예측이 맞았는지
+            res = outcome_of(r["home_goals"], r["away_goals"])
+            over = r["home_goals"] + r["away_goals"] > run["decision"]["line"]
+            for o in run.get("initial", []) + run.get("final", []):
+                o["hit_1x2"] = o.get("pick_1x2") == res
+                o["hit_ou"] = (o.get("pick_ou") == "over") == over
+        return jsonify(renamed(run, company))
 
     @app.get("/api/company")
     def org():
@@ -238,7 +264,7 @@ def create_app(company: Company) -> Flask:
     def bets():
         from ..betting import summary as bet_summary
 
-        return jsonify(bet_summary(company))
+        return jsonify(renamed(bet_summary(company), company))
 
     @app.get("/api/record")
     def record():
@@ -247,13 +273,27 @@ def create_app(company: Company) -> Flask:
         for d in company.departments.values():
             if not d.active:
                 continue
+            from ..daily import load_picked
+
             w = lg.weights(company, d.id)
-            members = lg.member_stats(d.id)
             voting = {m.id for m in company.voters(d.id)}
-            for s in members:
-                s["weight"] = w.get(s["member_id"], 1.0)
-                s["votes"] = s["member_id"] in voting
-            out.append({"department": d.name, "company": lg.company_stats(d.id), "members": members,
+            mine = set(load_picked(company))
+            cur = {m.id: m for m in company.members}
+
+            def mark(rows):
+                for s in rows:
+                    s["weight"] = w.get(s["member_id"], 1.0)
+                    s["votes"] = s["member_id"] in voting
+                    if s["member_id"] in cur:  # 이름을 바꿨으면 지금 이름으로
+                        s["name"] = cur[s["member_id"]].name
+                        s["color"] = cur[s["member_id"]].color
+                return rows
+
+            out.append({"department": d.name, "company": lg.company_stats(d.id),
+                        "company_mine": lg.company_stats(d.id, ids=mine),
+                        "members": mark(lg.member_stats(d.id)),                      # 토론 후 최종
+                        "members_initial": mark(lg.member_stats(d.id, stage="initial")),  # 혼자 처음 낸 1차 분석
+                        "members_mine": mark(lg.member_stats(d.id, ids=mine)),       # 내가 고른 경기만
                         "weights": {m.name: w.get(m.id, 1.0) for m in company.voters(d.id)}})
         return jsonify({"departments": out, "min_samples": company.policy.min_samples_for_weight})
 
