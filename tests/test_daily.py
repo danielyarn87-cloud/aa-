@@ -42,3 +42,32 @@ def test_next_run():
     assert next_run(now, ["10:00", "22:00"]) == datetime(2026, 11, 25, 10, 0, tzinfo=KST)
     now = datetime(2026, 11, 24, 12, 0, tzinfo=KST)
     assert next_run(now, ["10:00", "22:00"]) == datetime(2026, 11, 24, 22, 0, tzinfo=KST)
+
+
+def test_export_static_site(tmp_path):
+    import importlib.util
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[1]
+    spec = importlib.util.spec_from_file_location("export_static", root / "tools" / "export_static.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    out = mod.export(tmp_path / "site")
+    matches = json.loads((out / "api" / "matches.json").read_text(encoding="utf-8"))
+    for m in matches["matches"]:
+        if m["status"] == "analyzed":
+            assert (out / "api" / "matches" / f"{m['id']}.json").exists()
+    assert "window.AA_STATIC=true" in (out / "index.html").read_text(encoding="utf-8")
+    assert (out / "static" / "app.js").exists() and (out / "api" / "record.json").exists()
+
+
+def test_ledger_backfill_from_reports(company):
+    from aa.ledger import Ledger
+    now = datetime(2026, 11, 28, 12, 0, tzinfo=KST)
+    run_daily(company, client_factory=MockClient, now=now, log=lambda *_: None, af_transport=FakeAF(), odds_transport=fake_odds)
+    (company.base_dir / "data" / "ledger.sqlite").unlink()
+    fresh = Ledger(company.base_dir / "data" / "ledger.sqlite")
+    assert fresh.backfill_from_reports(company.base_dir / "reports") == 1
+    assert fresh.backfill_from_reports(company.base_dir / "reports") == 0
+    fresh.settle("AF-9001", 2, 0)
+    assert fresh.company_stats("soccer", include_mock=True)["settled"] == 1
