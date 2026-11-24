@@ -111,6 +111,20 @@ def cmd_daily(company, args) -> None:
     from .daily import run_daily
     from .llm import MockClient
 
+    auto = company.automation
+    if args.leagues:
+        auto["leagues"] = [int(x) for x in args.leagues.split(",") if x.strip()]
+    if args.days:
+        auto["collect_days"] = args.days
+    if args.within:
+        auto["analyze_within_hours"] = args.within
+    if args.max is not None:  # "이번에 최대 N경기": 오늘 이미 분석한 수에 더해 준다
+        from datetime import datetime
+        from zoneinfo import ZoneInfo
+
+        from .daily import analyzed_today
+
+        auto["max_analyses_per_day"] = analyzed_today(company, datetime.now(ZoneInfo("Asia/Seoul"))) + args.max
     run_daily(company, client_factory=(MockClient if args.mock else None))
 
 
@@ -160,6 +174,10 @@ def main(argv=None) -> None:
 
     dl = sub.add_parser("daily", help="자동 실행 한 번: 채점 → 수집 → 분석")
     dl.add_argument("--mock", action="store_true", help="분석을 모의 실행으로 (API 비용 없이 흐름 확인)")
+    dl.add_argument("--leagues", help="이번만 다룰 리그 번호, 쉼표로 (예: 39,140)")
+    dl.add_argument("--days", type=int, help="이번만: 며칠 뒤 경기까지 수집")
+    dl.add_argument("--within", type=float, help="이번만: 킥오프 몇 시간 안의 경기를 분석")
+    dl.add_argument("--max", type=int, help="이번 실행에서 분석할 최대 경기 수 (오늘 한도와 별도)")
     sub.add_parser("worker", help="정해진 시각마다 자동 실행 (서버 상시 구동용)")
 
     w = sub.add_parser("serve", help="웹사이트 실행")
