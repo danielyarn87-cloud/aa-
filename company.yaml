@@ -27,7 +27,7 @@ automation:
 data_sources:
   timezone: Asia/Seoul
   api_football:
-    daily_limit: 100          # 무료 플랜 하루 100회. 유료(Pro)면 7500 으로 올리세요
+    daily_limit: auto         # auto: 계정 요금제의 실제 하루 한도를 읽어 씀 (못 읽으면 100). 숫자로 적으면 그 숫자로 고정
     cache_hours: 6            # 같은 요청은 이 시간 동안 다시 부르지 않음
   odds_api:
     monthly_credits: 500      # 무료 플랜 월 500 크레딧 (요청 1회 = 시장 수 x 지역 수)
