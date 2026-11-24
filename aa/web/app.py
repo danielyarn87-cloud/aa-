@@ -266,6 +266,12 @@ def create_app(company: Company) -> Flask:
 
         return jsonify(renamed(bet_summary(company), company))
 
+    @app.get("/api/credit")
+    def credit():
+        from ..credit import status
+
+        return jsonify(status(base))
+
     @app.get("/api/record")
     def record():
         lg = ledger()
