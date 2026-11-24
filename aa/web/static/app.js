@@ -160,6 +160,7 @@ async function renderList() {
     pickBar();
   });
   pickBar();
+  liveTick();
 }
 function kpiCards(all, waiting, analyzed, vals) {
   const done = all.filter(m => m.result);
@@ -188,7 +189,7 @@ function rowHtml(m) {
   const head = `<span class="time">${esc(timeOf(m.kickoff))}</span><span class="teams">${esc(m.home)} <span class="mute">vs</span> ${esc(m.away)}<br><span class="lg">${esc(m.league)}</span></span>`;
   if (m.status !== 'analyzed') {
     const o = m.odds || {};
-    return `<div class="row">${head}<span class="small mute num odds">${o.home ? `배당 ${esc(o.home)} / ${esc(o.draw)} / ${esc(o.away)}` : '배당 없음'}</span><span class="tags">${m.picked ? '<span class="tag value">분석 요청함</span>' : STATIC ? `<button type="button" class="pk-toggle" data-pick="${esc(m.id)}" aria-pressed="${pickSet().has(m.id)}">${pickSet().has(m.id) ? '✓ 분석에 담음' : '＋ 분석하기'}</button>` : '<span class="tag wait">분석 대기</span>'}</span></div>`;
+    return `<div class="row">${head}<span class="mid">${liveSlot(m)}<span class="small mute num odds">${o.home ? `배당 ${esc(o.home)} / ${esc(o.draw)} / ${esc(o.away)}` : '배당 없음'}</span></span><span class="tags">${m.picked ? '<span class="tag value">분석 요청함</span>' : STATIC ? `<button type="button" class="pk-toggle" data-pick="${esc(m.id)}" aria-pressed="${pickSet().has(m.id)}">${pickSet().has(m.id) ? '✓ 분석에 담음' : '＋ 분석하기'}</button>` : '<span class="tag wait">분석 대기</span>'}</span></div>`;
   }
   const tags = [];
   const od = m.odds || {};
@@ -206,7 +207,43 @@ function rowHtml(m) {
     if (m.result.hit_ou != null) tags.push(`<span class="tag ${m.result.hit_ou ? 'hit' : 'miss'}">언오버 ${m.result.hit_ou ? '적중' : '빗나감'}</span>`);
   }
   if (m.mock) tags.push('<span class="tag wait">모의</span>');
-  return `<a class="row" href="#m-${encodeURIComponent(m.id)}">${head}${tri(m.probs)}<span class="tags">${tags.join('')}</span></a>`;
+  return `<a class="row" href="#m-${encodeURIComponent(m.id)}">${head}<span class="mid">${liveSlot(m)}${tri(m.probs)}</span><span class="tags">${tags.join('')}</span></a>`;
+}
+
+/* ---------- 실시간 스코어 ----------
+   진행 중일 수 있는 경기(시작 15분 전 ~ 시작 3시간 뒤)가 화면에 있을 때만 1분마다 /api/live 를 묻는다.
+   서버는 1분에 한 번만 API-Football 에 묻고 모두에게 같은 값을 준다. */
+const kickMs = m => { const d = dayOf(m.kickoff), t = timeOf(m.kickoff); return d && t ? Date.parse(`${d}T${t}:00+09:00`) : NaN; };
+const mayBeLive = m => { const k = kickMs(m), n = Date.now(); return !m.result && k - 15 * 60e3 <= n && n <= k + 3 * 3600e3; };
+const liveSlot = m => mayBeLive(m) ? `<span class="lv" data-live="${esc(m.id)}" hidden></span>` : '';
+const liveSeen = {};   /* 진행 중으로 본 적 있는 경기의 마지막 값: 목록에서 빠지면 '종료'로 보여 준다 */
+let liveTimer = null;
+const LIVE_ON = ['1H', 'HT', '2H', 'ET', 'BT', 'P', 'LIVE', 'INT', 'SUSP'];
+function liveText(x, ended) {
+  const sc = `<b class="num">${esc(x.h)}-${esc(x.a)}</b>`;
+  if (ended || ['FT', 'AET', 'PEN'].includes(x.s)) return `<span class="lv-t">종료</span>${sc}`;
+  if (x.s === 'HT') return `<span class="lv-t">HT</span>${sc}`;
+  if (x.s === 'P') return `<i class="dot"></i><span class="lv-t">승부차기</span>${sc}`;
+  return `<i class="dot"></i><span class="lv-t num">${x.m != null ? esc(x.m) + "'" : 'LIVE'}</span>${sc}`;
+}
+async function liveTick() {
+  clearTimeout(liveTimer);
+  const els = [...document.querySelectorAll('[data-live]')];
+  if (!STATIC || !els.length) return;
+  let d;
+  try { const r = await fetch('/api/live', {cache: 'no-cache'}); d = await r.json(); } catch (e) { d = null; }
+  if (d && d.error === 'no_key') return;   /* 키가 아직 없으면 조용히 멈춘다 */
+  const live = (d && d.live) || {};
+  document.querySelectorAll('[data-live]').forEach(el => {
+    const id = el.dataset.live, x = live[id];
+    if (x) liveSeen[id] = x;
+    const show = x || (d && liveSeen[id] ? {...liveSeen[id]} : null);
+    if (!show) { el.hidden = true; return; }
+    el.className = 'lv' + (x && LIVE_ON.includes(x.s) && x.s !== 'HT' ? ' on' : '');
+    el.innerHTML = liveText(show, !x);
+    el.hidden = false;
+  });
+  liveTimer = setTimeout(liveTick, 60e3);
 }
 
 /* ---------- 경기 상세 ---------- */
