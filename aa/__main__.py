@@ -118,6 +118,8 @@ def cmd_daily(company, args) -> None:
         auto["collect_days"] = args.days
     if args.within:
         auto["analyze_within_hours"] = args.within
+    if args.light:
+        auto["light"] = True
     if args.max is not None:  # "이번에 최대 N경기": 오늘 이미 분석한 수에 더해 준다
         from datetime import datetime
         from zoneinfo import ZoneInfo
@@ -178,6 +180,7 @@ def main(argv=None) -> None:
     dl.add_argument("--days", type=int, help="이번만: 며칠 뒤 경기까지 수집")
     dl.add_argument("--within", type=float, help="이번만: 킥오프 몇 시간 안의 경기를 분석")
     dl.add_argument("--max", type=int, help="이번 실행에서 분석할 최대 경기 수 (오늘 한도와 별도)")
+    dl.add_argument("--light", action="store_true", help="호출 절약: 상대 전적·직전 경기 생략 (경기당 3회)")
     sub.add_parser("worker", help="정해진 시각마다 자동 실행 (서버 상시 구동용)")
 
     w = sub.add_parser("serve", help="웹사이트 실행")
