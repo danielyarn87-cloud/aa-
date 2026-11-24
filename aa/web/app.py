@@ -30,6 +30,7 @@ from ..config import Company
 from ..ledger import Ledger, outcome_of
 from ..models import Match
 from ..store import load_runs, save_run
+from ..teams_ko import ko as ko_name
 
 STATIC = Path(__file__).parent / "static"
 
@@ -41,8 +42,8 @@ def _summary(run: dict, result: dict | None) -> dict:
         "id": run["match"]["id"],
         "league": run["match"]["league"],
         "kickoff": run["match"]["kickoff"],
-        "home": run["match"]["home"],
-        "away": run["match"]["away"],
+        "home": ko_name(run["match"]["home"]),
+        "away": ko_name(run["match"]["away"]),
         "status": "analyzed",
         "pick_1x2": one["pick"],
         "tally_1x2": one["tally"],
@@ -155,8 +156,8 @@ def create_app(company: Company) -> Flask:
                 continue  # 분석하지 못하고 지나간 경기는 숨김
             lid, lname = league_of(company, m)
             items.append({"id": m["id"], "league": m["league"], "league_id": lid, "league_name": lname,
-                          "kickoff": m["kickoff"], "home": m["home"],
-                          "away": m["away"], "status": "pending", "odds": m.get("odds", {})})
+                          "kickoff": m["kickoff"], "home": ko_name(m["home"]),
+                          "away": ko_name(m["away"]), "status": "pending", "odds": m.get("odds", {})})
         items.sort(key=lambda x: x["kickoff"])
         return jsonify({"company": company.name, "matches": items})
 
@@ -166,6 +167,8 @@ def create_app(company: Company) -> Flask:
         if not p.exists():
             abort(404, "아직 분석하지 않은 경기입니다.")
         run = json.loads(p.read_text(encoding="utf-8"))
+        for side in ("home", "away"):  # 예전 분석은 영어 이름으로 저장돼 있어 화면에서만 바꾼다
+            run["match"][side] = ko_name(run["match"][side])
         r = results().get(mid)
         run["summary"] = _summary(run, r)
         run["members"] = {m.id: {"name": m.name, "title": m.title, "color": getattr(m, "color", None)} for m in company.members}
