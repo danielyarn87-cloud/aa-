@@ -58,7 +58,7 @@ a.row:hover{background:var(--panel)}
 .tags{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end}
 .tag{font-size:13px;border-radius:6px;padding:3px 8px;background:var(--panel);border:1px solid var(--line);white-space:nowrap}
 .tag.pick{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.tag.value{background:var(--card);color:var(--cardink);border-color:var(--card);font-weight:700}
+.tag.value{background:#cdeeff;color:#0b4a6e;border-color:#8fd0f5;font-weight:700}
 .tag.hit{background:var(--hit);color:#fff;border-color:var(--hit)}
 .tag.miss{background:var(--miss);color:#fff;border-color:var(--miss)}
 .tag.wait{border-style:dashed;color:var(--mute)}
@@ -182,8 +182,8 @@ pre{background:var(--panel);padding:12px;border-radius:8px;font-size:14px;white-
 .who-title{display:flex;align-items:center;gap:10px;margin-top:30px;padding:10px 14px;border-radius:10px;background:color-mix(in srgb,var(--mc) 12%,transparent);color:var(--mc);font-size:24px}
 .who-title .dot{width:14px;height:14px;border-radius:50%;background:var(--mc)}
 .who-title .small{color:inherit;opacity:.8;font-weight:600}
-.tag.both{background:#ffd60a;color:#111;border-color:#e0b800;font-weight:800;box-shadow:0 0 0 2px #0d5c35 inset}
-.tag.both .star{color:#0d5c35;font-weight:900}
+.tag.both{background:#ffe14d;color:#d10f1f;border-color:#e6b800;font-weight:800;box-shadow:none}
+.tag.both .star{color:#d10f1f;font-weight:900}
 
 /* 배팅표 모양 */
 .ticket{padding:14px}
