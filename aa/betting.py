@@ -200,7 +200,9 @@ def _ticket_info(leg: dict, m: dict | None, leagues: list) -> None:
     text = str(m.get("league", ""))
     leg["league"] = next((lc["name"] for lc in leagues if text.startswith(lc["name"])), text.split(" ")[0] if text else "")
     home, away = (leg.get("title", "").split(" vs ") + [""])[:2]
-    leg["home"], leg["away"] = m.get("home") or home, m.get("away") or away
+    from .teams_ko import ko
+    leg["home"], leg["away"] = ko(m.get("home") or home), ko(m.get("away") or away)
+    leg["title"] = f'{leg["home"]} vs {leg["away"]}'
     o = m.get("odds") or {}
     if leg["market"] == "1x2":
         keys = ["home", "draw", "away"]
