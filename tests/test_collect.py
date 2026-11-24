@@ -48,7 +48,7 @@ class FakeAF:
         assert headers.get("x-apisports-key") == "test"
         path = url.split(".io")[1]
         self.calls.append((path, params))
-        if path == "/fixtures" and "league" in params:
+        if path == "/fixtures" and ("league" in params or "date" in params):
             return {"errors": [], "response": [FIXTURE]}, {}
         if path == "/fixtures" and "id" in params:
             done = json.loads(json.dumps(FIXTURE))
