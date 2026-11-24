@@ -81,6 +81,10 @@ def _market_text(match: Match, m1: dict, margin: float, mou: dict, line: float) 
     return "\n".join(parts)
 
 
+BLIND_MARKET = ("(1차 분석에서는 배당을 일부러 보여 주지 않습니다. 시장이 누구를 밀고 있는지 짐작해 맞추지 말고, "
+                "자료와 당신의 관점만으로 가능성을 내세요. 배당은 토론 때 공개됩니다.)")
+
+
 def _ask(client, company: Company, member: Member, stage: str, prompt: str, ctx: dict) -> dict:
     ctx = {**ctx, "member_id": member.id, "stage": stage, "model": member.model, "schema": SCHEMAS.get(stage)}
     system = _system(company, member)
@@ -124,7 +128,7 @@ def analyze(company: Company, match: Match, client, ledger: Ledger, dept_id: str
     def initial(member: Member) -> Opinion:
         prompt = t_init.safe_substitute(
             member_name=member.name, member_title=member.title, match_brief=brief,
-            base_model=base["detail"], market=market, line=line,
+            base_model=base["detail"], market=market if member.sees_market else BLIND_MARKET, line=line,
         )
         return Opinion.from_dict(member.id, member.name, "initial", _ask(client, company, member, "initial", prompt, ctx))
 
