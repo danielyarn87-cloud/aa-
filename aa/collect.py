@@ -192,7 +192,17 @@ def _clients(company: Company, cache: ApiCache, af_transport=None, odds_transpor
     afc, oc = ds.get("api_football", {}), ds.get("odds_api", {})
     kw_af = {"transport": af_transport} if af_transport else {}
     kw_od = {"transport": odds_transport} if odds_transport else {}
-    af = ApiFootball(cache, daily_limit=int(afc.get("daily_limit", 100)), cache_hours=float(afc.get("cache_hours", 6)), **kw_af)
+    lim = afc.get("daily_limit", "auto")
+    af = ApiFootball(cache, daily_limit=100 if lim == "auto" else int(lim), cache_hours=float(afc.get("cache_hours", 6)), **kw_af)
+    if lim == "auto":  # 계정의 실제 요금제 한도를 읽는다 (못 읽으면 무료 기준 100)
+        try:
+            plan = af.sync_plan()
+            (company.base_dir / "data").mkdir(exist_ok=True)
+            (company.base_dir / "data" / "api_plan.json").write_text(
+                json.dumps({**plan, "checked_at": datetime.now(ZoneInfo("Asia/Seoul")).strftime("%Y-%m-%d %H:%M KST")},
+                           ensure_ascii=False, indent=2), encoding="utf-8")
+        except Exception:
+            pass
     od = OddsApi(cache, monthly_credits=int(oc.get("monthly_credits", 500)), regions=oc.get("regions", "eu"),
                  markets=oc.get("markets", "h2h,totals"), cache_hours=float(oc.get("cache_hours", 3)), **kw_od)
     return af, od
