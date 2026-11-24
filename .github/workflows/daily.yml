@@ -1,6 +1,7 @@
 # 매일 자동 분석 (GitHub Actions, 무료)
-# 순서: 테스트 → 끝난 경기 채점 → 예정 경기 수집 → 새 경기 분석 → 기록 저장 → 사이트 갱신(site 브랜치)
-# Cloudflare Pages 가 site 브랜치를 보고 있다가 새 내용이 올라오면 사이트를 바꾼다.
+# 순서: 테스트 → 끝난 경기 채점 → 예정 경기 수집 → 새 경기 분석 → 기록 저장(main)
+# Cloudflare Pages 가 main 을 보고 있다가 새 기록이 올라오면 사이트를 다시 만든다.
+# 사이트의 '분석 요청' 화면도 이 작업을 실행한다 (functions/api/run.js).
 # API 키는 저장소 Settings → Secrets and variables → Actions 에 넣는다 (코드에 쓰지 않음).
 name: 매일 분석
 
@@ -11,7 +12,7 @@ on:
   workflow_dispatch:         # 원할 때 분석: Actions 탭 → 매일 분석 → "Run workflow" (휴대폰 GitHub 앱에서도 가능)
     inputs:
       leagues:
-        description: "리그 번호, 쉼표로 (비우면 company.yaml 설정). 예: 39 프리미어리그, 140 라리가, 135 세리에A, 78 분데스리가, 61 리그1, 2 챔스, 292 K리그1"
+        description: "리그 번호, 쉼표로 (비우면 기본 리그). 39 EPL, 140 라리가, 135 세리에A, 78 분데스, 61 리그1, 2 챔스, 3 유로파, 848 컨퍼런스, 40 챔피언십, 88 에레디비시, 94 포르투갈, 203 튀르키예, 144 벨기에, 179 스코틀랜드, 292 K리그1, 98 J1"
         required: false
         default: ""
       days:
@@ -27,7 +28,7 @@ on:
         required: false
         default: ""
       light:
-        description: "호출 절약 (상대 전적·직전 경기 생략, API-Football 경기당 3회)"
+        description: "호출 절약 (순위표만 쓰고 부상자·상대 전적·직전 경기 생략)"
         type: boolean
         default: false
       mock:
@@ -89,18 +90,9 @@ jobs:
             echo "바뀐 기록 없음"
           else
             git commit -m "자동 분석 $(TZ=Asia/Seoul date '+%Y-%m-%d %H:%M')"
+            git pull --rebase origin main   # 실행 중에 기본 리그 저장 등 다른 커밋이 올라왔을 수 있음
             git push
           fi
 
-      - name: 사이트 만들기
+      - name: 사이트 만들기 확인 (실제 배포는 Cloudflare Pages 가 main 에서)
         run: python tools/export_static.py dist/site
-
-      - name: 사이트 올리기 (site 브랜치)
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          cd dist/site
-          git init -q -b site
-          git add -A
-          git -c user.name="aa-bot" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -q -m "사이트 갱신 $(TZ=Asia/Seoul date '+%Y-%m-%d %H:%M')"
-          git push -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" site
