@@ -7,6 +7,7 @@
   GET  /api/matches/<id>          경기 분석 전체 (분석가 의견, 토론, 투표, 기초 모델)
   GET  /api/company               조직도
   GET  /api/record                인사평가 (회사·분석가 성적, 투표 비중)
+  GET  /api/bets                  AI 3명의 가상 배팅 게임 (잔액, 3·5·7폴더 배팅 내역)
   GET  /api/leagues               고를 수 있는 리그, 기본 리그, API 사용량 (사이트의 '분석 요청' 화면)
 관리 API (헤더 X-Admin-Token = 환경변수 AA_ADMIN_TOKEN)
   POST /api/admin/collect         {"days": 3, "league": "39"}
@@ -52,6 +53,7 @@ def _summary(run: dict, result: dict | None) -> dict:
         "value_alerts": one["value_alerts"] + ou["value_alerts"],
         "pick_ou": ou["pick"],
         "line": d["line"],
+        "odds": run["match"].get("odds") or {},
         "over_prob": ou["probs"]["over"],
         "engine": run["engine"],
         "mock": "모의" in run["engine"],
@@ -214,6 +216,12 @@ def create_app(company: Company) -> Flask:
                       "odds_limit": ds.get("odds_api", {}).get("monthly_credits", 500)},
             "last_run": last,
         })
+
+    @app.get("/api/bets")
+    def bets():
+        from ..betting import summary as bet_summary
+
+        return jsonify(bet_summary(company))
 
     @app.get("/api/record")
     def record():
