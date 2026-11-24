@@ -81,6 +81,8 @@ def run_daily(company: Company, client_factory=None, now: datetime | None = None
     # 2) 예정 경기 수집
     try:
         paths = collect(company, days=int(auto.get("collect_days", 2)), leagues=auto.get("leagues") or None,
+                        light=bool(auto.get("light", False)),
+                        full_within_hours=float(auto.get("analyze_within_hours", 48)),
                         af_transport=af_transport, odds_transport=odds_transport, today=now, log=log)
         summary["collected"] = len(paths)
     except Exception as e:
