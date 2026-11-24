@@ -51,6 +51,7 @@ def export(out: Path, company_path: Path = ROOT / "company.yaml") -> Path:
     _write(out / "api" / "company.json", c.get("/api/company").get_json())
     _write(out / "api" / "record.json", c.get("/api/record").get_json())
     _write(out / "api" / "leagues.json", c.get("/api/leagues").get_json())
+    _write(out / "api" / "bets.json", c.get("/api/bets").get_json())
 
     html = (static / "index.html").read_text(encoding="utf-8")
     html = html.replace('<script src="/static/app.js"></script>', '<script>window.AA_STATIC=true;</script>\n<script src="/static/app.js"></script>')
