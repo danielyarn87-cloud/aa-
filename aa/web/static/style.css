@@ -281,3 +281,18 @@ pre{background:var(--panel);padding:12px;border-radius:8px;font-size:14px;white-
 .lgchips{padding:10px 12px;border-radius:10px;background:var(--panel);align-items:center}
 .lgchips .chip{font-size:13px;min-height:30px;padding:4px 11px}
 .lglabel{font-size:13px;font-weight:800;color:var(--mute);margin-right:4px}
+
+/* 누적 적중률 판 (크게) */
+.accboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:14px 0 10px}
+.accbox{border:2px solid #0d5c35;border-radius:14px;padding:16px 18px;background:#eef6f1;min-height:150px}
+.accbox.mine{border-color:#e6b800;background:#fff8d6}
+.accbox.lg{border-color:#2563eb;background:#eef3ff}
+.acc-head{display:flex;justify-content:space-between;align-items:baseline;font-size:18px;font-weight:800;margin-bottom:10px}
+.acc-head span{font-size:14px;font-weight:600;color:var(--mute)}
+.acc-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.acc-pair>div{display:flex;flex-direction:column;gap:2px}
+.acc-k{font-size:15px;font-weight:700;color:var(--mute)}
+.acc-big{font-family:var(--num);font-size:56px;font-weight:700;line-height:1}
+.acc-big small{font-size:26px;margin-left:2px}
+.acc-big.none{color:var(--mute)}
+.acc-sub{font-size:14px;color:var(--mute)}
