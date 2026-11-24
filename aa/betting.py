@@ -78,8 +78,25 @@ def _legs_for(run: dict, member_id: str) -> list[dict]:
         out.append({"match_id": run["match"]["id"], "title": f"{home} vs {away}", "kickoff": run["match"]["kickoff"],
                     "market": "ou" if k in ("over", "under") else "1x2", "pick": k, "label": names[k],
                     "line": line if k in ("over", "under") else None, "odds": float(o), "prob": round(p, 4),
-                    "ev": round(p * float(o) - 1, 4)})
+                    "ev": round(p * float(o) - 1, 4), "reason": _reason(op, "ou" if k in ("over", "under") else "1x2")})
     return out
+
+
+def _reason(op: dict, market: str) -> str:
+    """그 분석가가 이 선택을 고른 이유 한 줄 (자기 분석 글에서 그 선택과 관련된 문장)."""
+    reasons = list(op.get("key_reasons") or []) + ([op["summary"]] if op.get("summary") else [])
+    if market == "ou":
+        words = [("언더", "오버"), ("골 이상", "골 이하", "득점 합", "합이", "총 득점"), ("골",)]
+    else:
+        words = [("승리", "승 ", "무승부", "비길"), ("승",)]
+    text = ""
+    for ws in words:
+        text = next((r for r in reasons if any(w in r for w in ws)
+                     and not (market == "1x2" and any(x in r for x in ("언더", "오버")))), "")
+        if text:
+            break
+    text = text or (reasons[0] if reasons else "")
+    return text if len(text) <= 180 else text[:178] + "…"
 
 
 def _stake(bankroll: int, p: float, odds: float) -> int:
@@ -194,5 +211,22 @@ def summary(company: Company) -> dict:
                      "won": sum(1 for s in done if s["status"] == "won"), "settled": len(done),
                      "staked": sum(s["stake"] for s in done), "returned": sum(s["payout"] or 0 for s in done)})
     slips = sorted(book["slips"], key=lambda s: s["placed_at"], reverse=True)
+    # 예전 배팅에는 이유가 저장돼 있지 않아 분석 글에서 채운다
+    from .store import load_runs
+    finals = {}
+    for r in load_runs(company.base_dir / "reports"):
+        for op in r.get("final", []):
+            finals[(r["match"]["id"], op["member_id"])] = op
+    for s in slips:
+        b = s["combined_odds"] - 1
+        kelly = (s["prob"] * s["combined_odds"] - 1) / b if b > 0 else 0
+        s["how"] = {"ev_per_100": round((s["prob"] * s["combined_odds"] - 1) * 100), "kelly": round(kelly, 4),
+                    "kelly_quarter": round(kelly * KELLY_FRACTION, 4)}
+        for l in s["legs"]:
+            l.setdefault("ev", round(l["prob"] * l["odds"] - 1, 4))
+            l["breakeven"] = round(1 / l["odds"], 4)
+            if not l.get("reason"):
+                op = finals.get((l["match_id"], s["member_id"]))
+                l["reason"] = _reason(op, l["market"]) if op else ""
     return {"start_bankroll": start, "min_stake": MIN_STAKE, "max_stake": MAX_STAKE, "sizes": list(SIZES),
             "accounts": accs, "slips": slips[:120]}
