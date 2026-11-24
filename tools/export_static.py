@@ -9,6 +9,7 @@ dist/site/
   api/company.json      조직도
   api/record.json       인사평가
   api/leagues.json      고를 수 있는 리그·기본 리그·API 사용량
+  api/credit.json       Claude 크레딧 추정 잔액
 그리고 저장소 맨 위의 functions/ 폴더(Cloudflare Pages 함수)가 /api/run 을 맡는다: 사이트에서 '분석 요청'을
 누르면 GitHub Actions 를 실행시킨다.
 같은 JSON 파일을 나중에 모바일 앱이 그대로 읽을 수 있다.
@@ -52,6 +53,7 @@ def export(out: Path, company_path: Path = ROOT / "company.yaml") -> Path:
     _write(out / "api" / "record.json", c.get("/api/record").get_json())
     _write(out / "api" / "leagues.json", c.get("/api/leagues").get_json())
     _write(out / "api" / "bets.json", c.get("/api/bets").get_json())
+    _write(out / "api" / "credit.json", c.get("/api/credit").get_json())
 
     html = (static / "index.html").read_text(encoding="utf-8")
     # 화면 파일이 바뀌면 주소도 바뀌게 해서 브라우저가 옛 화면을 쓰지 않게 함
