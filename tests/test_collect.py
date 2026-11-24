@@ -148,5 +148,8 @@ def test_budget_guard(tmp_path):
 def test_team_name_matching():
     assert norm_team("Brighton & Hove Albion") == norm_team("Brighton and Hove Albion")
     assert norm_team("Bayern München") == "bayernmunchen"
+    assert norm_team("Bodø/Glimt") == norm_team("Bodo/Glimt")
+    assert OddsApi.find_event([{"home_team": "Bodø/Glimt", "away_team": "LASK"}], "Bodo/Glimt", "Lask Linz")
+    assert OddsApi.find_event([{"home_team": "ŠK Slovan Bratislava", "away_team": "Real Betis"}], "Slovan Bratislava", "Real Betis")
     events = [{"home_team": "Wolverhampton Wanderers", "away_team": "Tottenham Hotspur"}]
     assert OddsApi.find_event(events, "Wolves", "Tottenham", {"Wolves": "Wolverhampton Wanderers"})
