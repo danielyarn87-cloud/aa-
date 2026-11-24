@@ -72,14 +72,15 @@ def default_leagues(company: Company) -> list[int]:
     return saved_leagues(company) or list(company.automation.get("leagues") or [])
 
 
-def due_matches(company: Company, now: datetime, within_hours: float, leagues: list[int] | None = None) -> list[Path]:
+def due_matches(company: Company, now: datetime, within_hours: float, leagues: list[int] | None = None,
+                include_analyzed: bool = False) -> list[Path]:
     """아직 분석하지 않았고 킥오프가 지금부터 within_hours 안에 있는 경기, 킥오프 순.
     leagues 가 있으면 그 리그 경기만."""
     pending = company.base_dir / "data" / "matches"
     reports = company.base_dir / "reports"
     out = []
     for p in pending.glob("*.json") if pending.exists() else []:
-        if (reports / p.name).exists():
+        if (reports / p.name).exists() and not include_analyzed:
             continue
         m = json.loads(p.read_text(encoding="utf-8"))
         if leagues and _league_id(m) not in leagues:
@@ -118,7 +119,8 @@ def run_daily(company: Company, client_factory=None, now: datetime | None = None
 
     # 3) 새 경기 분석 (하루 한도 안에서)
     room = int(auto.get("max_analyses_per_day", 10)) - analyzed_today(company, now)
-    due = due_matches(company, now, float(auto.get("analyze_within_hours", 48)), leagues=auto.get("leagues") or None)
+    due = due_matches(company, now, float(auto.get("analyze_within_hours", 48)), leagues=auto.get("leagues") or None,
+                      include_analyzed=bool(auto.get("reanalyze")))
     if due and room <= 0:
         log(f"오늘 분석 한도({auto.get('max_analyses_per_day', 10)}경기)에 닿아 {len(due)}경기는 다음 실행으로 넘깁니다.")
     client = None
@@ -136,6 +138,14 @@ def run_daily(company: Company, client_factory=None, now: datetime | None = None
             summary["errors"].append(f"분석 {p.stem}: {e}")
             if client is None:  # 키가 없는 등 분석 자체가 불가능하면 멈춤
                 break
+
+    # 4) AI 가상 배팅: 끝난 배팅 정산 → 비어 있는 3·5·7폴더 새로 걸기
+    try:
+        from .betting import run_betting
+
+        summary["betting"] = run_betting(company, ledger, now, log=log)
+    except Exception as e:
+        summary["errors"].append(f"배팅: {e}")
 
     log_path = company.base_dir / "data" / "daily_log.jsonl"
     with log_path.open("a", encoding="utf-8") as f:
