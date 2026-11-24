@@ -216,15 +216,29 @@ def collect(company: Company, days: int = 3, leagues: list[int] | None = None, l
     start = now.date()
     end = start + timedelta(days=days)
     written: list[Path] = []
-    for lc in ds.get("leagues", []):
-        if leagues and lc["api_football_id"] not in leagues:
-            continue
+    chosen = [lc for lc in ds.get("leagues", []) if not leagues or lc["api_football_id"] in leagues]
+    by_league: dict[int, list] | None = None
+    if len(chosen) >= 3:  # 리그가 많으면 날짜별로 한 번씩만 불러 리그별로 나눈다 (리그 16개도 하루 1회)
+        by_league = {}
+        seen: set = set()
         try:
+            for i in range(days + 1):
+                for f in af.fixtures_on((start + timedelta(days=i)).isoformat(), tz):
+                    fid = f["fixture"]["id"]
+                    if fid not in seen:
+                        seen.add(fid)
+                        by_league.setdefault(f["league"]["id"], []).append(f)
+        except BudgetExceeded as e:
+            log(f"경기 일정: {e}")
+    for lc in chosen:
+        try:
+            pre = None if by_league is None else by_league.get(lc["api_football_id"], [])
             written += _collect_league(af, od, lc, ds, dept, out_dir, now, start, end, tz, light, with_odds,
-                                       full_within_hours, None if limit is None else limit - len(written), log)
-        except BudgetExceeded as e:  # 한도에 닿으면 여기까지 모은 것만 쓴다
+                                       full_within_hours, None if limit is None else limit - len(written), log,
+                                       fixtures=pre)
+        except BudgetExceeded as e:  # 한도에 닿으면 이 리그는 건너뛴다 (이미 받아 둔 자료로 되는 리그는 계속)
             log(f"{lc['name']}: {e}")
-            break
+            continue
         if limit is not None and len(written) >= limit:
             break
     log(f"API-Football 오늘 사용량: {cache.used('api_football', 'day')} / {af.daily_limit}, "
@@ -233,9 +247,10 @@ def collect(company: Company, days: int = 3, leagues: list[int] | None = None, l
 
 
 def _collect_league(af, od, lc, ds, dept, out_dir, now, start, end, tz, light, with_odds, full_within_hours,
-                    room, log) -> list[Path]:
+                    room, log, fixtures: list | None = None) -> list[Path]:
     written: list[Path] = []
-    fixtures = af.fixtures(lc["api_football_id"], lc["season"], start.isoformat(), end.isoformat(), tz)
+    if fixtures is None:
+        fixtures = af.fixtures(lc["api_football_id"], lc["season"], start.isoformat(), end.isoformat(), tz)
     fixtures = [f for f in fixtures if f["fixture"]["status"]["short"] in ("NS", "TBD")]
     if not fixtures:
         return written
@@ -265,7 +280,8 @@ def _collect_league(af, od, lc, ds, dept, out_dir, now, start, end, tz, light, w
         if m.get("collected_detail") == "light" and path.exists():  # 자세히 모은 자료는 배당만 새로 고친다
             old = json.loads(path.read_text(encoding="utf-8"))
             if old.get("collected_detail", "full") == "full":
-                old["odds"], old["kickoff"], old["kickoff_iso"] = m["odds"], m["kickoff"], m["kickoff_iso"]
+                for k in ("odds", "kickoff", "kickoff_iso", "home", "away", "home_en", "away_en", "league_id", "league_name"):
+                    old[k] = m.get(k, old.get(k))
                 m = old
         path.write_text(json.dumps(m, ensure_ascii=False, indent=2), encoding="utf-8")
         written.append(path)
