@@ -1,0 +1,9 @@
+{
+  "name": "AA 스포츠 분석",
+  "short_name": "AA 분석",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d5c35",
+  "theme_color": "#0d5c35",
+  "lang": "ko"
+}
