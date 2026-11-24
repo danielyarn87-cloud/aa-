@@ -148,3 +148,11 @@ pre{background:var(--panel);padding:12px;border-radius:8px;font-size:14px;white-
 .verdict .small{font-size:14px;opacity:.9;white-space:nowrap}
 .vt td:first-child{min-width:8.5em}
 .vt th{white-space:nowrap}
+/* 리그 거르기·분석 요청 */
+.lgchips{margin:0 0 12px}
+.lgchips .num{opacity:.7;margin-left:2px}
+.lgroup{border:0;padding:0;margin:16px 0 0}
+.lgroup legend{font-weight:700;font-size:15px;margin-bottom:8px;padding:0}
+.pickchip[aria-pressed=true]{background:var(--pitch);border-color:var(--pitch);color:#fff}
+.pickchip[aria-pressed=true]::before{content:"✓ "}
+.log:empty{display:none}
