@@ -48,18 +48,18 @@ class ApiFootball:
         return res[0] if res else None
 
     def standings(self, league: int, season: int) -> list:
-        res = self.get("/standings", cache_hours=12, league=league, season=season)
+        res = self.get("/standings", cache_hours=20, league=league, season=season)
         return res[0]["league"]["standings"][0] if res else []
 
     def team_stats(self, league: int, season: int, team: int) -> dict:
-        return self.get("/teams/statistics", cache_hours=12, league=league, season=season, team=team)
+        return self.get("/teams/statistics", cache_hours=20, league=league, season=season, team=team)
 
     def injuries(self, fixture_id: int) -> list:
         return self.get("/injuries", cache_hours=3, fixture=fixture_id)
 
     def h2h(self, home: int, away: int, last: int = 5) -> list:
-        return self.get("/fixtures/headtohead", cache_hours=48, h2h=f"{home}-{away}", last=last)
+        return self.get("/fixtures/headtohead", cache_hours=72, h2h=f"{home}-{away}", last=last)
 
     def last_fixture(self, team: int, timezone: str = "Asia/Seoul") -> dict | None:
-        res = self.get("/fixtures", cache_hours=6, team=team, last=1, timezone=timezone)
+        res = self.get("/fixtures", cache_hours=20, team=team, last=1, timezone=timezone)
         return res[0] if res else None
