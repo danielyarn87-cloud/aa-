@@ -194,6 +194,22 @@ def run_betting(company: Company, ledger: Ledger, now: datetime, log=print) -> d
     return {"settled": settled, "placed": placed}
 
 
+def _ticket_info(leg: dict, m: dict | None, leagues: list) -> None:
+    """배팅표처럼 보여 주려고 리그·팀·고를 수 있던 칸들의 배당을 붙인다."""
+    m = m or {}
+    text = str(m.get("league", ""))
+    leg["league"] = next((lc["name"] for lc in leagues if text.startswith(lc["name"])), text.split(" ")[0] if text else "")
+    home, away = (leg.get("title", "").split(" vs ") + [""])[:2]
+    leg["home"], leg["away"] = m.get("home") or home, m.get("away") or away
+    o = m.get("odds") or {}
+    if leg["market"] == "1x2":
+        keys = ["home", "draw", "away"]
+    else:
+        keys = ["under", "over"]
+    same_line = leg["market"] == "1x2" or o.get("line") == leg.get("line")
+    leg["opts"] = {k: (leg["odds"] if k == leg["pick"] else (o.get(k) if same_line else None)) for k in keys}
+
+
 def summary(company: Company) -> dict:
     """사이트용: 계좌별 잔액·손익·적중."""
     book = load(company)
@@ -213,10 +229,12 @@ def summary(company: Company) -> dict:
     slips = sorted(book["slips"], key=lambda s: s["placed_at"], reverse=True)
     # 예전 배팅에는 이유가 저장돼 있지 않아 분석 글에서 채운다
     from .store import load_runs
-    finals = {}
+    finals, matches = {}, {}
     for r in load_runs(company.base_dir / "reports"):
+        matches[r["match"]["id"]] = r["match"]
         for op in r.get("final", []):
             finals[(r["match"]["id"], op["member_id"])] = op
+    leagues = sorted(company.data_sources.get("leagues", []), key=lambda x: -len(x["name"]))
     for s in slips:
         b = s["combined_odds"] - 1
         kelly = (s["prob"] * s["combined_odds"] - 1) / b if b > 0 else 0
@@ -225,6 +243,7 @@ def summary(company: Company) -> dict:
         for l in s["legs"]:
             l.setdefault("ev", round(l["prob"] * l["odds"] - 1, 4))
             l["breakeven"] = round(1 / l["odds"], 4)
+            _ticket_info(l, matches.get(l["match_id"]), leagues)
             if not l.get("reason"):
                 op = finals.get((l["match_id"], s["member_id"]))
                 l["reason"] = _reason(op, l["market"]) if op else ""
