@@ -174,6 +174,14 @@ NAMES: dict[str, str] = {
     "DC United": "DC 유나이티드", "D.C. United": "DC 유나이티드", "Philadelphia Union": "필라델피아 유니언",
     "New York City FC": "뉴욕 시티", "New York Red Bulls": "뉴욕 레드불스", "New England Revolution": "뉴잉글랜드 레볼루션",
     "CF Montreal": "CF 몽레알", "Toronto FC": "토론토 FC",
+    # 호주 A리그
+    "Sydney FC": "시드니 FC", "Sydney": "시드니 FC", "Western Sydney Wanderers": "웨스턴 시드니 원더러스",
+    "Western Sydney Wanderers FC": "웨스턴 시드니 원더러스", "Melbourne Victory": "멜버른 빅토리", "Melbourne City": "멜버른 시티",
+    "Melbourne City FC": "멜버른 시티", "Wellington Phoenix": "웰링턴 피닉스", "Adelaide United": "애들레이드 유나이티드",
+    "Brisbane Roar": "브리즈번 로어", "Brisbane Roar FC": "브리즈번 로어", "Central Coast Mariners": "센트럴코스트 매리너스",
+    "Newcastle Jets": "뉴캐슬 제츠", "Newcastle Jets FC": "뉴캐슬 제츠", "Perth Glory": "퍼스 글로리",
+    "Macarthur": "맥아서 FC", "Macarthur FC": "맥아서 FC", "Western United": "웨스턴 유나이티드", "Western United FC": "웨스턴 유나이티드",
+    "Auckland": "오클랜드 FC", "Auckland FC": "오클랜드 FC",
     # 유럽대항전 추가
     "FC Nordsjaelland": "노르셸란", "HNK Hajduk Split": "하이두크 스플리트", "Inter Club d'Escaldes": "인테르 클루브 데스칼데스",
     "Aarhus": "오르후스", "Ararat-Armenia": "아라라트 아르메니아", "Borac Banja Luka": "보라츠 바냐루카", "CSKA Sofia": "CSKA 소피아",
