@@ -96,6 +96,19 @@ class Ledger:
                 ),
             )
 
+    def add_opinions(self, match_id: str, department: str, line: float, opinions: list[Opinion], mock: bool) -> None:
+        """이미 기록된 경기에 분석가 의견만 더한다 (나중에 합류한 분석가). 같은 사람의 옛 기록은 바꾼다."""
+        with self.db:
+            for mid in {o.member_id for o in opinions}:
+                self.db.execute("DELETE FROM predictions WHERE match_id = ? AND member_id = ?", (match_id, mid))
+            for o in opinions:
+                self.db.execute(
+                    "INSERT INTO predictions (match_id, department, member_id, member_name, stage, p_home, p_draw, p_away,"
+                    " over_prob, line, pick_1x2, pick_ou, confidence, mock, created_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                    (match_id, department, o.member_id, o.member_name, o.stage, o.probs["home"], o.probs["draw"],
+                     o.probs["away"], o.over_prob, line, o.pick_1x2, o.pick_ou, o.confidence, int(mock), _now()),
+                )
+
     def backfill_from_reports(self, reports_dir: Path) -> int:
         """기록부에 없는 분석 결과(reports/*.json)를 기록부에 다시 넣는다. 기록부를 잃어버려도 복구된다."""
         from types import SimpleNamespace as NS
