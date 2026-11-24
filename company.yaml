@@ -50,7 +50,10 @@ data_sources:
     - {name: 벨기에 프로리그, api_football_id: 144, season: 2026, odds_key: soccer_belgium_first_div, group: 유럽 기타 리그}
     - {name: 스코틀랜드 프리미어십, api_football_id: 179, season: 2026, odds_key: soccer_spl, group: 유럽 기타 리그}
     - {name: K리그1, api_football_id: 292, season: 2026, odds_key: soccer_korea_kleague1, group: 아시아}
+    - {name: K리그2, api_football_id: 293, season: 2026, group: 아시아}            # 배당 API 에 없음 → 배당·이득·배팅 게임 제외
     - {name: J1리그, api_football_id: 98, season: 2026, odds_key: soccer_japan_j_league, group: 아시아}
+    - {name: J2리그, api_football_id: 99, season: 2026, group: 아시아}             # 배당 API 에 없음
+    - {name: MLS, api_football_id: 253, season: 2026, odds_key: soccer_usa_mls, group: 아메리카}
   team_aliases:               # 두 API 의 팀 이름이 다를 때 맞춰 주는 표 (API-Football 이름: The Odds API 이름)
     Manchester City: Manchester City
     Manchester United: Manchester United
