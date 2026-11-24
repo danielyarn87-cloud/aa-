@@ -69,6 +69,10 @@ class Company:
             raise KeyError(f"'{sport}' 를 맡는 활성 부서가 없습니다. company.yaml 을 확인하세요.")
         return found[0]
 
+    def analysts(self, dept_id: str) -> list[Member]:
+        """분석·토론·배팅에 참여하는 사람 (투표하지 않는 비교용 분석가 포함)."""
+        return [m for m in self.members if m.department == dept_id and m.active and m.role == "analyst"]
+
     def voters(self, dept_id: str) -> list[Member]:
         return [m for m in self.members if m.department == dept_id and m.active and m.votes]
 
