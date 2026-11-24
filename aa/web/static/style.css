@@ -296,3 +296,10 @@ pre{background:var(--panel);padding:12px;border-radius:8px;font-size:14px;white-
 .acc-big small{font-size:26px;margin-left:2px}
 .acc-big.none{color:var(--mute)}
 .acc-sub{font-size:14px;color:var(--mute)}
+
+/* 경기 결과 탭 */
+.seg.res{background:#eef3ff;color:#1e3a8a}
+.seg.res[aria-pressed=true]{background:#1e3a8a;color:#fff}
+.ressearch{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 4px;padding:12px;border:2px solid #1e3a8a;border-radius:12px;background:#f5f8ff}
+.ressearch input[type=search]{flex:1 1 260px;min-height:42px;font-size:16px;padding:6px 12px}
+.ressearch input[type=date],.ressearch select{min-height:42px;font-size:15px;padding:4px 8px}
