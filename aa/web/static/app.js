@@ -297,30 +297,46 @@ async function renderBets() {
       + (q > 0 ? `켈리 기준(자신감 비율)의 1/4 = 남은 돈의 ${(q * 100).toFixed(1)}% → ${W(s.stake)} (한 장 5천~10만원 안으로 맞춤).`
                : `계산상 이득이 크지 않아 최소 금액 ${W(s.stake)}만 걸었습니다.`);
   };
-  const slip = s => `<div class="panel slip"><div class="inline" style="justify-content:space-between;align-items:baseline">
-      <h3 style="margin:0">${esc(s.size)}폴더 · <span class="num">${W(s.stake)}</span></h3>${st(s)}</div>
-    <p class="small mute" style="margin:4px 0 6px">배당 <b class="num">${esc(s.combined_odds)}</b> · 적중하면 <b class="num">${W(Math.floor(s.stake * s.combined_odds))}</b>${s.status === 'won' ? ` · 받은 돈 <b class="num">${W(s.payout)}</b>` : ''} · ${esc(s.days.join(', '))} 경기 · ${esc(s.placed_at)}</p>
+  const who = {};
+  b.accounts.forEach(a => { who[a.member_id] = a; });
+  const col = id => (who[id] && who[id].color) || '#0d5c35';
+  const slip = s => `<div class="panel slip" style="--mc:${esc(col(s.member_id))}">
+    <div class="slip-head">
+      <span class="who-badge">${esc(s.member_name)}</span>
+      <span class="slip-size">${esc(s.size)}폴더</span>
+      <span class="slip-stake num">${W(s.stake)}</span>
+      <span style="margin-left:auto">${st(s)}</span></div>
+    <p class="small mute" style="margin:6px 0 6px">배당 <b class="num">${esc(s.combined_odds)}</b> · 적중하면 <b class="num">${W(Math.floor(s.stake * s.combined_odds))}</b>${s.status === 'won' ? ` · 받은 돈 <b class="num">${W(s.payout)}</b>` : ''} · ${esc(s.days.join(', '))} 경기 · ${esc(s.placed_at)}</p>
     <p class="small" style="margin:0 0 10px;padding:8px 10px;background:var(--soft, #f3f5f4);border-radius:8px">${howText(s)}</p>
     <div class="legs">${s.legs.map((l, i) => `<div class="leg">
-      <div class="leg-top"><span class="num mute">${i + 1}</span>
-        <span><a href="#m-${encodeURIComponent(l.match_id)}">${esc(l.title)}</a> <span class="small mute">${esc(l.kickoff.slice(5, 16))}</span></span>
-        <b>${esc(l.label)}</b> <span class="num">@${esc(l.odds)}</span> ${mark(l)}</div>
+      <div class="leg-top"><span class="leg-no">${i + 1}</span>
+        <span class="leg-pick">${esc(l.label)} <span class="num">@${esc(l.odds)}</span></span> ${mark(l)}</div>
+      <div class="leg-match"><a href="#m-${encodeURIComponent(l.match_id)}">${esc(l.title)}</a> <span class="small mute">${esc(l.kickoff.slice(5, 16))}</span></div>
       <div class="small leg-why">AI 가능성 <b>${pctx(l.prob)}</b> · 본전 가능성(1÷배당) ${pctx(l.breakeven ?? 1 / l.odds)} · 100원당 <b class="${(l.ev ?? 0) >= 0 ? 'plus' : ''}">${won100((l.ev ?? (l.prob * l.odds - 1)) * 100)}</b></div>
       ${l.reason ? `<div class="small mute leg-why">“${esc(l.reason)}”</div>` : ''}
     </div>`).join('')}</div></div>`;
+  const pick = store.get('aa_bet_who') || 'all';
+  const shown = pick === 'all' ? b.accounts : b.accounts.filter(a => a.member_id === pick);
   view.innerHTML = `<section class="band"><div class="wrap"><h1>배팅 게임</h1>
     <p class="lead mute">분석가 3명이 각자 가상 자금 <b>${W(b.start_bankroll)}</b>으로 자기 예측만 믿고 3폴더·5폴더·7폴더 조합 배팅을 합니다. 한 장에 ${W(b.min_stake)}~${W(b.max_stake)}, 경기는 이틀 안에서만 고릅니다. 실제 돈이 아닌 실력 비교용입니다.</p>
-    <div class="grid3">${b.accounts.map(a => `<div class="panel" style="border-top:4px solid ${esc(a.color || '#0d5c35')}">
-      <h2 style="margin:0">${esc(a.name)} <span class="small mute">${esc(a.title)}</span></h2>
-      <p class="num" style="font-size:28px;margin:8px 0 0">${W(a.value)}</p>
-      <p class="small ${a.profit >= 0 ? '' : 'mute'}" style="margin:2px 0 8px">손익 <b class="num">${a.profit >= 0 ? '+' : ''}${W(a.profit)}</b> (${((a.profit / b.start_bankroll) * 100).toFixed(1)}%)</p>
-      <p class="small mute" style="margin:0">남은 돈 ${W(a.bankroll)} · 걸어 둔 돈 ${W(a.at_risk)} · 적중 ${esc(a.won)}/${esc(a.settled)}장</p></div>`).join('')}</div>
-    ${b.accounts.map(a => {
+    <div class="grid3">${b.accounts.map(a => `<button type="button" class="panel acc-card" data-who="${esc(a.member_id)}" aria-pressed="${pick === a.member_id}" style="--mc:${esc(col(a.member_id))}">
+      <span class="who-badge">${esc(a.name)}</span> <span class="small mute">${esc(a.title)}</span>
+      <span class="num acc-value">${W(a.value)}</span>
+      <span class="small" style="display:block;margin:2px 0 8px">손익 <b class="num">${a.profit >= 0 ? '+' : ''}${W(a.profit)}</b> (${((a.profit / b.start_bankroll) * 100).toFixed(1)}%)</span>
+      <span class="small mute" style="display:block">남은 돈 ${W(a.bankroll)} · 걸어 둔 돈 ${W(a.at_risk)} · 적중 ${esc(a.won)}/${esc(a.settled)}장</span>
+      <span class="small acc-hint">${pick === a.member_id ? '이 사람 배팅만 보는 중' : '눌러서 이 사람 배팅만 보기'}</span></button>`).join('')}</div>
+    <div class="chips" style="margin-top:14px"><button class="chip" data-who="all" aria-pressed="${pick === 'all'}">세 사람 모두 보기</button></div>
+    ${shown.map(a => {
       const mine = b.slips.filter(s => s.member_id === a.member_id);
-      return `<h2 style="margin-top:28px">${esc(a.name)}의 배팅</h2>${mine.length ? mine.map(slip).join('') : '<p class="empty">아직 배팅이 없습니다. 분석이 끝난 경기가 생기면 자동으로 겁니다.</p>'}`;
+      return `<h2 class="who-title" style="--mc:${esc(col(a.member_id))}"><span class="dot"></span>${esc(a.name)}의 배팅 <span class="small mute">${mine.length}장</span></h2>${mine.length ? mine.map(slip).join('') : '<p class="empty">아직 배팅이 없습니다. 분석이 끝난 경기가 생기면 자동으로 겁니다.</p>'}`;
     }).join('')}
-    <p class="small mute" style="margin-top:24px">고르는 법: 각 분석가가 경기마다 자기 최종 가능성으로 승무패·언더오버 중 가장 이득인 선택 하나를 고릅니다(가능성 45% 미만은 제외). 그중 100원당 평균 손익이 큰 경기부터 3·5·7개를 담습니다. 금액은 켈리 기준의 1/4(자신 있을수록 많이)을 한도 안에서 1,000원 단위로. 배당은 북메이커 평균. 배당 자료가 없는 리그(K리그2·J2리그)는 빠집니다.</p>
+    <p class="small mute" style="margin-top:24px">고르는 법: 각 분석가가 경기마다 자기 최종 가능성으로 승무패·언더오버 중 가장 이득인 선택 하나를 고릅니다(가능성 45% 미만은 제외). 그중 100원당 평균 손익이 큰 경기부터 3·5·7개를 담습니다. 금액은 켈리 기준의 1/4(자신 있을수록 많이)을 한도 안에서 1,000원 단위로. 배당은 북메이커 평균. 배당 자료가 없는 리그·대회(K리그2·J2리그·AFC챔피언스리그)는 빠집니다.</p>
   </div></section>`;
+  view.querySelectorAll('[data-who]').forEach(el => el.onclick = () => {
+    const w = el.dataset.who;
+    store.set('aa_bet_who', w === pick && w !== 'all' ? 'all' : w);
+    renderBets();
+  });
 }
 
 /* ---------- 분석 요청 (정적 사이트: Cloudflare 함수 /api/run → GitHub Actions) ---------- */
