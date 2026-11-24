@@ -11,18 +11,18 @@
   "home_en": "Slavia Praha",
   "away_en": "Villarreal",
   "odds": {
-    "line": 2.5,
-    "home": 3.1,
+    "line": 3.5,
+    "home": 3.03,
     "best_home": 3.25,
-    "draw": 3.82,
-    "best_draw": 4.1,
-    "away": 2.12,
-    "best_away": 2.22,
-    "over": 1.52,
-    "best_over": 1.56,
-    "under": 2.48,
-    "best_under": 2.57,
-    "source": "The Odds API 평균 배당 (승무패 23곳, 언더/오버 7곳 북메이커)"
+    "draw": 3.83,
+    "best_draw": 4.09,
+    "away": 2.14,
+    "best_away": 2.24,
+    "over": 2.23,
+    "best_over": 2.3,
+    "under": 1.64,
+    "best_under": 1.75,
+    "source": "The Odds API 평균 배당 (승무패 22곳, 언더/오버 9곳 북메이커)"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -63,20 +63,22 @@
       "D. Moses (Hamstring Injury)",
       "I. Ogbu (Achilles Tendon Injury)",
       "A. Ouanda (Injury)",
-      "E. Pitak (Health problems)"
+      "E. Pitak (Ankle Injury)",
+      "L. Provod (Surgery)",
+      "D. Sturm (Muscle Injury)"
     ],
     "home_doubtful": [
-      "T. Diakite (Health problems)",
-      "L. Provod (Injury)",
-      "D. Sturm (Muscle Injury)"
+      "T. Diakite (Health problems)"
     ],
     "away_absent": [
       "I. Akhomach (Muscle Injury)",
       "A. Diatta (Muscle Injury)",
       "J. Foyth (Muscle Injury)",
+      "N. Saliba (Ankle Injury)"
+    ],
+    "away_doubtful": [
       "G. Moreno (Muscle Injury)"
     ],
-    "away_doubtful": [],
     "confirmed": false,
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
@@ -104,5 +106,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 20:10 KST"
+  "collected_at": "2026-11-25 06:59 KST"
 }

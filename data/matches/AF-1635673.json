@@ -14,15 +14,15 @@
     "line": 3.5,
     "home": 1.41,
     "best_home": 1.47,
-    "draw": 5.49,
-    "best_draw": 6.0,
-    "away": 6.15,
-    "best_away": 6.75,
-    "over": 1.61,
+    "draw": 5.5,
+    "best_draw": 5.8,
+    "away": 6.22,
+    "best_away": 7.0,
+    "over": 1.6,
     "best_over": 1.68,
-    "under": 2.28,
+    "under": 2.3,
     "best_under": 2.38,
-    "source": "The Odds API 평균 배당 (승무패 22곳, 언더/오버 9곳 북메이커)"
+    "source": "The Odds API 평균 배당 (승무패 21곳, 언더/오버 9곳 북메이커)"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -57,16 +57,13 @@
   "lineup": {
     "home_absent": [
       "A. Bonny (Muscle Injury)",
+      "H. Calhanoglu (Muscle Injury)",
       "P. Zielinski (Foot Injury)"
     ],
-    "home_doubtful": [
-      "H. Calhanoglu (Injury)"
-    ],
+    "home_doubtful": [],
     "away_absent": [
       "S. Drljaca (Off the roster)",
-      "L. Jaquez (Ribs Injury)",
-      "L. Stergiou (Off the roster)",
-      "A. Stiller (Groin Injury)"
+      "L. Stergiou (Off the roster)"
     ],
     "away_doubtful": [
       "L. Sauer (Muscle Injury)"
@@ -95,5 +92,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 20:10 KST"
+  "collected_at": "2026-11-25 06:59 KST"
 }

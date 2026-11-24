@@ -12,17 +12,17 @@
   "away_en": "Houston Dynamo",
   "odds": {
     "line": 2.5,
-    "home": 2.11,
-    "best_home": 2.2,
-    "draw": 3.52,
-    "best_draw": 3.85,
-    "away": 3.18,
-    "best_away": 3.5,
-    "over": 1.68,
-    "best_over": 1.78,
-    "under": 2.13,
-    "best_under": 2.22,
-    "source": "The Odds API 평균 배당 (승무패 23곳, 언더/오버 14곳 북메이커)"
+    "home": 1.86,
+    "best_home": 1.95,
+    "draw": 3.7,
+    "best_draw": 4.0,
+    "away": 3.78,
+    "best_away": 4.1,
+    "over": 1.67,
+    "best_over": 1.72,
+    "under": 2.15,
+    "best_under": 2.34,
+    "source": "The Odds API 평균 배당 (승무패 22곳, 언더/오버 15곳 북메이커)"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -62,12 +62,10 @@
     "home_doubtful": [
       "J. A. Gonzalez Mendoza (Lower-Body Injury)"
     ],
-    "away_absent": [],
-    "away_doubtful": [
-      "L. Ennali (Injury)",
-      "J. Maurer (Back Injury)",
-      "M. Saracchi (Lower-Body Injury)"
+    "away_absent": [
+      "J. Maurer (Back Injury)"
     ],
+    "away_doubtful": [],
     "confirmed": false,
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
@@ -98,5 +96,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 20:10 KST"
+  "collected_at": "2026-11-25 07:00 KST"
 }

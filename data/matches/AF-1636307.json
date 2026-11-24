@@ -12,17 +12,17 @@
   "away_en": "AC Milan",
   "odds": {
     "line": 2.5,
-    "home": 2.68,
-    "best_home": 2.8,
-    "draw": 3.38,
-    "best_draw": 3.5,
-    "away": 2.53,
-    "best_away": 2.7,
-    "over": 1.84,
-    "best_over": 1.91,
-    "under": 1.94,
-    "best_under": 2.02,
-    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 14곳 북메이커)"
+    "home": 2.81,
+    "best_home": 3.05,
+    "draw": 3.39,
+    "best_draw": 3.55,
+    "away": 2.42,
+    "best_away": 2.6,
+    "over": 1.85,
+    "best_over": 1.92,
+    "under": 1.93,
+    "best_under": 2.06,
+    "source": "The Odds API 평균 배당 (승무패 19곳, 언더/오버 13곳 북메이커)"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -55,9 +55,27 @@
     }
   },
   "lineup": {
-    "home_absent": [],
+    "home_absent": [
+      "Chiquinho (Foot Injury)",
+      "C. Fernandes Silva (Off the roster)",
+      "A. El Kaabi (Broken Leg)",
+      "S. Hezze (Inactive)",
+      "M. Mouandilmadji (Off the roster)",
+      "B. Popovic (Off the roster)",
+      "G. Puerta (Injury)",
+      "J. Roca (Off the roster)",
+      "L. Scipioni (Off the roster)",
+      "Y. Yazici (Knee Injury)"
+    ],
     "home_doubtful": [],
-    "away_absent": [],
+    "away_absent": [
+      "W. Bondo (Off the roster)",
+      "S. Chukwueze (Hip Injury)",
+      "M. Gabbia (Thigh Injury)",
+      "R. Loftus-Cheek (Thigh Injury)",
+      "A. Saelemaekers (Ankle Injury)",
+      "F. Tomori (Muscle Injury)"
+    ],
     "away_doubtful": [],
     "confirmed": false,
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
@@ -86,5 +104,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 20:10 KST"
+  "collected_at": "2026-11-25 06:59 KST"
 }

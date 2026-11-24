@@ -45,9 +45,27 @@
     }
   },
   "lineup": {
-    "home_absent": [],
-    "home_doubtful": [],
-    "away_absent": [],
+    "home_absent": [
+      "M. Andersen (Knee Injury)",
+      "E. Cobbaut (Off the roster)",
+      "T. Guddal (Red Card)",
+      "A. Karabec (Ankle Injury)",
+      "O. Penxa (Knee Injury)",
+      "M. Rynes (Ankle Injury)",
+      "E. Uchenna (Groin Injury)"
+    ],
+    "home_doubtful": [
+      "S. Eneme (Health problems)",
+      "H. Sochurek (Illness)"
+    ],
+    "away_absent": [
+      "J. Hornkamp (Injury)",
+      "S. Resink (Knee Injury)",
+      "L. Schouten (Injury)",
+      "K. Smit (Groin Injury)",
+      "H. Verhulst (Off the roster)",
+      "Weslley Patati (Injury)"
+    ],
     "away_doubtful": [],
     "confirmed": false,
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
@@ -76,5 +94,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 20:10 KST"
+  "collected_at": "2026-11-25 06:59 KST"
 }

@@ -12,17 +12,17 @@
   "away_en": "SC Braga",
   "odds": {
     "line": 2.5,
-    "home": 6.87,
+    "home": 6.51,
     "best_home": 7.8,
-    "draw": 4.19,
-    "best_draw": 4.5,
-    "away": 1.41,
+    "draw": 3.99,
+    "best_draw": 4.4,
+    "away": 1.39,
     "best_away": 1.45,
-    "over": 1.85,
+    "over": 1.86,
     "best_over": 1.99,
     "under": 1.87,
     "best_under": 1.91,
-    "source": "The Odds API 평균 배당 (승무패 17곳, 언더/오버 10곳 북메이커)"
+    "source": "The Odds API 평균 배당 (승무패 17곳, 언더/오버 11곳 북메이커)"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -89,5 +89,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 20:10 KST"
+  "collected_at": "2026-11-25 07:00 KST"
 }

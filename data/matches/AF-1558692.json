@@ -12,17 +12,17 @@
   "away_en": "Kortrijk",
   "odds": {
     "line": 2.5,
-    "home": 1.89,
-    "best_home": 1.98,
+    "home": 1.88,
+    "best_home": 1.95,
     "draw": 3.63,
     "best_draw": 3.95,
-    "away": 3.44,
+    "away": 3.48,
     "best_away": 3.7,
     "over": 1.62,
     "best_over": 1.7,
-    "under": 2.2,
+    "under": 2.21,
     "best_under": 2.36,
-    "source": "The Odds API 평균 배당 (승무패 19곳, 언더/오버 10곳 북메이커)"
+    "source": "The Odds API 평균 배당 (승무패 19곳, 언더/오버 11곳 북메이커)"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -89,5 +89,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 20:10 KST"
+  "collected_at": "2026-11-25 07:00 KST"
 }

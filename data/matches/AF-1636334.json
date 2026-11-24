@@ -13,16 +13,16 @@
   "odds": {
     "line": 3.5,
     "home": 1.16,
-    "best_home": 1.21,
+    "best_home": 1.2,
     "draw": 7.67,
-    "best_draw": 8.4,
-    "away": 13.85,
+    "best_draw": 8.5,
+    "away": 13.77,
     "best_away": 17.0,
-    "over": 1.78,
-    "best_over": 1.83,
-    "under": 2.0,
-    "best_under": 2.06,
-    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 10곳 북메이커)"
+    "over": 1.79,
+    "best_over": 1.87,
+    "under": 2.01,
+    "best_under": 2.08,
+    "source": "The Odds API 평균 배당 (승무패 19곳, 언더/오버 10곳 북메이커)"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -55,9 +55,23 @@
     }
   },
   "lineup": {
-    "home_absent": [],
+    "home_absent": [
+      "K. Boma (Calf Injury)",
+      "A. Chase (Off the roster)",
+      "S. Kitano (Ankle Injury)",
+      "F. Matijasevic (Off the roster)",
+      "J. Mellberg (Muscle Injury)",
+      "J. Moser (Off the roster)",
+      "J. Omoregie (Achilles Tendon Injury)",
+      "D. Schmid (Knee Injury)",
+      "H. Tabakovic (Knee Injury)",
+      "N. Veratschnig (Knee Injury)"
+    ],
     "home_doubtful": [],
-    "away_absent": [],
+    "away_absent": [
+      "P. Ayongo (Off the roster)",
+      "J. Bravim (Red Card)"
+    ],
     "away_doubtful": [],
     "confirmed": false,
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
@@ -83,5 +97,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 20:10 KST"
+  "collected_at": "2026-11-25 06:59 KST"
 }

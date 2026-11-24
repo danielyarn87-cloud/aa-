@@ -12,11 +12,11 @@
   "away_en": "Rayo Vallecano",
   "odds": {
     "line": 3.5,
-    "home": 1.56,
-    "best_home": 1.65,
-    "draw": 4.35,
+    "home": 1.57,
+    "best_home": 1.67,
+    "draw": 4.3,
     "best_draw": 4.75,
-    "away": 5.23,
+    "away": 5.19,
     "best_away": 6.0,
     "over": 2.32,
     "best_over": 2.42,
@@ -89,5 +89,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 20:10 KST"
+  "collected_at": "2026-11-25 06:59 KST"
 }

@@ -1,0 +1,95 @@
+{
+  "id": "AF-1557491",
+  "sport": "soccer",
+  "league": "프리미어리그 Regular Season - 13",
+  "league_id": 39,
+  "league_name": "프리미어리그",
+  "kickoff": "2026-12-02 05:00 KST",
+  "kickoff_iso": "2026-12-02T05:00:00+09:00",
+  "home": "코번트리",
+  "away": "입스위치",
+  "home_en": "Coventry",
+  "away_en": "Ipswich",
+  "odds": {
+    "line": 2.5,
+    "home": 2.23,
+    "best_home": 2.41,
+    "draw": 3.56,
+    "best_draw": 3.75,
+    "away": 2.94,
+    "best_away": 3.1,
+    "over": 1.67,
+    "best_over": 1.75,
+    "under": 2.18,
+    "best_under": 2.28,
+    "source": "The Odds API 평균 배당 (승무패 19곳, 언더/오버 12곳 북메이커)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.582,
+    "away_goals": 1.173
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.661,
+      "xg_against": 1.591,
+      "raw_goals_for": 1.7,
+      "raw_goals_against": 1.8,
+      "played": 6,
+      "record": "3승 0무 3패",
+      "form": "LLWLW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.391,
+      "xg_against": 2.194,
+      "raw_goals_for": 1.5,
+      "raw_goals_against": 2.5,
+      "played": 6,
+      "record": "1승 1무 4패",
+      "form": "LDDLL"
+    }
+  },
+  "lineup": {
+    "home_absent": [
+      "H. Wright (Muscle Bruise)"
+    ],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Coventry Building Society Arena",
+  "source_ids": {
+    "api_football_fixture": 1557491,
+    "home_team": 1346,
+    "away_team": 57,
+    "league": 39,
+    "season": 2026
+  },
+  "table": "코번트리 14위 12점 (4승0무7패, 득실 -8) / 입스위치 16위 11점 (3승2무6패, 득실 -7)",
+  "head_to_head": [
+    "2025-12-29 코번트리 0-2 입스위치",
+    "2025-12-06 입스위치 3-0 코번트리",
+    "2025-02-08 코번트리 1-4 입스위치",
+    "2024-04-30 코번트리 1-2 입스위치",
+    "2023-12-02 입스위치 2-1 코번트리"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Premier League",
+    "home_days_rest": 10,
+    "away_prev": "2026-11-22 Premier League",
+    "away_days_rest": 10
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-25 06:59 KST"
+}

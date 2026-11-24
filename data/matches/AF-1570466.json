@@ -12,17 +12,17 @@
   "away_en": "Atletico Madrid",
   "odds": {
     "line": 2.5,
-    "home": 6.0,
+    "home": 6.05,
     "best_home": 6.6,
-    "draw": 4.55,
+    "draw": 4.59,
     "best_draw": 4.83,
-    "away": 1.49,
-    "best_away": 1.59,
+    "away": 1.48,
+    "best_away": 1.55,
     "over": 1.54,
-    "best_over": 1.58,
-    "under": 2.39,
-    "best_under": 2.47,
-    "source": "The Odds API 평균 배당 (승무패 19곳, 언더/오버 9곳 북메이커)"
+    "best_over": 1.63,
+    "under": 2.41,
+    "best_under": 2.49,
+    "source": "The Odds API 평균 배당 (승무패 19곳, 언더/오버 10곳 북메이커)"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -89,5 +89,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 20:10 KST"
+  "collected_at": "2026-11-25 06:59 KST"
 }

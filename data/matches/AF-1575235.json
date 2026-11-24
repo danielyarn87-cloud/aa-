@@ -12,17 +12,17 @@
   "away_en": "Bayern München",
   "odds": {
     "line": 3.5,
-    "home": 9.39,
-    "best_home": 10.5,
-    "draw": 6.92,
-    "best_draw": 8.4,
+    "home": 9.53,
+    "best_home": 11.0,
+    "draw": 6.89,
+    "best_draw": 8.0,
     "away": 1.23,
     "best_away": 1.29,
     "over": 1.64,
     "best_over": 1.75,
-    "under": 2.19,
+    "under": 2.2,
     "best_under": 2.28,
-    "source": "The Odds API 평균 배당 (승무패 23곳, 언더/오버 9곳 북메이커)"
+    "source": "The Odds API 평균 배당 (승무패 22곳, 언더/오버 9곳 북메이커)"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -89,5 +89,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 20:10 KST"
+  "collected_at": "2026-11-25 06:59 KST"
 }

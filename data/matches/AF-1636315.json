@@ -12,17 +12,17 @@
   "away_en": "Benfica",
   "odds": {
     "line": 3.5,
-    "home": 5.78,
+    "home": 5.87,
     "best_home": 6.6,
-    "draw": 4.83,
-    "best_draw": 5.12,
-    "away": 1.46,
+    "draw": 4.87,
+    "best_draw": 5.2,
+    "away": 1.45,
     "best_away": 1.51,
     "over": 2.09,
-    "best_over": 2.14,
+    "best_over": 2.16,
     "under": 1.72,
-    "best_under": 1.77,
-    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 10곳 북메이커)"
+    "best_under": 1.81,
+    "source": "The Odds API 평균 배당 (승무패 19곳, 언더/오버 9곳 북메이커)"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -55,9 +55,14 @@
     }
   },
   "lineup": {
-    "home_absent": [],
+    "home_absent": [
+      "V. Jemelka (Knee Injury)",
+      "M. Tvrdon (Off the roster)"
+    ],
     "home_doubtful": [],
-    "away_absent": [],
+    "away_absent": [
+      "L. Barreiro (Inactive)"
+    ],
     "away_doubtful": [],
     "confirmed": false,
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
@@ -83,5 +88,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 20:10 KST"
+  "collected_at": "2026-11-25 06:59 KST"
 }

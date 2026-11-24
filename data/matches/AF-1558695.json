@@ -12,9 +12,9 @@
   "away_en": "Club Brugge KV",
   "odds": {
     "line": 3.5,
-    "home": 5.08,
-    "best_home": 6.0,
-    "draw": 4.41,
+    "home": 5.07,
+    "best_home": 5.8,
+    "draw": 4.42,
     "best_draw": 4.72,
     "away": 1.49,
     "best_away": 1.57,
@@ -89,5 +89,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 20:10 KST"
+  "collected_at": "2026-11-25 07:00 KST"
 }

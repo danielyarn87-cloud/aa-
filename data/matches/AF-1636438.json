@@ -12,17 +12,17 @@
   "away_en": "Riga",
   "odds": {
     "line": 2.5,
-    "home": 3.34,
-    "best_home": 3.55,
-    "draw": 3.32,
+    "home": 3.36,
+    "best_home": 3.6,
+    "draw": 3.31,
     "best_draw": 3.45,
     "away": 2.12,
     "best_away": 2.21,
     "over": 1.9,
-    "best_over": 1.95,
+    "best_over": 1.96,
     "under": 1.88,
     "best_under": 1.91,
-    "source": "The Odds API 평균 배당 (승무패 15곳, 언더/오버 11곳 북메이커)"
+    "source": "The Odds API 평균 배당 (승무패 14곳, 언더/오버 10곳 북메이커)"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -83,5 +83,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 20:10 KST"
+  "collected_at": "2026-11-25 06:59 KST"
 }

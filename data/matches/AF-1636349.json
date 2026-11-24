@@ -12,17 +12,17 @@
   "away_en": "Celtic",
   "odds": {
     "line": 2.5,
-    "home": 4.57,
-    "best_home": 4.9,
-    "draw": 4.09,
+    "home": 4.64,
+    "best_home": 5.1,
+    "draw": 4.1,
     "best_draw": 4.4,
-    "away": 1.67,
-    "best_away": 1.75,
-    "over": 1.54,
-    "best_over": 1.57,
-    "under": 2.41,
-    "best_under": 2.5,
-    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 9곳 북메이커)"
+    "away": 1.66,
+    "best_away": 1.72,
+    "over": 1.53,
+    "best_over": 1.56,
+    "under": 2.43,
+    "best_under": 2.48,
+    "source": "The Odds API 평균 배당 (승무패 19곳, 언더/오버 9곳 북메이커)"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -55,9 +55,19 @@
     }
   },
   "lineup": {
-    "home_absent": [],
+    "home_absent": [
+      "J. Aguirre (Red Card)",
+      "A. Baradji (Injury)"
+    ],
     "home_doubtful": [],
-    "away_absent": [],
+    "away_absent": [
+      "M. Baur (Ankle Injury)",
+      "L. Emenalo (Off the roster)",
+      "A. Johnston (Leg Injury)",
+      "Jota (Off the roster)",
+      "S. Mheuka (Off the roster)",
+      "J. van den Berg (Off the roster)"
+    ],
     "away_doubtful": [],
     "confirmed": false,
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
@@ -83,5 +93,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 20:10 KST"
+  "collected_at": "2026-11-25 06:59 KST"
 }

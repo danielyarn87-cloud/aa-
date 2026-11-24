@@ -45,9 +45,23 @@
     }
   },
   "lineup": {
-    "home_absent": [],
+    "home_absent": [
+      "E. Botka (Inactive)",
+      "B. Nagy (Off the roster)",
+      "B. Otvos (Knee Injury)",
+      "I. Pappoe (Off the roster)",
+      "G. Szecsi (Off the roster)",
+      "B. Yusuf (Red Card)"
+    ],
     "home_doubtful": [],
-    "away_absent": [],
+    "away_absent": [
+      "I. Calusic (Off the roster)",
+      "J. Pisek (Off the roster)",
+      "R. Pozeg (Off the roster)",
+      "Z. L. Sega (Off the roster)",
+      "S. Sluga (Off the roster)",
+      "D. Vuklisevic (Off the roster)"
+    ],
     "away_doubtful": [],
     "confirmed": false,
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
@@ -73,5 +87,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 20:10 KST"
+  "collected_at": "2026-11-25 06:59 KST"
 }

@@ -12,17 +12,17 @@
   "away_en": "Inter Miami",
   "odds": {
     "line": 3.5,
-    "home": 2.52,
+    "home": 2.51,
     "best_home": 2.7,
-    "draw": 3.86,
-    "best_draw": 4.2,
+    "draw": 3.87,
+    "best_draw": 4.3,
     "away": 2.34,
     "best_away": 2.51,
     "over": 1.81,
     "best_over": 1.84,
-    "under": 1.94,
+    "under": 1.93,
     "best_under": 2.05,
-    "source": "The Odds API 평균 배당 (승무패 21곳, 언더/오버 12곳 북메이커)"
+    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 11곳 북메이커)"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -88,5 +88,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 20:10 KST"
+  "collected_at": "2026-11-25 07:00 KST"
 }

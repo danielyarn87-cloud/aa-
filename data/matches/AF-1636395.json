@@ -12,17 +12,17 @@
   "away_en": "Universitatea Craiova",
   "odds": {
     "line": 3.5,
-    "home": 1.14,
+    "home": 1.13,
     "best_home": 1.18,
-    "draw": 8.13,
-    "best_draw": 9.15,
-    "away": 16.62,
-    "best_away": 21.0,
-    "over": 1.92,
-    "best_over": 1.99,
-    "under": 1.86,
-    "best_under": 1.94,
-    "source": "The Odds API 평균 배당 (승무패 15곳, 언더/오버 8곳 북메이커)"
+    "draw": 8.19,
+    "best_draw": 9.4,
+    "away": 17.35,
+    "best_away": 24.0,
+    "over": 1.94,
+    "best_over": 2.06,
+    "under": 1.84,
+    "best_under": 1.89,
+    "source": "The Odds API 평균 배당 (승무패 14곳, 언더/오버 6곳 북메이커)"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -83,5 +83,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 20:10 KST"
+  "collected_at": "2026-11-25 06:59 KST"
 }

@@ -12,17 +12,17 @@
   "away_en": "Fenerbahçe",
   "odds": {
     "line": 2.5,
-    "home": 2.62,
-    "best_home": 2.75,
-    "draw": 3.47,
-    "best_draw": 3.65,
-    "away": 2.59,
-    "best_away": 2.7,
-    "over": 1.71,
-    "best_over": 1.81,
-    "under": 2.13,
-    "best_under": 2.2,
-    "source": "The Odds API 평균 배당 (승무패 23곳, 언더/오버 15곳 북메이커)"
+    "home": 2.82,
+    "best_home": 2.96,
+    "draw": 3.49,
+    "best_draw": 3.7,
+    "away": 2.4,
+    "best_away": 2.54,
+    "over": 1.73,
+    "best_over": 1.85,
+    "under": 2.1,
+    "best_under": 2.16,
+    "source": "The Odds API 평균 배당 (승무패 22곳, 언더/오버 14곳 북메이커)"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -59,14 +59,14 @@
       "Eguinaldo (Shoulder Injury)",
       "Kaua Elias (Foot Injury)",
       "V. Korniyenko (Off the roster)",
+      "Marlon (Muscle Injury)",
+      "G. Mendoza (Ankle Injury)",
       "Pedrinho (Muscle Injury)",
       "T. Puzankov (Off the roster)",
       "M. Shved (Off the roster)",
       "D. Tvardovskyi (Off the roster)"
     ],
-    "home_doubtful": [
-      "Marlon (Muscle Injury)"
-    ],
+    "home_doubtful": [],
     "away_absent": [
       "N. Ake (Muscle Injury)",
       "M. Asensio (Knee Injury)",
@@ -104,5 +104,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 20:10 KST"
+  "collected_at": "2026-11-25 06:59 KST"
 }

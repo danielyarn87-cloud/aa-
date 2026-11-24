@@ -45,9 +45,24 @@
     }
   },
   "lineup": {
-    "home_absent": [],
-    "home_doubtful": [],
-    "away_absent": [],
+    "home_absent": [
+      "N. Gonzalez (Calf Injury)",
+      "K. Grabara (Knee Injury)",
+      "P. Kalulu (Hamstring Injury)",
+      "M. Locatelli (Knee Injury)",
+      "A. Milik (Inactive)",
+      "D. Rugani (Off the roster)",
+      "K. Thuram (Knee Injury)",
+      "K. Yildiz (Foot Injury)",
+      "E. Zhegrova (Off the roster)"
+    ],
+    "home_doubtful": [
+      "K. Alajbegovic (Injury)"
+    ],
+    "away_absent": [
+      "C. Eiting (Knee Injury)",
+      "F. Kitsos (Inactive)"
+    ],
     "away_doubtful": [],
     "confirmed": false,
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
@@ -73,5 +88,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 20:10 KST"
+  "collected_at": "2026-11-25 06:59 KST"
 }

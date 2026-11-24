@@ -12,17 +12,17 @@
   "away_en": "Bournemouth",
   "odds": {
     "line": 2.5,
-    "home": 3.72,
-    "best_home": 4.1,
-    "draw": 3.51,
-    "best_draw": 3.7,
-    "away": 1.96,
-    "best_away": 2.12,
-    "over": 1.87,
+    "home": 3.62,
+    "best_home": 3.8,
+    "draw": 3.48,
+    "best_draw": 3.65,
+    "away": 2.01,
+    "best_away": 2.16,
+    "over": 1.89,
     "best_over": 1.96,
-    "under": 1.92,
-    "best_under": 1.98,
-    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 14곳 북메이커)"
+    "under": 1.9,
+    "best_under": 2.02,
+    "source": "The Odds API 평균 배당 (승무패 19곳, 언더/오버 13곳 북메이커)"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -55,9 +55,22 @@
     }
   },
   "lineup": {
-    "home_absent": [],
+    "home_absent": [
+      "B. Iglesias (Calf Injury)",
+      "M. Roman (Knee Injury)",
+      "C. Starfelt (Muscle Injury)"
+    ],
     "home_doubtful": [],
-    "away_absent": [],
+    "away_absent": [
+      "M. Aarons (Off the roster)",
+      "J. Araujo (Thigh Injury)",
+      "F. Forster (Off the roster)",
+      "D. Jebbison (Off the roster)",
+      "E. J. Kroupi (Off the roster)",
+      "V. Milosavljevic (Off the roster)",
+      "J. Sanchez (Ankle Injury)",
+      "A. Toth (Muscle Injury)"
+    ],
     "away_doubtful": [],
     "confirmed": false,
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
@@ -83,5 +96,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 20:10 KST"
+  "collected_at": "2026-11-25 06:59 KST"
 }

@@ -13,16 +13,16 @@
   "odds": {
     "line": 2.5,
     "home": 1.96,
-    "best_home": 2.08,
-    "draw": 3.68,
-    "best_draw": 3.87,
+    "best_home": 2.06,
+    "draw": 3.69,
+    "best_draw": 3.9,
     "away": 3.59,
-    "best_away": 3.75,
+    "best_away": 3.9,
     "over": 1.72,
     "best_over": 1.79,
     "under": 2.1,
     "best_under": 2.19,
-    "source": "The Odds API 평균 배당 (승무패 25곳, 언더/오버 16곳 북메이커)"
+    "source": "The Odds API 평균 배당 (승무패 24곳, 언더/오버 15곳 북메이커)"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -93,5 +93,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 20:10 KST"
+  "collected_at": "2026-11-25 06:59 KST"
 }

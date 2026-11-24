@@ -12,12 +12,12 @@
   "away_en": "Kawasaki Frontale",
   "odds": {
     "line": 2.5,
-    "home": 3.61,
-    "best_home": 3.85,
-    "draw": 3.81,
-    "best_draw": 4.13,
+    "home": 3.64,
+    "best_home": 3.9,
+    "draw": 3.83,
+    "best_draw": 4.2,
     "away": 1.81,
-    "best_away": 1.9,
+    "best_away": 1.89,
     "over": 1.53,
     "best_over": 1.57,
     "under": 2.33,
@@ -85,5 +85,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 20:10 KST"
+  "collected_at": "2026-11-25 07:00 KST"
 }

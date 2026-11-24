@@ -12,17 +12,17 @@
   "away_en": "Wolves",
   "odds": {
     "line": 2.5,
-    "home": 4.62,
+    "home": 4.6,
     "best_home": 5.06,
-    "draw": 3.79,
-    "best_draw": 4.02,
+    "draw": 3.77,
+    "best_draw": 4.0,
     "away": 1.64,
-    "best_away": 1.8,
-    "over": 1.72,
-    "best_over": 1.76,
-    "under": 2.03,
+    "best_away": 1.75,
+    "over": 1.76,
+    "best_over": 1.85,
+    "under": 1.99,
     "best_under": 2.1,
-    "source": "The Odds API 평균 배당 (승무패 16곳, 언더/오버 11곳 북메이커)"
+    "source": "The Odds API 평균 배당 (승무패 17곳, 언더/오버 12곳 북메이커)"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -83,5 +83,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 20:10 KST"
+  "collected_at": "2026-11-25 06:59 KST"
 }

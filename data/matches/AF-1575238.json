@@ -12,17 +12,17 @@
   "away_en": "FC Schalke 04",
   "odds": {
     "line": 2.5,
-    "home": 2.39,
-    "best_home": 2.54,
+    "home": 2.4,
+    "best_home": 2.56,
     "draw": 3.45,
     "best_draw": 3.73,
     "away": 2.8,
     "best_away": 2.95,
-    "over": 1.75,
+    "over": 1.74,
     "best_over": 1.84,
-    "under": 2.05,
+    "under": 2.06,
     "best_under": 2.16,
-    "source": "The Odds API 평균 배당 (승무패 23곳, 언더/오버 15곳 북메이커)"
+    "source": "The Odds API 평균 배당 (승무패 22곳, 언더/오버 14곳 북메이커)"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -89,5 +89,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-24 20:10 KST"
+  "collected_at": "2026-11-25 06:59 KST"
 }
