@@ -123,6 +123,18 @@ members:
     base_weight: 1.0
     active: true
 
+  - id: hogu
+    name: 호구형
+    title: 일반 팬 분석가 (비교용)
+    department: soccer
+    role: analyst
+    votes: false              # 팀 결론 투표에는 들어가지 않는다. 분석·토론·배팅·인사평가는 똑같이 해서 3명과 실력 비교
+    model: claude-haiku-5-5   # 싸고 빠른 모델 (다른 3명은 Sonnet 5.5)
+    persona: personas/hogu.md
+    color: "#9333ea"          # 화면에서 쓰는 이 사람의 색 (보라)
+    base_weight: 1.0
+    active: true
+
   # 인원 추가 예시: 팀장을 두면 투표 결과를 종합한 최종 코멘트를 씁니다.
   # - id: choi_lead
   #   name: 최팀장
