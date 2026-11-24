@@ -100,6 +100,27 @@ def cmd_collect(company, args) -> None:
     print(f"\n경기 자료 {len(paths)}개를 data/matches/ 에 만들었습니다.")
 
 
+def cmd_results(company, args) -> None:
+    """결과만: 끝난 경기 채점 → 배팅 정산·새 배팅. Claude 를 부르지 않아 비용 없음 (1시간마다 자동)."""
+    import os
+    from datetime import datetime
+    from zoneinfo import ZoneInfo
+
+    from .betting import run_betting
+    from .collect import sync_results
+
+    ledger = Ledger(company.base_dir / "data" / "ledger.sqlite")
+    ledger.backfill_from_reports(company.base_dir / "reports")
+    n = sync_results(company, ledger)
+    bet = run_betting(company, ledger, datetime.now(ZoneInfo("Asia/Seoul")))
+    changed = bool(n or bet.get("settled") or bet.get("placed"))
+    print(f"결과 {n}경기 채점 · 배팅 정산 {bet.get('settled')} · 새 배팅 {bet.get('placed')}" + ("" if changed else " (바뀐 것 없음)"))
+    out = os.environ.get("GITHUB_OUTPUT")
+    if out:  # 바뀐 것이 있을 때만 저장·사이트 재배포 (Cloudflare 무료 배포 횟수 아끼기)
+        with open(out, "a", encoding="utf-8") as f:
+            f.write(f"changed={'true' if changed else 'false'}\n")
+
+
 def cmd_sync(company, args) -> None:
     from .collect import sync_results
 
@@ -181,6 +202,7 @@ def main(argv=None) -> None:
     c.add_argument("--no-odds", action="store_true", help="배당 수집 생략")
 
     sub.add_parser("sync", help="끝난 경기 결과를 API 로 자동 채점")
+    sub.add_parser("results", help="결과만: 채점 → 배팅 정산 (Claude 비용 없음)")
 
     dl = sub.add_parser("daily", help="자동 실행 한 번: 채점 → 수집 → 분석")
     dl.add_argument("--mock", action="store_true", help="분석을 모의 실행으로 (API 비용 없이 흐름 확인)")
@@ -200,7 +222,7 @@ def main(argv=None) -> None:
     args = p.parse_args(argv)
     company = load_company(Path(args.company))
     {"roster": cmd_roster, "analyze": cmd_analyze, "settle": cmd_settle, "review": cmd_review,
-     "collect": cmd_collect, "sync": cmd_sync, "serve": cmd_serve,
+     "collect": cmd_collect, "sync": cmd_sync, "results": cmd_results, "serve": cmd_serve,
      "daily": cmd_daily, "worker": cmd_worker}[args.cmd](company, args)
 
 
