@@ -91,6 +91,44 @@ def due_matches(company: Company, now: datetime, within_hours: float, leagues: l
     return [p for _, p in sorted(out)]
 
 
+def picked_path(company: Company) -> Path:
+    return company.base_dir / "data" / "picked.json"
+
+
+def load_picked(company: Company) -> dict:
+    """사이트에서 직접 골라 분석을 요청한 경기 {경기번호: 요청 시각}."""
+    p = picked_path(company)
+    try:
+        return json.loads(p.read_text(encoding="utf-8")).get("ids", {})
+    except (OSError, ValueError):
+        return {}
+
+
+def _save_picked(company: Company, ids: list[str], now: datetime) -> None:
+    cur = load_picked(company)
+    at = now.astimezone(KST).strftime("%Y-%m-%d %H:%M KST")
+    for i in ids:
+        cur.setdefault(i, at)
+    p = picked_path(company)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(json.dumps({"ids": cur}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def picked_matches(company: Company, now: datetime, ids: list[str], include_analyzed: bool = False) -> list[Path]:
+    """고른 경기 중 아직 시작하지 않았고 (다시 분석이 아니면) 분석하지 않은 경기, 킥오프 순."""
+    pending = company.base_dir / "data" / "matches"
+    reports = company.base_dir / "reports"
+    out = []
+    for i in dict.fromkeys(ids):
+        p = pending / f"{i}.json"
+        if not p.exists() or ((reports / p.name).exists() and not include_analyzed):
+            continue
+        ko = _kickoff(json.loads(p.read_text(encoding="utf-8")))
+        if ko and ko > now:
+            out.append((ko, p))
+    return [p for _, p in sorted(out)]
+
+
 def run_daily(company: Company, client_factory=None, now: datetime | None = None, log=print,
               af_transport=None, odds_transport=None) -> dict:
     auto = company.automation
@@ -117,10 +155,20 @@ def run_daily(company: Company, client_factory=None, now: datetime | None = None
     except Exception as e:
         summary["errors"].append(f"수집: {e}")
 
-    # 3) 새 경기 분석 (하루 한도 안에서)
+    # 3) 분석: 사이트에서 고른 경기만 (자동 분석이 꺼져 있으면 고른 경기가 없을 때 분석하지 않음)
     room = int(auto.get("max_analyses_per_day", 10)) - analyzed_today(company, now)
-    due = due_matches(company, now, float(auto.get("analyze_within_hours", 48)), leagues=auto.get("leagues") or None,
-                      include_analyzed=bool(auto.get("reanalyze")))
+    only = [str(i) for i in (auto.get("only_ids") or [])]
+    if only:
+        due = picked_matches(company, now, only, include_analyzed=bool(auto.get("reanalyze")))
+        room = max(room, len(due))
+        _save_picked(company, only, now)
+        log(f"고른 경기 {len(only)}개 중 분석할 경기 {len(due)}개")
+    elif auto.get("auto_analyze", True):
+        due = due_matches(company, now, float(auto.get("analyze_within_hours", 48)), leagues=auto.get("leagues") or None,
+                          include_analyzed=bool(auto.get("reanalyze")))
+    else:
+        due = []
+        log("자동 분석 꺼짐: 경기 목록만 모았습니다. 분석은 사이트의 '분석 요청'에서 경기를 골라 하세요.")
     if due and room <= 0:
         log(f"오늘 분석 한도({auto.get('max_analyses_per_day', 10)}경기)에 닿아 {len(due)}경기는 다음 실행으로 넘깁니다.")
     client = None
