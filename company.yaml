@@ -93,7 +93,8 @@ departments:
 
 members:
   - id: kim_data
-    name: 김데이터
+    name: 고광렬
+    former_names: [김데이터]
     title: 퀀트 분석가
     department: soccer
     role: analyst          # analyst = 투표 참여 / lead = 최종 요약 작성(투표 참여 여부는 votes 로)
@@ -103,7 +104,8 @@ members:
     active: true
 
   - id: park_field
-    name: 박현장
+    name: 고니
+    former_names: [박현장]
     title: 스카우트 분석가
     department: soccer
     role: analyst
@@ -113,7 +115,8 @@ members:
     active: true
 
   - id: lee_contra
-    name: 이역발
+    name: 아귀
+    former_names: [이역발]
     title: 역발상 분석가
     department: soccer
     role: analyst
