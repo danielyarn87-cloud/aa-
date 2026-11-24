@@ -221,9 +221,14 @@ def main(argv=None) -> None:
 
     args = p.parse_args(argv)
     company = load_company(Path(args.company))
-    {"roster": cmd_roster, "analyze": cmd_analyze, "settle": cmd_settle, "review": cmd_review,
-     "collect": cmd_collect, "sync": cmd_sync, "results": cmd_results, "serve": cmd_serve,
-     "daily": cmd_daily, "worker": cmd_worker}[args.cmd](company, args)
+    try:
+        {"roster": cmd_roster, "analyze": cmd_analyze, "settle": cmd_settle, "review": cmd_review,
+         "collect": cmd_collect, "sync": cmd_sync, "results": cmd_results, "serve": cmd_serve,
+         "daily": cmd_daily, "worker": cmd_worker}[args.cmd](company, args)
+    finally:  # Claude 를 부른 만큼 비용을 기록 (크레딧 추정 잔액용). 중간에 실패해도 쓴 만큼은 남긴다
+        from .credit import flush
+
+        flush(company.base_dir)
 
 
 if __name__ == "__main__":
