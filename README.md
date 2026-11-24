@@ -63,7 +63,7 @@ python -m aa daily     # 지금 한 번: 끝난 경기 채점 → 예정 경기 
 python -m aa worker    # company.yaml 의 automation.run_at 시각마다 계속 실행
 ```
 
-서버에 올리는 방법은 [DEPLOY.md](DEPLOY.md)에 있습니다 (Docker 한 번에 웹 + 자동 실행 + HTTPS).
+운영 방법은 [DEPLOY.md](DEPLOY.md)에 있습니다. 무료 운영(GitHub Actions 자동 분석 + Cloudflare Pages 사이트)과 서버 1대(Docker) 두 가지입니다.
 
 ## 폴더 구조
 
@@ -73,7 +73,8 @@ personas/           직원별 인격 지시문 (한 명당 파일 하나)
 prompts/            단계별 지시문: analysis(독립 분석), debate(토론), lead_summary(팀장 코멘트)
 data/               경기 자료 JSON, 예측 기록부
 reports/            분석 리포트
-tools/              미리보기 생성 등 보조 도구
+tools/              사이트 내보내기(export_static.py), 미리보기 등 보조 도구
+.github/workflows/  GitHub Actions 매일 자동 분석
 aa/                 프로그램
   web/              웹 서버(Flask)와 화면(static/)
   sources/          API-Football, The Odds API 연동과 캐시
