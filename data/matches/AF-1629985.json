@@ -1,0 +1,77 @@
+{
+  "id": "AF-1629985",
+  "sport": "soccer",
+  "league": "AFC챔피언스리그 엘리트 League Phase - 5",
+  "league_id": 17,
+  "league_name": "AFC챔피언스리그 엘리트",
+  "kickoff": "2026-11-24 21:15 KST",
+  "kickoff_iso": "2026-11-24T21:15:00+09:00",
+  "home": "Ratchaburi",
+  "away": "Johor Darul Takzim FC",
+  "home_en": "Ratchaburi",
+  "away_en": "Johor Darul Takzim FC",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.568,
+    "away_goals": 1.514
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.741,
+      "xg_against": 2.108,
+      "raw_goals_for": 2.0,
+      "raw_goals_against": 3.0,
+      "played": 2,
+      "record": "0승 1무 1패",
+      "form": "LLDL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.308,
+      "xg_against": 1.341,
+      "raw_goals_for": 1.0,
+      "raw_goals_against": 1.0,
+      "played": 2,
+      "record": "1승 0무 1패",
+      "form": "DWWL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Dragon Solar Park",
+  "source_ids": {
+    "api_football_fixture": 1629985,
+    "home_team": 2776,
+    "away_team": 2523,
+    "league": 17,
+    "season": 2026
+  },
+  "head_to_head": [
+    "2021-07-07 Johor Darul Takzim FC 0-0 Ratchaburi",
+    "2021-06-25 Ratchaburi 0-1 Johor Darul Takzim FC"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 Thai League 1",
+    "home_days_rest": 2,
+    "away_prev": "2026-11-19 ASEAN Club Championship",
+    "away_days_rest": 4
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-24 18:24 KST"
+}

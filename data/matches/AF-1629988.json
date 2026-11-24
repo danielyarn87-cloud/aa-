@@ -1,0 +1,81 @@
+{
+  "id": "AF-1629988",
+  "sport": "soccer",
+  "league": "AFC챔피언스리그 엘리트 League Phase - 5",
+  "league_id": 17,
+  "league_name": "AFC챔피언스리그 엘리트",
+  "kickoff": "2026-11-25 03:15 KST",
+  "kickoff_iso": "2026-11-25T03:15:00+09:00",
+  "home": "알나스르",
+  "away": "알사드",
+  "home_en": "Al-Nassr",
+  "away_en": "Al Sadd",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.568,
+    "away_goals": 1.514
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (1경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.926,
+      "xg_against": 1.385,
+      "raw_goals_for": 3.0,
+      "raw_goals_against": 1.0,
+      "played": 1,
+      "record": "1승 0무 0패",
+      "form": "LWW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.108,
+      "xg_against": 1.741,
+      "raw_goals_for": 0.5,
+      "raw_goals_against": 2.0,
+      "played": 2,
+      "record": "0승 1무 1패",
+      "form": "LLDD"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Al-Awwal Park",
+  "source_ids": {
+    "api_football_fixture": 1629988,
+    "home_team": 2939,
+    "away_team": 2895,
+    "league": 17,
+    "season": 2026
+  },
+  "table": "알나스르 10위 6점 (2승0무1패, 득실 +2) / 알사드 13위 2점 (0승2무2패, 득실 -5)",
+  "head_to_head": [
+    "2024-12-02 알나스르 1-2 알사드",
+    "2021-04-29 알사드 1-2 알나스르",
+    "2021-04-17 알나스르 3-1 알사드",
+    "2020-09-21 알사드 1-1 알나스르",
+    "2020-02-11 알나스르 2-2 알사드"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 Pro League",
+    "home_days_rest": 4,
+    "away_prev": "2026-11-20 Stars League",
+    "away_days_rest": 4
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-24 18:24 KST"
+}
