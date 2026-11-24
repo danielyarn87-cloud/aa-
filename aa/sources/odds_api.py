@@ -66,9 +66,40 @@ class OddsApi:
         return None
 
     @staticmethod
-    def consensus(event: dict, line: float = 2.5) -> dict:
+    def main_line(event: dict, fallback: float = 2.5) -> float:
+        """언더/오버 기준점: 가장 많은 북메이커가 내놓은 기준점 (경기마다 다르다, 예: 2.5 / 3.5).
+        0.25 단위(아시안) 기준점은 빼고 x.5 만 본다. 같으면 오버·언더 배당이 가장 비슷한(반반에 가까운) 쪽."""
+        books: dict[float, list[tuple[float, float]]] = {}
+        for b in event.get("bookmakers", []):
+            for m in b.get("markets", []):
+                if m["key"] != "totals":
+                    continue
+                by_pt: dict[float, dict] = {}
+                for o in m["outcomes"]:
+                    pt = o.get("point")
+                    if pt is None or float(pt) % 1 != 0.5:
+                        continue
+                    by_pt.setdefault(float(pt), {})[o["name"].lower()] = float(o["price"])
+                for pt, pr in by_pt.items():
+                    if "over" in pr and "under" in pr:
+                        books.setdefault(pt, []).append((pr["over"], pr["under"]))
+        if not books:
+            return fallback
+
+        def score(pt):
+            rows = books[pt]
+            gap = abs(sum(o for o, _ in rows) / len(rows) - sum(u for _, u in rows) / len(rows))
+            return (-len(rows), gap)
+
+        return min(books, key=score)
+
+    @staticmethod
+    def consensus(event: dict, line: float | None = None, fallback_line: float = 2.5) -> dict:
         """여러 북메이커의 실제 배당을 평균 낸다 (마진 포함, 실제로 받을 수 있는 수준).
-        시장 확률은 분석 단계에서 이 배당의 마진을 빼서 계산한다."""
+        시장 확률은 분석 단계에서 이 배당의 마진을 빼서 계산한다.
+        line 을 주지 않으면 그 경기의 주 기준점(main_line)을 쓴다."""
+        if line is None:
+            line = OddsApi.main_line(event, fallback_line)
         home_n, away_n = event["home_team"], event["away_team"]
         h2h: list[dict] = []
         tot: list[dict] = []
