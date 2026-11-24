@@ -156,3 +156,7 @@ pre{background:var(--panel);padding:12px;border-radius:8px;font-size:14px;white-
 .pickchip[aria-pressed=true]{background:var(--pitch);border-color:var(--pitch);color:#fff}
 .pickchip[aria-pressed=true]::before{content:"✓ "}
 .log:empty{display:none}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.slip table td{padding:6px 8px}
+.grid3 .panel+.panel{margin-top:0}
+.grid3{margin-top:18px}
