@@ -96,6 +96,30 @@ class Ledger:
                 ),
             )
 
+    def backfill_from_reports(self, reports_dir: Path) -> int:
+        """기록부에 없는 분석 결과(reports/*.json)를 기록부에 다시 넣는다. 기록부를 잃어버려도 복구된다."""
+        from types import SimpleNamespace as NS
+
+        have = {r[0] for r in self.db.execute("SELECT match_id FROM decisions")}
+        n = 0
+        for p in sorted(Path(reports_dir).glob("*.json")):
+            try:
+                run = json.loads(p.read_text(encoding="utf-8"))
+            except json.JSONDecodeError:
+                continue
+            m = run["match"]
+            if m["id"] in have:
+                continue
+            d = run["decision"]
+            match = NS(id=m["id"], sport=m["sport"], title=f"{m['home']} vs {m['away']}", kickoff=m["kickoff"], odds=m["odds"])
+            dec = NS(department=d["department"], line=d["line"],
+                     one_x_two=NS(probs=d["one_x_two"]["probs"], pick=d["one_x_two"]["pick"]),
+                     over_under=NS(probs=d["over_under"]["probs"], pick=d["over_under"]["pick"]))
+            ops = [Opinion.from_dict(o["member_id"], o["member_name"], o["stage"], o) for o in run["initial"] + run["final"]]
+            self.record(match, dec, ops, mock="모의" in run.get("engine", ""), report_path=str(p.with_suffix(".md")))
+            n += 1
+        return n
+
     def settle(self, match_id: str, home_goals: int, away_goals: int) -> None:
         if not self.db.execute("SELECT 1 FROM decisions WHERE match_id = ?", (match_id,)).fetchone():
             raise KeyError(f"기록에 없는 경기입니다: {match_id}")
