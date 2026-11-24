@@ -1,6 +1,6 @@
 {
 /* AA 스포츠 분석 화면. 서버 API(/api/...)를 읽는다. window.AA_SNAPSHOT 이 있으면 서버 없이 그 자료로 그린다(미리보기).
-   화면 용어는 처음 보는 사람 기준으로 쓴다: 확률→가능성, 기대값→100원당 평균 손익, 가치 알림→이득 신호, 관망→판단 보류. */
+   화면 용어는 처음 보는 사람 기준으로 쓴다: 확률→가능성, 기대값→5,000원당 평균 손익, 가치 알림→이득 신호, 관망→판단 보류. */
 const SNAP = window.AA_SNAPSHOT || null;
 const STATIC = window.AA_STATIC === true;   /* Cloudflare Pages 등 정적 호스팅: api/*.json 파일을 읽는다 */
 const READONLY = !!SNAP || STATIC;
@@ -11,10 +11,11 @@ const TH = 0.05;
 
 const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
 const pct = (x, d = 0) => x == null ? '-' : (x * 100).toFixed(d) + '%';
-/* 기대값을 100원당 평균 손익으로: 0.097 → +10원 */
+/* 기대값을 5,000원당 평균 손익으로: 0.097 → +485원 */
 const OX = h => h === true ? '<span class="ox o">○</span>' : h === false ? '<span class="ox x">✕</span>' : '';
 const rate = (h, n) => n ? `${h}/${n} <b>${Math.round(h / n * 100)}%</b>` : '-';
-const won = x => x == null ? '-' : (x >= 0 ? '+' : '−') + Math.abs(Math.round(x * 100)) + '원';
+const UNIT = 5000;  /* 우리 배팅 최소 금액: 손익은 5,000원 걸었을 때 기준으로 보여 준다 */
+const won = x => x == null ? '-' : (x >= 0 ? '+' : '−') + Math.abs(Math.round(x * UNIT)).toLocaleString('ko-KR') + '원';
 /* 결과 이름: 팀 이름을 쓴다 */
 const names = (home, away, line) => {
   const l = Number(line ?? 2.5);
@@ -244,14 +245,14 @@ async function renderMatch(id) {
   const good = choices.filter(c => c.e != null && c.e >= TH);
   const vRow = c => `<tr class="${c.pick ? 'pk' : ''}"><td data-l="선택">${esc(c.label)}${c.pick ? ' <span class="small mute" style="white-space:nowrap">예측</span>' : ''}</td>
     <td data-l="우리가 본 가능성" class="r num">${pct(c.p)}</td><td data-l="본전 가능성" class="r num">${pct(c.be)}</td>
-    <td data-l="배당" class="r num">${esc(c.o ?? '-')}</td><td data-l="100원당 평균 손익" class="r"><span class="ev ${c.e != null && c.e >= TH ? 'plus' : ''}">${won(c.e)}</span></td></tr>`;
+    <td data-l="배당" class="r num">${esc(c.o ?? '-')}</td><td data-l="5,000원당 평균 손익" class="r"><span class="ev ${c.e != null && c.e >= TH ? 'plus' : ''}">${won(c.e)}</span></td></tr>`;
   const pickName = one.pick ? N[one.pick] : null;
   let lead;
   if (pickName && good.length && !good.some(c => c.k === one.pick)) lead = `가장 일어날 것 같은 결과는 ${pickName}이지만, 배당이 후하게 나온 쪽은 ${good.map(c => c.label).join(', ')}입니다.`;
   else if (pickName && good.some(c => c.k === one.pick)) lead = `${pickName}은 가장 일어날 것 같고, 배당도 후하게 나와 있습니다.`;
   else if (!pickName) lead = '분석가 의견이 갈려 승패는 판단을 보류합니다.' + (good.length ? ` 배당이 후한 쪽: ${good.map(c => c.label).join(', ')}.` : '');
   else lead = '이번 경기는 배당이 후하게 나온 선택이 없습니다.';
-  const why = good.map(c => `<li><b>${esc(c.label)}</b>: 우리는 ${pct(c.p)}로 보는데, 이 배당은 ${pct(c.be)}만 돼도 본전입니다. 100원을 걸면 평균 <b>${won(c.e)}</b>.</li>`).join('');
+  const why = good.map(c => `<li><b>${esc(c.label)}</b>: 우리는 ${pct(c.p)}로 보는데, 이 배당은 ${pct(c.be)}만 돼도 본전입니다. 5,000원을 걸면 평균 <b>${won(c.e)}</b>.</li>`).join('');
 
   const res = s.result ? `<span class="result">${esc(s.result.score)}</span>` : '<span class="vs">VS</span>';
   const lu = md.lineup || {};
@@ -280,15 +281,15 @@ async function renderMatch(id) {
       </div>
       <div>
         <div class="panel"><h2>배당 이득 계산</h2><p class="lead">${esc(lead)}</p>
-          <div class="scroll"><table class="stack vt"><thead><tr><th>선택</th><th class="r">우리 예상</th><th class="r">본전</th><th class="r">배당</th><th class="r">100원당</th></tr></thead><tbody>
+          <div class="scroll"><table class="stack vt"><thead><tr><th>선택</th><th class="r">우리 예상</th><th class="r">본전</th><th class="r">배당</th><th class="r">5,000원당</th></tr></thead><tbody>
           ${choices.map(vRow).join('')}
           </tbody></table></div>
           ${why ? `<ul class="small why">${why}</ul>` : ''}
           <details><summary>이 표 읽는 법</summary><div class="small">
-            <p><b>우리 예상</b>은 우리가 본 가능성, <b>본전</b>은 본전 가능성, <b>100원당</b>은 100원당 평균 손익입니다.</p>
+            <p><b>우리 예상</b>은 우리가 본 가능성, <b>본전</b>은 본전 가능성, <b>5,000원당</b>은 5,000원당 평균 손익입니다.</p>
             <p><b>본전 가능성</b> = 1 ÷ 배당. 배당 2.00이면 50%입니다. 그 결과가 이보다 자주 일어나야 길게 봤을 때 손해가 아닙니다.</p>
             <p><b>우리가 본 가능성</b>이 본전 가능성보다 높으면 배당이 후하게 나온 것이고, 낮으면 비싸게 나온 것입니다.</p>
-            <p><b>100원당 평균 손익</b>은 같은 판단을 아주 여러 번 했을 때 100원마다 평균으로 남거나 잃는 돈입니다. <span class="ev plus">+5원</span> 이상일 때만 노란 <b>이득 신호</b>를 켭니다. 우리 계산에도 오차가 있어서, 작은 차이는 믿지 않습니다.</p>
+            <p><b>5,000원당 평균 손익</b>은 같은 판단을 아주 여러 번 했을 때 5,000원마다 평균으로 남거나 잃는 돈입니다. <span class="ev plus">+250원</span> 이상일 때만 노란 <b>이득 신호</b>를 켭니다. 우리 계산에도 오차가 있어서, 작은 차이는 믿지 않습니다.</p>
             <p><b>이득 신호가 이번 경기에서 맞는다는 뜻은 아닙니다.</b> 가능성 31%라면 10번 중 7번은 빗나갑니다. 또 배당이 바뀌면 이득도 바뀝니다.</p>
           </div></details></div>
         <div class="panel small"><b>분석 방식</b><br><span class="mute">${esc(r.engine)}</span><br><b>분석 시각</b> <span class="mute">${esc(r.analyzed_at || '-')}</span><br><b>투표 비중</b> <span class="mute">${r.final.map(o => esc(o.member_name) + ' ' + (d.weights[o.member_id] != null ? d.weights[o.member_id].toFixed(2) : '투표 안 함')).join(', ')}</span></div>
@@ -344,7 +345,7 @@ async function renderTeam() {
     <h1>분석팀</h1><p class="lead mute">분야를 나누지 않고 생각하는 방식을 나눴습니다. 모두가 전술, 데이터, 부상, 동기, 시장을 보지만 무게를 두는 곳이 다릅니다.</p>
     <div class="rules sec">
       <div class="stat"><span class="num">과반</span><span>같은 결과를 고른 사람이 절반을 넘으면 예측, 갈리면 판단 보류</span></div>
-      <div class="stat"><span class="num">+${Math.round(c.policy.value_threshold * 100)}원</span><span>100원당 평균 손익이 이 이상이면 이득 신호</span></div>
+      <div class="stat"><span class="num">+${Math.round(c.policy.value_threshold * UNIT).toLocaleString('ko-KR')}원</span><span>5,000원당 평균 손익이 이 이상이면 이득 신호</span></div>
       <div class="stat"><span class="num">${esc(c.policy.min_samples_for_weight)}경기</span><span>채점이 쌓이면 잘 맞힌 사람의 투표 비중을 올림</span></div>
     </div>
     ${c.departments.map(d => `<div class="dept sec"><h2>${esc(d.name)} <span class="tag ${d.active ? 'pick' : 'wait'}">${d.active ? '운영 중' : '준비 중'}</span></h2>
@@ -362,7 +363,7 @@ async function renderRecord() {
         <div class="stat"><span class="num">${esc(c.settled)}</span><span>${label} 채점한 경기</span></div>
         <div class="stat"><span class="num">${pct(c.acc_1x2, 1)}</span><span>팀 결론 승무패 적중률 (예측 ${esc(c.picks_1x2)}, 판단 보류 ${esc(c.passes_1x2)})</span></div>
         <div class="stat"><span class="num">${pct(c.acc_ou, 1)}</span><span>팀 결론 언더/오버 적중률</span></div>
-        <div class="stat"><span class="num">${won(c.roi_1x2)}</span><span>승무패 예측을 100원씩 샀다면 경기당 평균 손익</span></div>
+        <div class="stat"><span class="num">${won(c.roi_1x2)}</span><span>승무패 예측에 5,000원씩 걸었다면 경기당 평균 손익</span></div>
       </div>`;
   view.innerHTML = `<section class="band"><div class="wrap"><h1>인사평가</h1>
     <p class="lead mute">경기가 끝나면 모든 예측을 자동으로 채점합니다. <b>1차</b>는 혼자 처음 낸 분석, <b>최종</b>은 토론 뒤 고친 분석입니다. ${esc(r.min_samples)}경기 이상 채점된 분석가는 성적에 따라 투표 비중이 바뀝니다 (호구형은 투표 안 하는 비교용). 모의 실행은 빠집니다.</p>
@@ -372,11 +373,11 @@ async function renderRecord() {
       return `<div class="sec"><h2>${esc(d.department)}</h2>
       <h3 style="margin-top:14px">전체 경기</h3>${cstat(d.company, '전체')}
       <h3 style="margin-top:18px">분석가별 적중률</h3>
-      ${d.members.length ? `<div class="scroll"><table class="stack rec"><thead><tr><th>분석가</th><th class="r">채점 경기</th><th class="r">승무패<br>1차 → 최종</th><th class="r">언더/오버<br>1차 → 최종</th><th class="r">가능성 오차</th><th class="r">100원당 손익</th><th class="r">투표 비중</th></tr></thead><tbody>
+      ${d.members.length ? `<div class="scroll"><table class="stack rec"><thead><tr><th>분석가</th><th class="r">채점 경기</th><th class="r">승무패<br>1차 → 최종</th><th class="r">언더/오버<br>1차 → 최종</th><th class="r">가능성 오차</th><th class="r">5,000원당 손익</th><th class="r">투표 비중</th></tr></thead><tbody>
         ${d.members.map(x => { const i = ini[x.member_id]; return `<tr style="--mc:${esc(x.color || '#333')}"><td data-l="분석가"><span class="who-badge sm">${esc(x.name)}</span></td><td data-l="채점 경기" class="r num">${esc(x.n)}</td>
           <td data-l="승무패 1차→최종" class="r num">${cell(i, 'acc_1x2')} → <b>${pct(x.acc_1x2, 0)}</b></td>
           <td data-l="언오버 1차→최종" class="r num">${cell(i, 'acc_ou')} → <b>${pct(x.acc_ou, 0)}</b></td>
-          <td data-l="가능성 오차" class="r num">${x.brier_1x2.toFixed(3)}</td><td data-l="100원당 손익" class="r num">${won(x.roi_1x2)}</td>
+          <td data-l="가능성 오차" class="r num">${x.brier_1x2.toFixed(3)}</td><td data-l="5,000원당 손익" class="r num">${won(x.roi_1x2)}</td>
           <td data-l="투표 비중" class="r num">${x.votes === false ? '<span class="mute">투표 안 함</span>' : x.weight.toFixed(2)}</td></tr>`; }).join('')}
       </tbody></table></div><p class="small mute">1차 → 최종: 혼자 판단했을 때와 토론 뒤의 적중률입니다. 토론으로 나아졌는지 볼 수 있습니다. 가능성 오차(브라이어 점수)는 낮을수록 잘 맞힌 것입니다.</p>`
         : '<p class="empty">아직 결과가 들어온 경기가 없습니다. 첫 경기가 끝나면 여기에 성적이 쌓입니다.</p>'}</div>`; }).join('')}
@@ -390,11 +391,11 @@ async function renderBets() {
   const pctx = p => (p * 100).toFixed(1) + '%';
   const st = s => s.status === 'won' ? '<span class="tag hit">적중</span>' : s.status === 'lost' ? '<span class="tag miss">실패</span>' : '<span class="tag wait">진행 중</span>';
   const mark = l => l.hit === true ? '<span class="tag hit">맞음</span>' : l.hit === false ? '<span class="tag miss">틀림</span>' : '';
-  const won100 = v => (v >= 0 ? '+' : '−') + Math.abs(Math.round(v)) + '원';
+  const won100 = v => (v >= 0 ? '+' : '−') + Math.abs(Math.round(v * UNIT / 100)).toLocaleString('ko-KR') + '원';
   const howText = s => {
     const h = s.how || {};
     const q = h.kelly_quarter || 0;
-    return `<b>금액 정한 방법</b> · 모두 맞을 가능성 ${pctx(s.prob)} × 배당 ${esc(s.combined_odds)} → 100원당 평균 ${won100(h.ev_per_100 ?? 0)}. `
+    return `<b>금액 정한 방법</b> · 모두 맞을 가능성 ${pctx(s.prob)} × 배당 ${esc(s.combined_odds)} → 5,000원당 평균 ${won100(h.ev_per_100 ?? 0)}. `
       + (q > 0 ? `켈리 기준(자신감 비율)의 1/4 = 남은 돈의 ${(q * 100).toFixed(1)}% → ${W(s.stake)} (한 장 5천~10만원 안으로 맞춤).`
                : `계산상 이득이 크지 않아 최소 금액 ${W(s.stake)}만 걸었습니다.`);
   };
@@ -432,7 +433,7 @@ async function renderBets() {
     <div class="tk-explain"><h3>설명</h3>
       <p class="small">${howText(s)}</p>
       <ol class="small">${s.legs.map(l => `<li><b>${esc(l.title)} → ${esc(l.label)} @${esc(l.odds)}</b><br>
-        AI 가능성 <b>${pctx(l.prob)}</b> · 본전 가능성(1÷배당) ${pctx(l.breakeven ?? 1 / l.odds)} · 100원당 <b class="${(l.ev ?? 0) >= 0 ? 'plus' : ''}">${won100((l.ev ?? (l.prob * l.odds - 1)) * 100)}</b>
+        AI 가능성 <b>${pctx(l.prob)}</b> · 본전 가능성(1÷배당) ${pctx(l.breakeven ?? 1 / l.odds)} · 5,000원당 <b class="${(l.ev ?? 0) >= 0 ? 'plus' : ''}">${won100((l.ev ?? (l.prob * l.odds - 1)) * 100)}</b>
         ${l.reason ? `<br><span class="mute">“${esc(l.reason)}”</span>` : ''}</li>`).join('')}</ol></div></div>`;
   const pick = store.get('aa_bet_who') || 'all';
   const shown = pick === 'all' ? b.accounts : b.accounts.filter(a => a.member_id === pick);
@@ -461,7 +462,7 @@ async function renderBets() {
       const mine = b.slips.filter(s => s.member_id === a.member_id);
       return `<h2 class="who-title" style="--mc:${esc(col(a.member_id))}"><span class="dot"></span>${esc(a.name)}의 배팅 <span class="small mute">${mine.length}장 · 배팅 적중 ${rate(a.won, a.settled)}</span></h2>${mine.length ? mine.map(slip).join('') : '<p class="empty">아직 배팅이 없습니다. 분석이 끝난 경기가 생기면 자동으로 겁니다.</p>'}`;
     }).join('')}
-    <p class="small mute" style="margin-top:24px">고르는 법: 각 분석가가 경기마다 자기 최종 가능성으로 승무패·언더오버 중 가장 이득인 선택 하나를 고릅니다(가능성 45% 미만은 제외). 그중 100원당 평균 손익이 큰 경기부터 3·5·7개를 담습니다. 금액은 켈리 기준의 1/4(자신 있을수록 많이)을 한도 안에서 1,000원 단위로. 배당은 북메이커 평균. 배당 자료가 없는 리그·대회(K리그2·J2리그·AFC챔피언스리그)는 빠집니다. 추가로 넣은 돈은 손익에서 빼고 계산합니다.</p>
+    <p class="small mute" style="margin-top:24px">고르는 법: 각 분석가가 경기마다 자기 최종 가능성으로 승무패·언더오버 중 가장 이득인 선택 하나를 고릅니다(가능성 45% 미만은 제외). 그중 5,000원당 평균 손익이 큰 경기부터 3·5·7개를 담습니다. 금액은 켈리 기준의 1/4(자신 있을수록 많이)을 한도 안에서 1,000원 단위로. 배당은 북메이커 평균. 배당 자료가 없는 리그·대회(K리그2·J2리그·AFC챔피언스리그)는 빠집니다. 추가로 넣은 돈은 손익에서 빼고 계산합니다.</p>
   </div></section>`;
   view.querySelectorAll('[data-who]').forEach(el => el.onclick = () => {
     const w = el.dataset.who;
