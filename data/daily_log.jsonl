@@ -5,3 +5,4 @@
 {"at": "2026-11-24 14:52 KST", "settled": 0, "collected": 9, "analyzed": [], "errors": ["분석 AF-1635641: Claude API 오류 400: {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"tool_choice: type \\\"tool\\\" and \\\"any\\\" are not supported for this model.\"},\"request_id\":\"req_011ChMEU9eJwfrn4gMdo9ffJ\"}"]}
 {"at": "2026-11-24 14:54 KST", "settled": 0, "collected": 9, "analyzed": ["AF-1635641"], "errors": []}
 {"at": "2026-11-24 14:58 KST", "settled": 0, "collected": 9, "analyzed": ["AF-1635667", "AF-1635611", "AF-1635649", "AF-1635663", "AF-1635692", "AF-1635713", "AF-1635715", "AF-1635731"], "errors": []}
+{"at": "2026-11-24 17:40 KST", "settled": 0, "collected": 0, "analyzed": ["AF-1635641", "AF-1635667", "AF-1635611", "AF-1635649", "AF-1635663", "AF-1635692", "AF-1635713", "AF-1635715", "AF-1635731"], "errors": ["채점: api_football 오늘 호출 한도(100)를 넘게 됩니다. 캐시된 자료만 쓰거나 한도를 올리세요."], "betting": {"settled": 0, "placed": 9}}
