@@ -105,8 +105,9 @@ def analyze(company: Company, match: Match, client, ledger: Ledger, dept_id: str
         raise RuntimeError(f"{dept.name} 은 아직 비활성 부서입니다.")
     sport = get_sport(match.sport)
     line = float(match.odds.get("line", dept.over_under_line))
-    voters = company.voters(dept.id)
-    if not voters:
+    voters = company.analysts(dept.id) or company.voters(dept.id)   # 분석·토론 참여자 (투표 안 하는 사람 포함)
+    voting = {m.id for m in company.voters(dept.id)}
+    if not voting:
         raise RuntimeError(f"{dept.name} 에 투표할 분석가가 없습니다.")
 
     base = sport.base_model(match, line)
@@ -154,7 +155,7 @@ def analyze(company: Company, match: Match, client, ledger: Ledger, dept_id: str
 
     # 3) 가중 투표
     weights = ledger.weights(company, dept.id)
-    one, ou = decide(final, weights, company.policy, match.odds, m1, mou)
+    one, ou = decide([o for o in final if o.member_id in voting], weights, company.policy, match.odds, m1, mou)
     decision = Decision(match_id=match.id, department=dept.id, one_x_two=one, over_under=ou, line=line, weights=weights)
 
     # 4) 팀장이 있으면 최종 코멘트
@@ -171,3 +172,34 @@ def analyze(company: Company, match: Match, client, ledger: Ledger, dept_id: str
         decision.comment = str(d.get("comment", ""))
 
     return AnalysisRun(match, decision, first, final, base, m1, mou, margin, getattr(client, "label", "unknown"))
+
+
+def join_member(company: Company, run: dict, member: Member, client) -> tuple[Opinion, Opinion]:
+    """이미 분석된 경기에 새 분석가 한 명의 1차 분석과 토론 의견을 더한다.
+    팀 결론(투표 결과)은 바꾸지 않는다. 동료들의 1차 분석을 읽고 토론하는 것은 다른 사람과 같다."""
+    mm = run["match"]
+    match = Match(id=mm["id"], sport=mm["sport"], league=mm["league"], kickoff=mm["kickoff"],
+                  home=mm["home"], away=mm["away"], odds=mm.get("odds") or {}, data=mm.get("data") or {})
+    sport = get_sport(match.sport)
+    line = float(run["decision"].get("line") or match.odds.get("line", 2.5))
+    base = sport.base_model(match, line)
+    m1, margin = implied_probs(match.odds, OUTCOMES)
+    mou, _ = implied_probs(match.odds, OU)
+    brief = sport.brief(match)
+    market = _market_text(match, m1, margin, mou, line)
+    ctx = {"base_probs": base["probs"], "base_over": base["over_prob"], "market_probs": m1, "odds": match.odds,
+           "data": match.data}
+    prompt = _template(company, "analysis").safe_substitute(
+        member_name=member.name, member_title=member.title, match_brief=brief,
+        base_model=base["detail"], market=market if member.sees_market else BLIND_MARKET, line=line,
+    )
+    own = Opinion.from_dict(member.id, member.name, "initial", _ask(client, company, member, "initial", prompt, ctx))
+    others = [Opinion.from_dict(o["member_id"], o["member_name"], "initial", o)
+              for o in run.get("initial", []) if o["member_id"] != member.id]
+    prompt = _template(company, "debate").safe_substitute(
+        member_name=member.name, member_title=member.title, match_brief=brief, market=market,
+        own_opinion=own.short(), others="\n\n".join(o.short() for o in others) or "(동료 없음)", line=line,
+    )
+    d = _ask(client, company, member, "debate", prompt,
+             {**ctx, "own": own.to_dict(), "others": [o.to_dict() for o in others]})
+    return own, Opinion.from_dict(member.id, member.name, "debate", d)
