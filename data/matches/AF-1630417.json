@@ -6,8 +6,8 @@
   "league_name": "AFC챔피언스리그 2",
   "kickoff": "2026-11-26 21:15 KST",
   "kickoff_iso": "2026-11-26T21:15:00+09:00",
-  "home": "BG Pathum United",
-  "away": "Home United",
+  "home": "BG 빠툼 유나이티드",
+  "away": "홈 유나이티드",
   "home_en": "BG Pathum United",
   "away_en": "Home United",
   "odds": {
@@ -61,8 +61,8 @@
     "season": 2026
   },
   "head_to_head": [
-    "2026-09-17 Home United 1-1 BG Pathum United",
-    "2025-03-30 BG Pathum United 1-1 Home United"
+    "2026-09-17 홈 유나이티드 1-1 BG 빠툼 유나이티드",
+    "2025-03-30 BG 빠툼 유나이티드 1-1 홈 유나이티드"
   ],
   "schedule": {
     "home_prev": "2026-11-08 Thai League 1",
@@ -73,5 +73,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 08:44 KST"
+  "collected_at": "2026-11-25 08:45 KST"
 }

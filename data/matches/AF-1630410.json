@@ -6,8 +6,8 @@
   "league_name": "AFC챔피언스리그 2",
   "kickoff": "2026-11-26 01:00 KST",
   "kickoff_iso": "2026-11-26T01:00:00+09:00",
-  "home": "Al-Jazira",
-  "away": "Gol Gohar",
+  "home": "알자지라",
+  "away": "골고하르",
   "home_en": "Al-Jazira",
   "away_en": "Gol Gohar",
   "odds": {
@@ -61,7 +61,7 @@
     "season": 2026
   },
   "head_to_head": [
-    "2026-09-15 Gol Gohar 0-0 Al-Jazira"
+    "2026-09-15 골고하르 0-0 알자지라"
   ],
   "schedule": {
     "home_prev": "2026-11-21 Pro League",
@@ -72,5 +72,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 08:44 KST"
+  "collected_at": "2026-11-25 08:45 KST"
 }

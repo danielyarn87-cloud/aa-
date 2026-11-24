@@ -7,7 +7,7 @@
   "kickoff": "2026-11-25 16:45 KST",
   "kickoff_iso": "2026-11-25T16:45:00+09:00",
   "home": "멜버른 빅토리",
-  "away": "Viettel",
+  "away": "비엣텔",
   "home_en": "Melbourne Victory",
   "away_en": "Viettel",
   "odds": {
@@ -61,7 +61,7 @@
     "season": 2026
   },
   "head_to_head": [
-    "2026-09-16 Viettel 1-1 멜버른 빅토리"
+    "2026-09-16 비엣텔 1-1 멜버른 빅토리"
   ],
   "schedule": {
     "home_prev": "2026-11-21 A-League",
@@ -72,5 +72,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 08:44 KST"
+  "collected_at": "2026-11-25 08:45 KST"
 }

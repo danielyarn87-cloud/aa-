@@ -6,7 +6,7 @@
   "league_name": "AFC챔피언스리그 2",
   "kickoff": "2026-11-26 21:15 KST",
   "kickoff_iso": "2026-11-26T21:15:00+09:00",
-  "home": "Wofoo Tai Po",
+  "home": "타이포",
   "away": "애들레이드 유나이티드",
   "home_en": "Wofoo Tai Po",
   "away_en": "Adelaide United",
@@ -61,7 +61,7 @@
     "season": 2026
   },
   "head_to_head": [
-    "2026-09-17 애들레이드 유나이티드 3-0 Wofoo Tai Po"
+    "2026-09-17 애들레이드 유나이티드 3-0 타이포"
   ],
   "schedule": {
     "home_prev": "2026-11-21 Premier League",
@@ -72,5 +72,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 08:44 KST"
+  "collected_at": "2026-11-25 08:45 KST"
 }

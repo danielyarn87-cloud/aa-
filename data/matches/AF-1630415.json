@@ -6,8 +6,8 @@
   "league_name": "AFC챔피언스리그 2",
   "kickoff": "2026-11-26 19:00 KST",
   "kickoff_iso": "2026-11-26T19:00:00+09:00",
-  "home": "Kuching FA",
-  "away": "Phnom Penh Crown",
+  "home": "쿠칭 FA",
+  "away": "프놈펜 크라운",
   "home_en": "Kuching FA",
   "away_en": "Phnom Penh Crown",
   "odds": {
@@ -61,7 +61,7 @@
     "season": 2026
   },
   "head_to_head": [
-    "2026-09-17 Phnom Penh Crown 2-1 Kuching FA"
+    "2026-09-17 프놈펜 크라운 2-1 쿠칭 FA"
   ],
   "schedule": {
     "home_prev": "2026-11-20 Super League",
@@ -72,5 +72,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 08:44 KST"
+  "collected_at": "2026-11-25 08:45 KST"
 }

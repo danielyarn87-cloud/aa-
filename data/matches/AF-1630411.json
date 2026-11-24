@@ -6,8 +6,8 @@
   "league_name": "AFC챔피언스리그 2",
   "kickoff": "2026-11-26 01:00 KST",
   "kickoff_iso": "2026-11-26T01:00:00+09:00",
-  "home": "Muharraq",
-  "away": "Arkadag",
+  "home": "알무하라크",
+  "away": "아르카다그",
   "home_en": "Muharraq",
   "away_en": "Arkadag",
   "odds": {
@@ -61,7 +61,7 @@
     "season": 2026
   },
   "head_to_head": [
-    "2026-09-15 Arkadag 1-0 Muharraq"
+    "2026-09-15 아르카다그 1-0 알무하라크"
   ],
   "schedule": {
     "home_prev": "2026-11-05 AFC Champions League Two",
@@ -72,5 +72,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 08:44 KST"
+  "collected_at": "2026-11-25 08:45 KST"
 }

@@ -6,7 +6,7 @@
   "league_name": "AFC챔피언스리그 2",
   "kickoff": "2026-11-26 21:15 KST",
   "kickoff_iso": "2026-11-26T21:15:00+09:00",
-  "home": "Svay Rieng",
+  "home": "스바이리엥",
   "away": "마치다 젤비아",
   "home_en": "Svay Rieng",
   "away_en": "Machida Zelvia",
@@ -61,7 +61,7 @@
     "season": 2026
   },
   "head_to_head": [
-    "2026-09-17 마치다 젤비아 2-0 Svay Rieng"
+    "2026-09-17 마치다 젤비아 2-0 스바이리엥"
   ],
   "schedule": {
     "home_prev": "2026-11-22 C-League",
@@ -72,5 +72,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 08:44 KST"
+  "collected_at": "2026-11-25 08:45 KST"
 }

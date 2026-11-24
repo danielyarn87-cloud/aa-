@@ -6,8 +6,8 @@
   "league_name": "AFC챔피언스리그 2",
   "kickoff": "2026-11-26 03:15 KST",
   "kickoff_iso": "2026-11-26T03:15:00+09:00",
-  "home": "Al Taawon",
-  "away": "Al-Nahda",
+  "home": "알타아운",
+  "away": "알나흐다",
   "home_en": "Al Taawon",
   "away_en": "Al-Nahda",
   "odds": {
@@ -61,7 +61,7 @@
     "season": 2026
   },
   "head_to_head": [
-    "2026-09-16 Al-Nahda 1-1 Al Taawon"
+    "2026-09-16 알나흐다 1-1 알타아운"
   ],
   "schedule": {
     "home_prev": "2026-11-05 AFC Champions League Two",
@@ -72,5 +72,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 08:44 KST"
+  "collected_at": "2026-11-25 08:45 KST"
 }

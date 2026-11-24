@@ -7,7 +7,7 @@
   "kickoff": "2026-11-26 19:00 KST",
   "kickoff_iso": "2026-11-26T19:00:00+09:00",
   "home": "강원 FC",
-  "away": "Kitchee",
+  "away": "킷치",
   "home_en": "Gangwon FC",
   "away_en": "Kitchee",
   "odds": {
@@ -61,7 +61,7 @@
     "season": 2026
   },
   "head_to_head": [
-    "2026-09-17 Kitchee 0-0 강원 FC"
+    "2026-09-17 킷치 0-0 강원 FC"
   ],
   "schedule": {
     "home_prev": "2026-11-21 K League 1",
@@ -72,5 +72,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 08:44 KST"
+  "collected_at": "2026-11-25 08:45 KST"
 }

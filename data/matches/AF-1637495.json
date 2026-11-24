@@ -6,7 +6,7 @@
   "league_name": "AFC챔피언스리그 2",
   "kickoff": "2026-11-25 21:15 KST",
   "kickoff_iso": "2026-11-25T21:15:00+09:00",
-  "home": "Persib Bandung",
+  "home": "페르시브 반둥",
   "away": "FC 서울",
   "home_en": "Persib Bandung",
   "away_en": "FC Seoul",
@@ -61,7 +61,7 @@
     "season": 2026
   },
   "head_to_head": [
-    "2026-09-16 FC 서울 0-1 Persib Bandung"
+    "2026-09-16 FC 서울 0-1 페르시브 반둥"
   ],
   "schedule": {
     "home_prev": "2026-11-22 Liga 1",
@@ -72,5 +72,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 08:44 KST"
+  "collected_at": "2026-11-25 08:45 KST"
 }

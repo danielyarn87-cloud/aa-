@@ -6,8 +6,8 @@
   "league_name": "AFC챔피언스리그 2",
   "kickoff": "2026-11-26 01:00 KST",
   "kickoff_iso": "2026-11-26T01:00:00+09:00",
-  "home": "Al Faisaly",
-  "away": "Al-Rayyan SC",
+  "home": "알파이살리",
+  "away": "알라이얀",
   "home_en": "Al Faisaly",
   "away_en": "Al-Rayyan SC",
   "odds": {
@@ -61,7 +61,7 @@
     "season": 2026
   },
   "head_to_head": [
-    "2026-09-16 Al-Rayyan SC 4-3 Al Faisaly"
+    "2026-09-16 알라이얀 4-3 알파이살리"
   ],
   "schedule": {
     "home_prev": "2026-11-22 Cup",
@@ -72,5 +72,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 08:44 KST"
+  "collected_at": "2026-11-25 08:45 KST"
 }
