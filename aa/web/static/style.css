@@ -312,6 +312,7 @@ pre{background:var(--panel);padding:12px;border-radius:8px;font-size:14px;white-
 .k2{background:#EEEDFE;color:#3C3489}.k2 .ks{color:#534AB7}
 .k3{background:#FAEEDA;color:#633806}.k3 .ks{color:#854F0B}
 .k4{background:#E6F1FB;color:#0C447C}.k4 .ks{color:#185FA5}
+.k5{background:#DDF4FC;color:#0B5A72}.k5 .ks{color:#0E7490}.k5 .ks b{color:#b91c1c}.k5 .ks b.plus{color:#047857}
 .lgtoggle{display:flex;justify-content:space-between;align-items:center;width:100%;font:inherit;font-size:15px;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 14px;cursor:pointer;margin-bottom:8px}
 .lgchips[hidden]{display:none}
 
@@ -328,6 +329,7 @@ pre{background:var(--panel);padding:12px;border-radius:8px;font-size:14px;white-
   .seg:nth-child(-n+3){border-top:0}.seg:nth-child(4){border-left:0}
   .listhead + .kpis + .lgtoggle ~ .small{font-size:12px}
   .kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0}
+  .kpis .k4{grid-column:1/-1}
   .kpi{padding:10px 12px}
   .kl{font-size:12px}.kn{font-size:30px}.ks{font-size:11px}
   .lgtoggle{font-size:14px;padding:8px 12px}
