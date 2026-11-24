@@ -289,10 +289,25 @@ async function renderBets() {
   const pctx = p => (p * 100).toFixed(1) + '%';
   const st = s => s.status === 'won' ? '<span class="tag hit">적중</span>' : s.status === 'lost' ? '<span class="tag miss">실패</span>' : '<span class="tag wait">진행 중</span>';
   const mark = l => l.hit === true ? '<span class="tag hit">맞음</span>' : l.hit === false ? '<span class="tag miss">틀림</span>' : '';
+  const won100 = v => (v >= 0 ? '+' : '−') + Math.abs(Math.round(v)) + '원';
+  const howText = s => {
+    const h = s.how || {};
+    const q = h.kelly_quarter || 0;
+    return `<b>금액 정한 방법</b> · 모두 맞을 가능성 ${pctx(s.prob)} × 배당 ${esc(s.combined_odds)} → 100원당 평균 ${won100(h.ev_per_100 ?? 0)}. `
+      + (q > 0 ? `켈리 기준(자신감 비율)의 1/4 = 남은 돈의 ${(q * 100).toFixed(1)}% → ${W(s.stake)} (한 장 5천~10만원 안으로 맞춤).`
+               : `계산상 이득이 크지 않아 최소 금액 ${W(s.stake)}만 걸었습니다.`);
+  };
   const slip = s => `<div class="panel slip"><div class="inline" style="justify-content:space-between;align-items:baseline">
       <h3 style="margin:0">${esc(s.size)}폴더 · <span class="num">${W(s.stake)}</span></h3>${st(s)}</div>
-    <p class="small mute" style="margin:4px 0 8px">배당 <b class="num">${esc(s.combined_odds)}</b> · 모두 맞을 가능성 ${pctx(s.prob)} · 적중하면 <b class="num">${W(Math.floor(s.stake * s.combined_odds))}</b>${s.status === 'won' ? ` · 받은 돈 <b class="num">${W(s.payout)}</b>` : ''} · ${esc(s.days.join(', '))} 경기 · ${esc(s.placed_at)}</p>
-    <table><tbody>${s.legs.map(l => `<tr><td>${esc(l.kickoff.slice(5, 16))}</td><td><a href="#m-${encodeURIComponent(l.match_id)}">${esc(l.title)}</a></td><td><b>${esc(l.label)}</b></td><td class="r num">${esc(l.odds)}</td><td class="r small mute">${pctx(l.prob)}</td><td class="r">${mark(l)}</td></tr>`).join('')}</tbody></table></div>`;
+    <p class="small mute" style="margin:4px 0 6px">배당 <b class="num">${esc(s.combined_odds)}</b> · 적중하면 <b class="num">${W(Math.floor(s.stake * s.combined_odds))}</b>${s.status === 'won' ? ` · 받은 돈 <b class="num">${W(s.payout)}</b>` : ''} · ${esc(s.days.join(', '))} 경기 · ${esc(s.placed_at)}</p>
+    <p class="small" style="margin:0 0 10px;padding:8px 10px;background:var(--soft, #f3f5f4);border-radius:8px">${howText(s)}</p>
+    <div class="legs">${s.legs.map((l, i) => `<div class="leg">
+      <div class="leg-top"><span class="num mute">${i + 1}</span>
+        <span><a href="#m-${encodeURIComponent(l.match_id)}">${esc(l.title)}</a> <span class="small mute">${esc(l.kickoff.slice(5, 16))}</span></span>
+        <b>${esc(l.label)}</b> <span class="num">@${esc(l.odds)}</span> ${mark(l)}</div>
+      <div class="small leg-why">AI 가능성 <b>${pctx(l.prob)}</b> · 본전 가능성(1÷배당) ${pctx(l.breakeven ?? 1 / l.odds)} · 100원당 <b class="${(l.ev ?? 0) >= 0 ? 'plus' : ''}">${won100((l.ev ?? (l.prob * l.odds - 1)) * 100)}</b></div>
+      ${l.reason ? `<div class="small mute leg-why">“${esc(l.reason)}”</div>` : ''}
+    </div>`).join('')}</div></div>`;
   view.innerHTML = `<section class="band"><div class="wrap"><h1>배팅 게임</h1>
     <p class="lead mute">분석가 3명이 각자 가상 자금 <b>${W(b.start_bankroll)}</b>으로 자기 예측만 믿고 3폴더·5폴더·7폴더 조합 배팅을 합니다. 한 장에 ${W(b.min_stake)}~${W(b.max_stake)}, 경기는 이틀 안에서만 고릅니다. 실제 돈이 아닌 실력 비교용입니다.</p>
     <div class="grid3">${b.accounts.map(a => `<div class="panel" style="border-top:4px solid ${esc(a.color || '#0d5c35')}">
@@ -304,7 +319,7 @@ async function renderBets() {
       const mine = b.slips.filter(s => s.member_id === a.member_id);
       return `<h2 style="margin-top:28px">${esc(a.name)}의 배팅</h2>${mine.length ? mine.map(slip).join('') : '<p class="empty">아직 배팅이 없습니다. 분석이 끝난 경기가 생기면 자동으로 겁니다.</p>'}`;
     }).join('')}
-    <p class="small mute" style="margin-top:24px">고르는 법: 각자 자기 최종 가능성이 45% 이상인 선택 중 100원당 평균 손익이 큰 경기부터 담습니다. 금액은 켈리 기준의 1/4(자신 있을수록 많이)을 한도 안에서 1,000원 단위로. 배당은 북메이커 평균. 배당 자료가 없는 리그(K리그2·J2리그)는 빠집니다.</p>
+    <p class="small mute" style="margin-top:24px">고르는 법: 각 분석가가 경기마다 자기 최종 가능성으로 승무패·언더오버 중 가장 이득인 선택 하나를 고릅니다(가능성 45% 미만은 제외). 그중 100원당 평균 손익이 큰 경기부터 3·5·7개를 담습니다. 금액은 켈리 기준의 1/4(자신 있을수록 많이)을 한도 안에서 1,000원 단위로. 배당은 북메이커 평균. 배당 자료가 없는 리그(K리그2·J2리그)는 빠집니다.</p>
   </div></section>`;
 }
 
