@@ -12,7 +12,7 @@ on:
   workflow_dispatch:         # 원할 때 분석: Actions 탭 → 매일 분석 → "Run workflow" (휴대폰 GitHub 앱에서도 가능)
     inputs:
       leagues:
-        description: "리그 번호, 쉼표로 (비우면 기본 리그). 39 EPL, 140 라리가, 135 세리에A, 78 분데스, 61 리그1, 2 챔스, 3 유로파, 848 컨퍼런스, 40 챔피언십, 88 에레디비시, 94 포르투갈, 203 튀르키예, 144 벨기에, 179 스코틀랜드, 292 K리그1, 98 J1"
+        description: "리그 번호, 쉼표로 (비우면 기본 리그). 39 EPL, 140 라리가, 135 세리에A, 78 분데스, 61 리그1, 2 챔스, 3 유로파, 848 컨퍼런스, 40 챔피언십, 88 에레디비시, 94 포르투갈, 203 튀르키예, 144 벨기에, 179 스코틀랜드, 292 K리그1, 293 K리그2, 98 J1, 99 J2, 253 MLS"
         required: false
         default: ""
       days:
@@ -29,6 +29,10 @@ on:
         default: ""
       light:
         description: "호출 절약 (순위표만 쓰고 부상자·상대 전적·직전 경기 생략)"
+        type: boolean
+        default: false
+      reanalyze:
+        description: "이미 분석한 경기도 기간 안이면 다시 분석"
         type: boolean
         default: false
       mock:
@@ -71,6 +75,7 @@ jobs:
           IN_MAX: ${{ inputs.max }}
           IN_MOCK: ${{ inputs.mock }}
           IN_LIGHT: ${{ inputs.light }}
+          IN_REANALYZE: ${{ inputs.reanalyze }}
         run: |
           ARGS=()
           [ -n "$IN_LEAGUES" ] && ARGS+=(--leagues "$IN_LEAGUES")
@@ -79,6 +84,7 @@ jobs:
           [ -n "$IN_MAX" ] && ARGS+=(--max "$IN_MAX")
           [ "$IN_MOCK" = "true" ] && ARGS+=(--mock)
           [ "$IN_LIGHT" = "true" ] && ARGS+=(--light)
+          [ "$IN_REANALYZE" = "true" ] && ARGS+=(--reanalyze)
           python -m aa daily "${ARGS[@]}"
 
       - name: 기록 저장 (예측·결과·API 캐시)
