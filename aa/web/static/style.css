@@ -230,3 +230,13 @@ pre{background:var(--panel);padding:12px;border-radius:8px;font-size:14px;white-
   .tk-res{width:auto;text-align:left}
   .tk-res:empty{display:none}
 }
+
+/* 분석 요청: 경기 고르기 */
+.pk-row{display:grid;grid-template-columns:auto 52px 1fr auto;gap:10px;align-items:center;padding:10px 8px;border-bottom:1px solid var(--line);cursor:pointer}
+.pk-row input{width:20px;height:20px;margin:0}
+.pk-row.on{background:#fff7d1}
+.pk-row .lg{font-size:13px;color:var(--mute)}
+.pk-panel{position:sticky;top:76px}
+.pk-chosen{margin:8px 0 0;padding-left:18px;max-height:260px;overflow:auto}
+.tag.mine{background:#1f2937;color:#fff;border-color:#1f2937;font-weight:700}
+@media (max-width:640px){.pk-row{grid-template-columns:auto 44px 1fr}.pk-row>span:last-child{grid-column:3}.pk-panel{position:static}}
