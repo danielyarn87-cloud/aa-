@@ -14,7 +14,7 @@ from .voting import decide
 
 
 _PROBS = {"type": "object", "properties": {k: {"type": "number"} for k in ("home", "draw", "away")},
-          "required": ["home", "draw", "away"]}
+          "required": ["home", "draw", "away"], "additionalProperties": False}
 _TEXTS = {"type": "array", "items": {"type": "string"}}
 _OPINION = {
     "probs": _PROBS,
@@ -28,13 +28,13 @@ _OPINION = {
 }
 _REQ = ["probs", "pick_1x2", "over_prob", "pick_ou", "confidence", "key_reasons", "risks", "summary"]
 SCHEMAS = {
-    "initial": {"type": "object", "properties": _OPINION, "required": _REQ},
+    "initial": {"type": "object", "properties": _OPINION, "required": _REQ, "additionalProperties": False},
     "debate": {"type": "object",
                "properties": {"rebuttal": {"type": "string"}, "concession": {"type": "string"},
                               "changed": {"type": "string"}, **_OPINION},
-               "required": ["rebuttal", "concession", "changed", *_REQ]},
+               "required": ["rebuttal", "concession", "changed", *_REQ], "additionalProperties": False},
     "lead": {"type": "object", "properties": {"headline": {"type": "string"}, "comment": {"type": "string"}},
-             "required": ["headline", "comment"]},
+             "required": ["headline", "comment"], "additionalProperties": False},
 }
 
 
