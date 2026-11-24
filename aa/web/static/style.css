@@ -182,3 +182,5 @@ pre{background:var(--panel);padding:12px;border-radius:8px;font-size:14px;white-
 .who-title{display:flex;align-items:center;gap:10px;margin-top:30px;padding:10px 14px;border-radius:10px;background:color-mix(in srgb,var(--mc) 12%,transparent);color:var(--mc);font-size:24px}
 .who-title .dot{width:14px;height:14px;border-radius:50%;background:var(--mc)}
 .who-title .small{color:inherit;opacity:.8;font-weight:600}
+.tag.both{background:#ffd60a;color:#111;border-color:#e0b800;font-weight:800;box-shadow:0 0 0 2px #0d5c35 inset}
+.tag.both .star{color:#0d5c35;font-weight:900}
