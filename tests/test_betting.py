@@ -93,3 +93,17 @@ def test_odds_limit_follows_remaining_header(company):
                 transport=lambda u, p, h: ([], {"x-requests-last": "2", "x-requests-remaining": "19800"}))
     o.odds("soccer_epl")
     assert o.remaining == 19800 and o.monthly == 2 + 19800
+
+
+def test_topups_are_added_once_and_not_counted_as_profit(company):
+    p = betting.topups_path(company)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(json.dumps({"topups": [{"id": "t1", "member_id": "hogu", "amount": 500000},
+                                        {"id": "t2", "member_id": "없는사람", "amount": 9}]}), encoding="utf-8")
+    book = betting.load(company)
+    assert book["accounts"]["hogu"]["bankroll"] == 1_500_000 and book["accounts"]["hogu"]["deposited"] == 500_000
+    betting.save(company, book)
+    book = betting.load(company)                    # 다시 읽어도 두 번 넣지 않는다
+    assert book["accounts"]["hogu"]["bankroll"] == 1_500_000
+    acc = next(a for a in betting.summary(company)["accounts"] if a["member_id"] == "hogu")
+    assert acc["value"] == 1_500_000 and acc["profit"] == 0 and acc["deposited"] == 500_000
