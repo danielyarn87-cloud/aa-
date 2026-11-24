@@ -5,7 +5,8 @@
 //   RUN_PASSWORD  분석 요청 비밀번호 (아무나 눌러서 API 비용을 쓰지 못하게)
 //   GH_REPO       (선택) 기본값 danielyarn87-cloud/aa-
 //
-// POST /api/run  {"password", "leagues": [39, 140], "days": 2, "max": 10, "save_default": false}
+// POST /api/run  {"password", "ids": ["AF-1", "AF-2"]}              고른 경기만 분석 (최대 40)
+//                {"password", "leagues": [39, 140], "save_default"}   경기 목록만 새로 모으기 (분석 없음)
 // GET  /api/run  최근 실행 3개의 상태 (비밀번호 필요 없음)
 
 const WORKFLOW = "daily.yml";
@@ -72,25 +73,24 @@ export async function onRequestPost({ request, env }) {
   }
   if (!sameText(body.password || "", env.RUN_PASSWORD)) return json({ error: "비밀번호가 맞지 않습니다." }, 401);
 
-  const leagues = [...new Set((body.leagues || []).map(Number))].filter((n) => Number.isInteger(n) && n > 0);
-  if (!leagues.length || leagues.length > 20) return json({ error: "리그를 1~20개 고르세요." }, 400);
-  const days = Math.min(Math.max(parseInt(body.days, 10) || 2, 1), 7);
-  const max = Math.min(Math.max(parseInt(body.max, 10) || 10, 1), 30);
+  // 고른 경기만 분석: {"ids": ["AF-1", ...]}  /  경기 목록만 새로 모으기(분석 없음, Claude 비용 없음): {"leagues": [...]}
+  const ids = [...new Set((body.ids || []).map(String))].filter((x) => /^[A-Z]{1,5}-\d{1,12}$/.test(x));
+  if ((body.ids || []).length && !ids.length) return json({ error: "고른 경기 번호가 올바르지 않습니다." }, 400);
+  if (ids.length > 40) return json({ error: "한 번에 40경기까지 고를 수 있습니다." }, 400);
 
-  try {
-    if (body.save_default) await saveDefault(env, leagues);
-  } catch (e) {
-    return json({ error: e.message }, 502);
+  let inputs;
+  if (ids.length) {
+    inputs = { ids: ids.join(","), light: "false", mock: "false" };
+  } else {
+    const leagues = [...new Set((body.leagues || []).map(Number))].filter((n) => Number.isInteger(n) && n > 0);
+    if (!leagues.length || leagues.length > 20) return json({ error: "리그를 1~20개 고르세요." }, 400);
+    try {
+      if (body.save_default) await saveDefault(env, leagues);
+    } catch (e) {
+      return json({ error: e.message }, 502);
+    }
+    inputs = { leagues: leagues.join(","), days: "7", light: "false", mock: "false" };
   }
-
-  const inputs = {
-    leagues: leagues.join(","),
-    days: String(days),
-    within: String(days * 24),
-    max: String(max),
-    light: "false",
-    mock: "false",
-  };
   const r = await gh(env, `/actions/workflows/${WORKFLOW}/dispatches`, {
     method: "POST",
     body: JSON.stringify({ ref: "main", inputs }),
@@ -100,7 +100,7 @@ export async function onRequestPost({ request, env }) {
     const hint = r.status === 401 || r.status === 403 ? " (GH_TOKEN 이 만료됐거나 권한이 부족합니다)" : "";
     return json({ error: `GitHub 실행 요청 실패 ${r.status}${hint}`, detail: detail.slice(0, 300) }, 502);
   }
-  return json({ ok: true, inputs, saved_default: !!body.save_default });
+  return json({ ok: true, inputs, picked: ids.length, saved_default: !ids.length && !!body.save_default });
 }
 
 export async function onRequestGet({ env }) {
