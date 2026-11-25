@@ -446,11 +446,39 @@ const mayBeLive = m => { const k = kickMs(m), n = Date.now(); return !m.result &
 const WAIT_MS = 2 * 3600e3;
 const WAIT_HTML = '<span class="lv-w">경기 종료 · 결과 반영 대기</span>';
 const awaitingResult = m => { const k = kickMs(m), n = Date.now(); return !m.result && k + WAIT_MS <= n && n <= k + 24 * 3600e3; };
+/* 끝난 경기 최종 점수: 서버가 경기 번호로 따로 받아 준다 (/api/live?ended=…). 이 브라우저에도 이틀 기억 */
+const WAIT_SHORT = '<span class="lv-w">결과 반영 대기</span>';
+let FINALS = {};
+try { FINALS = JSON.parse(localStorage.getItem('aa_final') || '{}') || {}; } catch (e) { FINALS = {}; }
+const waitHtml = id => FINALS[id] ? liveText(FINALS[id], true) + WAIT_SHORT : WAIT_HTML;
 const liveSlot = m => {
-  const w = awaitingResult(m);
-  if (mayBeLive(m)) return `<span class="lv" data-live="${esc(m.id)}" data-kick="${kickMs(m)}"${w ? '' : ' hidden'}>${w ? WAIT_HTML : ''}</span>`;
-  return w ? `<span class="lv">${WAIT_HTML}</span>` : '';
+  const w = awaitingResult(m), id = esc(m.id);
+  if (mayBeLive(m)) return `<span class="lv" data-live="${id}" data-mid="${id}" data-kick="${kickMs(m)}"${w ? '' : ' hidden'}>${w ? waitHtml(m.id) : ''}</span>`;
+  return w ? `<span class="lv" data-mid="${id}">${waitHtml(m.id)}</span>` : '';
 };
+let finalAt = 0, finalTimer = null;
+async function finalTick() {
+  if (!STATIC) return;
+  const need = [...new Set([...document.querySelectorAll('.lv[data-mid]')]
+    .filter(e => !e.hidden && e.querySelector('.lv-w') && !FINALS[e.dataset.mid]).map(e => e.dataset.mid))]
+    .filter(id => /^AF-\d+$/.test(id)).slice(0, 20);
+  if (!need.length || Date.now() - finalAt < 5 * 60e3) return;
+  finalAt = Date.now();
+  let d = null;
+  try { d = await (await fetch('/api/live?ended=' + need.join(','), {cache: 'no-cache'})).json(); } catch (e) { d = null; }
+  const got = Object.entries((d && d.final) || {});
+  if (got.length) {
+    const old = Date.now() - 2 * 86400e3;
+    for (const [id, x] of got) FINALS[id] = {...x, t: Date.now()};
+    for (const id of Object.keys(FINALS)) if (!(FINALS[id].t > old)) delete FINALS[id];
+    try { localStorage.setItem('aa_final', JSON.stringify(FINALS)); } catch (e) {}
+    document.querySelectorAll('.lv[data-mid]').forEach(e => {
+      if (FINALS[e.dataset.mid] && e.querySelector('.lv-w')) { e.className = 'lv'; e.innerHTML = waitHtml(e.dataset.mid); e.hidden = false; }
+    });
+  }
+  clearTimeout(finalTimer);
+  finalTimer = setTimeout(finalTick, 5 * 60e3 + 1000);
+}
 const liveSeen = {};   /* 진행 중으로 본 적 있는 경기의 마지막 값: 목록에서 빠지면 '종료'로 보여 준다 */
 let liveTimer = null;
 const LIVE_ON = ['1H', 'HT', '2H', 'ET', 'BT', 'P', 'LIVE', 'INT', 'SUSP'];
@@ -466,6 +494,7 @@ function liveText(x, ended) {
 async function liveTick() {
   clearTimeout(liveTimer);
   const els = [...document.querySelectorAll('[data-live]')];
+  finalTick();
   if (!STATIC || !els.length) return;
   let d;
   try { const r = await fetch('/api/live', {cache: 'no-cache'}); d = await r.json(); } catch (e) { d = null; }
@@ -485,11 +514,11 @@ async function liveTick() {
     const show = x || (d && liveSeen[id] ? {...liveSeen[id]} : null);
     if (!show) {
       const past = Date.now() >= Number(el.dataset.kick) + WAIT_MS;
-      el.className = 'lv'; el.innerHTML = past ? WAIT_HTML : ''; el.hidden = !past;
+      el.className = 'lv'; el.innerHTML = past ? waitHtml(id) : ''; el.hidden = !past;
       return;
     }
     el.className = 'lv' + (x && LIVE_ON.includes(x.s) && x.s !== 'HT' ? ' on' : '');
-    el.innerHTML = liveText(show, !x) + (!x ? WAIT_HTML : '');
+    el.innerHTML = x ? liveText(show, false) : FINALS[id] ? waitHtml(id) : liveText(show, true) + WAIT_SHORT;
     el.hidden = false;
   });
   liveTimer = setTimeout(liveTick, 60e3);
