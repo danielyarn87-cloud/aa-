@@ -405,3 +405,13 @@ a.row.val:hover{background:#C93A6E}
 .row.hot .tag.pick .oa.up,.row.val .tag.pick .oa.up{color:#d93a3a}.row.hot .tag.pick .oa.dn,.row.val .tag.pick .oa.dn{color:#2563eb}
 .tag.chg{background:#fff3e0;color:#9a3412;border-color:#fdba74;font-weight:700}
 .pickhist{margin:10px 0 0;padding:8px 12px;border-radius:8px;background:#fff3e0;color:#9a3412;border:1px solid #fdba74}
+
+/* 운세 배너: 화면 오른쪽에 따라다님 (모든 탭). 크기는 적중률 카드와 같게 165×190 */
+.fad{position:fixed;top:172px;z-index:4;width:165px;height:190px;border-radius:12px;overflow:hidden;display:none;flex-direction:column;justify-content:flex-end;padding:14px;box-sizing:border-box;background:#F7C948;color:#3F0F05;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.12);transition:transform .15s}
+.fad:hover{transform:translateY(-2px)}
+.fad .fh{position:absolute;top:-14px;right:-8px;font-size:120px;line-height:1;font-family:"Noto Serif KR",serif;color:#C8102E;opacity:.7;pointer-events:none}
+.fad .ft{position:relative;font-weight:800;font-size:18px;line-height:1.25;margin-bottom:10px}
+.fad .fc{position:relative;align-self:flex-start;font-size:11px;font-weight:700;border:1px solid #C8102E;color:#C8102E;border-radius:999px;padding:4px 10px}
+@media (min-width:1660px){.fad{display:flex;left:calc(50% + 636px)}}
+@media (min-width:1100px) and (max-width:1659px){.fad{display:flex;right:12px}.wrap{margin-left:auto;margin-right:max(0px,calc(193px - 5vw))}}
+@media print{.fad{display:none!important}}
