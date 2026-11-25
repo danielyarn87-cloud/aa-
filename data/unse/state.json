@@ -1,24 +1,25 @@
 {
  "pending": {
-  "msgbatch_01KthwfxrbgmsKuR8HvZCRjC": {
-   "date": "2026-11-25",
-   "count": 16,
-   "submitted_at": "2026-11-25T10:14:55.672839+00:00"
-  },
-  "msgbatch_015CDYFwtwK66HzWn4KzosTb": {
+  "msgbatch_015KHKtR8n7teZhjEQsUJ6sr": {
    "date": "2026-11-26",
-   "count": 16,
-   "submitted_at": "2026-11-25T10:14:56.093791+00:00"
+   "count": 13,
+   "submitted_at": "2026-11-25T15:12:02.432003+00:00"
   },
-  "msgbatch_016bq57tVRKgdBaK1WWsasVi": {
+  "msgbatch_01VXUyVmdq2TebW1UA1NT8Vd": {
    "date": "2026-11-27",
-   "count": 19,
-   "submitted_at": "2026-11-25T10:14:56.545798+00:00"
+   "count": 14,
+   "submitted_at": "2026-11-25T15:12:02.772381+00:00"
+  },
+  "msgbatch_01FxEyYnvkhUttKXvwJGrehY": {
+   "date": "2026-11-28",
+   "count": 24,
+   "submitted_at": "2026-11-25T15:12:03.123396+00:00"
   }
  },
  "attempts": {
   "2026-11-25": 2,
-  "2026-11-26": 2,
-  "2026-11-27": 2
+  "2026-11-26": 3,
+  "2026-11-27": 3,
+  "2026-11-28": 1
  }
 }
