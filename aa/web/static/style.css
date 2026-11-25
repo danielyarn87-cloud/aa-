@@ -398,3 +398,10 @@ a.row.val:hover{background:#C93A6E}
 .tri-n span{display:inline-flex;align-items:center;gap:4px}.tri-n i{display:inline-block;width:8px;height:8px;border-radius:2px}
 .tri-n b{color:var(--ink);font-weight:700}
 .row.hot .tri-n,.row.val .tri-n{color:rgba(255,255,255,.8)}.row.hot .tri-n b,.row.val .tri-n b{color:#fff}
+
+/* 예측 배당 변화(분석할 때 → 지금) · 예측 변경 */
+.tag .oc{font-size:11px;margin-left:3px;opacity:.9}
+.tag.pick .oa.up{color:#FCA5A5}.tag.pick .oa.dn{color:#93C5FD}
+.row.hot .tag.pick .oa.up,.row.val .tag.pick .oa.up{color:#d93a3a}.row.hot .tag.pick .oa.dn,.row.val .tag.pick .oa.dn{color:#2563eb}
+.tag.chg{background:#fff3e0;color:#9a3412;border-color:#fdba74;font-weight:700}
+.pickhist{margin:10px 0 0;padding:8px 12px;border-radius:8px;background:#fff3e0;color:#9a3412;border:1px solid #fdba74}
