@@ -5,6 +5,7 @@
   python -m aa analyze data/sample_match.json --mock   키 없이 모의 실행
   python -m aa settle SAMPLE-001 2-1               경기 결과 입력 (홈-원정 점수)
   python -m aa review                              인사평가 (분석가별 성적과 투표 비중)
+  python -m aa news                                경기에 영향 줄 뉴스 모으기 (3시간마다 자동)
 """
 from __future__ import annotations
 
@@ -165,6 +166,19 @@ def cmd_worker(company, args) -> None:
     worker(company)
 
 
+def cmd_news(company, args) -> None:
+    import os
+
+    from . import news
+
+    client = ClaudeClient(model=news.MODEL, max_tokens=8000)
+    res = news.run(company.base_dir, client)
+    out = os.environ.get("GITHUB_OUTPUT")
+    if out:  # 보이는 뉴스가 바뀌었을 때만 사이트 재배포 (Cloudflare 무료 배포 횟수 아끼기)
+        with open(out, "a", encoding="utf-8") as f:
+            f.write(f"changed={'true' if res.get('changed') else 'false'}\n")
+
+
 def cmd_serve(company, args) -> None:
     from .web.app import create_app
 
@@ -214,6 +228,7 @@ def main(argv=None) -> None:
     dl.add_argument("--ids", help="이 경기들만 분석 (경기 번호, 쉼표로. 예: AF-1,AF-2)")
     dl.add_argument("--light", action="store_true", help="호출 절약: 순위표만 쓰고 경기별 호출 생략")
     sub.add_parser("worker", help="정해진 시각마다 자동 실행 (서버 상시 구동용)")
+    sub.add_parser("news", help="경기에 영향 줄 뉴스 모으기 (구글 뉴스 + Claude Haiku)")
 
     w = sub.add_parser("serve", help="웹사이트 실행")
     w.add_argument("--host", default="127.0.0.1")
@@ -224,7 +239,7 @@ def main(argv=None) -> None:
     try:
         {"roster": cmd_roster, "analyze": cmd_analyze, "settle": cmd_settle, "review": cmd_review,
          "collect": cmd_collect, "sync": cmd_sync, "results": cmd_results, "serve": cmd_serve,
-         "daily": cmd_daily, "worker": cmd_worker}[args.cmd](company, args)
+         "daily": cmd_daily, "worker": cmd_worker, "news": cmd_news}[args.cmd](company, args)
     finally:  # Claude 를 부른 만큼 비용을 기록 (크레딧 추정 잔액용). 중간에 실패해도 쓴 만큼은 남긴다
         from .credit import flush
 
