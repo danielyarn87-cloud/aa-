@@ -73,8 +73,27 @@ class ApiFootball:
         return res[0] if res else None
 
     def standings(self, league: int, season: int) -> list:
+        """순위표의 모든 조를 읽는다 (ACL 조별·J1 동/서·MLS 콘퍼런스처럼 여러 조로 나뉜 대회).
+        같은 팀이 두 번 나오면(K리그1 정규 + 파이널A/B) 뒤쪽(최신 단계) 순위를 쓴다.
+        여러 조였으면 각 줄에 _multi=True 를 붙여, 화면에 'H조 1위'처럼 조 이름을 같이 보여 준다."""
         res = self.get("/standings", cache_hours=20, league=league, season=season)
-        return res[0]["league"]["standings"][0] if res else []
+        if not res:
+            return []
+        groups = [g for g in res[0]["league"]["standings"] if g]
+        rows: dict = {}
+        for g in groups:
+            for r in g:
+                rows[r["team"]["id"]] = dict(r, _multi=len(groups) > 1)
+        return list(rows.values())
+
+    def coverage(self, league: int, season: int) -> dict | None:
+        """이 리그·시즌에 API-Football 이 주는 자료 범위 (예: injuries 가 False 면 부상자 자료 없음). 1주일 저장."""
+        res = self.get("/leagues", cache_hours=168, id=league, season=season)
+        for x in res or []:
+            for s in x.get("seasons") or []:
+                if s.get("year") == season:
+                    return s.get("coverage")
+        return None
 
     def team_stats(self, league: int, season: int, team: int) -> dict:
         return self.get("/teams/statistics", cache_hours=20, league=league, season=season, team=team)
