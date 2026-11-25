@@ -1052,3 +1052,22 @@ const FORTUNE_URL = '/fortune/';
   }
   document.body.appendChild(a);
 })();
+/* ---------- 로또 배너 (운세 배너 바로 아래, 모든 탭) ----------
+   로또 페이지 주소가 정해지면 LOTTO_URL 에 넣는다. 비어 있으면 눌렀을 때 '준비 중'만 보여 준다. */
+const LOTTO_URL = '';
+(function lottoAd() {
+  if (document.querySelector('.fad.lad')) return;
+  const BC = n => n <= 10 ? '#f2b705' : n <= 20 ? '#4fb3e8' : n <= 30 ? '#f25c5c' : n <= 40 ? '#9a9a9a' : '#8cc43c';
+  const a = document.createElement('a');
+  a.className = 'fad lad';
+  a.setAttribute('aria-label', '띠별 행운 번호 보러 가기');
+  a.innerHTML = '<span class="fh" aria-hidden="true">福</span><span class="lb" aria-hidden="true">'
+    + [6, 14, 28].map(n => `<span style="background:${BC(n)}">${n}</span>`).join('')
+    + '</span><span class="ft">띠별 행운 번호</span><span class="fs">재미용 · 하루 동안 고정</span><span class="fc">열어 보기</span>';
+  if (LOTTO_URL) { a.href = LOTTO_URL; a.target = '_blank'; a.rel = 'noopener'; }
+  else {
+    a.href = '#';
+    a.onclick = e => { e.preventDefault(); const c = a.querySelector('.fc'); c.textContent = '준비 중'; setTimeout(() => { c.textContent = '열어 보기'; }, 1500); };
+  }
+  document.body.appendChild(a);
+})();
