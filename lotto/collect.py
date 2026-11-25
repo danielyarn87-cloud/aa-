@@ -4,7 +4,7 @@
 - 처음 돌리면 1회부터 지금까지 전부, 그다음부터는 새 회차만 받는다.
 - 동행복권 사이트 개편(2026)으로 예전 조회 주소(getLottoNumber)가 첫 화면으로 넘어가서,
   지금 '추첨결과' 화면이 쓰는 주소(selectPstLt645InfoNew.do)를 쓴다. 1~5등 당첨금·구매 방식까지 들어 있다.
-- 한 번 물으면 기준 회차 주변 여러 회차를 함께 주므로, 0.5초씩 쉬며 적은 횟수로 받는다.
+- 한 번 물으면 기준 회차 주변 여러 회차를 함께 주므로, 1초씩 쉬며 적은 횟수로 받는다.
 - 받지 못하면(사이트 점검·차단 등) 있던 기록은 그대로 두고 다음 실행에서 다시 시도한다.
 """
 from __future__ import annotations
@@ -55,7 +55,7 @@ def path(base: Path) -> Path:
     return Path(base) / "data" / "lotto" / "draws.json"
 
 
-def run(base: Path, get=_get, pause: float = 0.5, log=print) -> dict:
+def run(base: Path, get=_get, pause: float = 1.0, log=print) -> dict:
     p = path(base)
     try:
         db = json.loads(p.read_text(encoding="utf-8"))
@@ -65,11 +65,18 @@ def run(base: Path, get=_get, pause: float = 0.5, log=print) -> dict:
     no = max(have, default=0) + 1
     added, err = 0, None
     for _ in range(MAX_PER_RUN):
-        try:
-            got = parse(get(URL.format(no=no)))
-        except Exception as e:  # 네트워크 오류: 다음 실행에서 다시
-            err = str(e)
+        got, err = None, None
+        for attempt in range(4):  # 느려지거나 끊기면 잠깐 쉬었다가 다시 (10초·20초·40초)
+            try:
+                got = parse(get(URL.format(no=no)))
+                break
+            except Exception as e:
+                err = str(e)
+                if pause:
+                    time.sleep(10 * 2 ** attempt)
+        if got is None:  # 계속 안 되면 여기까지 저장하고 다음 실행에서 이어서
             break
+        err = None
         new = [d for d in got if d["no"] not in have]
         for d in new:
             have[d["no"]] = d
