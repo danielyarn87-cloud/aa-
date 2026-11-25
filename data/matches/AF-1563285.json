@@ -52,15 +52,16 @@
     ],
     "home_doubtful": [],
     "away_absent": [
+      "J. Coburn (Injury)",
       "T. Crama (Ankle Injury)",
+      "R. Esse (Injury)",
       "R. Leonard (Muscle Injury)",
+      "M. Luongo (Knee Injury)",
       "F. Marschall (Ankle Injury)",
       "M. Servais (Hamstring Injury)",
       "Z. Sturge (Red Card)"
     ],
-    "away_doubtful": [
-      "M. Luongo (Knee Injury)"
-    ],
+    "away_doubtful": [],
     "confirmed": false,
     "status": "listed",
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
@@ -91,5 +92,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 00:04 KST"
+  "collected_at": "2026-11-26 06:04 KST"
 }

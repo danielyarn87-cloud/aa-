@@ -77,13 +77,13 @@
     "2024-03-30 브렌트퍼드 1-1 맨체스터 유나이티드"
   ],
   "schedule": {
-    "home_prev": "2026-11-23 Premier League",
-    "home_days_rest": 5,
+    "home_prev": "2026-11-26 UEFA Champions League",
+    "home_days_rest": 2,
     "away_prev": "2026-11-24 Premier League",
     "away_days_rest": 4
   },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 00:04 KST"
+  "collected_at": "2026-11-26 06:04 KST"
 }

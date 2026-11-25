@@ -15,8 +15,8 @@
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
-    "home_goals": 1.364,
-    "away_goals": 1.182
+    "home_goals": 1.342,
+    "away_goals": 1.178
   },
   "stats": {
     "basis": "venue",
@@ -24,8 +24,8 @@
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.218,
-      "xg_against": 1.109,
+      "xg_for": 1.205,
+      "xg_against": 1.107,
       "raw_goals_for": 1.0,
       "raw_goals_against": 1.0,
       "played": 2,
@@ -33,14 +33,14 @@
       "form": "LWLL"
     },
     "away": {
-      "설명": "원정 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.709,
-      "xg_against": 1.418,
-      "raw_goals_for": 2.5,
-      "raw_goals_against": 1.5,
-      "played": 2,
-      "record": "1승 0무 1패",
-      "form": "WLWW"
+      "설명": "원정 경기 경기당 득실 (3경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.589,
+      "xg_against": 1.171,
+      "raw_goals_for": 2.0,
+      "raw_goals_against": 1.0,
+      "played": 3,
+      "record": "2승 0무 1패",
+      "form": "WLWWW"
     }
   },
   "lineup": {
@@ -61,18 +61,18 @@
     "league": 18,
     "season": 2026
   },
-  "table": "알파이살리 C조 3위 3점 (1승0무3패, 득실 -3) / 알라이얀 C조 2위 9점 (3승0무1패, 득실 +5)",
+  "table": "알파이살리  3위 3점 (1승0무4패, 득실 -4) / 알라이얀  1위 12점 (4승0무1패, 득실 +6)",
   "head_to_head": [
     "2026-09-16 알라이얀 4-3 알파이살리"
   ],
   "schedule": {
-    "home_prev": "2026-11-22 Cup",
-    "home_days_rest": 4,
-    "away_prev": "2026-11-22 Stars League",
-    "away_days_rest": 4
+    "home_prev": "2026-11-26 AFC Champions League Two",
+    "home_days_rest": 0,
+    "away_prev": "2026-11-26 AFC Champions League Two",
+    "away_days_rest": 0
   },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 00:05 KST"
+  "collected_at": "2026-11-26 06:04 KST"
 }

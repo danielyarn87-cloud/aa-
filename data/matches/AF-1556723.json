@@ -23,22 +23,24 @@
     "metric": "goals",
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
-      "설명": "홈 경기 경기당 득실 (7경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.652,
-      "xg_against": 1.456,
-      "raw_goals_for": 1.714,
-      "raw_goals_against": 1.429,
+      "설명": "홈 경기 경기당 득실 (7경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.642,
+      "xg_against": 1.435,
+      "raw_goals_for": 1.7,
+      "raw_goals_against": 1.4,
       "played": 7,
-      "record": "3승 3무 1패"
+      "record": "3승 3무 1패",
+      "form": "LDDWL"
     },
     "away": {
-      "설명": "원정 경기 경기당 득실 (7경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 0.955,
+      "설명": "원정 경기 경기당 득실 (7경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.945,
       "xg_against": 1.852,
-      "raw_goals_for": 0.714,
+      "raw_goals_for": 0.7,
       "raw_goals_against": 2.0,
       "played": 7,
-      "record": "2승 0무 5패"
+      "record": "2승 0무 5패",
+      "form": "WDLLL"
     }
   },
   "lineup": {
@@ -47,10 +49,10 @@
     "away_absent": [],
     "away_doubtful": [],
     "confirmed": false,
-    "status": "skipped",
-    "설명": "호출 절약 수집이라 부상자 목록을 받지 않음"
+    "status": "unsupported",
+    "설명": "API-Football 이 이 리그의 결장자 자료를 제공하지 않음 (결장자가 없다는 뜻이 아님), 라인업 미발표"
   },
-  "collected_detail": "light",
+  "collected_detail": "full",
   "venue": "McDiarmid Park",
   "source_ids": {
     "api_football_fixture": 1556723,
@@ -60,8 +62,21 @@
     "season": 2026
   },
   "table": "세인트 존스톤 6위 17점 (4승5무5패, 득실 -4) / 세인트 미렌 10위 14점 (4승2무8패, 득실 -13)",
+  "head_to_head": [
+    "2026-08-08 세인트 미렌 1-0 세인트 존스톤",
+    "2025-02-01 세인트 미렌 0-1 세인트 존스톤",
+    "2024-12-14 세인트 존스톤 2-3 세인트 미렌",
+    "2024-10-30 세인트 미렌 3-1 세인트 존스톤",
+    "2024-02-24 세인트 미렌 2-0 세인트 존스톤"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Premiership",
+    "home_days_rest": 11,
+    "away_prev": "2026-11-22 Premiership",
+    "away_days_rest": 11
+  },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 00:05 KST"
+  "collected_at": "2026-11-26 06:04 KST"
 }

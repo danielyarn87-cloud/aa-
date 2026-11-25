@@ -76,11 +76,11 @@
   "schedule": {
     "home_prev": "2026-11-22 Taça de Portugal",
     "home_days_rest": 4,
-    "away_prev": "2026-11-23 Premier League",
-    "away_days_rest": 3
+    "away_prev": "2026-11-26 UEFA Champions League",
+    "away_days_rest": 0
   },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 00:04 KST"
+  "collected_at": "2026-11-26 06:04 KST"
 }

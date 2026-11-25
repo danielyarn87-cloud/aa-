@@ -23,34 +23,46 @@
     "metric": "goals",
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
-      "설명": "홈 경기 경기당 득실 (6경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "설명": "홈 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
       "xg_for": 1.527,
-      "xg_against": 0.836,
+      "xg_against": 0.858,
       "raw_goals_for": 1.5,
-      "raw_goals_against": 0.667,
+      "raw_goals_against": 0.7,
       "played": 6,
-      "record": "3승 2무 1패"
+      "record": "3승 2무 1패",
+      "form": "WWWWW"
     },
     "away": {
-      "설명": "원정 경기 경기당 득실 (6경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.613,
-      "xg_against": 1.416,
-      "raw_goals_for": 1.833,
-      "raw_goals_against": 1.333,
+      "설명": "원정 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.591,
+      "xg_against": 1.394,
+      "raw_goals_for": 1.8,
+      "raw_goals_against": 1.3,
       "played": 6,
-      "record": "3승 0무 3패"
+      "record": "3승 0무 3패",
+      "form": "WLWWL"
     }
   },
   "lineup": {
-    "home_absent": [],
+    "home_absent": [
+      "J. Araujo (Thigh Problems)",
+      "A. Tóth (Muscle Bruise)"
+    ],
     "home_doubtful": [],
-    "away_absent": [],
+    "away_absent": [
+      "K. Mitoma (Hamstring Injury)",
+      "Z. Yohanna (Wound)",
+      "P. Struijk (Rest)",
+      "O. Azeez (Abdominal Strain)",
+      "E. Ferguson (Sprained Ankle)",
+      "S. Tzimas (Jumpers Knee)"
+    ],
     "away_doubtful": [],
     "confirmed": false,
-    "status": "skipped",
-    "설명": "호출 절약 수집이라 부상자 목록을 받지 않음"
+    "status": "listed",
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
-  "collected_detail": "light",
+  "collected_detail": "full",
   "venue": "Vitality Stadium",
   "source_ids": {
     "api_football_fixture": 1557488,
@@ -60,8 +72,21 @@
     "season": 2026
   },
   "table": "본머스 5위 18점 (5승3무3패, 득실 +4) / 브라이턴 2위 22점 (7승1무3패, 득실 +17)",
+  "head_to_head": [
+    "2026-01-19 브라이턴 1-1 본머스",
+    "2025-09-13 본머스 2-1 브라이턴",
+    "2025-02-25 브라이턴 2-1 본머스",
+    "2024-11-23 본머스 1-2 브라이턴",
+    "2024-04-28 본머스 3-0 브라이턴"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Premier League",
+    "home_days_rest": 11,
+    "away_prev": "2026-11-22 Premier League",
+    "away_days_rest": 10
+  },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 00:04 KST"
+  "collected_at": "2026-11-26 06:04 KST"
 }

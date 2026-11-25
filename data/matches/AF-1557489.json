@@ -23,34 +23,38 @@
     "metric": "goals",
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
-      "설명": "홈 경기 경기당 득실 (6경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 2.083,
+      "설명": "홈 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 2.061,
       "xg_against": 0.724,
-      "raw_goals_for": 2.333,
+      "raw_goals_for": 2.3,
       "raw_goals_against": 0.5,
       "played": 6,
-      "record": "4승 1무 1패"
+      "record": "4승 1무 1패",
+      "form": "LDWLW"
     },
     "away": {
-      "설명": "원정 경기 경기당 득실 (6경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.169,
-      "xg_against": 1.083,
-      "raw_goals_for": 1.167,
-      "raw_goals_against": 0.833,
+      "설명": "원정 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.191,
+      "xg_against": 1.061,
+      "raw_goals_for": 1.2,
+      "raw_goals_against": 0.8,
       "played": 6,
-      "record": "4승 1무 1패"
+      "record": "4승 1무 1패",
+      "form": "WWWWD"
     }
   },
   "lineup": {
     "home_absent": [],
     "home_doubtful": [],
-    "away_absent": [],
+    "away_absent": [
+      "B. Saka (Thigh Problems)"
+    ],
     "away_doubtful": [],
     "confirmed": false,
-    "status": "skipped",
-    "설명": "호출 절약 수집이라 부상자 목록을 받지 않음"
+    "status": "listed",
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
-  "collected_detail": "light",
+  "collected_detail": "full",
   "venue": "Brentford Community Stadium",
   "source_ids": {
     "api_football_fixture": 1557489,
@@ -60,8 +64,21 @@
     "season": 2026
   },
   "table": "브렌트퍼드 6위 17점 (4승5무2패, 득실 +9) / 아스널 1위 28점 (9승1무1패, 득실 +10)",
+  "head_to_head": [
+    "2026-02-12 브렌트퍼드 1-1 아스널",
+    "2025-12-03 아스널 2-0 브렌트퍼드",
+    "2025-04-12 아스널 1-1 브렌트퍼드",
+    "2025-01-01 브렌트퍼드 1-3 아스널",
+    "2024-03-09 아스널 2-1 브렌트퍼드"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-24 Premier League",
+    "home_days_rest": 9,
+    "away_prev": "2026-11-25 UEFA Champions League",
+    "away_days_rest": 8
+  },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 00:04 KST"
+  "collected_at": "2026-11-26 06:04 KST"
 }

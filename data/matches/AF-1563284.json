@@ -50,7 +50,6 @@
       "J. Beyer (Lacking Match Fitness)",
       "A. Broja (Muscle Injury)",
       "J. Bruun Larsen (Leg Injury)",
-      "B. Humphreys (Muscle Injury)",
       "J. Laurent (Yellow Cards)",
       "H. Mejbri (Hamstring Injury)",
       "M. Obafemi (Inactive)",
@@ -59,7 +58,10 @@
       "D. Satpaev (Muscle Injury)",
       "M. Tresor Ndayishimiye (Lacking Match Fitness)"
     ],
-    "home_doubtful": [],
+    "home_doubtful": [
+      "B. Humphreys (Muscle Injury)",
+      "Lucas Pires (Inactive)"
+    ],
     "away_absent": [
       "C. Klarer (Yellow Cards)",
       "M. Leonard (Achilles Tendon Injury)",
@@ -96,5 +98,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 00:04 KST"
+  "collected_at": "2026-11-26 06:04 KST"
 }

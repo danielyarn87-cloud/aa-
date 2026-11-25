@@ -23,34 +23,39 @@
     "metric": "goals",
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
-      "설명": "홈 경기 경기당 득실 (6경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "설명": "홈 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
       "xg_for": 1.194,
-      "xg_against": 1.169,
+      "xg_against": 1.191,
       "raw_goals_for": 1.0,
-      "raw_goals_against": 1.167,
+      "raw_goals_against": 1.2,
       "played": 6,
-      "record": "1승 3무 2패"
+      "record": "1승 3무 2패",
+      "form": "WWDDD"
     },
     "away": {
-      "설명": "원정 경기 경기당 득실 (6경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 0.836,
+      "설명": "원정 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.858,
       "xg_against": 1.527,
-      "raw_goals_for": 0.667,
+      "raw_goals_for": 0.7,
       "raw_goals_against": 1.5,
       "played": 6,
-      "record": "1승 3무 2패"
+      "record": "1승 3무 2패",
+      "form": "LLWWL"
     }
   },
   "lineup": {
-    "home_absent": [],
+    "home_absent": [
+      "A. Onana (Jumpers Knee)",
+      "M. Ruggeri (Muscle Bruise)"
+    ],
     "home_doubtful": [],
     "away_absent": [],
     "away_doubtful": [],
     "confirmed": false,
-    "status": "skipped",
-    "설명": "호출 절약 수집이라 부상자 목록을 받지 않음"
+    "status": "listed",
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
-  "collected_detail": "light",
+  "collected_detail": "full",
   "venue": "Villa Park",
   "source_ids": {
     "api_football_fixture": 1557487,
@@ -60,8 +65,21 @@
     "season": 2026
   },
   "table": "애스턴 빌라 12위 14점 (3승5무3패, 득실 -3) / 에버턴 9위 16점 (4승4무3패, 득실 -2)",
+  "head_to_head": [
+    "2026-01-18 애스턴 빌라 0-1 에버턴",
+    "2025-09-13 에버턴 0-0 애스턴 빌라",
+    "2025-01-15 에버턴 0-1 애스턴 빌라",
+    "2024-09-14 애스턴 빌라 3-2 에버턴",
+    "2024-01-14 에버턴 0-0 애스턴 빌라"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-25 UEFA Champions League",
+    "home_days_rest": 8,
+    "away_prev": "2026-11-24 Premier League",
+    "away_days_rest": 9
+  },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 00:04 KST"
+  "collected_at": "2026-11-26 06:04 KST"
 }

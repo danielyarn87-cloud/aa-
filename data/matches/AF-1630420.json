@@ -15,8 +15,8 @@
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
-    "home_goals": 1.364,
-    "away_goals": 1.182
+    "home_goals": 1.342,
+    "away_goals": 1.178
   },
   "stats": {
     "basis": "venue",
@@ -24,23 +24,23 @@
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.418,
-      "xg_against": 0.909,
+      "xg_for": 1.405,
+      "xg_against": 0.907,
       "raw_goals_for": 1.5,
       "raw_goals_against": 0.5,
       "played": 2,
       "record": "1승 0무 1패",
-      "form": "LLWW"
+      "form": "LLWWL"
     },
     "away": {
       "설명": "원정 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 0.909,
-      "xg_against": 1.418,
+      "xg_for": 0.907,
+      "xg_against": 1.405,
       "raw_goals_for": 0.5,
       "raw_goals_against": 1.5,
       "played": 2,
       "record": "0승 1무 1패",
-      "form": "DWLL"
+      "form": "DWLLD"
     }
   },
   "lineup": {
@@ -61,7 +61,7 @@
     "league": 18,
     "season": 2026
   },
-  "table": "FC 서울 E조 2위 6점 (2승0무2패, 득실 +4) / 멜버른 빅토리 E조 3위 4점 (1승1무2패, 득실 +0)",
+  "table": "FC 서울  2위 6점 (2승0무3패, 득실 +2) / 멜버른 빅토리  3위 5점 (1승2무2패, 득실 +0)",
   "head_to_head": [
     "2026-10-14 멜버른 빅토리 3-0 FC 서울",
     "2020-12-03 멜버른 빅토리 2-1 FC 서울",
@@ -70,11 +70,11 @@
   "schedule": {
     "home_prev": "2026-11-25 AFC Champions League Two",
     "home_days_rest": 6,
-    "away_prev": "2026-11-21 A-League",
-    "away_days_rest": 11
+    "away_prev": "2026-11-25 AFC Champions League Two",
+    "away_days_rest": 7
   },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 00:05 KST"
+  "collected_at": "2026-11-26 06:04 KST"
 }

@@ -23,34 +23,39 @@
     "metric": "goals",
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
-      "설명": "홈 경기 경기당 득실 (6경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.416,
+      "설명": "홈 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.394,
       "xg_against": 1.391,
-      "raw_goals_for": 1.333,
+      "raw_goals_for": 1.3,
       "raw_goals_against": 1.5,
       "played": 6,
-      "record": "1승 3무 2패"
+      "record": "1승 3무 2패",
+      "form": "LWLDD"
     },
     "away": {
-      "설명": "원정 경기 경기당 득실 (6경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 0.836,
+      "설명": "원정 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.858,
       "xg_against": 1.861,
-      "raw_goals_for": 0.667,
+      "raw_goals_for": 0.7,
       "raw_goals_against": 2.0,
       "played": 6,
-      "record": "0승 3무 3패"
+      "record": "0승 3무 3패",
+      "form": "DLLDL"
     }
   },
   "lineup": {
     "home_absent": [],
     "home_doubtful": [],
-    "away_absent": [],
+    "away_absent": [
+      "B. Šeško (Leg Injury)",
+      "L. Shaw (Wound)"
+    ],
     "away_doubtful": [],
     "confirmed": false,
-    "status": "skipped",
-    "설명": "호출 절약 수집이라 부상자 목록을 받지 않음"
+    "status": "listed",
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
-  "collected_detail": "light",
+  "collected_detail": "full",
   "venue": "St. James' Park",
   "source_ids": {
     "api_football_fixture": 1557495,
@@ -60,8 +65,21 @@
     "season": 2026
   },
   "table": "뉴캐슬 13위 13점 (3승4무4패, 득실 -3) / 맨체스터 유나이티드 19위 8점 (1승5무5패, 득실 -9)",
+  "head_to_head": [
+    "2026-03-04 뉴캐슬 2-1 맨체스터 유나이티드",
+    "2025-12-26 맨체스터 유나이티드 1-0 뉴캐슬",
+    "2025-04-13 뉴캐슬 4-1 맨체스터 유나이티드",
+    "2024-12-30 맨체스터 유나이티드 0-2 뉴캐슬",
+    "2024-05-15 맨체스터 유나이티드 3-2 뉴캐슬"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Premier League",
+    "home_days_rest": 11,
+    "away_prev": "2026-11-26 UEFA Champions League",
+    "away_days_rest": 7
+  },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 00:04 KST"
+  "collected_at": "2026-11-26 06:04 KST"
 }

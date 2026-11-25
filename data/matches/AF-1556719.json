@@ -23,22 +23,24 @@
     "metric": "goals",
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
-      "설명": "홈 경기 경기당 득실 (7경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.552,
-      "xg_against": 1.256,
-      "raw_goals_for": 1.571,
-      "raw_goals_against": 1.143,
+      "설명": "홈 경기 경기당 득실 (7경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.572,
+      "xg_against": 1.225,
+      "raw_goals_for": 1.6,
+      "raw_goals_against": 1.1,
       "played": 7,
-      "record": "4승 0무 3패"
+      "record": "4승 0무 3패",
+      "form": "WWWWW"
     },
     "away": {
-      "설명": "원정 경기 경기당 득실 (7경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.555,
-      "xg_against": 1.752,
-      "raw_goals_for": 1.571,
-      "raw_goals_against": 1.857,
+      "설명": "원정 경기 경기당 득실 (7경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.575,
+      "xg_against": 1.782,
+      "raw_goals_for": 1.6,
+      "raw_goals_against": 1.9,
       "played": 7,
-      "record": "1승 3무 3패"
+      "record": "1승 3무 3패",
+      "form": "LDWDL"
     }
   },
   "lineup": {
@@ -47,10 +49,10 @@
     "away_absent": [],
     "away_doubtful": [],
     "confirmed": false,
-    "status": "skipped",
-    "설명": "호출 절약 수집이라 부상자 목록을 받지 않음"
+    "status": "unsupported",
+    "설명": "API-Football 이 이 리그의 결장자 자료를 제공하지 않음 (결장자가 없다는 뜻이 아님), 라인업 미발표"
   },
-  "collected_detail": "light",
+  "collected_detail": "full",
   "venue": "Falkirk Stadium",
   "source_ids": {
     "api_football_fixture": 1556719,
@@ -60,8 +62,21 @@
     "season": 2026
   },
   "table": "폴커크 3위 24점 (7승3무4패, 득실 +7) / 마더웰 11위 13점 (3승4무7패, 득실 -7)",
+  "head_to_head": [
+    "2026-08-09 마더웰 0-0 폴커크",
+    "2026-05-02 폴커크 1-0 마더웰",
+    "2026-04-04 마더웰 2-3 폴커크",
+    "2025-12-03 폴커크 0-0 마더웰",
+    "2025-10-18 마더웰 1-2 폴커크"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Premiership",
+    "home_days_rest": 11,
+    "away_prev": "2026-11-22 Premiership",
+    "away_days_rest": 10
+  },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 00:05 KST"
+  "collected_at": "2026-11-26 06:04 KST"
 }

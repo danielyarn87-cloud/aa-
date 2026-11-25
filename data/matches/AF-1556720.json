@@ -23,22 +23,24 @@
     "metric": "goals",
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
-      "설명": "홈 경기 경기당 득실 (6경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 2.391,
+      "설명": "홈 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 2.369,
       "xg_against": 1.506,
-      "raw_goals_for": 2.833,
+      "raw_goals_for": 2.8,
       "raw_goals_against": 1.5,
       "played": 6,
-      "record": "4승 1무 1패"
+      "record": "4승 1무 1패",
+      "form": "LWDLW"
     },
     "away": {
-      "설명": "원정 경기 경기당 득실 (7경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.755,
+      "설명": "원정 경기 경기당 득실 (7경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.785,
       "xg_against": 1.852,
-      "raw_goals_for": 1.857,
+      "raw_goals_for": 1.9,
       "raw_goals_against": 2.0,
       "played": 7,
-      "record": "2승 1무 4패"
+      "record": "2승 1무 4패",
+      "form": "LLLWL"
     }
   },
   "lineup": {
@@ -47,10 +49,10 @@
     "away_absent": [],
     "away_doubtful": [],
     "confirmed": false,
-    "status": "skipped",
-    "설명": "호출 절약 수집이라 부상자 목록을 받지 않음"
+    "status": "unsupported",
+    "설명": "API-Football 이 이 리그의 결장자 자료를 제공하지 않음 (결장자가 없다는 뜻이 아님), 라인업 미발표"
   },
-  "collected_detail": "light",
+  "collected_detail": "full",
   "venue": "Tynecastle Park",
   "source_ids": {
     "api_football_fixture": 1556720,
@@ -60,8 +62,21 @@
     "season": 2026
   },
   "table": "하츠 4위 23점 (7승2무4패, 득실 +12) / 애버딘 8위 14점 (4승2무8패, 득실 -5)",
+  "head_to_head": [
+    "2026-08-01 애버딘 2-1 하츠",
+    "2026-02-28 하츠 1-0 애버딘",
+    "2025-11-23 애버딘 1-0 하츠",
+    "2025-08-04 하츠 2-0 애버딘",
+    "2025-04-19 하츠 1-2 애버딘"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Premiership",
+    "home_days_rest": 11,
+    "away_prev": "2026-11-25 Premiership",
+    "away_days_rest": 7
+  },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 00:05 KST"
+  "collected_at": "2026-11-26 06:04 KST"
 }

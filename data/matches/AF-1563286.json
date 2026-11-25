@@ -47,12 +47,15 @@
     "home_absent": [
       "M. Antonio (Injury)",
       "K. Baah (Knock)",
+      "M. Boadu (Inactive)",
       "N. Chikovani (Inactive)",
+      "K. Diatta (Inactive)",
       "J. Ngakia (Thigh Injury)"
     ],
     "home_doubtful": [],
     "away_absent": [
       "R. Alebiosu (Injury)",
+      "T. Atcheson (Injury)",
       "A. Forshaw (Hip Injury)",
       "L. Miller (Achilles Tendon Injury)",
       "B. Toth (Finger Injury)"
@@ -90,5 +93,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 00:04 KST"
+  "collected_at": "2026-11-26 06:04 KST"
 }

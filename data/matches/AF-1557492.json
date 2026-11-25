@@ -23,34 +23,40 @@
     "metric": "goals",
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
-      "설명": "홈 경기 경기당 득실 (6경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "설명": "홈 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
       "xg_for": 1.527,
-      "xg_against": 0.946,
+      "xg_against": 0.924,
       "raw_goals_for": 1.5,
-      "raw_goals_against": 0.833,
+      "raw_goals_against": 0.8,
       "played": 6,
-      "record": "2승 4무 0패"
+      "record": "2승 4무 0패",
+      "form": "LDDLW"
     },
     "away": {
-      "설명": "원정 경기 경기당 득실 (6경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "설명": "원정 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
       "xg_for": 1.058,
-      "xg_against": 1.749,
+      "xg_against": 1.727,
       "raw_goals_for": 1.0,
-      "raw_goals_against": 1.833,
+      "raw_goals_against": 1.8,
       "played": 6,
-      "record": "1승 2무 3패"
+      "record": "1승 2무 3패",
+      "form": "LDLWL"
     }
   },
   "lineup": {
-    "home_absent": [],
+    "home_absent": [
+      "C. Hughes (Groin Injury)"
+    ],
     "home_doubtful": [],
-    "away_absent": [],
+    "away_absent": [
+      "N. Savona (Jumpers Knee)"
+    ],
     "away_doubtful": [],
     "confirmed": false,
-    "status": "skipped",
-    "설명": "호출 절약 수집이라 부상자 목록을 받지 않음"
+    "status": "listed",
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
-  "collected_detail": "light",
+  "collected_detail": "full",
   "venue": "MKM Stadium",
   "source_ids": {
     "api_football_fixture": 1557492,
@@ -60,8 +66,21 @@
     "season": 2026
   },
   "table": "헐 시티 11위 14점 (3승5무3패, 득실 +2) / 노팅엄 포리스트 17위 9점 (2승3무6패, 득실 -6)",
+  "head_to_head": [
+    "2022-05-07 헐 시티 1-1 노팅엄 포리스트",
+    "2021-12-18 노팅엄 포리스트 2-1 헐 시티",
+    "2019-12-26 헐 시티 0-2 노팅엄 포리스트",
+    "2019-10-23 노팅엄 포리스트 1-2 헐 시티",
+    "2019-03-09 노팅엄 포리스트 3-0 헐 시티"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Premier League",
+    "home_days_rest": 10,
+    "away_prev": "2026-11-22 Premier League",
+    "away_days_rest": 11
+  },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 00:04 KST"
+  "collected_at": "2026-11-26 06:04 KST"
 }

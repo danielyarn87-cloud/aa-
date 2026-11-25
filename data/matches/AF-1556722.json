@@ -23,22 +23,24 @@
     "metric": "goals",
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
-      "설명": "홈 경기 경기당 득실 (6경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.947,
-      "xg_against": 1.061,
-      "raw_goals_for": 2.167,
-      "raw_goals_against": 0.833,
+      "설명": "홈 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.969,
+      "xg_against": 1.039,
+      "raw_goals_for": 2.2,
+      "raw_goals_against": 0.8,
       "played": 6,
-      "record": "5승 0무 1패"
+      "record": "5승 0무 1패",
+      "form": "WDWWW"
     },
     "away": {
-      "설명": "원정 경기 경기당 득실 (7경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "설명": "원정 경기 경기당 득실 (7경기, 리그 평균 쪽으로 3경기만큼 보정)",
       "xg_for": 1.855,
-      "xg_against": 1.452,
+      "xg_against": 1.432,
       "raw_goals_for": 2.0,
-      "raw_goals_against": 1.429,
+      "raw_goals_against": 1.4,
       "played": 7,
-      "record": "3승 2무 2패"
+      "record": "3승 2무 2패",
+      "form": "DWDDW"
     }
   },
   "lineup": {
@@ -47,10 +49,10 @@
     "away_absent": [],
     "away_doubtful": [],
     "confirmed": false,
-    "status": "skipped",
-    "설명": "호출 절약 수집이라 부상자 목록을 받지 않음"
+    "status": "unsupported",
+    "설명": "API-Football 이 이 리그의 결장자 자료를 제공하지 않음 (결장자가 없다는 뜻이 아님), 라인업 미발표"
   },
-  "collected_detail": "light",
+  "collected_detail": "full",
   "venue": "Ibrox Stadium",
   "source_ids": {
     "api_football_fixture": 1556722,
@@ -60,8 +62,21 @@
     "season": 2026
   },
   "table": "레인저스 2위 33점 (10승3무1패, 득실 +14) / 던디 유나이티드 5위 20점 (5승5무3패, 득실 +4)",
+  "head_to_head": [
+    "2026-07-31 던디 유나이티드 1-1 레인저스",
+    "2026-04-04 레인저스 4-2 던디 유나이티드",
+    "2025-12-03 던디 유나이티드 2-2 레인저스",
+    "2025-10-18 레인저스 2-2 던디 유나이티드",
+    "2025-05-14 레인저스 3-1 던디 유나이티드"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-25 Premiership",
+    "home_days_rest": 7,
+    "away_prev": "2026-11-22 Premiership",
+    "away_days_rest": 11
+  },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 00:05 KST"
+  "collected_at": "2026-11-26 06:04 KST"
 }

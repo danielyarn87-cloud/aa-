@@ -48,13 +48,15 @@
       "E. Erhahon (Thigh Injury)",
       "R. Hardie (Hamstring Injury)",
       "J. McAtee (Knee Injury)",
-      "J. Nelson (Hamstring Injury)"
+      "J. Nelson (Hamstring Injury)",
+      "E. Toal (Muscle Injury)"
     ],
     "home_doubtful": [
       "E. Toal (Muscle Injury)"
     ],
     "away_absent": [
       "T. Collyer (Hamstring Injury)",
+      "O. Diakite (Calf Injury)",
       "N. Galves (Knee Injury)",
       "M. Johnston (Broken Leg)"
     ],
@@ -89,5 +91,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 00:04 KST"
+  "collected_at": "2026-11-26 06:04 KST"
 }

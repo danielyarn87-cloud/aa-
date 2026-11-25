@@ -15,8 +15,8 @@
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
-    "home_goals": 1.364,
-    "away_goals": 1.182
+    "home_goals": 1.342,
+    "away_goals": 1.178
   },
   "stats": {
     "basis": "venue",
@@ -24,18 +24,18 @@
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.018,
-      "xg_against": 1.909,
+      "xg_for": 1.005,
+      "xg_against": 1.907,
       "raw_goals_for": 0.5,
       "raw_goals_against": 3.0,
       "played": 2,
       "record": "0승 1무 1패",
-      "form": "DLLL"
+      "form": "DLLLD"
     },
     "away": {
       "설명": "원정 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.309,
-      "xg_against": 1.018,
+      "xg_for": 1.307,
+      "xg_against": 1.005,
       "raw_goals_for": 1.5,
       "raw_goals_against": 0.5,
       "played": 2,
@@ -61,18 +61,18 @@
     "league": 18,
     "season": 2026
   },
-  "table": "비엣텔 E조 4위 1점 (0승1무3패, 득실 -9) / 페르시브 반둥 E조 1위 12점 (4승0무0패, 득실 +5)",
+  "table": "비엣텔  4위 2점 (0승2무3패, 득실 -9) / 페르시브 반둥  1위 15점 (5승0무0패, 득실 +7)",
   "head_to_head": [
     "2026-10-14 페르시브 반둥 1-0 비엣텔"
   ],
   "schedule": {
-    "home_prev": "2026-11-20 V.League 1",
-    "home_days_rest": 11,
-    "away_prev": "2026-11-22 Liga 1",
-    "away_days_rest": 9
+    "home_prev": "2026-11-25 AFC Champions League Two",
+    "home_days_rest": 7,
+    "away_prev": "2026-11-25 AFC Champions League Two",
+    "away_days_rest": 6
   },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 00:05 KST"
+  "collected_at": "2026-11-26 06:04 KST"
 }

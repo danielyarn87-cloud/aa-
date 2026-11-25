@@ -23,34 +23,39 @@
     "metric": "goals",
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
-      "설명": "홈 경기 경기당 득실 (6경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 2.083,
+      "설명": "홈 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 2.061,
       "xg_against": 1.724,
-      "raw_goals_for": 2.333,
+      "raw_goals_for": 2.3,
       "raw_goals_against": 2.0,
       "played": 6,
-      "record": "3승 1무 2패"
+      "record": "3승 1무 2패",
+      "form": "WLWLL"
     },
     "away": {
-      "설명": "원정 경기 경기당 득실 (6경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 0.946,
-      "xg_against": 2.083,
-      "raw_goals_for": 0.833,
-      "raw_goals_against": 2.333,
+      "설명": "원정 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.924,
+      "xg_against": 2.061,
+      "raw_goals_for": 0.8,
+      "raw_goals_against": 2.3,
       "played": 6,
-      "record": "1승 1무 4패"
+      "record": "1승 1무 4패",
+      "form": "LLLLL"
     }
   },
   "lineup": {
     "home_absent": [],
     "home_doubtful": [],
-    "away_absent": [],
+    "away_absent": [
+      "T. Tomiyasu (Calf Injury)",
+      "C. Riad (Jumpers Knee)"
+    ],
     "away_doubtful": [],
     "confirmed": false,
-    "status": "skipped",
-    "설명": "호출 절약 수집이라 부상자 목록을 받지 않음"
+    "status": "listed",
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
-  "collected_detail": "light",
+  "collected_detail": "full",
   "venue": "Stamford Bridge",
   "source_ids": {
     "api_football_fixture": 1557490,
@@ -60,8 +65,21 @@
     "season": 2026
   },
   "table": "첼시 8위 16점 (5승1무5패, 득실 +0) / 크리스털 팰리스 20위 7점 (2승1무8패, 득실 -15)",
+  "head_to_head": [
+    "2026-01-25 크리스털 팰리스 1-3 첼시",
+    "2025-08-17 첼시 0-0 크리스털 팰리스",
+    "2025-01-04 크리스털 팰리스 1-1 첼시",
+    "2024-09-01 첼시 1-1 크리스털 팰리스",
+    "2024-02-12 크리스털 팰리스 1-3 첼시"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Premier League",
+    "home_days_rest": 11,
+    "away_prev": "2026-11-22 Premier League",
+    "away_days_rest": 11
+  },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 00:04 KST"
+  "collected_at": "2026-11-26 06:04 KST"
 }
