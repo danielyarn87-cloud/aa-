@@ -110,6 +110,16 @@ def analyze(company: Company, match: Match, client, ledger: Ledger, dept_id: str
     if not voting:
         raise RuntimeError(f"{dept.name} 에 투표할 분석가가 없습니다.")
 
+    # 경기에 영향 줄 최근 뉴스(감독·부상·이적·징계)가 있으면 분석가 자료에 넣는다 (aa/news.py 가 3시간마다 모음)
+    try:
+        from .news import brief_lines, for_match
+
+        nws = for_match(company.base_dir, match.id, match.data.get("home_en", ""), match.data.get("away_en", ""),
+                        match.home, match.away)
+        if nws:
+            match.data["관련 뉴스 (자동 수집 · 제목 기준 요약, 사실 확인 필요)"] = brief_lines(nws)
+    except Exception:  # 뉴스가 없거나 깨져도 분석은 그대로
+        pass
     base = sport.base_model(match, line)
     m1, margin = implied_probs(match.odds, OUTCOMES)
     mou, _ = implied_probs(match.odds, OU)
