@@ -956,3 +956,19 @@ window.addEventListener('hashchange', route);
 route();
 }
 window.addEventListener('hashchange', () => { if (typeof pickBar === 'function') pickBar(); });
+/* ---------- 운세 배너 (오른쪽에 따라다님, 모든 탭) ----------
+   운세 사이트 주소가 정해지면 FORTUNE_URL 에 넣는다. 비어 있으면 눌렀을 때 '준비 중'만 보여 준다. */
+const FORTUNE_URL = '';
+(function fortuneAd() {
+  if (document.querySelector('.fad')) return;
+  const a = document.createElement('a');
+  a.className = 'fad';
+  a.setAttribute('aria-label', '연도별 띠 운세 보러 가기');
+  a.innerHTML = '<span class="fh" aria-hidden="true">福</span><span class="ft">연도별 띠 운세</span><span class="fc">열어 보기</span>';
+  if (FORTUNE_URL) { a.href = FORTUNE_URL; a.target = '_blank'; a.rel = 'noopener'; }
+  else {
+    a.href = '#';
+    a.onclick = e => { e.preventDefault(); const c = a.querySelector('.fc'); c.textContent = '준비 중'; setTimeout(() => { c.textContent = '열어 보기'; }, 1500); };
+  }
+  document.body.appendChild(a);
+})();
