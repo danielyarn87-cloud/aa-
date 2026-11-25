@@ -11,18 +11,7 @@
   "home_en": "Vissel Kobe",
   "away_en": "JEF United Chiba",
   "odds": {
-    "line": 2.5,
-    "home": 1.42,
-    "best_home": 1.44,
-    "draw": 4.21,
-    "best_draw": 4.25,
-    "away": 6.19,
-    "best_away": 6.25,
-    "over": 1.66,
-    "best_over": 1.68,
-    "under": 2.02,
-    "best_under": 2.04,
-    "source": "The Odds API 평균 배당 (승무패 4곳, 언더/오버 4곳 북메이커)"
+    "line": 2.5
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -78,14 +67,13 @@
     "2013-06-08 비셀 고베 2-2 제프 유나이티드 지바"
   ],
   "schedule": {
-    "home_prev": "2026-11-20 J1 League",
-    "home_days_rest": 7,
+    "home_prev": "2026-11-24 AFC Champions League Elite",
+    "home_days_rest": 3,
     "away_prev": "2026-11-20 J1 League",
     "away_days_rest": 7
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
-    "The Odds API (배당)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 08:48 KST"
+  "collected_at": "2026-11-25 14:55 KST"
 }

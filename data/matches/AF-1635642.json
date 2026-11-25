@@ -11,23 +11,12 @@
   "home_en": "Club Brugge KV",
   "away_en": "Liverpool",
   "odds": {
-    "line": 3.5,
-    "home": 4.45,
-    "best_home": 4.8,
-    "draw": 4.61,
-    "best_draw": 4.9,
-    "away": 1.63,
-    "best_away": 1.73,
-    "over": 1.75,
-    "best_over": 1.84,
-    "under": 2.09,
-    "best_under": 2.24,
-    "source": "The Odds API 평균 배당 (승무패 22곳, 언더/오버 12곳 북메이커)"
+    "line": 2.5
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
-    "home_goals": 2.319,
-    "away_goals": 1.722
+    "home_goals": 2.235,
+    "away_goals": 1.63
   },
   "stats": {
     "basis": "venue",
@@ -35,8 +24,8 @@
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 2.391,
-      "xg_against": 1.633,
+      "xg_for": 2.341,
+      "xg_against": 1.578,
       "raw_goals_for": 2.5,
       "raw_goals_against": 1.5,
       "played": 2,
@@ -45,8 +34,8 @@
     },
     "away": {
       "설명": "원정 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 2.633,
-      "xg_against": 2.591,
+      "xg_for": 2.578,
+      "xg_against": 2.541,
       "raw_goals_for": 4.0,
       "raw_goals_against": 3.0,
       "played": 2,
@@ -58,9 +47,7 @@
     "home_absent": [
       "J. Ordonez (Foot Injury)"
     ],
-    "home_doubtful": [
-      "J. Virgili (Groin Injury)"
-    ],
+    "home_doubtful": [],
     "away_absent": [
       "C. Bradley (Knee Injury)",
       "F. Chiesa (Off the roster)",
@@ -84,7 +71,7 @@
     "league": 2,
     "season": 2026
   },
-  "table": "클뤼프 브뤼허 9위 9점 (3승0무1패, 득실 +4) / 리버풀 8위 9점 (3승0무1패, 득실 +4)",
+  "table": "클뤼프 브뤼허 11위 9점 (3승0무1패, 득실 +4) / 리버풀 10위 9점 (3승0무1패, 득실 +4)",
   "head_to_head": "자료 없음",
   "schedule": {
     "home_prev": "2026-11-22 Jupiler Pro League",
@@ -93,8 +80,7 @@
     "away_days_rest": 3
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
-    "The Odds API (배당)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 08:48 KST"
+  "collected_at": "2026-11-25 14:54 KST"
 }

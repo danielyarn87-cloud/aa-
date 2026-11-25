@@ -11,18 +11,7 @@
   "home_en": "Real Madrid",
   "away_en": "Alaves",
   "odds": {
-    "line": 3.5,
-    "home": 1.14,
-    "best_home": 1.18,
-    "draw": 8.66,
-    "best_draw": 11.0,
-    "away": 15.46,
-    "best_away": 19.5,
-    "over": 1.87,
-    "best_over": 1.95,
-    "under": 1.91,
-    "best_under": 1.99,
-    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 11곳 북메이커)"
+    "line": 2.5
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -80,14 +69,13 @@
     "2024-05-14 레알 마드리드 5-0 알라베스"
   ],
   "schedule": {
-    "home_prev": "2026-11-22 La Liga",
-    "home_days_rest": 7,
+    "home_prev": "2026-11-25 UEFA Champions League",
+    "home_days_rest": 4,
     "away_prev": "2026-11-21 La Liga",
     "away_days_rest": 7
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
-    "The Odds API (배당)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 08:48 KST"
+  "collected_at": "2026-11-25 14:54 KST"
 }

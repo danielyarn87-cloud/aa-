@@ -11,23 +11,12 @@
   "home_en": "Motherwell",
   "away_en": "Hibernian",
   "odds": {
-    "line": 2.5,
-    "home": 2.46,
-    "best_home": 2.63,
-    "draw": 3.46,
-    "best_draw": 3.75,
-    "away": 2.5,
-    "best_away": 2.58,
-    "over": 1.58,
-    "best_over": 1.65,
-    "under": 2.22,
-    "best_under": 2.35,
-    "source": "The Odds API 평균 배당 (승무패 15곳, 언더/오버 11곳 북메이커)"
+    "line": 2.5
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
-    "home_goals": 1.481,
-    "away_goals": 1.519
+    "home_goals": 1.506,
+    "away_goals": 1.518
   },
   "stats": {
     "basis": "venue",
@@ -35,8 +24,8 @@
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (7경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 0.934,
-      "xg_against": 1.436,
+      "xg_for": 0.942,
+      "xg_against": 1.435,
       "raw_goals_for": 0.7,
       "raw_goals_against": 1.4,
       "played": 7,
@@ -45,13 +34,13 @@
     },
     "away": {
       "설명": "원정 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.64,
-      "xg_against": 1.16,
+      "xg_for": 1.639,
+      "xg_against": 1.169,
       "raw_goals_for": 1.7,
       "raw_goals_against": 1.0,
       "played": 6,
       "record": "3승 1무 2패",
-      "form": "LLDWL"
+      "form": "LDWLW"
     }
   },
   "lineup": {
@@ -71,7 +60,7 @@
     "league": 179,
     "season": 2026
   },
-  "table": "마더웰 10위 13점 (3승4무7패, 득실 -7) / 히버니언 11위 11점 (3승2무8패, 득실 -6)",
+  "table": "마더웰 11위 13점 (3승4무7패, 득실 -7) / 히버니언 9위 14점 (4승2무8패, 득실 -5)",
   "head_to_head": [
     "2026-08-02 히버니언 1-2 마더웰",
     "2026-05-16 히버니언 0-1 마더웰",
@@ -82,12 +71,11 @@
   "schedule": {
     "home_prev": "2026-11-22 Premiership",
     "home_days_rest": 6,
-    "away_prev": "2026-11-22 Premiership",
-    "away_days_rest": 7
+    "away_prev": "2026-11-25 Premiership",
+    "away_days_rest": 3
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
-    "The Odds API (배당)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 08:48 KST"
+  "collected_at": "2026-11-25 14:54 KST"
 }

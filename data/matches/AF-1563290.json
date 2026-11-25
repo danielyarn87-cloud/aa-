@@ -11,23 +11,12 @@
   "home_en": "Lincoln",
   "away_en": "Wolves",
   "odds": {
-    "line": 2.5,
-    "home": 4.6,
-    "best_home": 5.06,
-    "draw": 3.77,
-    "best_draw": 4.0,
-    "away": 1.64,
-    "best_away": 1.75,
-    "over": 1.76,
-    "best_over": 1.85,
-    "under": 1.99,
-    "best_under": 2.1,
-    "source": "The Odds API 평균 배당 (승무패 17곳, 언더/오버 12곳 북메이커)"
+    "line": 2.5
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
-    "home_goals": 1.651,
-    "away_goals": 1.271
+    "home_goals": 1.65,
+    "away_goals": 1.26
   },
   "stats": {
     "basis": "venue",
@@ -35,23 +24,23 @@
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (8경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.178,
-      "xg_against": 1.874,
+      "xg_for": 1.177,
+      "xg_against": 1.871,
       "raw_goals_for": 1.0,
       "raw_goals_against": 2.1,
       "played": 8,
       "record": "1승 2무 5패",
-      "form": "WLLLL"
+      "form": "LLLLL"
     },
     "away": {
       "설명": "원정 경기 경기당 득실 (8경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.51,
+      "xg_for": 1.507,
       "xg_against": 1.468,
       "raw_goals_for": 1.6,
       "raw_goals_against": 1.4,
       "played": 8,
       "record": "4승 2무 2패",
-      "form": "WWWDW"
+      "form": "WWDWW"
     }
   },
   "lineup": {
@@ -71,17 +60,16 @@
     "league": 40,
     "season": 2026
   },
-  "table": "링컨 시티 20위 15점 (4승3무9패, 득실 -12) / 울버햄프턴 3위 31점 (9승4무3패, 득실 +9)",
+  "table": "링컨 시티 21위 15점 (4승3무10패, 득실 -16) / 울버햄프턴 2위 34점 (10승4무3패, 득실 +12)",
   "head_to_head": "자료 없음",
   "schedule": {
-    "home_prev": "2026-11-22 Championship",
-    "home_days_rest": 6,
-    "away_prev": "2026-11-22 Championship",
-    "away_days_rest": 6
+    "home_prev": "2026-11-25 Championship",
+    "home_days_rest": 3,
+    "away_prev": "2026-11-25 Championship",
+    "away_days_rest": 3
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
-    "The Odds API (배당)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 08:48 KST"
+  "collected_at": "2026-11-25 14:54 KST"
 }

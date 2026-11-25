@@ -11,13 +11,12 @@
   "home_en": "Sporting CP",
   "away_en": "Manchester United",
   "odds": {
-    "line": 2.5,
-    "note": "The Odds API 에서 이 경기를 찾지 못함 (팀 이름 별칭을 확인하세요)"
+    "line": 2.5
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
-    "home_goals": 2.319,
-    "away_goals": 1.722
+    "home_goals": 2.235,
+    "away_goals": 1.63
   },
   "stats": {
     "basis": "venue",
@@ -25,8 +24,8 @@
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 2.391,
-      "xg_against": 1.833,
+      "xg_for": 2.341,
+      "xg_against": 1.778,
       "raw_goals_for": 2.5,
       "raw_goals_against": 2.0,
       "played": 2,
@@ -35,8 +34,8 @@
     },
     "away": {
       "설명": "원정 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.233,
-      "xg_against": 2.591,
+      "xg_for": 1.178,
+      "xg_against": 2.541,
       "raw_goals_for": 0.5,
       "raw_goals_against": 3.0,
       "played": 2,
@@ -71,7 +70,7 @@
     "league": 2,
     "season": 2026
   },
-  "table": "스포르팅 CP 10위 9점 (3승0무1패, 득실 +4) / 맨체스터 유나이티드 17위 6점 (2승0무2패, 득실 +0)",
+  "table": "스포르팅 CP 12위 9점 (3승0무1패, 득실 +4) / 맨체스터 유나이티드 19위 6점 (2승0무2패, 득실 +0)",
   "head_to_head": "자료 없음",
   "schedule": {
     "home_prev": "2026-11-22 Taça de Portugal",
@@ -80,8 +79,7 @@
     "away_days_rest": 3
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
-    "The Odds API (배당)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 08:48 KST"
+  "collected_at": "2026-11-25 14:54 KST"
 }

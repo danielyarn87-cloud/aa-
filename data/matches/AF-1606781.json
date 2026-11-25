@@ -52,7 +52,7 @@
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
   "collected_detail": "full",
-  "venue": "Iwaki Greenfield",
+  "venue": "Hawaiians Stadium Iwaki",
   "source_ids": {
     "api_football_fixture": 1606781,
     "home_team": 7127,
@@ -76,5 +76,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 08:48 KST"
+  "collected_at": "2026-11-25 14:55 KST"
 }

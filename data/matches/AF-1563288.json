@@ -11,23 +11,12 @@
   "home_en": "Blackburn",
   "away_en": "Charlton",
   "odds": {
-    "line": 2.5,
-    "home": 1.74,
-    "best_home": 1.85,
-    "draw": 3.36,
-    "best_draw": 3.75,
-    "away": 3.86,
-    "best_away": 4.5,
-    "over": 1.85,
-    "best_over": 1.95,
-    "under": 1.87,
-    "best_under": 1.96,
-    "source": "The Odds API 평균 배당 (승무패 16곳, 언더/오버 10곳 북메이커)"
+    "line": 2.5
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
-    "home_goals": 1.651,
-    "away_goals": 1.271
+    "home_goals": 1.65,
+    "away_goals": 1.26
   },
   "stats": {
     "basis": "venue",
@@ -36,7 +25,7 @@
     "home": {
       "설명": "홈 경기 경기당 득실 (8경기, 리그 평균 쪽으로 3경기만큼 보정)",
       "xg_for": 1.759,
-      "xg_against": 1.292,
+      "xg_against": 1.289,
       "raw_goals_for": 1.8,
       "raw_goals_against": 1.3,
       "played": 8,
@@ -45,13 +34,13 @@
     },
     "away": {
       "설명": "원정 경기 경기당 득실 (8경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.001,
+      "xg_for": 0.998,
       "xg_against": 2.123,
       "raw_goals_for": 0.9,
       "raw_goals_against": 2.3,
       "played": 8,
       "record": "1승 2무 5패",
-      "form": "LLLWL"
+      "form": "LLWLW"
     }
   },
   "lineup": {
@@ -71,7 +60,7 @@
     "league": 40,
     "season": 2026
   },
-  "table": "블랙번 13위 22점 (6승4무6패, 득실 -1) / 찰턴 19위 17점 (4승5무7패, 득실 -11)",
+  "table": "블랙번 13위 22점 (6승4무6패, 득실 -1) / 찰턴 15위 20점 (5승5무7패, 득실 -7)",
   "head_to_head": [
     "2026-01-04 블랙번 2-2 찰턴",
     "2025-09-27 찰턴 3-0 블랙번",
@@ -82,12 +71,11 @@
   "schedule": {
     "home_prev": "2026-11-22 Championship",
     "home_days_rest": 6,
-    "away_prev": "2026-11-22 Championship",
-    "away_days_rest": 6
+    "away_prev": "2026-11-25 Championship",
+    "away_days_rest": 3
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
-    "The Odds API (배당)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 08:48 KST"
+  "collected_at": "2026-11-25 14:54 KST"
 }

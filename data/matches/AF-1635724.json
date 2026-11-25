@@ -11,23 +11,12 @@
   "home_en": "Shakhtar Donetsk",
   "away_en": "Fenerbahçe",
   "odds": {
-    "line": 2.5,
-    "home": 2.82,
-    "best_home": 2.96,
-    "draw": 3.49,
-    "best_draw": 3.7,
-    "away": 2.4,
-    "best_away": 2.54,
-    "over": 1.73,
-    "best_over": 1.85,
-    "under": 2.1,
-    "best_under": 2.16,
-    "source": "The Odds API 평균 배당 (승무패 22곳, 언더/오버 14곳 북메이커)"
+    "line": 2.5
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
-    "home_goals": 2.319,
-    "away_goals": 1.722
+    "home_goals": 2.235,
+    "away_goals": 1.63
   },
   "stats": {
     "basis": "venue",
@@ -35,8 +24,8 @@
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.991,
-      "xg_against": 1.433,
+      "xg_for": 1.941,
+      "xg_against": 1.378,
       "raw_goals_for": 1.5,
       "raw_goals_against": 1.0,
       "played": 2,
@@ -45,8 +34,8 @@
     },
     "away": {
       "설명": "원정 경기 경기당 득실 (4경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.309,
-      "xg_against": 2.137,
+      "xg_for": 1.27,
+      "xg_against": 2.101,
       "raw_goals_for": 1.0,
       "raw_goals_against": 2.0,
       "played": 4,
@@ -88,7 +77,7 @@
     "league": 2,
     "season": 2026
   },
-  "table": "샤흐타르 도네츠크 21위 4점 (1승1무2패, 득실 +0) / 페네르바흐체 19위 5점 (1승2무1패, 득실 -5)",
+  "table": "샤흐타르 도네츠크 24위 4점 (1승1무2패, 득실 +0) / 페네르바흐체 22위 5점 (1승2무1패, 득실 -5)",
   "head_to_head": [
     "2022-04-19 페네르바흐체 1-0 샤흐타르 도네츠크",
     "2015-08-05 샤흐타르 도네츠크 3-0 페네르바흐체",
@@ -101,8 +90,7 @@
     "away_days_rest": 4
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
-    "The Odds API (배당)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 08:48 KST"
+  "collected_at": "2026-11-25 14:54 KST"
 }

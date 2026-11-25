@@ -11,18 +11,7 @@
   "home_en": "Houston Dynamo",
   "away_en": "San Jose Earthquakes",
   "odds": {
-    "line": 2.5,
-    "home": 1.82,
-    "best_home": 1.88,
-    "draw": 3.77,
-    "best_draw": 3.95,
-    "away": 3.81,
-    "best_away": 4.0,
-    "over": 1.53,
-    "best_over": 1.56,
-    "under": 2.31,
-    "best_under": 2.35,
-    "source": "The Odds API 평균 배당 (승무패 4곳, 언더/오버 4곳 북메이커)"
+    "line": 2.5
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -51,7 +40,7 @@
       "raw_goals_against": 1.5,
       "played": 17,
       "record": "7승 5무 5패",
-      "form": "DLDWL"
+      "form": "LDWLW"
     }
   },
   "lineup": {
@@ -80,14 +69,13 @@
     "2024-07-18 새너제이 어스퀘이크스 0-1 휴스턴 다이너모"
   ],
   "schedule": {
-    "home_prev": "2026-11-08 Major League Soccer",
-    "home_days_rest": 20,
-    "away_prev": "2026-11-08 Major League Soccer",
-    "away_days_rest": 20
+    "home_prev": "2026-11-25 Major League Soccer",
+    "home_days_rest": 3,
+    "away_prev": "2026-11-25 Major League Soccer",
+    "away_days_rest": 3
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
-    "The Odds API (배당)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 08:48 KST"
+  "collected_at": "2026-11-25 14:55 KST"
 }

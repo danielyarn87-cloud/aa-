@@ -11,18 +11,7 @@
   "home_en": "ADO Den Haag",
   "away_en": "Utrecht",
   "odds": {
-    "line": 2.5,
-    "home": 2.69,
-    "best_home": 3.0,
-    "draw": 3.55,
-    "best_draw": 3.85,
-    "away": 2.31,
-    "best_away": 2.48,
-    "over": 1.56,
-    "best_over": 1.62,
-    "under": 2.29,
-    "best_under": 2.35,
-    "source": "The Odds API 평균 배당 (승무패 19곳, 언더/오버 11곳 북메이커)"
+    "line": 2.5
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -86,8 +75,7 @@
     "away_days_rest": 7
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
-    "The Odds API (배당)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 08:48 KST"
+  "collected_at": "2026-11-25 14:54 KST"
 }

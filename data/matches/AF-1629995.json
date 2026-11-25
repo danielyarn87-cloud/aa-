@@ -15,8 +15,8 @@
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
-    "home_goals": 1.568,
-    "away_goals": 1.514
+    "home_goals": 1.564,
+    "away_goals": 1.59
   },
   "stats": {
     "basis": "venue",
@@ -24,23 +24,23 @@
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 0.941,
-      "xg_against": 1.108,
+      "xg_for": 0.938,
+      "xg_against": 1.154,
       "raw_goals_for": 0.0,
       "raw_goals_against": 0.5,
       "played": 2,
       "record": "0승 1무 1패",
-      "form": "DLDD"
+      "form": "DLDDL"
     },
     "away": {
       "설명": "원정 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 0.908,
-      "xg_against": 1.141,
+      "xg_for": 0.954,
+      "xg_against": 1.138,
       "raw_goals_for": 0.0,
       "raw_goals_against": 0.5,
       "played": 2,
       "record": "0승 1무 1패",
-      "form": "LWWD"
+      "form": "LWWDW"
     }
   },
   "lineup": {
@@ -62,13 +62,13 @@
   },
   "head_to_head": "자료 없음",
   "schedule": {
-    "home_prev": "2026-11-18 ASEAN Club Championship",
-    "home_days_rest": 13,
-    "away_prev": "2026-11-21 J1 League",
-    "away_days_rest": 10
+    "home_prev": "2026-11-24 AFC Champions League Elite",
+    "home_days_rest": 7,
+    "away_prev": "2026-11-24 AFC Champions League Elite",
+    "away_days_rest": 7
   },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 08:48 KST"
+  "collected_at": "2026-11-25 14:55 KST"
 }

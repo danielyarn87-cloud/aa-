@@ -11,23 +11,12 @@
   "home_en": "Birmingham",
   "away_en": "Bolton",
   "odds": {
-    "line": 2.5,
-    "home": 1.43,
-    "best_home": 1.55,
-    "draw": 4.08,
-    "best_draw": 4.59,
-    "away": 5.52,
-    "best_away": 6.17,
-    "over": 1.56,
-    "best_over": 1.6,
-    "under": 2.3,
-    "best_under": 2.38,
-    "source": "The Odds API 평균 배당 (승무패 16곳, 언더/오버 10곳 북메이커)"
+    "line": 2.5
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
-    "home_goals": 1.651,
-    "away_goals": 1.271
+    "home_goals": 1.65,
+    "away_goals": 1.26
   },
   "stats": {
     "basis": "venue",
@@ -35,8 +24,8 @@
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (8경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 2.196,
-      "xg_against": 1.074,
+      "xg_for": 2.195,
+      "xg_against": 1.071,
       "raw_goals_for": 2.4,
       "raw_goals_against": 1.0,
       "played": 8,
@@ -45,7 +34,7 @@
     },
     "away": {
       "설명": "원정 경기 경기당 득실 (8경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.365,
+      "xg_for": 1.362,
       "xg_against": 1.759,
       "raw_goals_for": 1.4,
       "raw_goals_against": 1.8,
@@ -71,7 +60,7 @@
     "league": 40,
     "season": 2026
   },
-  "table": "버밍엄 4위 29점 (8승5무3패, 득실 +13) / 볼턴 17위 18점 (5승3무8패, 득실 -9)",
+  "table": "버밍엄 4위 29점 (8승5무3패, 득실 +13) / 볼턴 19위 18점 (5승3무8패, 득실 -9)",
   "head_to_head": [
     "2025-03-04 볼턴 3-1 버밍엄",
     "2024-10-22 버밍엄 2-0 볼턴",
@@ -86,8 +75,7 @@
     "away_days_rest": 7
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
-    "The Odds API (배당)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 08:48 KST"
+  "collected_at": "2026-11-25 14:54 KST"
 }

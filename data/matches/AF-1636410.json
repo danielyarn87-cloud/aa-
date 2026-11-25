@@ -11,18 +11,7 @@
   "home_en": "SC Freiburg",
   "away_en": "Twente",
   "odds": {
-    "line": 3.5,
-    "home": 2.05,
-    "best_home": 2.13,
-    "draw": 3.85,
-    "best_draw": 4.2,
-    "away": 3.14,
-    "best_away": 3.3,
-    "over": 2.27,
-    "best_over": 2.34,
-    "under": 1.6,
-    "best_under": 1.64,
-    "source": "The Odds API 평균 배당 (승무패 14곳, 언더/오버 4곳 북메이커)"
+    "line": 2.5
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -80,8 +69,7 @@
     "away_days_rest": 4
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
-    "The Odds API (배당)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 08:48 KST"
+  "collected_at": "2026-11-25 14:54 KST"
 }

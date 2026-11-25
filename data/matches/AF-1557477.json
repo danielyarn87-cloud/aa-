@@ -11,18 +11,7 @@
   "home_en": "Arsenal",
   "away_en": "Manchester City",
   "odds": {
-    "line": 2.5,
-    "home": 1.96,
-    "best_home": 2.06,
-    "draw": 3.69,
-    "best_draw": 3.9,
-    "away": 3.59,
-    "best_away": 3.9,
-    "over": 1.72,
-    "best_over": 1.79,
-    "under": 2.1,
-    "best_under": 2.19,
-    "source": "The Odds API 평균 배당 (승무패 24곳, 언더/오버 15곳 북메이커)"
+    "line": 2.5
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -84,14 +73,13 @@
     "2025-02-02 아스널 5-1 맨체스터 시티"
   ],
   "schedule": {
-    "home_prev": "2026-11-22 Premier League",
-    "home_days_rest": 7,
-    "away_prev": "2026-11-21 Premier League",
-    "away_days_rest": 8
+    "home_prev": "2026-11-25 UEFA Champions League",
+    "home_days_rest": 4,
+    "away_prev": "2026-11-25 UEFA Champions League",
+    "away_days_rest": 4
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
-    "The Odds API (배당)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 08:48 KST"
+  "collected_at": "2026-11-25 14:54 KST"
 }

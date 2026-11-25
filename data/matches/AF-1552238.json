@@ -11,18 +11,7 @@
   "home_en": "Groningen",
   "away_en": "Willem II",
   "odds": {
-    "line": 3.5,
-    "home": 1.39,
-    "best_home": 1.43,
-    "draw": 4.81,
-    "best_draw": 5.5,
-    "away": 6.4,
-    "best_away": 7.5,
-    "over": 2.09,
-    "best_over": 2.15,
-    "under": 1.67,
-    "best_under": 1.74,
-    "source": "The Odds API 평균 배당 (승무패 19곳, 언더/오버 9곳 북메이커)"
+    "line": 2.5
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -55,15 +44,23 @@
     }
   },
   "lineup": {
-    "home_absent": [],
+    "home_absent": [
+      "T. Hernes (Inactive)",
+      "M. Jeng (Leg Injury)"
+    ],
     "home_doubtful": [],
-    "away_absent": [],
+    "away_absent": [
+      "T. Didillon Hodl (Inactive)",
+      "J. Hoogma (Knee Injury)",
+      "A. Lachkar (Groin Injury)",
+      "N. Tjoe a On (Red Card)"
+    ],
     "away_doubtful": [],
     "confirmed": false,
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
   "collected_detail": "full",
-  "venue": "Euroborg",
+  "venue": "Hitachi Capital Mobility Stadion",
   "source_ids": {
     "api_football_fixture": 1552238,
     "home_team": 202,
@@ -86,8 +83,7 @@
     "away_days_rest": 5
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
-    "The Odds API (배당)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 08:48 KST"
+  "collected_at": "2026-11-25 14:54 KST"
 }

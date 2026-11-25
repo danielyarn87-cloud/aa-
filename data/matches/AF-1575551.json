@@ -11,18 +11,7 @@
   "home_en": "Maritimo",
   "away_en": "Nacional",
   "odds": {
-    "line": 2.5,
-    "home": 2.05,
-    "best_home": 2.19,
-    "draw": 3.24,
-    "best_draw": 3.4,
-    "away": 3.43,
-    "best_away": 3.68,
-    "over": 2.01,
-    "best_over": 2.09,
-    "under": 1.71,
-    "best_under": 1.73,
-    "source": "The Odds API 평균 배당 (승무패 19곳, 언더/오버 11곳 북메이커)"
+    "line": 2.5
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -63,7 +52,7 @@
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
   "collected_detail": "full",
-  "venue": null,
+  "venue": "Estádio do Marítimo",
   "source_ids": {
     "api_football_fixture": 1575551,
     "home_team": 214,
@@ -86,8 +75,7 @@
     "away_days_rest": 19
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
-    "The Odds API (배당)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 08:48 KST"
+  "collected_at": "2026-11-25 14:54 KST"
 }

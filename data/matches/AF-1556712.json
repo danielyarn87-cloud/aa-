@@ -11,23 +11,12 @@
   "home_en": "Aberdeen",
   "away_en": "Dundee",
   "odds": {
-    "line": 2.5,
-    "home": 1.82,
-    "best_home": 1.88,
-    "draw": 3.63,
-    "best_draw": 3.88,
-    "away": 3.69,
-    "best_away": 3.96,
-    "over": 1.62,
-    "best_over": 1.66,
-    "under": 2.15,
-    "best_under": 2.22,
-    "source": "The Odds API 평균 배당 (승무패 16곳, 언더/오버 11곳 북메이커)"
+    "line": 2.5
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
-    "home_goals": 1.481,
-    "away_goals": 1.519
+    "home_goals": 1.506,
+    "away_goals": 1.518
   },
   "stats": {
     "basis": "venue",
@@ -35,23 +24,23 @@
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (7경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 0.934,
-      "xg_against": 1.366,
+      "xg_for": 0.942,
+      "xg_against": 1.365,
       "raw_goals_for": 0.7,
       "raw_goals_against": 1.3,
       "played": 7,
       "record": "2승 1무 4패",
-      "form": "WLLLW"
+      "form": "LLLWL"
     },
     "away": {
-      "설명": "원정 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.306,
-      "xg_against": 1.36,
-      "raw_goals_for": 1.2,
-      "raw_goals_against": 1.3,
-      "played": 6,
-      "record": "2승 0무 4패",
-      "form": "DLWLL"
+      "설명": "원정 경기 경기당 득실 (7경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.225,
+      "xg_against": 1.432,
+      "raw_goals_for": 1.1,
+      "raw_goals_against": 1.4,
+      "played": 7,
+      "record": "2승 0무 5패",
+      "form": "LWLLL"
     }
   },
   "lineup": {
@@ -71,7 +60,7 @@
     "league": 179,
     "season": 2026
   },
-  "table": "애버딘 8위 14점 (4승2무7패, 득실 -4) / 던디 7위 17점 (5승2무6패, 득실 -5)",
+  "table": "애버딘 8위 14점 (4승2무8패, 득실 -5) / 던디 7위 17점 (5승2무7패, 득실 -6)",
   "head_to_head": [
     "2026-08-15 애버딘 3-0 던디",
     "2026-08-08 던디 2-0 애버딘",
@@ -80,14 +69,13 @@
     "2025-12-06 던디 1-3 애버딘"
   ],
   "schedule": {
-    "home_prev": "2026-11-22 Premiership",
-    "home_days_rest": 7,
-    "away_prev": "2026-11-22 Premiership",
-    "away_days_rest": 6
+    "home_prev": "2026-11-25 Premiership",
+    "home_days_rest": 3,
+    "away_prev": "2026-11-25 Premiership",
+    "away_days_rest": 3
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
-    "The Odds API (배당)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 08:48 KST"
+  "collected_at": "2026-11-25 14:54 KST"
 }

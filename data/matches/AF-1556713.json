@@ -11,13 +11,12 @@
   "home_en": "Dundee Utd",
   "away_en": "ST Johnstone",
   "odds": {
-    "line": 2.5,
-    "note": "The Odds API 에서 이 경기를 찾지 못함 (팀 이름 별칭을 확인하세요)"
+    "line": 2.5
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
-    "home_goals": 1.481,
-    "away_goals": 1.519
+    "home_goals": 1.506,
+    "away_goals": 1.518
   },
   "stats": {
     "basis": "venue",
@@ -25,7 +24,7 @@
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.294,
+      "xg_for": 1.302,
       "xg_against": 1.306,
       "raw_goals_for": 1.2,
       "raw_goals_against": 1.2,
@@ -35,8 +34,8 @@
     },
     "away": {
       "설명": "원정 경기 경기당 득실 (7경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.086,
-      "xg_against": 1.634,
+      "xg_for": 1.085,
+      "xg_against": 1.642,
       "raw_goals_for": 0.9,
       "raw_goals_against": 1.7,
       "played": 7,
@@ -76,8 +75,7 @@
     "away_days_rest": 7
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
-    "The Odds API (배당)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 08:48 KST"
+  "collected_at": "2026-11-25 14:54 KST"
 }
