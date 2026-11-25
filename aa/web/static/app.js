@@ -450,10 +450,9 @@ const WAIT_MS = 2 * 3600e3;
 const WAIT_HTML = '<span class="lv-w">경기 종료 · 결과 반영 대기</span>';
 const awaitingResult = m => { const k = kickMs(m), n = Date.now(); return !m.result && k + WAIT_MS <= n && n <= k + 24 * 3600e3; };
 /* 끝난 경기 최종 점수: 서버가 경기 번호로 따로 받아 준다 (/api/live?ended=…). 이 브라우저에도 이틀 기억 */
-const WAIT_SHORT = '<span class="lv-w">결과 반영 대기</span>';
 let FINALS = {};
 try { FINALS = JSON.parse(localStorage.getItem('aa_final') || '{}') || {}; } catch (e) { FINALS = {}; }
-const waitHtml = id => FINALS[id] ? liveText(FINALS[id], true) + WAIT_SHORT : WAIT_HTML;
+const waitHtml = id => FINALS[id] ? liveText(FINALS[id], true, true) : WAIT_HTML;
 const liveSlot = m => {
   const w = awaitingResult(m), id = esc(m.id);
   if (mayBeLive(m)) return `<span class="lv" data-live="${id}" data-mid="${id}" data-kick="${kickMs(m)}"${w ? '' : ' hidden'}>${w ? waitHtml(m.id) : ''}</span>`;
@@ -463,7 +462,7 @@ let finalAt = 0, finalTimer = null;
 async function finalTick() {
   if (!STATIC) return;
   const need = [...new Set([...document.querySelectorAll('.lv[data-mid]')]
-    .filter(e => !e.hidden && e.querySelector('.lv-w') && !FINALS[e.dataset.mid]).map(e => e.dataset.mid))]
+    .filter(e => !e.hidden && e.querySelector('.lv-w, .lv-t.wait') && !FINALS[e.dataset.mid]).map(e => e.dataset.mid))]
     .filter(id => /^AF-\d+$/.test(id)).slice(0, 20);
   if (!need.length || Date.now() - finalAt < 5 * 60e3) return;
   finalAt = Date.now();
@@ -476,7 +475,7 @@ async function finalTick() {
     for (const id of Object.keys(FINALS)) if (!(FINALS[id].t > old)) delete FINALS[id];
     try { localStorage.setItem('aa_final', JSON.stringify(FINALS)); } catch (e) {}
     document.querySelectorAll('.lv[data-mid]').forEach(e => {
-      if (FINALS[e.dataset.mid] && e.querySelector('.lv-w')) { e.className = 'lv'; e.innerHTML = waitHtml(e.dataset.mid); e.hidden = false; }
+      if (FINALS[e.dataset.mid] && e.querySelector('.lv-w, .lv-t.wait')) { e.className = 'lv'; e.innerHTML = waitHtml(e.dataset.mid); e.hidden = false; }
     });
   }
   clearTimeout(finalTimer);
@@ -485,11 +484,12 @@ async function finalTick() {
 const liveSeen = {};   /* 진행 중으로 본 적 있는 경기의 마지막 값: 목록에서 빠지면 '종료'로 보여 준다 */
 let liveTimer = null;
 const LIVE_ON = ['1H', 'HT', '2H', 'ET', 'BT', 'P', 'LIVE', 'INT', 'SUSP'];
-function liveText(x, ended) {
-  /* 시간(노란 알약) · 홈 점수(빨간 테두리) · 원정 점수(파란 테두리) */
-  const sc = `<b class="lv-h num" title="홈">${esc(x.h)}</b><b class="lv-a num" title="원정">${esc(x.a)}</b>`;
+function liveText(x, ended, wait) {
+  /* 시간 알약은 막대 왼쪽 옆, 점수는 막대 위 가운데: 홈 카드 · 홈 점수(빨강) · 원정 점수(파랑) · 원정 카드 */
+  const cd = (y, r, side) => `<span class="lv-cd ${side}">${y ? `<span title="옐로카드"><i class="y"></i>${esc(y)}</span>` : ''}${r ? `<span title="레드카드"><i class="r"></i>${esc(r)}</span>` : ''}</span>`;
+  const sc = `<span class="lv-sc">${cd(x.yh, x.rh, 'l')}<span class="lv-ss"><b class="lv-h num" title="홈">${esc(x.h)}</b><b class="lv-a num" title="원정">${esc(x.a)}</b></span>${cd(x.ya, x.ra, 'r')}</span>`;
   const t = (txt, dot, cls = '') => `<span class="lv-t${cls}">${dot ? '<i class="dot"></i>' : ''}${txt}</span>`;
-  if (ended || ['FT', 'AET', 'PEN'].includes(x.s)) return t('종료', false) + sc;
+  if (ended || ['FT', 'AET', 'PEN'].includes(x.s)) return (wait ? t('종료<small>결과 대기</small>', false, ' end wait') : t('종료', false)) + sc;
   if (x.s === 'HT') return t('HT', false) + sc;
   if (x.s === 'P') return t('승부차기', true) + sc;
   return t(x.m != null ? esc(x.m) + "'" : 'LIVE', true, ' num') + sc;
@@ -521,7 +521,7 @@ async function liveTick() {
       return;
     }
     el.className = 'lv' + (x && LIVE_ON.includes(x.s) && x.s !== 'HT' ? ' on' : '');
-    el.innerHTML = x ? liveText(show, false) : FINALS[id] ? waitHtml(id) : liveText(show, true) + WAIT_SHORT;
+    el.innerHTML = x ? liveText(show, false) : FINALS[id] ? waitHtml(id) : liveText(show, true, true);
     el.hidden = false;
   });
   liveTimer = setTimeout(liveTick, 60e3);
