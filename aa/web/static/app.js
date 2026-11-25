@@ -336,7 +336,8 @@ function rowHtml(m) {
     if (m.result.hit_ou != null) tags.push(`<span class="tag ${m.result.hit_ou ? 'hit' : 'miss'}">언오버 ${m.result.hit_ou ? '적중' : '빗나감'}</span>`);
   }
   if (m.mock) tags.push('<span class="tag wait">모의</span>');
-  return `<a class="row" href="#m-${encodeURIComponent(m.id)}">${head}<span class="mid">${liveSlot(m)}${tri(m.probs)}</span><span class="tags">${tags.join('')}</span></a>`;
+  const hot = both(m.pick_1x2) || both(m.pick_ou);   /* 예측+이득(★) 경기는 줄 전체를 진한 회색으로 */
+  return `<a class="row${hot ? ' hot' : ''}" href="#m-${encodeURIComponent(m.id)}">${head}<span class="mid">${liveSlot(m)}${tri(m.probs)}</span><span class="tags">${tags.join('')}</span></a>`;
 }
 
 /* ---------- 실시간 스코어 ----------
