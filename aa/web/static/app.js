@@ -183,7 +183,9 @@ async function renderList() {
   const done = ms.filter(m => m.status === 'analyzed');
   const vals = done.filter(m => m.value_alerts && m.value_alerts.length).length;
   const isRes = listFilter === 'results';
-  const shown = isRes ? [] : ms.filter(m => listFilter === 'all' || (listFilter === 'analyzed' ? m.status === 'analyzed' : listFilter === 'pending' ? m.status === 'pending' : (m.value_alerts || []).length));
+  /* 끝난 지 12시간 안 된 경기는 최종 점수와 함께 목록에 남긴다 (회원도 결과를 볼 수 있게) */
+  const recent = inLg.filter(m => m.result && m.status === 'analyzed' && Date.now() - kickMs(m) < 12 * 3600e3);
+  const shown = isRes ? [] : [...ms, ...recent].sort((a, b) => kickMs(a) - kickMs(b)).filter(m => listFilter === 'all' || (listFilter === 'analyzed' ? m.status === 'analyzed' : listFilter === 'pending' ? m.status === 'pending' : (m.value_alerts || []).length));
   const days = [...new Set(shown.map(m => dayOf(m.kickoff)))];
   const chip = (k, t, cls = '') => `<button class="seg ${cls}" data-f="${k}" aria-pressed="${listFilter === k}">${t}</button>`;
   view.innerHTML = `<section class="band"><div class="wrap">
@@ -438,7 +440,7 @@ function rowHtml(m) {
   if (m.mock) tags.push('<span class="tag wait">모의</span>');
   const hot = both(m.pick_1x2) || both(m.pick_ou);   /* 예측+이득(★) 경기는 줄 전체를 진한 회색으로 */
   const val = !hot && (m.value_alerts || []).length > 0;   /* 이득만 있는 경기는 연분홍 */
-  return `<a class="row${hot ? ' hot' : val ? ' val' : ''}" href="#m-${encodeURIComponent(m.id)}">${head}<span class="mid">${liveSlot(m)}${tri(m.probs, m.pick_1x2)}</span><span class="tags">${tags.join('')}</span></a>`;
+  return `<a class="row${hot ? ' hot' : val ? ' val' : ''}" href="#m-${encodeURIComponent(m.id)}">${head}<span class="mid">${m.result ? finalSlot(m) : liveSlot(m)}${tri(m.probs, m.pick_1x2)}</span><span class="tags">${tags.join('')}</span></a>`;
 }
 
 /* ---------- 실시간 스코어 ----------
@@ -459,13 +461,19 @@ const liveSlot = m => {
   if (mayBeLive(m)) return `<span class="lv" data-live="${id}" data-mid="${id}" data-kick="${kickMs(m)}"${w ? '' : ' hidden'}>${w ? waitHtml(m.id) : ''}</span>`;
   return w ? `<span class="lv" data-mid="${id}">${waitHtml(m.id)}</span>` : '';
 };
+/* 결과가 반영된 경기: 최종 점수 (카드 수는 서버에서 받아 둔 게 있으면 함께) */
+const finalSlot = m => {
+  const sc = String((m.result || {}).score || '').match(/(\d+)\D+(\d+)/);
+  if (!sc) return '';
+  return `<span class="lv">${liveText({...(FINALS[m.id] || {}), h: +sc[1], a: +sc[2]}, true)}</span>`;
+};
 let finalAt = 0, finalTimer = null;
 async function finalTick() {
   if (!STATIC) return;
   const need = [...new Set([...document.querySelectorAll('.lv[data-mid]')]
     .filter(e => !e.hidden && e.querySelector('.lv-w, .lv-t.wait') && !FINALS[e.dataset.mid]).map(e => e.dataset.mid))]
     .filter(id => /^AF-\d+$/.test(id)).slice(0, 20);
-  if (!need.length || Date.now() - finalAt < 5 * 60e3) return;
+  if (!need.length || Date.now() - finalAt < 50e3) return;   /* 못 받은 경기가 남아 있으면 1분마다 다시 (받은 점수는 기억) */
   finalAt = Date.now();
   let d = null;
   try { d = await (await fetch('/api/live?ended=' + need.join(','), {cache: 'no-cache'})).json(); } catch (e) { d = null; }
@@ -480,7 +488,7 @@ async function finalTick() {
     });
   }
   clearTimeout(finalTimer);
-  finalTimer = setTimeout(finalTick, 5 * 60e3 + 1000);
+  finalTimer = setTimeout(finalTick, 61e3);
 }
 const liveSeen = {};   /* 진행 중으로 본 적 있는 경기의 마지막 값: 목록에서 빠지면 '종료'로 보여 준다 */
 let liveTimer = null;
@@ -525,6 +533,7 @@ async function liveTick() {
     el.innerHTML = x ? liveText(show, false) : FINALS[id] ? waitHtml(id) : liveText(show, true, true);
     el.hidden = false;
   });
+  finalTick();   /* 방금 '결과 반영 대기'로 바뀐 경기의 최종 점수도 바로 묻는다 */
   liveTimer = setTimeout(liveTick, 60e3);
 }
 

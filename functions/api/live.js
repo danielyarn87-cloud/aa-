@@ -90,20 +90,24 @@ async function ended(env, raw, now) {
       if (hit) { finals[id] = res[id] = await hit.json(); miss.splice(miss.indexOf(id), 1); }
     }
   }
-  if (miss.length && env.API_FOOTBALL_KEY && now - endedAt > 60e3) {
+  let err = null;
+  if (miss.length && env.API_FOOTBALL_KEY && now - endedAt > 20e3) {
     endedAt = now;
     try {
       const r = await fetch("https://v3.football.api-sports.io/fixtures?ids=" + miss.map(id => id.slice(3)).join("-"), {
         headers: { "x-apisports-key": env.API_FOOTBALL_KEY },
       });
-      const got = pickFinals(await r.json());
+      const body = await r.json();
+      const e = body && body.errors;
+      if (e && (Array.isArray(e) ? e.length : Object.keys(e).length)) err = e;   /* 공용 IP 분당 한도 등: 화면이 1분 뒤 다시 묻는다 */
+      const got = pickFinals(body);
       for (const [id, v] of Object.entries(got)) {
         finals[id] = res[id] = v;
         if (cache) await cache.put(finalKey(id), new Response(JSON.stringify(v), { headers: { "Content-Type": "application/json", "Cache-Control": "public, max-age=86400" } }));
       }
-    } catch (e) { /* 오류면 다음 번에 다시 */ }
+    } catch (e) { err = String(e); }
   }
-  return out(JSON.stringify({ at: new Date(now).toISOString(), final: res }));
+  return out(JSON.stringify({ at: new Date(now).toISOString(), final: res, ...(err ? { error: err } : {}) }));
 }
 
 export async function onRequestGet({ request, env }) {
