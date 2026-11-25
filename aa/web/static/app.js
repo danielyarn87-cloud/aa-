@@ -358,8 +358,8 @@ async function renderMatch(id) {
     <p class="meta">${esc(m.league)} · ${esc(m.kickoff)}</p>
     <div class="fixture"><span class="team home">${esc(m.home)}</span>${res}<span class="team">${esc(m.away)}</span></div>
     <div class="verdicts">
-      <div class="verdict"><span>누가 이기나</span><b>${pickName ? esc(pickName) : '판단 보류'}</b><span class="small">${esc(voteText(one.tally))}</span></div>
-      <div class="verdict"><span>골 수</span><b>${ou.pick ? esc(N[ou.pick]) : '판단 보류'}</b><span class="small">${esc(voteText(ou.tally))}</span></div>
+      <div class="verdict"><div class="vh"><span>누가 이기나</span><span class="small">${esc(voteText(one.tally))}</span></div><b class="vb">${pickName ? esc(pickName) : '판단 보류'}</b></div>
+      <div class="verdict"><div class="vh"><span>골 수</span><span class="small">${esc(voteText(ou.tally))}</span></div><b class="vb">${ou.pick ? esc(N[ou.pick]) : '판단 보류'}</b></div>
     </div>
   </div></section>
   <section class="band"><div class="wrap">
@@ -426,6 +426,16 @@ async function renderMatch(id) {
     catch (e) { msg.textContent = e.message; }
   };
 }
+
+/* 경기 상세 위쪽 예측 칸: 한 줄에 안 들어가면 글자를 조금씩 줄여 한 줄로 맞춘다 */
+function fitVerdicts() {
+  document.querySelectorAll('.verdict .vb').forEach(b => {
+    b.style.fontSize = '';
+    let fs = parseFloat(getComputedStyle(b).fontSize);
+    while (b.scrollWidth > b.clientWidth + 1 && fs > 14) { fs -= 1; b.style.fontSize = fs + 'px'; }
+  });
+}
+window.addEventListener('resize', () => fitVerdicts());
 
 /* ---------- 분석팀 ---------- */
 function personaPoints(md) {
@@ -820,6 +830,7 @@ async function route() {
     else if (h === 'admin') await renderAdmin();
     else if (h === 'run' && STATIC) await renderRun();
     else await renderList();
+    fitVerdicts();
   } catch (e) {
     view.innerHTML = `<section class="band"><div class="wrap"><h1>불러오지 못했습니다</h1><p class="lead">${esc(e.message)}</p><p><a href="#">경기 목록으로</a></p></div></section>`;
   }
