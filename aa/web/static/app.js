@@ -61,6 +61,10 @@ async function api(path, opts) {
     if (path === '/api/record') return SNAP.record;
     throw new Error('미리보기에서는 쓸 수 없는 기능입니다.');
   }
+  if (STATIC && path === '/api/odds') {   /* 배당 변화 기록: Cloudflare 함수가 바로 답한다 */
+    const r = await fetch('/api/odds', {cache: 'no-cache'});
+    return r.ok ? r.json() : null;
+  }
   if (STATIC) {
     const file = path === '/api/matches' ? 'api/matches.json'
       : path.startsWith('/api/matches/') ? 'api/matches/' + path.split('/').pop() + '.json'
@@ -99,6 +103,8 @@ const lgName = m => m.league_name || (m.league || '').split(' ')[0] || '기타';
 async function renderList() {
   const data = await api('/api/matches');
   const credit = await api('/api/credit').catch(() => null);
+  ODDS_H = await api('/api/odds').catch(() => null);
+  const lgInfo = await api('/api/leagues').catch(() => null);
   const all = data.matches;
   const lgCount = {};
   all.forEach(m => { lgCount[lgName(m)] = (lgCount[lgName(m)] || 0) + 1; });
@@ -115,7 +121,7 @@ async function renderList() {
   view.innerHTML = `<section class="band"><div class="wrap">
     <div class="listhead"><div><h1>누적 적중률 · 전체</h1></div>
       <div class="segbar" role="group" aria-label="경기 거르기">${chip('all', '전체')}${chip('analyzed', '분석 완료')}${chip('value', '이득 신호')}${chip('pending', '분석 대기')}${chip('results', `경기 결과 <span class="num">${finished.length}</span>`, 'res')}</div></div>
-    ${kpiCards(all, ms.length - done.length, done.length, vals, credit)}
+    ${kpiCards(all, ms.length - done.length, done.length, vals, credit, lgInfo)}
     ${Object.keys(lgCount).length > 1 ? `<button type="button" class="lgtoggle" id="lgtoggle" aria-expanded="${lgOpen}"><span><b>리그</b> · ${leagueFilter === 'all' ? `모든 리그 (${all.length})` : `${esc(leagueFilter)} (${lgCount[leagueFilter]})`}</span><span>${lgOpen ? '접기 ▴' : '펼치기 ▾'}</span></button>
     <div class="chips lgchips" role="group" aria-label="리그 거르기" ${lgOpen ? '' : 'hidden'}>
       <button class="chip" data-lg="all" aria-pressed="${leagueFilter === 'all'}">모든 리그 <span class="num">${all.length}</span></button>
@@ -164,8 +170,9 @@ async function renderList() {
   pickBar();
   liveTick();
   wireCredit();
+  wireApiCard();
 }
-function kpiCards(all, waiting, analyzed, vals, credit) {
+function kpiCards(all, waiting, analyzed, vals, credit, lgInfo) {
   const done = all.filter(m => m.result);
   const p1 = done.filter(m => m.result.hit_1x2 != null), po = done.filter(m => m.result.hit_ou != null);
   const h1 = p1.filter(m => m.result.hit_1x2).length, ho = po.filter(m => m.result.hit_ou).length;
@@ -192,6 +199,7 @@ function kpiCards(all, waiting, analyzed, vals, credit) {
     ${card('k3', '채점한 경기', done.length, '누적')}
     ${card('k4', '분석 대기', waiting, `분석 완료 ${analyzed} · 이득 ${vals}`)}
     ${creditCard(credit)}
+    ${apiCard(lgInfo)}
   </div>`;
 }
 /* Claude 크레딧: Console 잔액은 밖에서 못 읽어서, 입력한 잔액에서 분석할 때 쓴 만큼(실제 토큰 수 × 가격)을 뺀 추정값 */
@@ -240,12 +248,79 @@ function pickBar() {
   bar.innerHTML = `<span><b class="num">${n}</b>경기 담음</span><a class="btn" href="#run">분석 요청하러 가기 →</a><button type="button" class="btn ghost" id="pickClear">비우기</button>`;
   document.getElementById('pickClear').onclick = () => { store.set('aa_pick_ids', ''); renderList(); };
 }
+/* ---------- 배당 표시 · 변화 ----------
+   목록: 경기명 아래 지금 배당. 화살표는 '분석했을 때 배당'(분석 전 경기는 처음 등록 때 배당) 대비.
+   ▲ 배당이 올라감(시장이 덜 유력하게 봄) 빨강, ▼ 내려감(더 유력하게 봄) 파랑. */
+let ODDS_H = null;
+const histOf = id => ((ODDS_H && ODDS_H.hist) || {})[id] || [];
+function oddsNow(m) {
+  const h = histOf(m.id);
+  return h.length ? h[h.length - 1] : (m.odds_now || m.odds || {});
+}
+const oddsBase = m => (m.status === 'analyzed' ? m.odds : m.odds_first) || {};
+function arrow(now, base) {
+  if (now == null || base == null || Math.abs(now - base) < 0.005) return '';
+  return now > base ? `<i class="oa up" title="${esc(base)} → ${esc(now)}">▲</i>` : `<i class="oa dn" title="${esc(base)} → ${esc(now)}">▼</i>`;
+}
+function oddsLine(m) {
+  const o = oddsNow(m), b = oddsBase(m);
+  if (!o || !o.home) return '<span class="oddsline mute">배당 없음</span>';
+  const c = (lab, k) => `${lab} <b class="num">${esc(o[k])}</b>${arrow(o[k], b[k])}`;
+  return `<span class="oddsline">${c('승', 'home')} · ${c('무', 'draw')} · ${c('패', 'away')}</span>`;
+}
+function oddsTable(r) {
+  const rows = [];
+  const lab = {hour: '1시간 갱신', final: '마감 30분 전'};
+  const t = iso => { const d = new Date(iso); return isNaN(d) ? esc(iso || '') : esc(kst(iso)); };
+  if (r.odds_first && r.odds_first.home) rows.push({w: '처음 등록', at: r.odds_first.at || '', o: r.odds_first});
+  if (r.match.odds && r.match.odds.home) rows.push({w: '분석할 때', at: r.analyzed_at ? t(r.analyzed_at) : '', o: r.match.odds, base: 1});
+  const h = histOf(r.match.id);
+  h.forEach(x => rows.push({w: lab[x.k] || '갱신', at: t(x.t), o: x}));
+  if (!h.length && r.odds_now && r.odds_now.home) rows.push({w: '최근 수집', at: r.odds_now_at || '', o: r.odds_now});
+  if (!rows.length) return '';
+  const cell = (row, i, k) => `<td class="r num">${row.o[k] != null ? esc(row.o[k]) : '-'}${i ? arrow(row.o[k], rows[i - 1].o[k]) : ''}</td>`;
+  return `<div class="sec"><h2>배당 변화 <span class="small mute">여러 북메이커 평균 · 화살표는 바로 위 줄 대비</span></h2><div class="scroll"><table class="stack oddsh">
+    <thead><tr><th>시점</th><th>시각</th><th class="r">승</th><th class="r">무</th><th class="r">패</th><th class="r">언더</th><th class="r">오버</th><th class="r">기준점</th></tr></thead><tbody>
+    ${rows.map((row, i) => `<tr${row.base ? ' class="obase"' : ''}><td data-l="시점"><b>${esc(row.w)}</b></td><td data-l="시각" class="small">${row.at}</td>${cell(row, i, 'home')}${cell(row, i, 'draw')}${cell(row, i, 'away')}${cell(row, i, 'under')}${cell(row, i, 'over')}<td data-l="기준점" class="r num">${esc(row.o.line ?? '-')}</td></tr>`).join('')}
+    </tbody></table></div><p class="small mute">분석한 경기는 1시간마다, 그리고 시작 30분 전쯤 마지막으로 배당을 다시 받습니다. ▲ 배당이 올라감(시장이 덜 유력하게 봄) · ▼ 내려감(더 유력하게 봄).</p></div>`;
+}
+/* 배당 API 사용량 카드 (정확한 값: 배당 API 가 알려 주는 이번 달 사용량) */
+function apiCard(lg) {
+  const u = ODDS_H && ODDS_H.usage;
+  const used = u ? u.used : lg && lg.usage ? lg.usage.odds_month : null;
+  const total = u ? u.used + u.remaining : lg && lg.usage ? lg.usage.odds_limit : null;
+  const ratio = used != null && total ? used / total : 0;
+  const lv = ratio >= 0.95 ? ' danger' : ratio >= 0.8 ? ' warn' : '';
+  const af = lg && lg.usage ? `API-Football 오늘 ${Number(lg.usage.api_football_today).toLocaleString('ko-KR')} / ${(parseInt(String(lg.usage.api_football_limit), 10) || 0).toLocaleString('ko-KR')}` : '';
+  return `<div class="kpi k7${lv}"><span class="kl">배당 API 이번 달</span>
+    <span class="kn"><span class="ap-used">${used != null ? Number(used).toLocaleString('ko-KR') : '-'}</span><small> / ${total ? Number(total).toLocaleString('ko-KR') : '-'}</small></span>
+    <span class="ks ap-sub">${total ? `남은 ${Number(total - used).toLocaleString('ko-KR')} · ${Math.round(ratio * 100)}% · 매월 1일 초기화` : '아직 사용량을 읽지 않았습니다'}</span>
+    ${af ? `<span class="ks">${af}</span>` : ''}
+    ${STATIC ? '<button type="button" class="cr-open ap-go">갱신</button>' : ''}</div>`;
+}
+function wireApiCard() {
+  const b = view.querySelector('.ap-go');
+  if (!b) return;
+  b.onclick = async () => {
+    b.disabled = true; b.textContent = '읽는 중…';
+    try {
+      const r = await fetch('/api/odds/usage', {method: 'POST'});
+      const j = await r.json().catch(() => ({}));
+      if (!j.usage) throw new Error(j.error === 'no_key' || j.error === 'no_kv' ? '설정 전' : '실패');
+      const tot = j.usage.used + j.usage.remaining;
+      view.querySelector('.ap-used').textContent = j.usage.used.toLocaleString('ko-KR');
+      view.querySelector('.k7 .kn small').textContent = ' / ' + tot.toLocaleString('ko-KR');
+      view.querySelector('.ap-sub').textContent = `남은 ${j.usage.remaining.toLocaleString('ko-KR')} · ${Math.round(j.usage.used / tot * 100)}% · 방금 갱신`;
+      b.textContent = '갱신';
+    } catch (e) { b.textContent = e.message; }
+    b.disabled = false;
+  };
+}
 function rowHtml(m) {
   const N = names(m.home, m.away, m.line);
-  const head = `<span class="time">${esc(timeOf(m.kickoff))}</span><span class="teams">${esc(m.home)} <span class="mute">vs</span> ${esc(m.away)}<br><span class="lg">${esc(m.league)}</span></span>`;
+  const head = `<span class="time">${esc(timeOf(m.kickoff))}</span><span class="teams">${esc(m.home)} <span class="mute">vs</span> ${esc(m.away)}${oddsLine(m)}<span class="lg">${esc(m.league)}</span></span>`;
   if (m.status !== 'analyzed') {
-    const o = m.odds || {};
-    return `<div class="row">${head}<span class="mid">${liveSlot(m)}<span class="small mute num odds">${o.home ? `배당 ${esc(o.home)} / ${esc(o.draw)} / ${esc(o.away)}` : '배당 없음'}</span></span><span class="tags">${m.picked ? '<span class="tag value">분석 요청함</span>' : STATIC ? `<button type="button" class="pk-toggle" data-pick="${esc(m.id)}" aria-pressed="${pickSet().has(m.id)}">${pickSet().has(m.id) ? '✓ 분석에 담음' : '＋ 분석하기'}</button>` : '<span class="tag wait">분석 대기</span>'}</span></div>`;
+    return `<div class="row">${head}<span class="mid">${liveSlot(m)}</span><span class="tags">${m.picked ? '<span class="tag value">분석 요청함</span>' : STATIC ? `<button type="button" class="pk-toggle" data-pick="${esc(m.id)}" aria-pressed="${pickSet().has(m.id)}">${pickSet().has(m.id) ? '✓ 분석에 담음' : '＋ 분석하기'}</button>` : '<span class="tag wait">분석 대기</span>'}</span></div>`;
   }
   const tags = [];
   const od = m.odds || {};
@@ -305,6 +380,7 @@ async function liveTick() {
 /* ---------- 경기 상세 ---------- */
 async function renderMatch(id) {
   const r = await api('/api/matches/' + encodeURIComponent(id));
+  ODDS_H = await api('/api/odds').catch(() => null);
   const m = r.match, d = r.decision, one = d.one_x_two, ou = d.over_under, s = r.summary;
   const N = names(m.home, m.away, d.line);
   const color = (mid, i) => (r.members[mid] && r.members[mid].color) || PAL[i % PAL.length];
@@ -402,6 +478,7 @@ async function renderMatch(id) {
       </article>`).join('')}
     </div></div>
 
+    ${oddsTable(r)}
     <div class="sec"><h2>토론 전후 변화${s.result ? ` <span class="small mute">결과 ${esc(s.result.score)} · ○ 적중 ✕ 미적중</span>` : ''}</h2><div class="scroll"><table class="stack">
       <thead><tr><th>분석가</th><th>처음 고른 결과</th><th>최종</th><th>골 수 (처음→최종)</th><th class="r">처음 가능성 (승/무/패)</th><th class="r">최종 가능성 (승/무/패)</th><th class="r">오버 가능성</th></tr></thead><tbody>
       ${r.final.map(o => { const f = first[o.member_id] || o; return `<tr><td data-l="분석가"><b>${esc(o.member_name)}</b></td><td data-l="처음 고른 결과">${esc(N[f.pick_1x2])} ${OX(f.hit_1x2)}</td><td data-l="최종"><b>${esc(N[o.pick_1x2])}</b> ${OX(o.hit_1x2)}</td><td data-l="골 수">${esc(N[f.pick_ou + 'S'])} ${OX(f.hit_ou)} → ${esc(N[o.pick_ou + 'S'])} ${OX(o.hit_ou)}</td><td data-l="처음 가능성" class="r num">${pct(f.probs.home)}/${pct(f.probs.draw)}/${pct(f.probs.away)}</td><td data-l="최종 가능성" class="r num">${pct(o.probs.home)}/${pct(o.probs.draw)}/${pct(o.probs.away)}</td><td data-l="오버 가능성" class="r num">${pct(f.over_prob)}→${pct(o.over_prob)}</td></tr>`; }).join('')}
