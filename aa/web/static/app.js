@@ -630,6 +630,19 @@ async function renderRecord() {
 /* ---------- 배팅 게임: 분석가들이 가상 100만원으로 3·5·7폴더 ---------- */
 async function renderBets() {
   const b = await api('/api/bets');
+  /* 각 선택이 팀 결론의 '예측'인지, 배당이 후한 '이득'인지, 둘 다인지 표시하려고 경기 목록도 읽는다 */
+  const MM = {};
+  try { ((await api('/api/matches')).matches || []).forEach(m => { MM[m.id] = m; }); } catch (e) { /* 없으면 표시만 생략 */ }
+  const kindOf = l => {
+    const m = MM[l.match_id];
+    if (!m || m.status !== 'analyzed') return '';
+    const pk = l.market === '1x2' ? m.pick_1x2 : m.pick_ou;
+    const isPick = pk === l.pick, isVal = (m.value_alerts || []).includes(l.pick) && (l.market === '1x2' || +l.line === +m.line);
+    if (isPick && isVal) return '<span class="tag both tk-kind"><span class="star">★ 예측+이득</span></span>';
+    if (isPick) return '<span class="tag pick tk-kind">예측</span>';
+    if (isVal) return '<span class="tag value tk-kind">이득</span>';
+    return '<span class="tag wait tk-kind" title="팀 결론과 다른, 이 분석가 개인의 선택">개인 선택</span>';
+  };
   const W = n => (n < 0 ? '−' : '') + Math.abs(Math.round(n)).toLocaleString('ko-KR') + '원';
   const pctx = p => (p * 100).toFixed(1) + '%';
   const st = s => s.status === 'won' ? '<span class="tag hit">적중</span>' : s.status === 'lost' ? '<span class="tag miss">미적중</span>' : '<span class="tag wait">진행 중</span>';
@@ -658,7 +671,7 @@ async function renderBets() {
     return `<tr class="tk-match"><td class="tk-when">${when(l.kickoff)}</td><td class="tk-lg">⚽ ${esc(l.league || '')}</td>
         <td colspan="2"><a href="#m-${encodeURIComponent(l.match_id)}"><b>${esc(l.home || l.title)}</b> <span class="mute small">vs</span> <b>${esc(l.away || '')}</b></a></td></tr>
       <tr class="tk-game"><td class="tk-when">${when(l.kickoff)} 마감</td>
-        <td><span class="leg-no">${i + 1}</span> <span class="small mute">${esc(sz)}폴더 조합</span><br><b>${game}</b></td>
+        <td><span class="leg-no">${i + 1}</span> <span class="small mute">${esc(sz)}폴더 조합</span><br><b>${game}</b> ${kindOf(l)}</td>
         <td><div class="tk-opts n${order.length}">${btns}</div></td><td class="tk-res">${mark(l)}</td></tr>`;
   };
   const slip = (s, brief) => `<div class="panel slip ticket" style="--mc:${esc(col(s.member_id))}">
