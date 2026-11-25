@@ -442,7 +442,15 @@ function rowHtml(m) {
    서버는 1분에 한 번만 API-Football 에 묻고 모두에게 같은 값을 준다. */
 const kickMs = m => { const d = dayOf(m.kickoff), t = timeOf(m.kickoff); return d && t ? Date.parse(`${d}T${t}:00+09:00`) : NaN; };
 const mayBeLive = m => { const k = kickMs(m), n = Date.now(); return !m.result && k - 15 * 60e3 <= n && n <= k + 4 * 3600e3; };
-const liveSlot = m => mayBeLive(m) ? `<span class="lv" data-live="${esc(m.id)}" hidden></span>` : '';
+/* 시작 후 2시간이 지났는데 결과(매시 17분 수집)가 아직 없으면 '경기 종료 · 결과 반영 대기'. 실시간 목록에 아직 진행 중으로 있으면 점수를 먼저 보여 준다 */
+const WAIT_MS = 2 * 3600e3;
+const WAIT_HTML = '<span class="lv-w">경기 종료 · 결과 반영 대기</span>';
+const awaitingResult = m => { const k = kickMs(m), n = Date.now(); return !m.result && k + WAIT_MS <= n && n <= k + 24 * 3600e3; };
+const liveSlot = m => {
+  const w = awaitingResult(m);
+  if (mayBeLive(m)) return `<span class="lv" data-live="${esc(m.id)}" data-kick="${kickMs(m)}"${w ? '' : ' hidden'}>${w ? WAIT_HTML : ''}</span>`;
+  return w ? `<span class="lv">${WAIT_HTML}</span>` : '';
+};
 const liveSeen = {};   /* 진행 중으로 본 적 있는 경기의 마지막 값: 목록에서 빠지면 '종료'로 보여 준다 */
 let liveTimer = null;
 const LIVE_ON = ['1H', 'HT', '2H', 'ET', 'BT', 'P', 'LIVE', 'INT', 'SUSP'];
@@ -468,9 +476,13 @@ async function liveTick() {
     const id = el.dataset.live, x = live[id];
     if (x) liveSeen[id] = x;
     const show = x || (d && liveSeen[id] ? {...liveSeen[id]} : null);
-    if (!show) { el.hidden = true; return; }
+    if (!show) {
+      const past = Date.now() >= Number(el.dataset.kick) + WAIT_MS;
+      el.className = 'lv'; el.innerHTML = past ? WAIT_HTML : ''; el.hidden = !past;
+      return;
+    }
     el.className = 'lv' + (x && LIVE_ON.includes(x.s) && x.s !== 'HT' ? ' on' : '');
-    el.innerHTML = liveText(show, !x);
+    el.innerHTML = liveText(show, !x) + (!x ? WAIT_HTML : '');
     el.hidden = false;
   });
   liveTimer = setTimeout(liveTick, 60e3);
