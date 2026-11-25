@@ -21,12 +21,24 @@ const out = (body, maxAge = TTL - 5) =>
     headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": `public, max-age=${maxAge}` },
   });
 
+// 경기 사건(events)에서 카드 수: yh·ya 옐로(홈·원정), rh·ra 레드(경고 누적 퇴장 포함). 0장은 넣지 않는다.
+export function cardsOf(x) {
+  const home = ((x.teams || {}).home || {}).id, c = {};
+  for (const e of (x && x.events) || []) {
+    if (e.type !== "Card") continue;
+    const d = String(e.detail || "").toLowerCase();
+    const k = (d.includes("red") || d.includes("second") ? "r" : "y") + ((e.team || {}).id === home ? "h" : "a");
+    c[k] = (c[k] || 0) + 1;
+  }
+  return c;
+}
+
 export function shrink(apiBody) {
   const live = {};
   for (const x of (apiBody && apiBody.response) || []) {
     const f = x.fixture || {}, g = x.goals || {};
     if (f.id == null) continue;
-    live["AF-" + f.id] = { s: (f.status || {}).short || "", m: (f.status || {}).elapsed ?? null, h: g.home ?? 0, a: g.away ?? 0 };
+    live["AF-" + f.id] = { s: (f.status || {}).short || "", m: (f.status || {}).elapsed ?? null, h: g.home ?? 0, a: g.away ?? 0, ...cardsOf(x) };
   }
   return live;
 }
@@ -60,7 +72,7 @@ export function pickFinals(apiBody) {
     const f = x.fixture || {}, s = (f.status || {}).short || "";
     if (f.id == null || !FINAL_DONE.includes(s)) continue;
     const g = x.goals || {}, pen = (x.score || {}).penalty || {};
-    const v = { s, h: g.home ?? 0, a: g.away ?? 0 };
+    const v = { s, h: g.home ?? 0, a: g.away ?? 0, ...cardsOf(x) };
     if (pen.home != null && pen.away != null) v.p = [pen.home, pen.away];
     out["AF-" + f.id] = v;
   }
