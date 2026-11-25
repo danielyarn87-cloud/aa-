@@ -389,6 +389,7 @@ a.row.val:hover{background:#C93A6E}
 .row.val .tag:not(.pick):not(.value):not(.both){background:rgba(255,255,255,.18);color:#FFF7FA;border-color:rgba(255,255,255,.35)}
 .row.hot .oddsline{color:#F4F1E8}.row.hot .oa.up{color:#FCA5A5}.row.hot .oa.dn{color:#93C5FD}
 .row.hot .tag.pick{background:#F4F1E8;color:#1D2520;border-color:#F4F1E8}
+.row.hot .tag:not(.pick):not(.value):not(.both){background:rgba(255,255,255,.16);color:#F4F1E8;border-color:rgba(255,255,255,.4)}
 .lgnd{display:inline-block;padding:1px 7px;border-radius:4px;font-size:12px}.lgnd.hot{background:#0D5C35;color:#F4F1E8;box-shadow:inset 3px 0 0 #F5C518}.lgnd.val{background:#D6457A;color:#FFF7FA}
 .tri-w{flex:1;min-width:0}
 .row .tri{height:20px;gap:2px;border-radius:4px}
