@@ -376,3 +376,9 @@ pre{background:var(--panel);padding:12px;border-radius:8px;font-size:14px;white-
 .k7.warn{background:#FFF4D6}.k7.danger{background:#FDE2E2;color:#8A1F1F}
 @media(max-width:600px){.kpis .k7{grid-column:1/-1}}
 .k6 .kn,.k7 .kn{font-size:clamp(24px,2.2vw,34px)}
+/* 예측+이득(★) 경기 줄: 진한 회색 배경 */
+.row.hot{background:#5C615E;color:#F4F1E8;border-bottom-color:#4A4F4C;padding-inline:10px}
+a.row.hot:hover{background:#525754}
+.row.hot .teams,.row.hot .time{color:#F4F1E8}.row.hot .mute,.row.hot .lg{color:#C9CFCB}
+.row.hot .oddsline{color:#F4F1E8}.row.hot .oa.up{color:#FCA5A5}.row.hot .oa.dn{color:#93C5FD}
+.row.hot .tag.pick{background:#F4F1E8;color:#1D2520;border-color:#F4F1E8}
