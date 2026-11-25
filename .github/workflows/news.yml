@@ -5,8 +5,8 @@
 name: 스포츠 뉴스
 
 on:
-  schedule:
-    - cron: "41 */3 * * *"   # 3시간마다 41분 (한국 시각 0:41, 3:41, 6:41 …)
+  # 예약 실행은 Cloudflare Worker 'raise-clock'(tools/clock-worker.js)이 정확한 시각에 workflow_dispatch 로 시작시킨다.
+  # GitHub 의 schedule 은 10~50분씩 늦고, 같이 두면 두 번 돌아 Claude 비용이 두 배가 되므로 뺐다.
   workflow_dispatch:          # 원할 때: Actions 탭 → 스포츠 뉴스 → Run workflow
 
 permissions:
