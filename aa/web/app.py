@@ -77,6 +77,7 @@ def _summary(run: dict, result: dict | None) -> dict:
         "over_prob": ou["probs"]["over"],
         "engine": run["engine"],
         "mock": "모의" in run["engine"],
+        "pick_history": run.get("pick_history", []),
     }
     if result:
         res = outcome_of(result["home_goals"], result["away_goals"])
