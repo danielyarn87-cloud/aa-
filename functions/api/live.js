@@ -12,6 +12,7 @@
 const TTL = 60;                                   // 초: 이 시간 안에는 API-Football 에 다시 묻지 않는다
 const CACHE_KEY = "https://aa-live.cache/v1/live";
 let memo = null;                                  // 같은 서버 안에서 한 번 더 아끼는 저장 {t, body}
+let good = null;                                  // 마지막으로 제대로 받은 값 (API 오류 때 대신 준다)
 
 const out = (body, maxAge = TTL - 5) =>
   new Response(body, {
@@ -50,14 +51,17 @@ export async function onRequestGet({ env }) {
     // API-Football 은 키가 틀리거나 한도를 넘어도 200 으로 답하고 errors 에 이유를 담는다 → "0경기"와 구분
     const errs = j && j.errors;
     if (errs && (Array.isArray(errs) ? errs.length : Object.keys(errs).length)) {
-      body = JSON.stringify({ at: new Date(now).toISOString(), error: "api_error", detail: errs, live: {} });
-    } else {
-      body = JSON.stringify({ at: new Date(now).toISOString(), live: shrink(j) });
+      // 오류(예: 1분당 한도 초과)면 직전에 제대로 받은 점수를 그대로 준다. 30초 뒤에 다시 시도.
+      const b = good || JSON.stringify({ at: new Date(now).toISOString(), error: "api_error", detail: errs, live: {} });
+      memo = { t: now - (TTL - 30) * 1000, body: b };   // 30초 동안은 다시 묻지 않는다
+      return out(b, 30);
     }
+    body = JSON.stringify({ at: new Date(now).toISOString(), live: shrink(j) });
   } catch (e) {
     // 실패하면 직전 값이라도 준다 (없으면 빈 값). 30초 뒤에 다시 시도.
-    return out(memo ? memo.body : JSON.stringify({ error: "fetch_failed", detail: String(e.message || e), live: {} }), 30);
+    return out(good || JSON.stringify({ error: "fetch_failed", detail: String(e.message || e), live: {} }), 30);
   }
+  good = body;
 
   memo = { t: now, body };
   if (cache) await cache.put(CACHE_KEY, new Response(body, { headers: { "Cache-Control": `public, max-age=${TTL}` } }));
