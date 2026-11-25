@@ -6,6 +6,7 @@ from .collect import run
 
 res = run(Path(__file__).resolve().parent.parent)
 out = os.environ.get("GITHUB_OUTPUT")
-if out:  # 새 회차가 있을 때만 저장·사이트 재배포
+if out:  # 받은 게 있으면 저장, 최신 회차가 바뀌었거나 다 채웠을 때만 사이트 재배포
     with open(out, "a", encoding="utf-8") as f:
         f.write(f"changed={'true' if res['added'] else 'false'}\n")
+        f.write(f"deploy={'true' if res['deploy'] else 'false'}\n")
