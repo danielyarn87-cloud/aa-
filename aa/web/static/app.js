@@ -163,6 +163,9 @@ async function renderNews() {
   const o = document.getElementById('nOnly'); if (o) o.onchange = () => { newsOnlyMatch = o.checked; renderNews(); };
 }
 
+/* 관리자 화면: 이 기기에 분석 요청 비밀번호를 기억시켰거나 한 번이라도 요청에 성공했으면 관리자로 본다.
+   회원(그 밖의 방문자)에게는 누적 적중률·크레딧·API 사용량 칸을 숨기고 리그 고르기부터 보여 준다 (화면만 숨김). */
+const isBoss = () => !!store.get('aa_run_pw') || store.get('aa_boss') === '1';
 async function renderList() {
   const data = await api('/api/matches');
   await loadNews();
@@ -183,9 +186,9 @@ async function renderList() {
   const days = [...new Set(shown.map(m => dayOf(m.kickoff)))];
   const chip = (k, t, cls = '') => `<button class="seg ${cls}" data-f="${k}" aria-pressed="${listFilter === k}">${t}</button>`;
   view.innerHTML = `<section class="band"><div class="wrap">
-    <div class="listhead"><div><h1>누적 적중률 · 전체</h1></div>
+    ${isBoss() ? `<div class="listhead"><div><h1>누적 적중률 · 전체</h1></div>
       <div class="segbar" role="group" aria-label="경기 거르기">${chip('all', '전체')}${chip('analyzed', '분석 완료')}${chip('value', '이득 신호')}${chip('pending', '분석 대기')}${chip('results', `경기 결과 <span class="num">${finished.length}</span>`, 'res')}</div></div>
-    ${kpiCards(all, ms.length - done.length, done.length, vals, credit, lgInfo)}
+    ${kpiCards(all, ms.length - done.length, done.length, vals, credit, lgInfo)}` : ''}
     ${Object.keys(lgCount).length > 1 ? `<button type="button" class="lgtoggle" id="lgtoggle" aria-expanded="${lgOpen}"><span><b>리그</b> · ${leagueFilter === 'all' ? `모든 리그 (${all.length})` : `${esc(leagueFilter)} (${lgCount[leagueFilter]})`}</span><span>${lgOpen ? '접기 ▴' : '펼치기 ▾'}</span></button>
     <div class="chips lgchips" role="group" aria-label="리그 거르기" ${lgOpen ? '' : 'hidden'}>
       <button class="chip" data-lg="all" aria-pressed="${leagueFilter === 'all'}">모든 리그 <span class="num">${all.length}</span></button>
@@ -980,6 +983,7 @@ async function renderRun() {
       const r = await fetch('/api/run', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({password: pw, ...payload})});
       const j = await r.json().catch(() => ({}));
       if (!r.ok) throw new Error(j.error || ('요청 실패 ' + r.status));
+      store.set('aa_boss', '1');
       msg(okText(j));
       setTimeout(status, 4000);
     } catch (err) { msg(err.message); }
