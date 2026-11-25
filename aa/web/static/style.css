@@ -430,3 +430,17 @@ a.row.val:hover{background:#C93A6E}
 /* 점수가 커져도 막대가 찌그러지지 않게: 자리가 모자라면 점수를 막대 위 줄로 올린다 */
 .row .mid{flex-wrap:wrap;row-gap:6px}
 .row .mid>.tri-w{min-width:170px}
+
+/* 스포츠 뉴스: 뉴스 탭 · 목록 표시 · 경기 상세 */
+.nchips{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0 6px}
+.nchips .chip{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 12px;cursor:pointer}
+.nchips .chip.on{background:#111827;color:#fff;border-color:#111827}
+.nitem{display:grid;grid-template-columns:72px 1fr auto;gap:12px;align-items:start;padding:12px 0;border-top:1px solid var(--line)}
+.nitem .nt{font-weight:600;line-height:1.45}
+.nitem .nm{font-size:13px;margin-top:4px}
+.ncat{font-size:12px;font-weight:700;border-radius:6px;padding:3px 0;text-align:center}
+.n-mgr{background:#ede9fe;color:#5b21b6}.n-inj{background:#fee2e2;color:#b91c1c}.n-tr{background:#dbeafe;color:#1d4ed8}.n-sus{background:#fef3c7;color:#92400e}
+.nimp{font-size:11px;border-radius:999px;padding:3px 8px;white-space:nowrap}
+.i-hi{background:#dc2626;color:#fff}.i-mid{background:#fde68a;color:#78350f}.i-lo{background:#e5e7eb;color:#374151}
+.nbadge{display:inline-block;font-size:11px;font-weight:700;border-radius:6px;padding:1px 6px;margin-left:6px;vertical-align:2px;white-space:nowrap}
+@media(max-width:720px){.nitem{grid-template-columns:60px 1fr}.nitem .nimp{grid-column:2;justify-self:start}}
