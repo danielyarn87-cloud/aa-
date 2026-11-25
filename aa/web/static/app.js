@@ -178,7 +178,8 @@ async function renderList() {
   if (leagueFilter !== 'all' && !lgCount[leagueFilter]) leagueFilter = 'all';
   const inLg = all.filter(m => leagueFilter === 'all' || lgName(m) === leagueFilter);
   const finished = inLg.filter(m => m.result);                // 결과가 나온 경기는 '경기 결과' 탭으로
-  const ms = inLg.filter(m => !m.result);
+  /* 분석 안 한 경기는 시작하면 보류: 목록에서 뺀다 (실시간 점수도 붙이지 않음) */
+  const ms = inLg.filter(m => !m.result && (m.status === 'analyzed' || !(kickMs(m) <= Date.now())));
   const done = ms.filter(m => m.status === 'analyzed');
   const vals = done.filter(m => m.value_alerts && m.value_alerts.length).length;
   const isRes = listFilter === 'results';
@@ -407,7 +408,7 @@ function rowHtml(m) {
   const N = names(m.home, m.away, m.line);
   const head = `<span class="time">${esc(timeOf(m.kickoff))}</span><span class="teams">${esc(m.home)} <span class="mute">vs</span> ${esc(m.away)}${newsBadge(m)}${oddsLine(m)}<span class="lg">${esc(m.league)}</span></span>`;
   if (m.status !== 'analyzed') {
-    return `<div class="row">${head}<span class="mid">${liveSlot(m)}</span><span class="tags">${m.picked ? '<span class="tag value">분석 요청함</span>' : STATIC ? `<button type="button" class="pk-toggle" data-pick="${esc(m.id)}" aria-pressed="${pickSet().has(m.id)}">${pickSet().has(m.id) ? '✓ 분석에 담음' : '＋ 분석하기'}</button>` : '<span class="tag wait">분석 대기</span>'}</span></div>`;
+    return `<div class="row">${head}<span class="mid"></span><span class="tags">${m.picked ? '<span class="tag value">분석 요청함</span>' : STATIC ? `<button type="button" class="pk-toggle" data-pick="${esc(m.id)}" aria-pressed="${pickSet().has(m.id)}">${pickSet().has(m.id) ? '✓ 분석에 담음' : '＋ 분석하기'}</button>` : '<span class="tag wait">분석 대기</span>'}</span></div>`;
   }
   const tags = [];
   const od = m.odds || {};
