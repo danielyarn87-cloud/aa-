@@ -380,10 +380,10 @@ function rowHtml(m) {
 }
 
 /* ---------- 실시간 스코어 ----------
-   진행 중일 수 있는 경기(시작 15분 전 ~ 시작 3시간 뒤)가 화면에 있을 때만 1분마다 /api/live 를 묻는다.
+   진행 중일 수 있는 경기(시작 15분 전 ~ 시작 4시간 뒤: 킥오프가 늦어지는 경기 대비)가 화면에 있을 때만 1분마다 /api/live 를 묻는다.
    서버는 1분에 한 번만 API-Football 에 묻고 모두에게 같은 값을 준다. */
 const kickMs = m => { const d = dayOf(m.kickoff), t = timeOf(m.kickoff); return d && t ? Date.parse(`${d}T${t}:00+09:00`) : NaN; };
-const mayBeLive = m => { const k = kickMs(m), n = Date.now(); return !m.result && k - 15 * 60e3 <= n && n <= k + 3 * 3600e3; };
+const mayBeLive = m => { const k = kickMs(m), n = Date.now(); return !m.result && k - 15 * 60e3 <= n && n <= k + 4 * 3600e3; };
 const liveSlot = m => mayBeLive(m) ? `<span class="lv" data-live="${esc(m.id)}" hidden></span>` : '';
 const liveSeen = {};   /* 진행 중으로 본 적 있는 경기의 마지막 값: 목록에서 빠지면 '종료'로 보여 준다 */
 let liveTimer = null;
@@ -402,6 +402,7 @@ async function liveTick() {
   let d;
   try { const r = await fetch('/api/live', {cache: 'no-cache'}); d = await r.json(); } catch (e) { d = null; }
   if (d && d.error === 'no_key') return;   /* 키가 아직 없으면 조용히 멈춘다 */
+  if (!d || d.error) { liveTimer = setTimeout(liveTick, 60e3); return; }   /* 오류면 화면의 점수를 그대로 두고 1분 뒤 다시 */
   const live = (d && d.live) || {};
   document.querySelectorAll('[data-live]').forEach(el => {
     const id = el.dataset.live, x = live[id];
