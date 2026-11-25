@@ -1038,7 +1038,7 @@ route();
 window.addEventListener('hashchange', () => { if (typeof pickBar === 'function') pickBar(); });
 /* ---------- 운세 배너 (오른쪽에 따라다님, 모든 탭) ----------
    운세 사이트 주소가 정해지면 FORTUNE_URL 에 넣는다. 비어 있으면 눌렀을 때 '준비 중'만 보여 준다. */
-const FORTUNE_URL = '/fortune/';
+const FORTUNE_URL = 'https://raise-lucky.com/';
 (function fortuneAd() {
   if (document.querySelector('.fad')) return;
   const a = document.createElement('a');
@@ -1054,7 +1054,7 @@ const FORTUNE_URL = '/fortune/';
 })();
 /* ---------- 로또 배너 (운세 배너 바로 아래, 모든 탭) ----------
    로또 페이지 주소. raise-lotto.com 연결이 끝나면 그 주소로 바꾼다. 비어 있으면 눌렀을 때 '준비 중'만 보여 준다. */
-const LOTTO_URL = '/lotto/';
+const LOTTO_URL = 'https://raise-lotto.com/';
 (function lottoAd() {
   if (document.querySelector('.fad.lad')) return;
   const BC = n => n <= 10 ? '#f2b705' : n <= 20 ? '#4fb3e8' : n <= 30 ? '#f25c5c' : n <= 40 ? '#9a9a9a' : '#8cc43c';
