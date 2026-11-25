@@ -13,6 +13,7 @@ dist/site/
   api/news.json         경기에 영향 줄 뉴스 (aa/news.py)
   fortune/index.html    오늘의 운세 화면 (unse/static/index.html)
   fortune/data/<날짜>.json  AI 운세 (data/unse/, 최근 3일 ~ 앞으로 3일)
+  lotto/index.html      로또 화면 (lotto/static/index.html), lotto/data/ 당첨번호·띠별 한마디
 그리고 저장소 맨 위의 functions/ 폴더(Cloudflare Pages 함수)가 /api/run 을 맡는다: 사이트에서 '분석 요청'을
 누르면 GitHub Actions 를 실행시킨다.
 같은 JSON 파일을 나중에 모바일 앱이 그대로 읽을 수 있다.
@@ -56,6 +57,18 @@ def export_fortune(out: Path, src: Path = ROOT / "data" / "unse", today=None) ->
             shutil.copy(p, out / "fortune" / "data" / p.name)
 
 
+def export_lotto(out: Path, src: Path = ROOT / "data" / "lotto") -> None:
+    """로또: 화면 한 장(lotto/static/index.html)과 당첨번호·띠별 한마디 JSON → /lotto/ (raise-lotto.com 첫 화면)."""
+    page = ROOT / "lotto" / "static" / "index.html"
+    if not page.exists():
+        return
+    (out / "lotto" / "data").mkdir(parents=True, exist_ok=True)
+    shutil.copy(page, out / "lotto" / "index.html")
+    for name in ("draws.json", "texts.json"):
+        if (src / name).exists():
+            shutil.copy(src / name, out / "lotto" / "data" / name)
+
+
 def export(out: Path, company_path: Path = ROOT / "company.yaml") -> Path:
     company = load_company(company_path)
     c = create_app(company).test_client()
@@ -85,8 +98,16 @@ def export(out: Path, company_path: Path = ROOT / "company.yaml") -> Path:
     html = html.replace('<script src="/static/app.js"></script>', f'<script>window.AA_STATIC=true;</script>\n<script src="/static/app.js?v={ver}"></script>')
     (out / "index.html").write_text(html, encoding="utf-8")
     export_fortune(out)
+    export_lotto(out)
+    # 없는 주소는 404 로. (404.html 이 없으면 Cloudflare 가 아무 주소에나 첫 화면을 보여 주는데,
+    #  그러면 운세·로또 도메인에서 RAISE 화면이 보일 수 있다 → functions/_middleware.js 참고)
+    (out / "404.html").write_text('<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" '
+                                  'content="width=device-width,initial-scale=1"><title>페이지를 찾을 수 없어요</title></head>'
+                                  '<body style="font-family:system-ui,sans-serif;text-align:center;padding:60px 20px;color:#444">'
+                                  '<h1 style="font-size:20px">페이지를 찾을 수 없어요</h1><p><a href="/">첫 화면으로</a></p></body></html>',
+                                  encoding="utf-8")
     # Cloudflare Pages: JSON 은 늘 새로 받도록
-    (out / "_headers").write_text("/api/*\n  Cache-Control: no-cache\n/\n  Cache-Control: no-cache\n/index.html\n  Cache-Control: no-cache\n/static/*\n  Cache-Control: no-cache\n/fortune/*\n  Cache-Control: no-cache\n", encoding="utf-8")
+    (out / "_headers").write_text("/api/*\n  Cache-Control: no-cache\n/\n  Cache-Control: no-cache\n/index.html\n  Cache-Control: no-cache\n/static/*\n  Cache-Control: no-cache\n/fortune/*\n  Cache-Control: no-cache\n/lotto/*\n  Cache-Control: no-cache\n", encoding="utf-8")
     return out
 
 
