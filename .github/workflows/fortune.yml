@@ -1,0 +1,57 @@
+# 오늘의 운세 (GitHub Actions, 무료). Claude Haiku 배치로 매일 금전운·행운운 문장을 만든다.
+# 6시간마다: 끝난 배치 결과 받기 → 검사 → data/unse/날짜.json 저장 → 오늘~이틀 뒤 빈 칸만 새 배치 제출.
+# 배치는 보통 1시간 안에 끝나고 결과는 다음 실행에서 받는다. 비용은 한 달 약 $0.2 (추정).
+# 저장되면 Cloudflare Pages 가 사이트를 다시 만들어 /fortune/ 에 반영한다.
+# AI 운세가 없거나 검사에 떨어진 칸은 화면이 기본 문장으로 대신 보여 준다.
+name: 오늘의 운세
+
+on:
+  schedule:
+    - cron: "11 15 * * *"   # 00:11 (한국 시각)
+    - cron: "11 21 * * *"   # 06:11
+    - cron: "11 3 * * *"    # 12:11
+    - cron: "11 9 * * *"    # 18:11
+  workflow_dispatch:         # 원할 때: Actions 탭 → 오늘의 운세 → Run workflow
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fortune
+  cancel-in-progress: false
+
+jobs:
+  fortune:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: 설치
+        run: pip install -r requirements.txt
+
+      - name: 운세 받기·제출
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          python -m unse daily
+          python -m unse status
+
+      - name: 바뀌었으면 저장
+        run: |
+          git config user.name "aa-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/unse
+          if git diff --cached --quiet; then echo "바뀐 운세 없음"; exit 0; fi
+          git commit -m "오늘의 운세 $(TZ=Asia/Seoul date '+%Y-%m-%d %H:%M')"
+          git stash -u -q || true
+          for i in 1 2 3; do
+            git pull --rebase -X theirs origin main && git push && exit 0
+            sleep 5
+          done
+          exit 1

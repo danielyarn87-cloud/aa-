@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#b8312a">
+<title>오늘의 운세</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Song+Myung&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE everyday: 매일 아침 펼쳐 보는 운세 지면, 짧게 읽고 하루를 시작한다
+   IDEA 붉은 부적지와 만세력. 주홍 바탕에 먹선으로 그린 십이지 판, 고른 칸은 노란 부적색
+   PICTURE 첫 화면의 십이지(또는 별자리) 원판. 칸을 누르면 그 띠가 노랗게 켜지고 오른쪽과 아래 운세가 바뀐다
+   COLOUR 주홍 #b8312a 바탕이 주도, 먹 #1c1714와 흰 지면이 받치고, 부적 노랑 #f2c94c 이 고른 것과 행운을 표시
+   TYPE 제목·한자 Song Myung, 본문 Noto Sans KR
+   LAYOUT 노트북: 주홍 띠 왼쪽 원판, 오른쪽 띠 요약. 아래 흰 지면에 출생연도 4칸이 한 줄. 720px 2×2, 휴대폰은 원판, 요약, 카드 순 한 줄 */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#14100e);--ink:light-dark(#1c1714,#f1e9e2);--mute:light-dark(#6b5f58,#b3a59b);--line:light-dark(#e8dfd8,#30261f);--panel:light-dark(#faf6f2,#1d1714);--red:light-dark(#b8312a,#8f241e);--red2:light-dark(#a02a24,#7a1f1a);--ink-on:#fff8f0;--yel:#f2c94c;--yink:#2a1d00;--mark:light-dark(#b8312a,#ff8a7a)}
+:root[data-theme=light]{color-scheme:light}
+:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.65 "Noto Sans KR",system-ui,sans-serif;overflow-x:clip}
+a{color:inherit}
+h1,h2,h3{font-family:"Song Myung","Noto Serif KR",serif;font-weight:400;line-height:1.1;letter-spacing:-.01em;margin:0;text-wrap:balance}
+button{font:inherit}
+.band{padding-block:clamp(24px,3.6vw,52px);padding-left:max(5vw,16px);padding-right:max(5vw,16px)}
+.wrap{max-width:1240px;margin-inline:auto}
+.top{background:var(--red2);color:var(--ink-on);padding:10px max(5vw,16px)}
+.top .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 18px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:"Song Myung",serif;font-size:24px}
+.seal{display:grid;place-items:center;width:36px;height:36px;border:2px solid var(--yel);color:var(--yel);border-radius:4px;font-size:20px;line-height:1}
+.tabs{display:flex;flex-wrap:wrap;gap:4px}
+.tabs a{text-decoration:none;padding:8px 14px;border-radius:999px;font-weight:500;font-size:15px;min-height:40px;display:flex;align-items:center}
+.tabs a:hover{background:rgb(255 255 255/.14)}
+.tabs a.on{background:var(--yel);color:var(--yink)}
+.tabs a small{font-size:13px;opacity:.75;margin-left:4px}
+.hero{background:var(--red);color:var(--ink-on)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr) 300px;gap:clamp(20px,3.4vw,48px);align-items:center}
+/* 오른쪽 광고 칸: 구글 애드센스·쿠팡 파트너스 300×250. 넓은 화면은 세 번째 열, 좁으면 요약 아래 한 줄 */
+.adcol{display:flex;flex-direction:column;gap:16px;align-items:center}
+.slot{width:300px;max-width:100%;height:250px;border:1px dashed rgb(255 248 240/.45);border-radius:8px;background:rgb(0 0 0/.12);display:grid;place-items:center;text-align:center;font-size:13px;line-height:1.5;color:rgb(255 248 240/.8)}
+.wheel{width:100%;max-width:400px;aspect-ratio:1;margin-inline:auto}
+.wheel svg{width:100%;height:100%;display:block;overflow:visible}
+.seg{cursor:pointer;outline:none}
+.seg path{fill:transparent;stroke:rgb(255 248 240/.55);stroke-width:1.5;transition:fill .35s ease}
+.seg:hover path{fill:rgb(255 255 255/.1)}
+.seg:focus-visible path{stroke:var(--yel);stroke-width:3}
+.seg.on path{fill:var(--yel);stroke:var(--yel)}
+.seg text{fill:var(--ink-on);text-anchor:middle;dominant-baseline:central;pointer-events:none}
+.seg.on text{fill:var(--yink)}
+.seg .hj{font-family:"Song Myung",serif;font-size:26px}
+.seg .ko{font-size:14px;font-weight:500}
+.seg .st{font-size:15px;font-weight:700}
+.hub{fill:var(--red2);stroke:var(--yel);stroke-width:2}
+.hubt{fill:var(--ink-on);text-anchor:middle;dominant-baseline:central}
+.hubt.big{font-family:"Song Myung",serif;fill:var(--yel)}
+.days{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.day{border:1px solid rgb(255 248 240/.5);background:transparent;color:var(--ink-on);border-radius:999px;padding:6px 14px;font-size:14px;min-height:40px;cursor:pointer}
+.day[aria-pressed=true]{background:var(--ink-on);color:var(--red2);border-color:var(--ink-on);font-weight:700}
+.day:focus-visible,.tabs a:focus-visible{outline:3px solid var(--yel);outline-offset:2px}
+.date{font-size:15px;opacity:.92;margin:0 0 6px}
+.name{font-size:clamp(40px,6vw,64px);line-height:1.05}
+.name small{font-size:.42em;opacity:.85;margin-left:8px}
+.sum{font-size:17px;margin:14px 0 0;max-width:36em}
+.lucky{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.lucky span{background:rgb(0 0 0/.18);border:1px solid rgb(255 248 240/.28);border-radius:8px;padding:6px 12px;font-size:14px}
+.lucky b{color:var(--yel);font-weight:700;margin-left:6px}
+.rel{display:inline-block;background:var(--yel);color:var(--yink);font-weight:700;font-size:14px;border-radius:6px;padding:2px 10px;margin-top:10px}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,2vw,24px)}
+.card{border-top:3px solid var(--ink);padding-top:14px}
+.card h3{font-size:30px;display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.card .gz{font-family:"Noto Sans KR",sans-serif;font-size:14px;color:var(--mute)}
+.grade{display:flex;align-items:center;gap:8px;margin:8px 0 10px}
+.badge{font-size:13px;font-weight:700;border-radius:4px;padding:2px 8px;border:1.5px solid var(--mark);color:var(--mark)}
+.badge.g5{background:var(--mark);color:var(--bg)}
+.badge.g2,.badge.g1{border-color:var(--mute);color:var(--mute)}
+.dots{display:flex;gap:4px}
+.dots i{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--mark)}
+.dots i.f{background:var(--mark)}
+.card p{margin:0 0 4px;font-size:16px}
+.grade .k{font-weight:700;font-size:15px;min-width:3.2em}
+.card .grade+p+.grade{margin-top:14px}
+.meter.big .lab{font-family:"Song Myung",serif;font-weight:400;font-size:24px}
+.meter.big .track{height:14px;border-radius:7px}
+.meter.big p{font-size:16px}
+.meter:not(.big) .track i{background:var(--mute)}
+.sec{margin-top:clamp(28px,4vw,48px)}
+.sec>h2{font-size:clamp(26px,3vw,32px);margin-bottom:6px}
+.note{color:var(--mute);font-size:14px;margin:0 0 16px}
+.ad{border:1px dashed var(--line);border-radius:8px;min-height:96px;display:grid;place-items:center;color:var(--mute);font-size:13px;margin-top:clamp(28px,4vw,44px)}
+.split{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(20px,4vw,48px);align-items:start}
+.total{font-size:17px;margin:0}
+.meters{display:grid;gap:16px}
+.meter .lab{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-weight:700}
+.meter .lab span{font-weight:400;color:var(--mute);font-size:14px;white-space:nowrap}
+.track{height:10px;border-radius:5px;background:var(--line);overflow:hidden;margin:6px 0}
+.track i{display:block;height:100%;background:var(--mark);border-radius:5px}
+.meter p{margin:0;font-size:15px}
+.rank{list-style:none;margin:0;padding:0}
+.rank li{break-inside:avoid}
+.rank button{width:100%;display:grid;grid-template-columns:2.2em minmax(0,7em) minmax(0,1fr) 3em;align-items:center;gap:10px;background:none;border:0;border-bottom:1px solid var(--line);padding:10px 4px;color:var(--ink);text-align:left;cursor:pointer;min-height:44px}
+.rank button:hover{background:var(--panel)}
+.rank button.on{background:var(--panel);font-weight:700}
+.rank .n{font-family:"Song Myung",serif;font-size:22px;color:var(--mark)}
+.rank .bar{height:8px;border-radius:4px;background:var(--line);overflow:hidden}
+.rank .bar i{display:block;height:100%;background:var(--ink)}
+.rank .sc{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.soon{max-width:40em}
+.soon p{font-size:17px}
+.foot{border-top:1px solid var(--line);color:var(--mute);font-size:14px}
+.foot .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px}
+@media(max-width:1100px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:1199px){.hero .wrap{grid-template-columns:minmax(0,380px) minmax(0,1fr)}.adcol{grid-column:1/-1;flex-direction:row;flex-wrap:wrap;justify-content:center}}
+@media(max-width:760px){.hero .wrap,.split{grid-template-columns:minmax(0,1fr)}.wheel{max-width:340px}}
+@media(max-width:600px){.cards{grid-template-columns:minmax(0,1fr)}.top .wrap{justify-content:center}}
+@media(prefers-reduced-motion:reduce){.seg path{transition:none}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="#ddi"><span class="seal" aria-hidden="true">運</span>오늘의 운세</a>
+  <nav class="tabs" aria-label="운세 종류">
+    <a href="#ddi" data-tab="ddi">띠별 운세</a>
+    <a href="#stars" data-tab="stars">별자리 운세</a>
+    <a href="#birth" data-tab="birth">생년월일<small>준비 중</small></a>
+  </nav>
+</div></header>
+<main id="view"></main>
+<footer class="foot band"><div class="wrap">
+  <span>오늘의 운세는 재미로 보는 콘텐츠입니다. 중요한 결정은 스스로 판단하세요.</span>
+  <span>매일 자정(한국 시간)에 새 운세로 바뀝니다.</span>
+</div></footer>
+<script>
+{
+const view = document.getElementById('view');
+const GAN = '갑을병정무기경신임계', GANH = '甲乙丙丁戊己庚辛壬癸';
+const JI = '자축인묘진사오미신유술해', JIH = '子丑寅卯辰巳午未申酉戌亥';
+const ANIMAL = ['쥐','소','호랑이','토끼','용','뱀','말','양','원숭이','닭','개','돼지'];
+const STARS = [
+  ['양','3.21–4.19','불'],['황소','4.20–5.20','흙'],['쌍둥이','5.21–6.21','공기'],['게','6.22–7.22','물'],
+  ['사자','7.23–8.22','불'],['처녀','8.23–9.23','흙'],['천칭','9.24–10.22','공기'],['전갈','10.23–11.22','물'],
+  ['사수','11.23–12.24','불'],['염소','12.25–1.19','흙'],['물병','1.20–2.18','공기'],['물고기','2.19–3.20','물']];
+const GRADE = {5: '대길', 4: '길', 3: '평', 2: '주의', 1: '조심'};
+const OPEN = {
+  5: ['기운이 활짝 열리는 날입니다.','오랫동안 공들인 일이 빛을 보는 날입니다.','귀인이 가까이 있어 막혔던 일이 술술 풀립니다.','하는 일마다 손발이 척척 맞는 하루입니다.','작은 씨앗이 큰 결실로 돌아오는 흐름입니다.','운이 앞에서 끌어 주니 망설일 이유가 없습니다.'],
+  4: ['순풍이 부는 하루입니다.','차분히 나아가면 원하는 만큼 얻는 날입니다.','주변의 도움이 자연스럽게 따라옵니다.','평소보다 판단이 맑아 결정을 내리기 좋습니다.','작은 기쁨이 여러 번 찾아오는 날입니다.','준비해 둔 것이 쓰임을 얻는 날입니다.'],
+  3: ['큰 굴곡 없이 무난하게 흘러가는 날입니다.','얻는 것과 나가는 것이 비슷한 하루입니다.','평범해 보여도 다음을 준비하기에 좋은 날입니다.','서두르지 않으면 손해 볼 일은 없습니다.','익숙한 일을 꾸준히 하는 것이 가장 좋은 날입니다.','오전보다 오후에 기운이 살아납니다.'],
+  2: ['생각만큼 일이 빨리 진행되지 않는 날입니다.','작은 오해가 생기기 쉬우니 말을 아끼세요.','기운이 다소 가라앉아 쉽게 지칠 수 있습니다.','계획이 한두 번 어긋날 수 있는 하루입니다.','마음이 앞서면 실수가 따르는 날입니다.','남의 일에 휘말리기 쉬운 날입니다.'],
+  1: ['무리하면 탈이 나는 날이니 한 걸음 물러서세요.','새로 벌이는 일은 미루는 것이 좋겠습니다.','구설이 따를 수 있으니 언행을 조심하세요.','지출과 손실을 경계해야 하는 하루입니다.','기대보다 결과가 더디니 마음을 비우는 편이 낫습니다.','몸과 마음이 무거우니 쉬어 가는 날로 삼으세요.']};
+const MID = {
+  money: {hi: ['뜻밖의 수입이나 미뤄졌던 돈이 들어올 수 있습니다.','쓰지 않던 물건을 정리하면 쏠쏠한 이득이 생깁니다.','거래나 흥정에서 유리한 조건을 얻기 쉽습니다.','지갑 사정이 넉넉해져 마음에도 여유가 생깁니다.','미뤄졌던 정산이나 환급이 들어올 수 있습니다.','부업이나 작은 일거리에서 쏠쏠한 보상이 생깁니다.'],
+          mid: ['씀씀이를 조금만 줄이면 월말이 편안해집니다.','들어온 돈은 바로 쓰기보다 한 번 묵혀 두세요.','큰 지출은 내일로 미루고 오늘은 가계부를 살피는 날입니다.','작은 할인이나 혜택을 챙기면 쏠쏠합니다.','고정 지출을 한 번 점검하면 새는 돈이 보입니다.','현금보다 기록이 남는 결제가 관리에 유리합니다.'],
+          lo: ['충동적으로 사는 물건은 후회로 남기 쉽습니다.','돈을 빌려주거나 보증을 서는 일은 피하세요.','예상하지 못한 수리비나 경조사비가 나갈 수 있습니다.','확실하지 않은 돈 이야기에는 귀를 닫는 것이 좋습니다.','카드 결제 내역을 꼭 확인하세요.','남의 권유로 하는 지출은 한 번 더 생각하세요.']},
+  luck: {hi: ['뜻밖의 곳에서 반가운 소식이 날아듭니다.','우연히 만난 사람이 좋은 기회를 건네줍니다.','오래 기다린 일에 좋은 답이 옵니다.','작은 선택 하나가 기분 좋은 결과로 이어집니다.','귀인이 가까이 있으니 도움을 청하면 쉽게 풀립니다.','미뤄 둔 일을 시작하면 운이 뒤를 받쳐 줍니다.'],
+         mid: ['평범한 하루 속에 작은 행운이 숨어 있습니다.','익숙한 사람에게서 쓸모 있는 정보를 얻습니다.','행운은 서두르지 않을 때 찾아옵니다.','늘 가던 길을 조금 바꾸면 기분 좋은 일을 만납니다.','기다리던 소식은 조금 늦지만 좋은 쪽으로 옵니다.','주변을 정리하다 잊고 있던 물건이나 기회를 되찾습니다.'],
+         lo: ['행운을 기대하기보다 실수를 줄이는 데 힘쓰세요.','좋은 소식은 며칠 뒤로 미뤄질 수 있습니다.','운에 기대는 선택은 피하는 편이 좋습니다.','작은 물건을 잃어버리기 쉬우니 소지품을 챙기세요.','기회처럼 보이는 제안은 한 번 더 따져 보세요.','오늘은 운보다 꼼꼼함이 나를 지켜 줍니다.']},
+  work: {hi: ['맡은 일에서 실력을 인정받을 기회가 옵니다.','미뤄 두었던 서류나 계약이 매듭지어집니다.','새로운 제안이 들어오면 긍정적으로 검토해 보세요.','윗사람의 신임이 두터워지는 날입니다.'],
+         mid: ['하던 일을 마무리하는 데 힘을 모으면 좋습니다.','회의에서는 듣는 쪽에 서는 것이 유리합니다.','급한 일보다 중요한 일을 먼저 챙기세요.','한 번 더 확인하는 습관이 오늘 빛을 봅니다.'],
+         lo: ['일정이 겹쳐 허둥댈 수 있으니 우선순위를 정하세요.','남에게 맡긴 일은 끝까지 확인해야 합니다.','윗사람과 의견이 엇갈려도 정면으로 맞서지 마세요.','서류의 숫자와 날짜를 꼼꼼히 살피세요.']},
+  love: {hi: ['반가운 사람에게서 연락이 옵니다.','가족과 함께하는 시간이 큰 힘이 됩니다.','연인이나 배우자와 마음이 잘 통하는 날입니다.','새로 만난 사람이 오래 갈 인연이 될 수 있습니다.'],
+         mid: ['가까운 사람의 이야기에 귀 기울이면 정이 깊어집니다.','먼저 안부를 건네면 막힌 관계가 풀립니다.','약속은 작게 잡을수록 즐겁습니다.','모임에서는 앞에 나서기보다 분위기를 맞추세요.'],
+         lo: ['가까운 사이일수록 말 한마디에 서운함이 생깁니다.','남의 사정에 지나치게 끼어들지 마세요.','지난 일을 꺼내면 다툼으로 번지기 쉽습니다.','상대에게 바라는 것을 줄이면 실망도 줄어듭니다.']},
+  health: {hi: ['몸이 가벼워 운동을 시작하기에 좋습니다.','잠이 깊어 컨디션이 오래 유지됩니다.','입맛이 돌고 기력이 살아나는 날입니다.','바깥 공기를 쐬면 머리가 한결 맑아집니다.'],
+           mid: ['물을 자주 마시고 목을 따뜻하게 하세요.','오래 앉아 있었다면 틈틈이 허리를 펴 주세요.','가벼운 산책이 보약입니다.','늦은 밤 야식은 다음 날 컨디션을 떨어뜨립니다.'],
+           lo: ['찬바람에 감기를 조심하세요.','무리한 운동은 관절에 부담이 됩니다.','피로가 쌓였으니 일찍 잠자리에 드세요.','위장이 예민하니 자극적인 음식은 피하세요.']}};
+const ADV = {
+  young: ['새로운 것을 배우는 데 시간을 쓰면 오래 남습니다.','친구의 조언 속에 답이 있습니다.','첫인상을 신경 쓰면 좋은 기회로 이어집니다.','작은 목표 하나를 오늘 안에 끝내 보세요.','하고 싶은 말은 짧고 분명하게 전하세요.','늦은 밤보다 아침 시간을 잘 쓰는 것이 운을 키웁니다.'],
+  middle: ['가족과 일 사이의 균형을 챙기세요.','오래 미룬 연락 하나가 뜻밖의 문을 엽니다.','후배나 아랫사람을 챙기면 덕이 돌아옵니다.','계획을 종이에 적어 두면 길이 선명해집니다.','욕심을 한 칸 내려놓으면 실속이 생깁니다.','오늘 한 약속은 반드시 지키세요.'],
+  senior: ['자녀나 젊은 사람의 의견을 들어 보면 좋습니다.','몸 상태를 살피고 미뤄 둔 검진을 챙기기 좋은 때입니다.','오랜 벗과의 만남이 기운을 북돋웁니다.','지켜 온 원칙대로 하면 틀림이 없습니다.','큰 결정은 가족과 상의한 뒤 내리세요.','가벼운 나눔이 복으로 돌아옵니다.']};
+const ELEM = {
+  '불': ['열정이 앞서는 만큼 속도를 한 번씩 늦추면 실수가 줄어듭니다.','자신감 있게 나서는 모습이 주변을 움직입니다.','시작한 일을 끝까지 끌고 가는 힘이 필요한 날입니다.'],
+  '흙': ['차근차근 쌓아 온 것이 든든한 바탕이 되어 줍니다.','현실적인 판단이 빛나니 감보다 계산을 믿으세요.','익숙한 방식만 고집하기보다 작은 변화를 받아들여 보세요.'],
+  '공기': ['대화 속에서 좋은 아이디어가 떠오릅니다.','여러 일을 벌이기보다 하나에 집중하면 성과가 납니다.','가벼운 만남이 뜻밖의 정보를 가져다줍니다.'],
+  '물': ['직감이 예민하게 살아나 사람의 속마음이 잘 보입니다.','감정에 휩쓸리지 않도록 혼자만의 시간을 가지세요.','배려하는 마음이 상대에게 깊이 전해집니다.']};
+const STAR_ADV = ['행운은 익숙한 길보다 한 번 돌아가는 길에 있습니다.','오늘 떠오른 생각은 바로 메모해 두세요.','작은 친절이 큰 인연으로 돌아옵니다.','저녁 시간은 나를 위해 비워 두세요.','망설이던 일은 오후에 시도하면 결과가 좋습니다.','책상과 가방을 정리하면 운의 흐름이 바뀝니다.','좋아하는 음악이 기분을 끌어올려 줍니다.','약속 시간보다 10분 일찍 움직이세요.'];
+const COLORS = ['빨강','주황','노랑','연두','초록','하늘색','남색','보라','흰색','검정','금색','분홍','갈색','회색'];
+const DIRS = ['동쪽','서쪽','남쪽','북쪽','동남쪽','동북쪽','서남쪽','서북쪽'];
+const ITEMS = ['손수건','머그컵','이어폰','책갈피','향초','접이식 우산','손목시계','수첩','립밤','열쇠고리','목도리','텀블러'];
+const CATS = [['money','금전운'],['luck','행운운'],['love','애정'],['health','건강']];
+const MONEY_OPEN = {
+  5: ['재물운이 크게 열리는 날입니다.','돈이 들어오는 길이 넓어지는 하루입니다.','들인 공만큼 돈으로 돌아오는 날입니다.','금전 흐름이 막힘없이 시원하게 풀립니다.'],
+  4: ['금전운이 순하게 흐르는 날입니다.','작지만 반가운 수입이 기대되는 하루입니다.','돈 관리에 감이 살아나는 날입니다.','지갑이 조금씩 두둑해지는 흐름입니다.'],
+  3: ['들어오고 나가는 돈이 비슷한 날입니다.','금전 흐름은 평소와 다르지 않습니다.','큰 이익도 큰 손해도 없는 하루입니다.','돈 문제는 현상 유지에 힘쓰면 충분합니다.'],
+  2: ['생각보다 지출이 많아지기 쉬운 날입니다.','돈이 손에 머물지 않고 빠져나가기 쉽습니다.','기대했던 돈이 늦어질 수 있습니다.','금전 판단이 흐려지기 쉬우니 서두르지 마세요.'],
+  1: ['금전 손실을 경계해야 하는 날입니다.','돈 문제로 마음고생할 수 있으니 지갑을 닫아 두세요.','예상 밖의 지출이 겹칠 수 있는 하루입니다.','돈과 관련된 약속은 미루는 편이 안전합니다.']};
+/* 행운의 시간: 낮 시간대 시진 */
+const SIJIN = [['묘시','오전 5~7시'],['진시','오전 7~9시'],['사시','오전 9~11시'],['오시','오전 11시~오후 1시'],['미시','오후 1~3시'],['신시','오후 3~5시'],['유시','오후 5~7시'],['술시','오후 7~9시']];
+
+const hash = s => { let h = 2166136261; for (const c of s) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); } return h >>> 0; };
+const rng = key => { let a = hash(key); return () => { a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; };
+const pick = (r, a) => a[Math.floor(r() * a.length)];
+const clamp = g => Math.max(1, Math.min(5, Math.round(g)));
+const tone = g => g >= 4 ? 'hi' : g === 3 ? 'mid' : 'lo';
+const store = {get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }};
+
+/* 한국 시간 기준 날짜와 일진 */
+function kstDay(offset) {
+  const d = new Date(Date.now() + 9 * 3600e3 + offset * 864e5);
+  const y = d.getUTCFullYear(), m = d.getUTCMonth() + 1, dd = d.getUTCDate();
+  const a = Math.floor((14 - m) / 12), yy = y + 4800 - a, mm = m + 12 * a - 3;
+  const jdn = dd + Math.floor((153 * mm + 2) / 5) + 365 * yy + Math.floor(yy / 4) - Math.floor(yy / 100) + Math.floor(yy / 400) - 32045;
+  const gz = (jdn + 49) % 60;
+  return {y, m, dd, key: `${y}-${m}-${dd}`, iso: `${y}-${String(m).padStart(2, '0')}-${String(dd).padStart(2, '0')}`, wd: '일월화수목금토'[d.getUTCDay()], gz, stem: gz % 10, branch: gz % 12};
+}
+const gzName = i => GAN[i % 10] + JI[i % 12];
+const gzHan = i => GANH[i % 10] + JIH[i % 12];
+const yearGz = y => ((y - 4) % 60 + 60) % 60;
+
+/* 띠와 일진의 관계: 육합·삼합·충 */
+const SIX = [[0,1],[2,11],[3,10],[4,9],[5,8],[6,7]];
+const TRI = [[8,0,4],[11,3,7],[2,6,10],[5,9,1]];
+function relation(b, day) {
+  const dn = gzName(day.gz) + '일';
+  if (b === day.branch) return {base: 3.1, tag: '같은 기운', text: `${dn}은 ${ANIMAL[b]}띠와 같은 기운의 날이라, 내 페이스대로 가면 무난합니다.`};
+  if (SIX.some(p => p.includes(b) && p.includes(day.branch))) return {base: 3.7, tag: '육합(六合)', text: `${dn}과 육합을 이루어 사람 복이 따르는 날입니다.`};
+  if (TRI.some(t => t.includes(b) && t.includes(day.branch))) return {base: 3.5, tag: '삼합(三合)', text: `${dn}과 삼합으로 기운이 모여 일이 한 방향으로 풀립니다.`};
+  if ((b + 6) % 12 === day.branch) return {base: 2.4, tag: '충(沖)', text: `${dn}과 충이 들어 변동이 많으니 차분하게 움직이세요.`};
+  return {base: 3.1, tag: '', text: `${dn}과 큰 부딪힘이 없어 평소 흐름대로 이어집니다.`};
+}
+
+function ddiFortune(b, day) {
+  const rel = relation(b, day);
+  const r0 = rng(day.key + '|ddi|' + b);
+  const lucky = {color: pick(r0, COLORS), num: [1 + Math.floor(r0() * 9), 1 + Math.floor(r0() * 9)], dir: pick(r0, DIRS), time: pick(r0, SIJIN)};
+  if (lucky.num[0] === lucky.num[1]) lucky.num[1] = lucky.num[1] % 9 + 1;
+  const years = [0, 1, 2, 3].map(k => {
+    /* 20세 이상, 띠마다 4개: 올해-67 ~ 올해-20년생. 해가 바뀌면 자동으로 1년씩 올라감 */
+    const minY = day.y - 67, y = minY + ((b - (minY - 4) % 12) % 12 + 12) % 12 + 12 * k, r = rng(day.key + '|y|' + y);
+    const gm = clamp(rel.base + (r() - 0.5) * 2.6), gl = clamp(rel.base + (r() - 0.5) * 2.6);
+    const old = day.y - y, age = old <= 29 ? 'young' : old <= 49 ? 'middle' : 'senior';
+    const money = pick(r, MONEY_OPEN[gm]) + ' ' + pick(r, MID.money[tone(gm)]);
+    const luck = pick(r, MID.luck[tone(gl)]) + ' ' + pick(r, ADV[age]);
+    return {y, gm, gl, money, luck};
+  });
+  return {rel, lucky, years};
+}
+
+function starFortune(i, day) {
+  const r = rng(day.key + '|star|' + i);
+  const sc = CATS.map(() => clamp(2.3 + r() * 2.9));
+  const avg = sc.reduce((a, b) => a + b, 0) / 4;
+  const g = clamp(avg);
+  const lines = [
+    pick(r, MONEY_OPEN[sc[0]]) + ' ' + pick(r, MID.money[tone(sc[0])]),
+    pick(r, MID.luck[tone(sc[1])]) + ' ' + pick(r, STAR_ADV),
+    pick(r, MID.love[tone(sc[2])]),
+    pick(r, MID.health[tone(sc[3])])];
+  const text = [pick(r, OPEN[g]), pick(r, ELEM[STARS[i][2]])].join(' ');
+  /* 순위는 금전운 + 행운운 (10점 만점) */
+  return {sc, total: sc[0] + sc[1], g, text, lines, lucky: {color: pick(r, COLORS), num: 1 + Math.floor(r() * 9), item: pick(r, ITEMS), time: pick(r, SIJIN)}};
+}
+
+/* 원판 */
+function wheel(items, sel, center, label) {
+  const C = 200, R1 = 192, R0 = 86, rad = a => (a - 90) * Math.PI / 180;
+  const pt = (r, a) => `${(C + r * Math.cos(rad(a))).toFixed(1)},${(C + r * Math.sin(rad(a))).toFixed(1)}`;
+  const segs = items.map((it, i) => {
+    const a0 = i * 30 - 15, a1 = a0 + 30, mid = i * 30;
+    const d = `M${pt(R0, a0)} L${pt(R1, a0)} A${R1},${R1} 0 0 1 ${pt(R1, a1)} L${pt(R0, a1)} A${R0},${R0} 0 0 0 ${pt(R0, a0)}Z`;
+    const [x1, y1] = pt(it.sub ? 160 : 140, mid).split(','), [x2, y2] = pt(118, mid).split(',');
+    return `<g class="seg${i === sel ? ' on' : ''}" data-i="${i}" role="radio" tabindex="${i === sel ? 0 : -1}" aria-checked="${i === sel}" aria-label="${it.aria}"><path d="${d}"/>
+      ${it.sub ? `<text class="hj" x="${x1}" y="${y1}">${it.top}</text><text class="ko" x="${x2}" y="${y2}">${it.sub}</text>` : `<text class="st" x="${x1}" y="${y1}">${it.top}</text>`}</g>`;
+  }).join('');
+  return `<div class="wheel"><svg viewBox="0 0 400 400" role="radiogroup" aria-label="${label}">${segs}
+    <circle class="hub" cx="200" cy="200" r="${R0 - 8}"/>
+    <text class="hubt big" x="200" y="186" font-size="${center[0].length > 1 ? 34 : 52}">${center[0]}</text>
+    <text class="hubt" x="200" y="236" font-size="16">${center[1]}</text></svg></div>`;
+}
+function bindWheel(onPick) {
+  const segs = [...view.querySelectorAll('.seg')];
+  segs.forEach(s => {
+    s.addEventListener('click', () => onPick(+s.dataset.i, false));
+    s.addEventListener('keydown', e => {
+      const i = +s.dataset.i;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); onPick((i + 1) % 12, true); }
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); onPick((i + 11) % 12, true); }
+      else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onPick(i, true); }
+    });
+  });
+}
+const dots = g => `<span class="dots" aria-hidden="true">${[1, 2, 3, 4, 5].map(n => `<i class="${n <= g ? 'f' : ''}"></i>`).join('')}</span>`;
+const badge = g => `<span class="badge g${g}">${GRADE[g]}</span>`;
+
+let offset = 0;
+let ddiSel = +(store.get('ddi') ?? 6) || 0;
+let starSel = store.get('star') != null ? +store.get('star') : 8;
+function dayChips(day) {
+  const t = kstDay(0), n = kstDay(1);
+  return `<div class="days" role="group" aria-label="날짜">
+    <button class="day" data-off="0" aria-pressed="${offset === 0}">오늘 ${t.m}.${t.dd} (${t.wd})</button>
+    <button class="day" data-off="1" aria-pressed="${offset === 1}">내일 ${n.m}.${n.dd} (${n.wd})</button></div>
+    <p class="date">${day.y}년 ${day.m}월 ${day.dd}일 ${day.wd}요일 · 일진 ${gzName(day.gz)}일(${gzHan(day.gz)}日) · ${gzName(yearGz(day.y))}년</p>`;
+}
+function bindDays(rerender) { view.querySelectorAll('[data-off]').forEach(b => b.onclick = () => { offset = +b.dataset.off; rerender(); }); }
+const ad = '<div class="ad" aria-label="광고 영역">광고</div>';
+/* 실제 광고 코드는 아래 두 칸(id)에 넣는다 */
+const adcol = '<aside class="adcol" aria-label="광고"><div class="slot" id="ad-google-side">구글 광고<br>300×250</div><div class="slot" id="ad-coupang-side">쿠팡 광고<br>300×250</div></aside>';
+
+/* AI 운세: /fortune/data/날짜.json (GitHub Actions 가 만들고 Cloudflare Pages 가 올림). 없거나 실패하면 위의 문장 조합으로 대신 보여 준다 */
+const SERVER = {};
+const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+const clean = v => typeof v === 'string' ? esc(v) : Array.isArray(v) ? v.map(clean) : v && typeof v === 'object' ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, clean(x)])) : typeof v === 'number' ? v : '';
+const num = (v, d) => Number.isFinite(+v) ? +v : d;
+function ensure(day) {
+  if (day.iso in SERVER) return;
+  SERVER[day.iso] = null;
+  fetch('/fortune/data/' + day.iso + '.json', {cache: 'no-cache'}).then(r => r.ok ? r.json() : null).then(j => {
+    if (j && j.date === day.iso) { SERVER[day.iso] = clean(j); if (kstDay(offset).iso === day.iso) route(); }
+  }).catch(() => {});
+}
+function ddiFrom(sv, fb) {
+  const L = sv.lucky || {};
+  return {
+    rel: {tag: sv.relation_tag || fb.rel.tag, text: [sv.relation_text || fb.rel.text, sv.summary].filter(Boolean).join(' ')},
+    lucky: {time: Array.isArray(L.time) && L.time.length === 2 ? L.time : fb.lucky.time, color: L.color || fb.lucky.color, num: Array.isArray(L.num) && L.num.length ? L.num : fb.lucky.num, dir: L.dir || fb.lucky.dir},
+    years: fb.years.map(fy => { const y = (sv.years || []).find(x => num(x.y) === fy.y); return y && y.money && y.luck ? {y: fy.y, gm: clamp(num(y.gm, fy.gm)), gl: clamp(num(y.gl, fy.gl)), money: y.money, luck: y.luck} : fy; })};
+}
+function starOf(j, day) {
+  const fb = starFortune(j, day), sv = SERVER[day.iso]?.stars?.[j];
+  if (!sv || !Array.isArray(sv.lines) || sv.lines.length !== 4 || !Array.isArray(sv.sc) || sv.sc.length !== 4) return fb;
+  const sc = sv.sc.map((x, k) => clamp(num(x, fb.sc[k]))), L = sv.lucky || {};
+  return {sc, total: sc[0] + sc[1], g: clamp(num(sv.g, fb.g)), text: sv.text || fb.text, lines: sv.lines,
+    lucky: {time: Array.isArray(L.time) && L.time.length === 2 ? L.time : fb.lucky.time, color: L.color || fb.lucky.color, num: L.num?.[0] ?? fb.lucky.num, item: L.item || fb.lucky.item}};
+}
+
+function renderDdi(focus) {
+  const day = kstDay(offset), b = ddiSel, fb = ddiFortune(b, day), sv = SERVER[day.iso]?.ddi?.[b], f = sv ? ddiFrom(sv, fb) : fb;
+  ensure(day);
+  const items = ANIMAL.map((a, i) => ({top: JIH[i], sub: a, aria: `${a}띠`}));
+  view.innerHTML = `<section class="hero band"><div class="wrap">
+    ${wheel(items, b, [JIH[b], `${ANIMAL[b]}띠`], '띠 고르기')}
+    <div>${dayChips(day)}
+      <h1 class="name">${ANIMAL[b]}띠<small>${JI[b]}(${JIH[b]})</small></h1>
+      ${f.rel.tag ? `<span class="rel">오늘의 일진과 ${f.rel.tag}</span>` : ''}
+      <p class="sum">${f.rel.text}</p>
+      <div class="lucky"><span>행운의 시간<b>${f.lucky.time[0]} (${f.lucky.time[1]})</b></span><span>행운의 색<b>${f.lucky.color}</b></span><span>행운의 숫자<b>${f.lucky.num.join(', ')}</b></span><span>길한 방향<b>${f.lucky.dir}</b></span></div>
+    </div>${adcol}</div></section>
+  <section class="band"><div class="wrap">
+    <h2 style="font-size:clamp(26px,3vw,32px);margin-bottom:6px">${ANIMAL[b]}띠 출생연도별 금전운·행운운</h2>
+    <p class="note">원판에서 띠를 고르면 바뀝니다. 키보드는 방향키로 옮길 수 있어요.</p>
+    <div class="cards">${f.years.map(x => `<article class="card">
+      <h3>${String(x.y).slice(2)}년생 <span class="gz">${x.y} ${gzName(yearGz(x.y))}년</span></h3>
+      <div class="grade"><span class="k">금전운</span>${badge(x.gm)}${dots(x.gm)}</div>
+      <p>${x.money}</p>
+      <div class="grade"><span class="k">행운운</span>${badge(x.gl)}${dots(x.gl)}</div>
+      <p>${x.luck}</p></article>`).join('')}</div>
+    ${ad}
+  </div></section>`;
+  bindWheel((i, kb) => { ddiSel = i; store.set('ddi', i); renderDdi(kb); });
+  bindDays(() => renderDdi());
+  if (focus) view.querySelector('.seg.on')?.focus();
+}
+
+function renderStars(focus) {
+  const day = kstDay(offset), i = starSel, f = starOf(i, day), s = STARS[i];
+  ensure(day);
+  const items = STARS.map(x => ({top: x[0], aria: `${x[0]}자리 ${x[1]}`}));
+  const all = STARS.map((x, j) => ({j, f: j === i ? f : starOf(j, day)})).sort((a, b) => b.f.total - a.f.total || a.j - b.j);
+  view.innerHTML = `<section class="hero band"><div class="wrap">
+    ${wheel(items, i, [s[0], s[1]], '별자리 고르기')}
+    <div>${dayChips(day)}
+      <h1 class="name">${s[0]}자리<small>${s[1]}</small></h1>
+      <span class="rel">${s[2]}의 별자리 · 금전·행운 ${all.findIndex(a => a.j === i) + 1}위</span>
+      <p class="sum">${f.text}</p>
+      <div class="lucky"><span>행운의 시간<b>${f.lucky.time[0]} (${f.lucky.time[1]})</b></span><span>행운의 색<b>${f.lucky.color}</b></span><span>행운의 숫자<b>${f.lucky.num}</b></span><span>행운의 물건<b>${f.lucky.item}</b></span></div>
+    </div>${adcol}</div></section>
+  <section class="band"><div class="wrap split">
+    <div><h2 style="font-size:clamp(26px,3vw,32px);margin-bottom:14px">${s[0]}자리 금전운·행운운</h2>
+      <div class="meters">${CATS.map(([k, n], j) => `<div class="meter${j < 2 ? ' big' : ''}"><div class="lab">${n}<span>${GRADE[f.sc[j]]} · ${f.sc[j]}/5</span></div>
+        <div class="track"><i style="width:${f.sc[j] * 20}%"></i></div><p>${f.lines[j]}</p></div>`).join('')}</div></div>
+    <div><h2 style="font-size:clamp(26px,3vw,32px);margin-bottom:6px">오늘의 금전·행운 순위</h2>
+      <p class="note">금전운과 행운운 점수를 더한 순서입니다 (10점 만점).</p>
+      <ol class="rank">${all.map((a, n) => `<li><button data-star="${a.j}" class="${a.j === i ? 'on' : ''}"><span class="n">${n + 1}</span><span>${STARS[a.j][0]}자리</span><span class="bar"><i style="width:${a.f.total * 10}%"></i></span><span class="sc">${a.f.total}점</span></button></li>`).join('')}</ol>
+    </div></div>
+    <div class="wrap">${ad}</div></section>`;
+  const go = (j, kb) => { starSel = j; store.set('star', j); renderStars(kb); };
+  bindWheel(go);
+  view.querySelectorAll('[data-star]').forEach(bt => bt.onclick = () => { go(+bt.dataset.star, false); window.scrollTo({top: 0, behavior: 'smooth'}); });
+  bindDays(() => renderStars());
+  if (focus) view.querySelector('.seg.on')?.focus();
+}
+
+function renderBirth() {
+  view.innerHTML = `<section class="hero band"><div class="wrap" style="grid-template-columns:minmax(0,1fr)"><div class="soon">
+    <h1 class="name">생년월일 운세</h1>
+    <p class="sum">태어난 연·월·일로 사주의 일간을 뽑아 오늘의 일진과 맞춰 보는 운세를 준비하고 있습니다. 그동안 띠별 운세와 별자리 운세를 먼저 확인해 보세요.</p>
+    <div class="days" style="margin-top:18px"><a class="day" href="#ddi" style="text-decoration:none;display:flex;align-items:center">띠별 운세 보기</a><a class="day" href="#stars" style="text-decoration:none;display:flex;align-items:center">별자리 운세 보기</a></div>
+  </div></div></section>`;
+}
+
+function route() {
+  const h = location.hash.replace('#', '') || 'ddi';
+  const tab = ['ddi', 'stars', 'birth'].includes(h) ? h : 'ddi';
+  document.querySelectorAll('[data-tab]').forEach(a => { a.classList.toggle('on', a.dataset.tab === tab); a.setAttribute('aria-current', a.dataset.tab === tab ? 'page' : 'false'); });
+  if (tab === 'stars') renderStars(); else if (tab === 'birth') renderBirth(); else renderDdi();
+}
+window.addEventListener('hashchange', () => { route(); window.scrollTo(0, 0); });
+route();
+}
+</script>
+</body>
+</html>

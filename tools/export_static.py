@@ -10,6 +10,8 @@ dist/site/
   api/record.json       인사평가
   api/leagues.json      고를 수 있는 리그·기본 리그·API 사용량
   api/credit.json       Claude 크레딧 추정 잔액
+  fortune/index.html    오늘의 운세 화면 (unse/static/index.html)
+  fortune/data/<날짜>.json  AI 운세 (data/unse/, 최근 3일 ~ 앞으로 3일)
 그리고 저장소 맨 위의 functions/ 폴더(Cloudflare Pages 함수)가 /api/run 을 맡는다: 사이트에서 '분석 요청'을
 누르면 GitHub Actions 를 실행시킨다.
 같은 JSON 파일을 나중에 모바일 앱이 그대로 읽을 수 있다.
@@ -33,6 +35,24 @@ from aa.web.app import create_app  # noqa: E402
 def _write(path: Path, data) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+
+
+def export_fortune(out: Path, src: Path = ROOT / "data" / "unse", today=None) -> None:
+    """오늘의 운세: 화면 한 장과 날짜별 AI 운세 JSON. AI 운세가 없는 날은 화면이 기본 문장으로 보여 준다."""
+    import datetime as dt
+    from zoneinfo import ZoneInfo
+
+    page = ROOT / "unse" / "static" / "index.html"
+    if not page.exists():
+        return
+    (out / "fortune").mkdir(parents=True, exist_ok=True)
+    shutil.copy(page, out / "fortune" / "index.html")
+    today = today or dt.datetime.now(ZoneInfo("Asia/Seoul")).date()
+    keep = {(today + dt.timedelta(days=n)).isoformat() for n in range(-3, 4)}
+    for p in sorted(src.glob("????-??-??.json")) if src.exists() else []:
+        if p.stem in keep:
+            (out / "fortune" / "data").mkdir(parents=True, exist_ok=True)
+            shutil.copy(p, out / "fortune" / "data" / p.name)
 
 
 def export(out: Path, company_path: Path = ROOT / "company.yaml") -> Path:
@@ -62,8 +82,9 @@ def export(out: Path, company_path: Path = ROOT / "company.yaml") -> Path:
     html = html.replace('/static/style.css"', f'/static/style.css?v={ver}"')
     html = html.replace('<script src="/static/app.js"></script>', f'<script>window.AA_STATIC=true;</script>\n<script src="/static/app.js?v={ver}"></script>')
     (out / "index.html").write_text(html, encoding="utf-8")
+    export_fortune(out)
     # Cloudflare Pages: JSON 은 늘 새로 받도록
-    (out / "_headers").write_text("/api/*\n  Cache-Control: no-cache\n/\n  Cache-Control: no-cache\n/index.html\n  Cache-Control: no-cache\n/static/*\n  Cache-Control: no-cache\n", encoding="utf-8")
+    (out / "_headers").write_text("/api/*\n  Cache-Control: no-cache\n/\n  Cache-Control: no-cache\n/index.html\n  Cache-Control: no-cache\n/static/*\n  Cache-Control: no-cache\n/fortune/*\n  Cache-Control: no-cache\n", encoding="utf-8")
     return out
 
 

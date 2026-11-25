@@ -974,7 +974,7 @@ route();
 window.addEventListener('hashchange', () => { if (typeof pickBar === 'function') pickBar(); });
 /* ---------- 운세 배너 (오른쪽에 따라다님, 모든 탭) ----------
    운세 사이트 주소가 정해지면 FORTUNE_URL 에 넣는다. 비어 있으면 눌렀을 때 '준비 중'만 보여 준다. */
-const FORTUNE_URL = '';
+const FORTUNE_URL = '/fortune/';
 (function fortuneAd() {
   if (document.querySelector('.fad')) return;
   const a = document.createElement('a');

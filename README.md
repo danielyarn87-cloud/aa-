@@ -110,3 +110,13 @@ aa/                 프로그램
 
 이 프로그램은 분석 참고용이며 결과를 보장하지 않습니다. 최소 100~200경기를 기록·채점해서
 실제로 시장보다 나은지 확인한 뒤 신뢰하세요.
+
+## 오늘의 운세 (`unse/`)
+
+스포츠 분석 화면 오른쪽 "연도별 띠 운세" 배너로 들어가는 운세 페이지입니다. 같은 사이트의 `/fortune/` 에서 열립니다.
+
+- `.github/workflows/fortune.yml` 이 6시간마다 `python -m unse daily` 를 실행합니다. Claude Haiku 배치로 띠별(띠당 출생연도 4개, 20세 이상)·별자리 금전운·행운운 문장을 만들고, 검사를 통과한 것만 `data/unse/날짜.json` 에 저장합니다. 비용은 한 달 약 $0.2 (추정).
+- 등급·일진·행운의 시간·색·숫자는 코드가 계산하고, AI 는 문장만 씁니다. 베팅·도박·투자 같은 말은 지시문에서 막고 검사에서 한 번 더 거릅니다.
+- `tools/export_static.py` 가 화면(`unse/static/index.html`)과 최근 운세 JSON 을 `dist/site/fortune/` 으로 내보냅니다. AI 운세가 없는 칸은 화면이 기본 문장으로 대신 보여 줍니다.
+- 직접 실행: `python -m unse status`, `python -m unse plan 2026-11-27`
+- 광고 칸: 운세 화면 오른쪽 `ad-google-side`(구글 300×250), `ad-coupang-side`(쿠팡 300×250)
