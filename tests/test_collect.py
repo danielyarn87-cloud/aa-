@@ -73,6 +73,8 @@ class FakeAF:
                 {"player": {"name": "D. Raya", "type": "Questionable", "reason": "Shoulder"}, "team": {"id": 42}},
                 {"player": {"name": "A. Semenyo", "type": "Missing Fixture", "reason": "Knee"}, "team": {"id": 50}},
             ]}, {}
+        if path == "/leagues":
+            return {"errors": [], "response": [{"seasons": [{"year": params["season"], "coverage": {"injuries": True}}]}]}, {}
         if path == "/fixtures/headtohead":
             return {"errors": [], "response": [{"fixture": {"date": "2026-04-19T15:30:00+00:00"},
                                                  "teams": {"home": {"name": "Manchester City"}, "away": {"name": "Arsenal"}},
@@ -155,3 +157,20 @@ def test_team_name_matching():
     assert OddsApi.find_event([{"home_team": "ŠK Slovan Bratislava", "away_team": "Real Betis"}], "Slovan Bratislava", "Real Betis")
     events = [{"home_team": "Wolverhampton Wanderers", "away_team": "Tottenham Hotspur"}]
     assert OddsApi.find_event(events, "Wolves", "Tottenham", {"Wolves": "Wolverhampton Wanderers"})
+
+
+def test_group_names_and_multi_group_standings():
+    from aa.collect import group_ko
+    assert group_ko("Group H") == "H조" and group_ko("Western Conference") == "서부 콘퍼런스"
+    assert group_ko("K-League: Championship Group") == "파이널A" and group_ko("Premier League") == "Premier League"
+
+    class AF:
+        def get(self, path, cache_hours=None, **p):
+            a = {"team": {"id": 1}, "group": "Group A", "rank": 3}
+            b = {"team": {"id": 2}, "group": "Group H", "rank": 1}
+            b2 = dict(b, group="Group H2", rank=2)  # 같은 팀이 뒤 단계에 다시 나오면 뒤쪽을 쓴다
+            return [{"league": {"standings": [[a], [b], [b2]]}}]
+    from aa.sources.api_football import ApiFootball
+    rows = ApiFootball.standings(AF(), 18, 2026)
+    by = {r["team"]["id"]: r for r in rows}
+    assert by[2]["rank"] == 2 and by[1]["_multi"] is True
