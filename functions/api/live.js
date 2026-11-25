@@ -11,6 +11,8 @@
 
 const TTL = 60;                                   // 초: 이 시간 안에는 API-Football 에 다시 묻지 않는다
 const CACHE_KEY = "https://aa-live.cache/v1/live";
+const GOOD_KEY = "https://aa-live.cache/v1/good";   // 마지막으로 제대로 받은 점수 (10분 보관: 배포 직후·한도 초과 때 대신 준다)
+const GOOD_TTL = 600;
 let memo = null;                                  // 같은 서버 안에서 한 번 더 아끼는 저장 {t, body}
 let good = null;                                  // 마지막으로 제대로 받은 값 (API 오류 때 대신 준다)
 
@@ -27,6 +29,20 @@ export function shrink(apiBody) {
     live["AF-" + f.id] = { s: (f.status || {}).short || "", m: (f.status || {}).elapsed ?? null, h: g.home ?? 0, a: g.away ?? 0 };
   }
   return live;
+}
+
+// API 가 실패하면: 이 서버가 기억하는 점수 → 캐시에 10분 보관한 점수 → 그래도 없으면 오류 표시.
+// 그 답을 30초 동안 캐시에 두어, 같은 지역의 다른 서버들도 그동안 API 를 다시 두드리지 않게 한다.
+async function fallback(cache, now, errBody) {
+  let b = good;
+  if (!b && cache) {
+    const hit = await cache.match(GOOD_KEY);
+    if (hit) b = await hit.text();
+  }
+  b = b || errBody;
+  memo = { t: now - (TTL - 30) * 1000, body: b };
+  if (cache) await cache.put(CACHE_KEY, new Response(b, { headers: { "Cache-Control": "public, max-age=30" } }));
+  return out(b, 30);
 }
 
 export async function onRequestGet({ env }) {
@@ -51,17 +67,15 @@ export async function onRequestGet({ env }) {
     // API-Football 은 키가 틀리거나 한도를 넘어도 200 으로 답하고 errors 에 이유를 담는다 → "0경기"와 구분
     const errs = j && j.errors;
     if (errs && (Array.isArray(errs) ? errs.length : Object.keys(errs).length)) {
-      // 오류(예: 1분당 한도 초과)면 직전에 제대로 받은 점수를 그대로 준다. 30초 뒤에 다시 시도.
-      const b = good || JSON.stringify({ at: new Date(now).toISOString(), error: "api_error", detail: errs, live: {} });
-      memo = { t: now - (TTL - 30) * 1000, body: b };   // 30초 동안은 다시 묻지 않는다
-      return out(b, 30);
+      // 오류(예: 1분당 한도 초과)면 직전에 제대로 받은 점수를 그대로 준다. 30초 동안은 다시 묻지 않는다.
+      return await fallback(cache, now, JSON.stringify({ at: new Date(now).toISOString(), error: "api_error", detail: errs, live: {} }));
     }
     body = JSON.stringify({ at: new Date(now).toISOString(), live: shrink(j) });
   } catch (e) {
-    // 실패하면 직전 값이라도 준다 (없으면 빈 값). 30초 뒤에 다시 시도.
-    return out(good || JSON.stringify({ error: "fetch_failed", detail: String(e.message || e), live: {} }), 30);
+    return await fallback(cache, now, JSON.stringify({ error: "fetch_failed", detail: String(e.message || e), live: {} }));
   }
   good = body;
+  if (cache) await cache.put(GOOD_KEY, new Response(body, { headers: { "Cache-Control": `public, max-age=${GOOD_TTL}` } }));
 
   memo = { t: now, body };
   if (cache) await cache.put(CACHE_KEY, new Response(body, { headers: { "Cache-Control": `public, max-age=${TTL}` } }));
