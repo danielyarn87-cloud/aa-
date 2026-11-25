@@ -85,7 +85,13 @@ function adminPost(path, body) {
   return api(path, {method: 'POST', headers: {'Content-Type': 'application/json', 'X-Admin-Token': store.get('aa_admin')}, body: JSON.stringify(body || {})});
 }
 
-const tri = p => `<div class="tri" aria-label="홈 ${pct(p.home)}, 무 ${pct(p.draw)}, 원정 ${pct(p.away)}"><i class="h" style="width:${p.home * 100}%"></i><i class="d" style="width:${p.draw * 100}%"></i><i class="a" style="width:${p.away * 100}%"></i></div>`;
+/* 목록 승무패 막대: 칸 안에 비중(%) (12% 미만 좁은 칸은 생략), 아래에 칸 이름, 우리 예측은 굵게 */
+const tri = (p, pk) => {
+  const seg = (k, c) => { const v = Math.round((p[k] || 0) * 100); return `<i class="${c}" style="width:${(p[k] || 0) * 100}%">${v >= 12 ? v + '%' : ''}</i>`; };
+  const nm = (k, c, t) => `<span><i class="${c}"></i>${pk === k ? `<b>${t}</b>` : t}</span>`;
+  return `<div class="tri-w"><div class="tri" aria-label="홈 ${pct(p.home)}, 무 ${pct(p.draw)}, 원정 ${pct(p.away)}">${seg('home', 'h')}${seg('draw', 'd')}${seg('away', 'a')}</div>`
+    + `<div class="tri-n">${nm('home', 'h', '홈 승')}${nm('draw', 'd', '무')}${nm('away', 'a', '원정 승')}</div></div>`;
+};
 const dayOf = k => (k || '').slice(0, 10);
 const timeOf = k => { const m = (k || '').match(/(\d{2}:\d{2})/); return m ? m[1] : ''; };
 function dayLabel(d) {
@@ -338,7 +344,7 @@ function rowHtml(m) {
   if (m.mock) tags.push('<span class="tag wait">모의</span>');
   const hot = both(m.pick_1x2) || both(m.pick_ou);   /* 예측+이득(★) 경기는 줄 전체를 진한 회색으로 */
   const val = !hot && (m.value_alerts || []).length > 0;   /* 이득만 있는 경기는 연분홍 */
-  return `<a class="row${hot ? ' hot' : val ? ' val' : ''}" href="#m-${encodeURIComponent(m.id)}">${head}<span class="mid">${liveSlot(m)}${tri(m.probs)}</span><span class="tags">${tags.join('')}</span></a>`;
+  return `<a class="row${hot ? ' hot' : val ? ' val' : ''}" href="#m-${encodeURIComponent(m.id)}">${head}<span class="mid">${liveSlot(m)}${tri(m.probs, m.pick_1x2)}</span><span class="tags">${tags.join('')}</span></a>`;
 }
 
 /* ---------- 실시간 스코어 ----------
