@@ -1071,3 +1071,27 @@ const LOTTO_URL = 'https://raise-lotto.com/';
   }
   document.body.appendChild(a);
 })();
+/* ---------- 모바일 배너 (1100px 미만 화면: 머리말 아래 한 줄씩 두 개) ----------
+   큰 화면의 옆 배너(.fad)와 같은 주소·같은 색. 보이는 조건은 style.css 의 .mad 에서 정한다. */
+(function mobileAds() {
+  if (document.querySelector('.mad')) return;
+  const view = document.getElementById('view');
+  if (!view) return;
+  const BC = n => n <= 10 ? '#f2b705' : n <= 20 ? '#4fb3e8' : n <= 30 ? '#f25c5c' : n <= 40 ? '#9a9a9a' : '#8cc43c';
+  const box = document.createElement('div');
+  box.className = 'mad';
+  const item = (cls, url, label, lead, title, sub) => {
+    const a = document.createElement('a');
+    a.className = 'mad-i ' + cls;
+    a.setAttribute('aria-label', label);
+    a.innerHTML = lead + `<span class="mad-t"><b>${title}</b><small>${sub}</small></span><span class="mad-go" aria-hidden="true">›</span>`;
+    if (url) { a.href = url; a.target = '_blank'; a.rel = 'noopener'; } else { a.href = '#'; a.onclick = e => e.preventDefault(); }
+    return a;
+  };
+  box.appendChild(item('mad-f', FORTUNE_URL, '연도별 띠 운세 보러 가기',
+    '<span class="mad-h" aria-hidden="true">福</span>', '연도별 띠 운세', '태어난 해로 오늘 운세 확인'));
+  box.appendChild(item('mad-l', LOTTO_URL, '띠별 행운 번호 보러 가기',
+    '<span class="mad-b" aria-hidden="true">' + [6, 14, 28].map(n => `<span style="background:${BC(n)}">${n}</span>`).join('') + '</span>',
+    '띠별 행운 번호', '재미용 · 하루 동안 고정'));
+  view.parentNode.insertBefore(box, view);
+})();
