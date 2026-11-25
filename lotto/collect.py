@@ -1,7 +1,7 @@
 """동행복권 회차별 당첨번호를 받아 data/lotto/draws.json 에 쌓는다.
 
 - 매주 토요일 추첨(20:35) 뒤에 GitHub Actions 가 돌린다 (python -m lotto).
-- 처음 돌리면 1회부터 지금까지 전부, 그다음부터는 새 회차만 받는다.
+- 최신 회차부터 받고, 빠진 옛 회차는 위에서 아래로 여러 번에 나눠 채운다. 그다음부터는 새 회차만.
 - 동행복권 사이트 개편(2026)으로 예전 조회 주소(getLottoNumber)가 첫 화면으로 넘어가서,
   지금 '추첨결과' 화면이 쓰는 주소(selectPstLt645InfoNew.do)를 쓴다. 1~5등 당첨금·구매 방식까지 들어 있다.
 - 한 번 물으면 기준 회차 주변 여러 회차를 함께 주므로, 1초씩 쉬며 적은 횟수로 받는다.
@@ -55,43 +55,78 @@ def path(base: Path) -> Path:
     return Path(base) / "data" / "lotto" / "draws.json"
 
 
-def run(base: Path, get=_get, pause: float = 1.0, log=print) -> dict:
+FIRST_DRAW = datetime(2002, 12, 7, 21, 0, tzinfo=KST)   # 1회 추첨 (결과가 올라오는 21시 기준)
+
+
+def expected_latest(now: datetime | None = None) -> int:
+    """지금까지 추첨했을 마지막 회차 (매주 토요일). 동행복권에 아직 안 올라왔으면 그 앞 회차까지만 온다."""
+    now = now or datetime.now(KST)
+    return max(1, (now - FIRST_DRAW) // timedelta(days=7) + 1)
+
+
+def run(base: Path, get=_get, pause: float = 1.0, log=print, now: datetime | None = None) -> dict:
+    """최신 회차부터 받는다: ① 새 회차(위로) ② 빠진 옛 회차(위에서 아래로).
+    그래서 채우는 중에도 첫 화면의 '이번 회차'는 늘 최신이다."""
     p = path(base)
     try:
         db = json.loads(p.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         db = {"source": "동행복권 (dhlottery.co.kr)", "draws": []}
     have = {d["no"]: d for d in db.get("draws", [])}
-    no = max(have, default=0) + 1
-    added, err = 0, None
-    for _ in range(MAX_PER_RUN):
-        got, err = None, None
+    before = max(have, default=0)
+    added, err, asked = 0, None, 0
+
+    def ask(no: int):
+        """기준 회차 주변을 받아 쌓는다. 계속 안 되면 None."""
+        nonlocal added, err, asked
+        got = None
         for attempt in range(4):  # 느려지거나 끊기면 잠깐 쉬었다가 다시 (10초·20초·40초)
             try:
                 got = parse(get(URL.format(no=no)))
+                err = None
                 break
             except Exception as e:
                 err = str(e)
                 if pause:
                     time.sleep(10 * 2 ** attempt)
-        if got is None:  # 계속 안 되면 여기까지 저장하고 다음 실행에서 이어서
-            break
-        err = None
-        new = [d for d in got if d["no"] not in have]
-        for d in new:
-            have[d["no"]] = d
-        added += len(new)
-        later = [d["no"] for d in got if d["no"] >= no]
-        if not later:  # 아직 추첨 안 한 회차 (또는 이상한 답)
-            break
-        no = max(later) + 1
+        asked += 1
+        if got is not None:
+            for d in got:
+                if d["no"] not in have:
+                    have[d["no"]] = d
+                    added += 1
         if pause:
             time.sleep(pause)
-    log(f"로또: 새 회차 {added}개 (마지막 {max(have, default=0)}회)" + (f" · 오류: {err}" if err else ""))
+        return got
+
+    # ① 새 회차: 계산상 최신 회차부터 위로
+    no = max(expected_latest(now), before + 1)
+    while asked < MAX_PER_RUN:
+        got = ask(no)
+        if got is None:
+            break
+        later = [d["no"] for d in got if d["no"] >= no]
+        if not later:  # 아직 추첨 안 한 회차
+            break
+        no = max(later) + 1
+    top = max(have, default=0)
+    # ② 빠진 옛 회차: 위에서 아래로
+    while err is None and asked < MAX_PER_RUN:
+        missing = [n for n in range(top, 0, -1) if n not in have]
+        if not missing:
+            break
+        n = missing[0]
+        if ask(n) is None or n not in have:  # 안 오면 다음 실행에서 다시
+            break
+    left = sum(1 for n in range(1, max(have, default=0) + 1) if n not in have)
+    last = max(have, default=0)
+    log(f"로또: 새 회차 {added}개 (마지막 {last}회, 빠진 회차 {left}개)" + (f" · 오류: {err}" if err else ""))
     if added:
         db["draws"] = [have[k] for k in sorted(have)]
         db["updated"] = datetime.now(KST).isoformat(timespec="seconds")
         db["source"] = "동행복권 (dhlottery.co.kr)"
         p.parent.mkdir(parents=True, exist_ok=True)
         p.write_text(json.dumps(db, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
-    return {"added": added, "last": max(have, default=0), "error": err}
+    # 사이트 다시 만들기(월 500회 한도)는 최신 회차가 바뀌었거나 다 채웠을 때만
+    return {"added": added, "last": last, "left": left, "error": err,
+            "deploy": bool(added) and (last > before or left == 0)}
