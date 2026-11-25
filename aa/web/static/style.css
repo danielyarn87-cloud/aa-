@@ -390,3 +390,11 @@ a.row.val:hover{background:#C93A6E}
 .row.hot .oddsline{color:#F4F1E8}.row.hot .oa.up{color:#FCA5A5}.row.hot .oa.dn{color:#93C5FD}
 .row.hot .tag.pick{background:#F4F1E8;color:#1D2520;border-color:#F4F1E8}
 .lgnd{display:inline-block;padding:1px 7px;border-radius:4px;font-size:12px}.lgnd.hot{background:#0D5C35;color:#F4F1E8;box-shadow:inset 3px 0 0 #F5C518}.lgnd.val{background:#D6457A;color:#FFF7FA}
+.tri-w{flex:1;min-width:0}
+.row .tri{height:20px;gap:2px;border-radius:4px}
+.row .tri i{display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--num);font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;font-style:normal}
+.row .tri i.d{color:#1d2520}
+.tri-n{display:flex;gap:10px;margin-top:4px;font-size:12px;color:var(--mute)}
+.tri-n span{display:inline-flex;align-items:center;gap:4px}.tri-n i{display:inline-block;width:8px;height:8px;border-radius:2px}
+.tri-n b{color:var(--ink);font-weight:700}
+.row.hot .tri-n,.row.val .tri-n{color:rgba(255,255,255,.8)}.row.hot .tri-n b,.row.val .tri-n b{color:#fff}
