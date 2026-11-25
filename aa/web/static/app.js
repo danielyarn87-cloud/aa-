@@ -291,11 +291,9 @@ function apiCard(lg) {
   const total = u ? u.used + u.remaining : lg && lg.usage ? lg.usage.odds_limit : null;
   const ratio = used != null && total ? used / total : 0;
   const lv = ratio >= 0.95 ? ' danger' : ratio >= 0.8 ? ' warn' : '';
-  const af = lg && lg.usage ? `API-Football 오늘 ${Number(lg.usage.api_football_today).toLocaleString('ko-KR')} / ${(parseInt(String(lg.usage.api_football_limit), 10) || 0).toLocaleString('ko-KR')}` : '';
   return `<div class="kpi k7${lv}"><span class="kl">배당 API 이번 달</span>
     <span class="kn"><span class="ap-used">${used != null ? Number(used).toLocaleString('ko-KR') : '-'}</span><small> / ${total ? Number(total).toLocaleString('ko-KR') : '-'}</small></span>
     <span class="ks ap-sub">${total ? `남은 ${Number(total - used).toLocaleString('ko-KR')} · ${Math.round(ratio * 100)}% · 매월 1일 초기화` : '아직 사용량을 읽지 않았습니다'}</span>
-    ${af ? `<span class="ks">${af}</span>` : ''}
     ${STATIC ? '<button type="button" class="cr-open ap-go">갱신</button>' : ''}</div>`;
 }
 function wireApiCard() {
