@@ -470,7 +470,14 @@ async function liveTick() {
   let d;
   try { const r = await fetch('/api/live', {cache: 'no-cache'}); d = await r.json(); } catch (e) { d = null; }
   if (d && d.error === 'no_key') return;   /* 키가 아직 없으면 조용히 멈춘다 */
-  if (!d || d.error) { liveTimer = setTimeout(liveTick, 60e3); return; }   /* 오류면 화면의 점수를 그대로 두고 1분 뒤 다시 */
+  /* 서버가 오류면(공용 IP 때문에 API-Football 이 가끔 분당 한도 오류를 줌) 이 브라우저가 기억한 마지막 점수(15분 안)를 보여 준다 */
+  if (d && !d.error && d.at) { try { localStorage.setItem('aa_live', JSON.stringify({at: d.at, live: d.live || {}})); } catch (e) {} }
+  else {
+    let c = null;
+    try { c = JSON.parse(localStorage.getItem('aa_live') || 'null'); } catch (e) {}
+    if (c && Date.now() - Date.parse(c.at) < 15 * 60e3) d = c;
+    else { liveTimer = setTimeout(liveTick, 60e3); return; }   /* 기억도 없으면 화면의 점수를 그대로 두고 1분 뒤 다시 */
+  }
   const live = (d && d.live) || {};
   document.querySelectorAll('[data-live]').forEach(el => {
     const id = el.dataset.live, x = live[id];
