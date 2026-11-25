@@ -70,7 +70,7 @@ async function api(path, opts) {
       : path.startsWith('/api/matches/') ? 'api/matches/' + path.split('/').pop() + '.json'
       : path === '/api/company' ? 'api/company.json' : path === '/api/record' ? 'api/record.json'
       : path === '/api/leagues' ? 'api/leagues.json' : path === '/api/bets' ? 'api/bets.json'
-      : path === '/api/credit' ? 'api/credit.json' : null;
+      : path === '/api/credit' ? 'api/credit.json' : path === '/api/news' ? 'api/news.json' : null;
     if (!file) throw new Error('이 사이트에서는 쓸 수 없는 기능입니다.');
     const r = await fetch(file, {cache: 'no-cache'});
     if (!r.ok) throw new Error(r.status === 404 ? '아직 분석하지 않은 경기입니다.' : '불러오기 실패 ' + r.status);
@@ -106,8 +106,66 @@ let leagueFilter = store.get('aa_league') || 'all';
 let resQuery = '', resDate = '', resHit = 'all';
 let lgOpen = !!store.get('aa_lg_open');
 const lgName = m => m.league_name || (m.league || '').split(' ')[0] || '기타';
+/* ---------- 스포츠 뉴스 ----------
+   aa/news.py 가 3시간마다 모은 '경기에 영향 줄 소식'(감독·부상/결장·이적·징계). 제목은 Haiku 가 다시 쓴 한 줄 요약. */
+const NCAT = {manager: ['감독', 'n-mgr'], injury: ['부상·결장', 'n-inj'], transfer: ['이적', 'n-tr'], suspension: ['징계', 'n-sus']};
+const NIMP = {high: ['영향 큼', 'i-hi'], mid: ['영향 보통', 'i-mid'], low: ['영향 작음', 'i-lo']};
+let NEWS = null, NEWS_BY = {};
+async function loadNews(force) {
+  if (NEWS && !force) return NEWS;
+  NEWS = await api('/api/news').catch(() => null) || {items: []};
+  NEWS_BY = {};
+  (NEWS.items || []).forEach(x => (x.match_ids || []).forEach(id => (NEWS_BY[id] = NEWS_BY[id] || []).push(x)));
+  return NEWS;
+}
+const ago = iso => {
+  const t = Date.parse(iso); if (!t) return '';
+  const mi = Math.round((Date.now() - t) / 60e3);
+  return mi < 60 ? `${Math.max(mi, 1)}분 전` : mi < 1440 ? `${Math.round(mi / 60)}시간 전` : `${Math.round(mi / 1440)}일 전`;
+};
+/* 경기 목록의 작은 표시: 가장 영향 큰 분류 + 건수 */
+function newsBadge(m) {
+  const xs = NEWS_BY[m.id] || [];
+  if (!xs.length) return '';
+  const rank = {high: 0, mid: 1, low: 2};
+  const top = [...xs].sort((a, b) => rank[a.impact] - rank[b.impact])[0];
+  const same = xs.filter(x => x.category === top.category).length;
+  const lab = xs.length === same ? `${NCAT[top.category][0]} ${same}` : `뉴스 ${xs.length}`;
+  return `<span class="nbadge ${NCAT[top.category][1]}" title="${esc(xs.map(x => x.summary).join(' / '))}">📰 ${esc(lab)}</span>`;
+}
+function newsItem(x, matchLabel) {
+  const [cl, cc] = NCAT[x.category] || [x.category, ''];
+  const [il, ic] = NIMP[x.impact] || ['', ''];
+  return `<div class="nitem"><span class="ncat ${cc}">${esc(cl)}</span><div><div class="nt">${esc(x.summary || x.title)}</div>
+    <div class="small mute">${esc(x.team || '')} · ${esc(x.source || '')} · ${esc(ago(x.published))}${/^https?:\/\//.test(x.link || '') ? ` · <a href="${esc(x.link)}" target="_blank" rel="noopener nofollow">원문 보기 ↗</a>` : ''}</div>
+    ${matchLabel ? `<div class="nm">${matchLabel}</div>` : ''}</div><span class="nimp ${ic}">${esc(il)}</span></div>`;
+}
+let newsCat = 'all', newsOnlyMatch = false;
+async function renderNews() {
+  const [n, data] = await Promise.all([loadNews(true), api('/api/matches').catch(() => ({matches: []}))]);
+  const byId = Object.fromEntries((data.matches || []).map(m => [m.id, m]));
+  const items = n.items || [];
+  const cnt = c => items.filter(x => c === 'all' || x.category === c).length;
+  const shown = items.filter(x => (newsCat === 'all' || x.category === newsCat)
+    && (!newsOnlyMatch || (x.match_ids || []).some(id => byId[id] && byId[id].status === 'analyzed')));
+  const label = x => {
+    const ms = (x.match_ids || []).map(id => byId[id]).filter(m => m && !m.result).sort((a, b) => (a.kickoff > b.kickoff ? 1 : -1));
+    return ms.length ? '관련 경기: ' + ms.slice(0, 2).map(m => `<a href="#m-${encodeURIComponent(m.id)}">${esc(m.kickoff.slice(5, 16).replace('-', '/'))} ${esc(m.home)} vs ${esc(m.away)} →</a>`).join(' · ') : '';
+  };
+  view.innerHTML = `<section class="band"><div class="wrap">
+    <h1>경기에 영향 줄 소식</h1>
+    <p class="lead small">다가오는 경기 팀의 감독·부상/결장·이적·징계 소식만 3시간마다 모읍니다. 요약은 AI가 제목을 보고 다시 쓴 것이라, 자세한 내용은 원문을 확인하세요.${n.updated ? ` · 마지막 갱신 ${esc(ago(n.updated))}` : ''}</p>
+    <div class="nchips">${[['all', '전체'], ...Object.entries(NCAT).map(([k, v]) => [k, v[0]])].map(([k, l]) => `<button class="chip${newsCat === k ? ' on' : ''}" data-ncat="${k}">${esc(l)} ${cnt(k)}</button>`).join('')}
+      <label class="small"><input type="checkbox" id="nOnly" ${newsOnlyMatch ? 'checked' : ''}> 분석한 경기 관련만</label></div>
+    ${shown.length ? shown.map(x => newsItem(x, label(x))).join('') : '<p class="mute">아직 모인 소식이 없습니다. 3시간마다 자동으로 모입니다.</p>'}
+  </div></section>`;
+  view.querySelectorAll('[data-ncat]').forEach(b => b.onclick = () => { newsCat = b.dataset.ncat; renderNews(); });
+  const o = document.getElementById('nOnly'); if (o) o.onchange = () => { newsOnlyMatch = o.checked; renderNews(); };
+}
+
 async function renderList() {
   const data = await api('/api/matches');
+  await loadNews();
   const credit = await api('/api/credit').catch(() => null);
   ODDS_H = await api('/api/odds').catch(() => null);
   const lgInfo = await api('/api/leagues').catch(() => null);
@@ -344,7 +402,7 @@ function pickHist(s) {
 }
 function rowHtml(m) {
   const N = names(m.home, m.away, m.line);
-  const head = `<span class="time">${esc(timeOf(m.kickoff))}</span><span class="teams">${esc(m.home)} <span class="mute">vs</span> ${esc(m.away)}${oddsLine(m)}<span class="lg">${esc(m.league)}</span></span>`;
+  const head = `<span class="time">${esc(timeOf(m.kickoff))}</span><span class="teams">${esc(m.home)} <span class="mute">vs</span> ${esc(m.away)}${newsBadge(m)}${oddsLine(m)}<span class="lg">${esc(m.league)}</span></span>`;
   if (m.status !== 'analyzed') {
     return `<div class="row">${head}<span class="mid">${liveSlot(m)}</span><span class="tags">${m.picked ? '<span class="tag value">분석 요청함</span>' : STATIC ? `<button type="button" class="pk-toggle" data-pick="${esc(m.id)}" aria-pressed="${pickSet().has(m.id)}">${pickSet().has(m.id) ? '✓ 분석에 담음' : '＋ 분석하기'}</button>` : '<span class="tag wait">분석 대기</span>'}</span></div>`;
   }
@@ -421,6 +479,7 @@ async function liveTick() {
 /* ---------- 경기 상세 ---------- */
 async function renderMatch(id) {
   const r = await api('/api/matches/' + encodeURIComponent(id));
+  await loadNews();
   ODDS_H = await api('/api/odds').catch(() => null);
   const m = r.match, d = r.decision, one = d.one_x_two, ou = d.over_under, s = r.summary;
   const N = names(m.home, m.away, d.line);
@@ -529,6 +588,7 @@ async function renderMatch(id) {
       ${r.final.map(o => { const f = first[o.member_id] || o; return `<tr><td data-l="분석가"><b>${esc(o.member_name)}</b></td><td data-l="처음 고른 결과">${esc(N[f.pick_1x2])} ${OX(f.hit_1x2)}</td><td data-l="최종"><b>${esc(N[o.pick_1x2])}</b> ${OX(o.hit_1x2)}</td><td data-l="골 수">${esc(N[f.pick_ou + 'S'])} ${OX(f.hit_ou)} → ${esc(N[o.pick_ou + 'S'])} ${OX(o.hit_ou)}</td><td data-l="처음 가능성" class="r num">${pct(f.probs.home)}/${pct(f.probs.draw)}/${pct(f.probs.away)}</td><td data-l="최종 가능성" class="r num">${pct(o.probs.home)}/${pct(o.probs.draw)}/${pct(o.probs.away)}</td><td data-l="오버 가능성" class="r num">${pct(f.over_prob)}→${pct(o.over_prob)}</td></tr>`; }).join('')}
       </tbody></table></div></div>
 
+    ${(NEWS_BY[m.id] || []).length ? `<div class="sec"><h2>관련 뉴스 <span class="small mute">분석가에게도 전달됨 · 3시간마다 갱신</span></h2>${NEWS_BY[m.id].map(x => newsItem(x)).join('')}</div>` : ''}
     <div class="sec"><h2>분석에 쓴 자료</h2><div class="facts">
       <div><h3>${esc(m.home)} 결장·불투명</h3>${luList([...(lu.home_absent || []), ...(lu.home_doubtful || []).map(x => '불투명: ' + x)])}</div>
       <div><h3>${esc(m.away)} 결장·불투명</h3>${luList([...(lu.away_absent || []), ...(lu.away_doubtful || []).map(x => '불투명: ' + x)])}</div>
@@ -962,6 +1022,7 @@ async function route() {
     else if (h === 'team') await renderTeam();
     else if (h === 'record') await renderRecord();
     else if (h === 'bets') await renderBets();
+    else if (h === 'news') await renderNews();
     else if (h === 'admin') await renderAdmin();
     else if (h === 'run' && STATIC) await renderRun();
     else await renderList();
