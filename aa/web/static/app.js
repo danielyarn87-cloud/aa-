@@ -467,6 +467,9 @@ async function renderMatch(id) {
   const res = s.result ? `<span class="result">${esc(s.result.score)}</span>` : '<span class="vs">VS</span>';
   const lu = md.lineup || {};
   const list = a => (a && a.length) ? `<ul>${a.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : '<p class="mute small">자료 없음</p>';
+  /* 결장자 칸: 비어 있을 때 '자료가 없는 리그'인지 '보고된 결장자가 없음'인지 구분해서 보여 준다 */
+  const LU_EMPTY = {unsupported: '이 리그는 결장자 자료가 제공되지 않아요 (결장자가 없다는 뜻은 아님)', none: '보고된 결장자 없음', skipped: '목록 수집 단계라 아직 받지 않음'};
+  const luList = a => (a && a.length) ? list(a) : `<p class="mute small">${LU_EMPTY[lu.status] || '자료 없음'}</p>`;
   const KEYS = {home_days_rest: `${m.home} 휴식일`, away_days_rest: `${m.away} 휴식일`, home_prev: `${m.home} 직전 경기`, away_prev: `${m.away} 직전 경기`, home_next: `${m.home} 다음 경기`, away_next: `${m.away} 다음 경기`};
   const kv = o => (o && typeof o === 'object' && !Array.isArray(o)) ? `<ul>${Object.entries(o).filter(([k]) => k !== '설명').sort(([a], [b]) => (a.startsWith('home') ? 0 : 1) - (b.startsWith('home') ? 0 : 1)).map(([k, v]) => `<li>${esc(KEYS[k] || k)}: ${esc(typeof v === 'object' ? JSON.stringify(v) : v)}${/days_rest/.test(k) ? '일' : ''}</li>`).join('')}</ul>` : Array.isArray(o) ? list(o) : `<p>${esc(o ?? '자료 없음')}</p>`;
 
@@ -527,8 +530,8 @@ async function renderMatch(id) {
       </tbody></table></div></div>
 
     <div class="sec"><h2>분석에 쓴 자료</h2><div class="facts">
-      <div><h3>${esc(m.home)} 결장·불투명</h3>${list([...(lu.home_absent || []), ...(lu.home_doubtful || []).map(x => '불투명: ' + x)])}</div>
-      <div><h3>${esc(m.away)} 결장·불투명</h3>${list([...(lu.away_absent || []), ...(lu.away_doubtful || []).map(x => '불투명: ' + x)])}</div>
+      <div><h3>${esc(m.home)} 결장·불투명</h3>${luList([...(lu.home_absent || []), ...(lu.home_doubtful || []).map(x => '불투명: ' + x)])}</div>
+      <div><h3>${esc(m.away)} 결장·불투명</h3>${luList([...(lu.away_absent || []), ...(lu.away_doubtful || []).map(x => '불투명: ' + x)])}</div>
       <div><h3>일정</h3>${kv(md.schedule)}</div>
       <div><h3>순위·동기</h3><p>${esc(md.table || '자료 없음')}</p>${md.motivation ? `<p>${esc(md.motivation)}</p>` : ''}</div>
     </div>
