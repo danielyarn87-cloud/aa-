@@ -15,8 +15,8 @@
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
-    "home_goals": 1.78,
-    "away_goals": 1.349
+    "home_goals": 1.843,
+    "away_goals": 1.406
   },
   "stats": {
     "basis": "venue",
@@ -24,8 +24,8 @@
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (17경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 2.222,
-      "xg_against": 1.817,
+      "xg_for": 2.231,
+      "xg_against": 1.826,
       "raw_goals_for": 2.3,
       "raw_goals_against": 1.9,
       "played": 17,
@@ -34,8 +34,8 @@
     },
     "away": {
       "설명": "원정 경기 경기당 득실 (17경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.392,
-      "xg_against": 0.777,
+      "xg_for": 1.401,
+      "xg_against": 0.786,
       "raw_goals_for": 1.4,
       "raw_goals_against": 0.6,
       "played": 17,
@@ -49,7 +49,8 @@
     "away_absent": [],
     "away_doubtful": [],
     "confirmed": false,
-    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+    "status": "none",
+    "설명": "API-Football 부상자 목록 기준 보고된 결장자 없음, 라인업 미발표"
   },
   "collected_detail": "full",
   "venue": "TQL Stadium",
@@ -60,6 +61,7 @@
     "league": 253,
     "season": 2026
   },
+  "table": "FC 신시내티 동부 콘퍼런스 9위 46점 (12승10무12패, 득실 -8) / 내슐빌 SC 동부 콘퍼런스 1위 77점 (23승8무3패, 득실 +46)",
   "head_to_head": [
     "2026-11-22 내슐빌 SC 0-1 FC 신시내티",
     "2026-11-07 FC 신시내티 0-2 내슐빌 SC",
@@ -76,5 +78,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 14:55 KST"
+  "collected_at": "2026-11-26 00:05 KST"
 }

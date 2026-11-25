@@ -49,7 +49,8 @@
     "away_absent": [],
     "away_doubtful": [],
     "confirmed": false,
-    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+    "status": "none",
+    "설명": "API-Football 부상자 목록 기준 보고된 결장자 없음, 라인업 미발표"
   },
   "collected_detail": "full",
   "venue": "LNER stadium",
@@ -71,5 +72,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 14:54 KST"
+  "collected_at": "2026-11-26 00:04 KST"
 }

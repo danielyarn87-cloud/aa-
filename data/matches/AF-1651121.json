@@ -15,8 +15,8 @@
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
-    "home_goals": 1.78,
-    "away_goals": 1.349
+    "home_goals": 1.843,
+    "away_goals": 1.406
   },
   "stats": {
     "basis": "venue",
@@ -24,8 +24,8 @@
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (17경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.882,
-      "xg_against": 1.307,
+      "xg_for": 1.891,
+      "xg_against": 1.316,
       "raw_goals_for": 1.9,
       "raw_goals_against": 1.3,
       "played": 17,
@@ -34,8 +34,8 @@
     },
     "away": {
       "설명": "원정 경기 경기당 득실 (17경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.732,
-      "xg_against": 1.202,
+      "xg_for": 1.741,
+      "xg_against": 1.211,
       "raw_goals_for": 1.8,
       "raw_goals_against": 1.1,
       "played": 17,
@@ -44,11 +44,24 @@
     }
   },
   "lineup": {
-    "home_absent": [],
+    "home_absent": [
+      "J. J. Arias (Hamstring Injury)",
+      "Z. Booth (Concussion)",
+      "E. Eneli (Knee Injury)",
+      "D. Luna (Knee Injury)",
+      "A. Piol (Hamstring Injury)"
+    ],
     "home_doubtful": [],
-    "away_absent": [],
-    "away_doubtful": [],
+    "away_absent": [
+      "K. G. Cabrera Nakamura (Foot Injury)",
+      "B. Halbouni (Illness)"
+    ],
+    "away_doubtful": [
+      "S. Adekugbe (Muscle Injury)",
+      "B. White (Muscle Injury)"
+    ],
     "confirmed": false,
+    "status": "listed",
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
   "collected_detail": "full",
@@ -60,7 +73,7 @@
     "league": 253,
     "season": 2026
   },
-  "table": "레알 솔트레이크 9위 45점 (13승6무15패, 득실 +1) / 밴쿠버 화이트캡스 1위 64점 (19승7무8패, 득실 +40)",
+  "table": "레알 솔트레이크 서부 콘퍼런스 9위 45점 (13승6무15패, 득실 +1) / 밴쿠버 화이트캡스 서부 콘퍼런스 1위 64점 (19승7무8패, 득실 +40)",
   "head_to_head": [
     "2026-11-23 밴쿠버 화이트캡스 2-0 레알 솔트레이크",
     "2026-09-20 레알 솔트레이크 0-3 밴쿠버 화이트캡스",
@@ -77,5 +90,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 14:55 KST"
+  "collected_at": "2026-11-26 00:05 KST"
 }

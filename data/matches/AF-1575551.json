@@ -49,7 +49,8 @@
     "away_absent": [],
     "away_doubtful": [],
     "confirmed": false,
-    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+    "status": "unsupported",
+    "설명": "API-Football 이 이 리그의 결장자 자료를 제공하지 않음 (결장자가 없다는 뜻이 아님), 라인업 미발표"
   },
   "collected_detail": "full",
   "venue": "Estádio do Marítimo",
@@ -77,5 +78,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 14:54 KST"
+  "collected_at": "2026-11-26 00:04 KST"
 }

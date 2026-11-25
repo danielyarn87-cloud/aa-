@@ -15,8 +15,8 @@
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
-    "home_goals": 1.444,
-    "away_goals": 1.389
+    "home_goals": 1.533,
+    "away_goals": 1.367
   },
   "stats": {
     "basis": "venue",
@@ -24,8 +24,8 @@
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (10경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.795,
-      "xg_against": 1.167,
+      "xg_for": 1.815,
+      "xg_against": 1.162,
       "raw_goals_for": 1.9,
       "raw_goals_against": 1.1,
       "played": 10,
@@ -34,8 +34,8 @@
     },
     "away": {
       "설명": "원정 경기 경기당 득실 (10경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.167,
-      "xg_against": 1.795,
+      "xg_for": 1.162,
+      "xg_against": 1.815,
       "raw_goals_for": 1.1,
       "raw_goals_against": 1.9,
       "played": 10,
@@ -49,7 +49,8 @@
     "away_absent": [],
     "away_doubtful": [],
     "confirmed": false,
-    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+    "status": "unsupported",
+    "설명": "API-Football 이 이 리그의 결장자 자료를 제공하지 않음 (결장자가 없다는 뜻이 아님), 라인업 미발표"
   },
   "collected_detail": "full",
   "venue": "Noevir Stadium",
@@ -60,6 +61,7 @@
     "league": 98,
     "season": 2026
   },
+  "table": "비셀 고베 서부 1위 35점 (11승0무7패, 득실 +4) / 제프 유나이티드 지바 동부 10위 12점 (3승0무15패, 득실 -16)",
   "head_to_head": [
     "2018-07-11 비셀 고베 6-1 제프 유나이티드 지바",
     "2015-10-14 비셀 고베 1-0 제프 유나이티드 지바",
@@ -75,5 +77,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 14:55 KST"
+  "collected_at": "2026-11-26 00:05 KST"
 }

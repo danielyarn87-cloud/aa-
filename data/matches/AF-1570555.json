@@ -1,0 +1,67 @@
+{
+  "id": "AF-1570555",
+  "sport": "soccer",
+  "league": "라리가 Regular Season - 23",
+  "league_id": 140,
+  "league_name": "라리가",
+  "kickoff": "2026-12-03 05:30 KST",
+  "kickoff_iso": "2026-12-03T05:30:00+09:00",
+  "home": "바르셀로나",
+  "away": "아틀레티코 마드리드",
+  "home_en": "Barcelona",
+  "away_en": "Atletico Madrid",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.597,
+    "away_goals": 1.279
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (7경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 3.179,
+      "xg_against": 1.284,
+      "raw_goals_for": 3.857,
+      "raw_goals_against": 1.286,
+      "played": 7,
+      "record": "6승 0무 1패"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (7경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.784,
+      "xg_against": 0.979,
+      "raw_goals_for": 2.0,
+      "raw_goals_against": 0.714,
+      "played": 7,
+      "record": "6승 0무 1패"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "status": "skipped",
+    "설명": "호출 절약 수집이라 부상자 목록을 받지 않음"
+  },
+  "collected_detail": "light",
+  "venue": "Camp Nou",
+  "source_ids": {
+    "api_football_fixture": 1570555,
+    "home_team": 529,
+    "away_team": 530,
+    "league": 140,
+    "season": 2026
+  },
+  "table": "바르셀로나 1위 36점 (12승0무1패, 득실 +36) / 아틀레티코 마드리드 3위 31점 (10승1무2패, 득실 +16)",
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-26 00:04 KST"
+}

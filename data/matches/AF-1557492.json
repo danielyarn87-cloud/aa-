@@ -1,0 +1,67 @@
+{
+  "id": "AF-1557492",
+  "sport": "soccer",
+  "league": "프리미어리그 Regular Season - 13",
+  "league_id": 39,
+  "league_name": "프리미어리그",
+  "kickoff": "2026-12-03 04:30 KST",
+  "kickoff_iso": "2026-12-03T04:30:00+09:00",
+  "home": "헐 시티",
+  "away": "노팅엄 포리스트",
+  "home_en": "Hull City",
+  "away_en": "Nottingham Forest",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.582,
+    "away_goals": 1.173
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (6경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.527,
+      "xg_against": 0.946,
+      "raw_goals_for": 1.5,
+      "raw_goals_against": 0.833,
+      "played": 6,
+      "record": "2승 4무 0패"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (6경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.058,
+      "xg_against": 1.749,
+      "raw_goals_for": 1.0,
+      "raw_goals_against": 1.833,
+      "played": 6,
+      "record": "1승 2무 3패"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "status": "skipped",
+    "설명": "호출 절약 수집이라 부상자 목록을 받지 않음"
+  },
+  "collected_detail": "light",
+  "venue": "MKM Stadium",
+  "source_ids": {
+    "api_football_fixture": 1557492,
+    "home_team": 64,
+    "away_team": 65,
+    "league": 39,
+    "season": 2026
+  },
+  "table": "헐 시티 11위 14점 (3승5무3패, 득실 +2) / 노팅엄 포리스트 17위 9점 (2승3무6패, 득실 -6)",
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-26 00:04 KST"
+}

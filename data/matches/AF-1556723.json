@@ -1,0 +1,67 @@
+{
+  "id": "AF-1556723",
+  "sport": "soccer",
+  "league": "스코틀랜드 프리미어십 Regular Season - 16",
+  "league_id": 179,
+  "league_name": "스코틀랜드 프리미어십",
+  "kickoff": "2026-12-03 04:45 KST",
+  "kickoff_iso": "2026-12-03T04:45:00+09:00",
+  "home": "세인트 존스톤",
+  "away": "세인트 미렌",
+  "home_en": "ST Johnstone",
+  "away_en": "ST Mirren",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.506,
+    "away_goals": 1.518
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (7경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.652,
+      "xg_against": 1.456,
+      "raw_goals_for": 1.714,
+      "raw_goals_against": 1.429,
+      "played": 7,
+      "record": "3승 3무 1패"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (7경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.955,
+      "xg_against": 1.852,
+      "raw_goals_for": 0.714,
+      "raw_goals_against": 2.0,
+      "played": 7,
+      "record": "2승 0무 5패"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "status": "skipped",
+    "설명": "호출 절약 수집이라 부상자 목록을 받지 않음"
+  },
+  "collected_detail": "light",
+  "venue": "McDiarmid Park",
+  "source_ids": {
+    "api_football_fixture": 1556723,
+    "home_team": 258,
+    "away_team": 251,
+    "league": 179,
+    "season": 2026
+  },
+  "table": "세인트 존스톤 6위 17점 (4승5무5패, 득실 -4) / 세인트 미렌 10위 14점 (4승2무8패, 득실 -13)",
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-26 00:05 KST"
+}

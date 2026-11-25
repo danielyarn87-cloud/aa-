@@ -66,6 +66,7 @@
     ],
     "away_doubtful": [],
     "confirmed": false,
+    "status": "listed",
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
   "collected_detail": "full",
@@ -94,5 +95,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 14:54 KST"
+  "collected_at": "2026-11-26 00:04 KST"
 }

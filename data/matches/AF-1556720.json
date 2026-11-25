@@ -1,0 +1,67 @@
+{
+  "id": "AF-1556720",
+  "sport": "soccer",
+  "league": "스코틀랜드 프리미어십 Regular Season - 16",
+  "league_id": 179,
+  "league_name": "스코틀랜드 프리미어십",
+  "kickoff": "2026-12-03 04:45 KST",
+  "kickoff_iso": "2026-12-03T04:45:00+09:00",
+  "home": "하츠",
+  "away": "애버딘",
+  "home_en": "Heart Of Midlothian",
+  "away_en": "Aberdeen",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.506,
+    "away_goals": 1.518
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (6경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 2.391,
+      "xg_against": 1.506,
+      "raw_goals_for": 2.833,
+      "raw_goals_against": 1.5,
+      "played": 6,
+      "record": "4승 1무 1패"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (7경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.755,
+      "xg_against": 1.852,
+      "raw_goals_for": 1.857,
+      "raw_goals_against": 2.0,
+      "played": 7,
+      "record": "2승 1무 4패"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "status": "skipped",
+    "설명": "호출 절약 수집이라 부상자 목록을 받지 않음"
+  },
+  "collected_detail": "light",
+  "venue": "Tynecastle Park",
+  "source_ids": {
+    "api_football_fixture": 1556720,
+    "home_team": 254,
+    "away_team": 252,
+    "league": 179,
+    "season": 2026
+  },
+  "table": "하츠 4위 23점 (7승2무4패, 득실 +12) / 애버딘 8위 14점 (4승2무8패, 득실 -5)",
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-26 00:05 KST"
+}

@@ -15,8 +15,8 @@
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
-    "home_goals": 1.217,
-    "away_goals": 1.288
+    "home_goals": 1.227,
+    "away_goals": 1.278
   },
   "stats": {
     "basis": "venue",
@@ -24,8 +24,8 @@
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (18경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.545,
-      "xg_against": 0.955,
+      "xg_for": 1.547,
+      "xg_against": 0.954,
       "raw_goals_for": 1.6,
       "raw_goals_against": 0.9,
       "played": 18,
@@ -34,8 +34,8 @@
     },
     "away": {
       "설명": "원정 경기 경기당 득실 (18경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.727,
-      "xg_against": 1.117,
+      "xg_for": 1.725,
+      "xg_against": 1.118,
       "raw_goals_for": 1.8,
       "raw_goals_against": 1.1,
       "played": 18,
@@ -49,7 +49,8 @@
     "away_absent": [],
     "away_doubtful": [],
     "confirmed": false,
-    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+    "status": "unsupported",
+    "설명": "API-Football 이 이 리그의 결장자 자료를 제공하지 않음 (결장자가 없다는 뜻이 아님), 라인업 미발표"
   },
   "collected_detail": "full",
   "venue": "Seoul World Cup Stadium",
@@ -60,7 +61,7 @@
     "league": 292,
     "season": 2026
   },
-  "table": "FC 서울 1위 67점 (20승7무6패, 득실 +32) / 대전 하나시티즌 3위 49점 (13승10무10패, 득실 +12)",
+  "table": "FC 서울 파이널A 1위 70점 (21승7무8패, 득실 +31) / 대전 하나시티즌 파이널A 3위 56점 (15승11무10패, 득실 +16)",
   "head_to_head": [
     "2026-08-15 FC 서울 4-2 대전 하나시티즌",
     "2026-05-16 대전 하나시티즌 1-2 FC 서울",
@@ -69,13 +70,13 @@
     "2025-07-27 대전 하나시티즌 0-1 FC 서울"
   ],
   "schedule": {
-    "home_prev": "2026-11-21 K League 1",
-    "home_days_rest": 7,
+    "home_prev": "2026-11-25 AFC Champions League Two",
+    "home_days_rest": 2,
     "away_prev": "2026-11-24 AFC Champions League Elite",
     "away_days_rest": 3
   },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 14:54 KST"
+  "collected_at": "2026-11-26 00:05 KST"
 }

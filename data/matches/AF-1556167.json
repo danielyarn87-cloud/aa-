@@ -15,8 +15,8 @@
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
-    "home_goals": 1.444,
-    "away_goals": 1.389
+    "home_goals": 1.533,
+    "away_goals": 1.367
   },
   "stats": {
     "basis": "venue",
@@ -24,8 +24,8 @@
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (10경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.718,
-      "xg_against": 1.397,
+      "xg_for": 1.738,
+      "xg_against": 1.392,
       "raw_goals_for": 1.8,
       "raw_goals_against": 1.4,
       "played": 10,
@@ -34,8 +34,8 @@
     },
     "away": {
       "설명": "원정 경기 경기당 득실 (10경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.09,
-      "xg_against": 1.564,
+      "xg_for": 1.085,
+      "xg_against": 1.585,
       "raw_goals_for": 1.0,
       "raw_goals_against": 1.6,
       "played": 10,
@@ -49,7 +49,8 @@
     "away_absent": [],
     "away_doubtful": [],
     "confirmed": false,
-    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+    "status": "unsupported",
+    "설명": "API-Football 이 이 리그의 결장자 자료를 제공하지 않음 (결장자가 없다는 뜻이 아님), 라인업 미발표"
   },
   "collected_detail": "full",
   "venue": "Toyota Stadium",
@@ -60,6 +61,7 @@
     "league": 98,
     "season": 2026
   },
+  "table": "나고야 그램퍼스 서부 3위 31점 (10승0무8패, 득실 +2) / 아비스파 후쿠오카 서부 10위 21점 (7승0무11패, 득실 -10)",
   "head_to_head": [
     "2026-04-19 나고야 그램퍼스 2-2 아비스파 후쿠오카",
     "2026-03-07 아비스파 후쿠오카 1-5 나고야 그램퍼스",
@@ -76,5 +78,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 14:55 KST"
+  "collected_at": "2026-11-26 00:05 KST"
 }

@@ -15,8 +15,8 @@
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
-    "home_goals": 1.375,
-    "away_goals": 1.625
+    "home_goals": 1.364,
+    "away_goals": 1.182
   },
   "stats": {
     "basis": "venue",
@@ -24,8 +24,8 @@
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.225,
-      "xg_against": 1.575,
+      "xg_for": 1.218,
+      "xg_against": 1.309,
       "raw_goals_for": 1.0,
       "raw_goals_against": 1.5,
       "played": 2,
@@ -34,8 +34,8 @@
     },
     "away": {
       "설명": "원정 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.175,
-      "xg_against": 1.225,
+      "xg_for": 0.909,
+      "xg_against": 1.218,
       "raw_goals_for": 0.5,
       "raw_goals_against": 1.0,
       "played": 2,
@@ -49,7 +49,8 @@
     "away_absent": [],
     "away_doubtful": [],
     "confirmed": false,
-    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+    "status": "unsupported",
+    "설명": "API-Football 이 이 리그의 결장자 자료를 제공하지 않음 (결장자가 없다는 뜻이 아님), 라인업 미발표"
   },
   "collected_detail": "full",
   "venue": "Bahrain National Stadium",
@@ -60,6 +61,7 @@
     "league": 18,
     "season": 2026
   },
+  "table": "알무하라크 B조 3위 3점 (1승0무3패, 득실 -4) / 아르카다그 B조 2위 7점 (2승1무1패, 득실 +1)",
   "head_to_head": [
     "2026-09-15 아르카다그 1-0 알무하라크"
   ],
@@ -72,5 +74,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 14:55 KST"
+  "collected_at": "2026-11-26 00:05 KST"
 }

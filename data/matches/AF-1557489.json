@@ -1,0 +1,67 @@
+{
+  "id": "AF-1557489",
+  "sport": "soccer",
+  "league": "프리미어리그 Regular Season - 13",
+  "league_id": 39,
+  "league_name": "프리미어리그",
+  "kickoff": "2026-12-03 05:15 KST",
+  "kickoff_iso": "2026-12-03T05:15:00+09:00",
+  "home": "브렌트퍼드",
+  "away": "아스널",
+  "home_en": "Brentford",
+  "away_en": "Arsenal",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.582,
+    "away_goals": 1.173
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (6경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 2.083,
+      "xg_against": 0.724,
+      "raw_goals_for": 2.333,
+      "raw_goals_against": 0.5,
+      "played": 6,
+      "record": "4승 1무 1패"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (6경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.169,
+      "xg_against": 1.083,
+      "raw_goals_for": 1.167,
+      "raw_goals_against": 0.833,
+      "played": 6,
+      "record": "4승 1무 1패"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "status": "skipped",
+    "설명": "호출 절약 수집이라 부상자 목록을 받지 않음"
+  },
+  "collected_detail": "light",
+  "venue": "Brentford Community Stadium",
+  "source_ids": {
+    "api_football_fixture": 1557489,
+    "home_team": 55,
+    "away_team": 42,
+    "league": 39,
+    "season": 2026
+  },
+  "table": "브렌트퍼드 6위 17점 (4승5무2패, 득실 +9) / 아스널 1위 28점 (9승1무1패, 득실 +10)",
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-26 00:04 KST"
+}

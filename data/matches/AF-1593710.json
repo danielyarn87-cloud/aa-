@@ -44,11 +44,19 @@
     }
   },
   "lineup": {
-    "home_absent": [],
+    "home_absent": [
+      "T. Sainsbury (Achilles Tendon Injury)"
+    ],
     "home_doubtful": [],
-    "away_absent": [],
+    "away_absent": [
+      "A. Calver (Ankle Injury)",
+      "C. Howieson (Calf Injury)",
+      "O. Middleton (Knee Injury)",
+      "L. Vicelich (Inactive)"
+    ],
     "away_doubtful": [],
     "confirmed": false,
+    "status": "listed",
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
   "collected_detail": "full",
@@ -77,5 +85,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 14:55 KST"
+  "collected_at": "2026-11-26 00:05 KST"
 }

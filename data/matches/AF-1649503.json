@@ -15,8 +15,8 @@
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
-    "home_goals": 1.78,
-    "away_goals": 1.349
+    "home_goals": 1.843,
+    "away_goals": 1.406
   },
   "stats": {
     "basis": "venue",
@@ -24,8 +24,8 @@
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (17경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.882,
-      "xg_against": 1.137,
+      "xg_for": 1.891,
+      "xg_against": 1.146,
       "raw_goals_for": 1.9,
       "raw_goals_against": 1.1,
       "played": 17,
@@ -34,8 +34,8 @@
     },
     "away": {
       "설명": "원정 경기 경기당 득실 (17경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.392,
-      "xg_against": 1.627,
+      "xg_for": 1.401,
+      "xg_against": 1.636,
       "raw_goals_for": 1.4,
       "raw_goals_against": 1.6,
       "played": 17,
@@ -49,7 +49,8 @@
     "away_absent": [],
     "away_doubtful": [],
     "confirmed": false,
-    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
+    "status": "none",
+    "설명": "API-Football 부상자 목록 기준 보고된 결장자 없음, 라인업 미발표"
   },
   "collected_detail": "full",
   "venue": "Subaru Park",
@@ -60,6 +61,7 @@
     "league": 253,
     "season": 2026
   },
+  "table": "필라델피아 유니언 동부 콘퍼런스 6위 50점 (14승8무12패, 득실 +14) / 뉴잉글랜드 레볼루션 동부 콘퍼런스 3위 58점 (18승4무12패, 득실 +8)",
   "head_to_head": [
     "2026-11-21 뉴잉글랜드 레볼루션 2-0 필라델피아 유니언",
     "2026-10-24 필라델피아 유니언 1-2 뉴잉글랜드 레볼루션",
@@ -76,5 +78,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-25 14:55 KST"
+  "collected_at": "2026-11-26 00:05 KST"
 }

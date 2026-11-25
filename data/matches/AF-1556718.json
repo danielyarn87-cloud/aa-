@@ -1,0 +1,67 @@
+{
+  "id": "AF-1556718",
+  "sport": "soccer",
+  "league": "스코틀랜드 프리미어십 Regular Season - 16",
+  "league_id": 179,
+  "league_name": "스코틀랜드 프리미어십",
+  "kickoff": "2026-12-03 04:45 KST",
+  "kickoff_iso": "2026-12-03T04:45:00+09:00",
+  "home": "던디",
+  "away": "셀틱",
+  "home_en": "Dundee",
+  "away_en": "Celtic",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.506,
+    "away_goals": 1.518
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (7경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.552,
+      "xg_against": 1.956,
+      "raw_goals_for": 1.571,
+      "raw_goals_against": 2.143,
+      "played": 7,
+      "record": "3승 2무 2패"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (6경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.839,
+      "xg_against": 1.057,
+      "raw_goals_for": 2.0,
+      "raw_goals_against": 0.833,
+      "played": 6,
+      "record": "5승 0무 1패"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "status": "skipped",
+    "설명": "호출 절약 수집이라 부상자 목록을 받지 않음"
+  },
+  "collected_detail": "light",
+  "venue": "Dens Park",
+  "source_ids": {
+    "api_football_fixture": 1556718,
+    "home_team": 253,
+    "away_team": 247,
+    "league": 179,
+    "season": 2026
+  },
+  "table": "던디 7위 17점 (5승2무7패, 득실 -6) / 셀틱 1위 34점 (11승1무2패, 득실 +21)",
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-26 00:05 KST"
+}
