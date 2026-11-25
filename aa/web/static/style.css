@@ -380,8 +380,8 @@ pre{background:var(--panel);padding:12px;border-radius:8px;font-size:14px;white-
 .row.hot{background:#0D5C35;color:#F4F1E8;border-bottom-color:#0A4A2B;padding-inline:12px 10px;box-shadow:inset 6px 0 0 #F5C518}
 a.row.hot:hover{background:#0B5230}
 .row.hot .teams,.row.hot .time{color:#F4F1E8}.row.hot .mute,.row.hot .lg{color:#CFE3D6}
-/* 이득만 있는 경기: 라즈베리 + 금색 띠 — 진한 바탕이라 글씨·태그를 밝게 */
-.row.val{background:#D6457A;color:#FFF7FA;padding-inline:12px 10px;border-bottom-color:#B83564;box-shadow:inset 6px 0 0 #F5C518}
+/* 이득만 있는 경기: 라즈베리 — 진한 바탕이라 글씨·태그를 밝게 */
+.row.val{background:#D6457A;color:#FFF7FA;padding-inline:12px 10px;border-bottom-color:#B83564}
 a.row.val:hover{background:#C93A6E}
 .row.val .teams,.row.val .time,.row.val .oddsline{color:#FFF7FA}.row.val .mute,.row.val .lg{color:#FBD3E4}
 .row.val .oa.up{color:#FECACA}.row.val .oa.dn{color:#BFDBFE}
@@ -389,4 +389,4 @@ a.row.val:hover{background:#C93A6E}
 .row.val .tag:not(.pick):not(.value):not(.both){background:rgba(255,255,255,.18);color:#FFF7FA;border-color:rgba(255,255,255,.35)}
 .row.hot .oddsline{color:#F4F1E8}.row.hot .oa.up{color:#FCA5A5}.row.hot .oa.dn{color:#93C5FD}
 .row.hot .tag.pick{background:#F4F1E8;color:#1D2520;border-color:#F4F1E8}
-.lgnd{display:inline-block;padding:1px 7px;border-radius:4px;font-size:12px}.lgnd.hot{background:#0D5C35;color:#F4F1E8;box-shadow:inset 3px 0 0 #F5C518}.lgnd.val{background:#D6457A;color:#FFF7FA;box-shadow:inset 3px 0 0 #F5C518}
+.lgnd{display:inline-block;padding:1px 7px;border-radius:4px;font-size:12px}.lgnd.hot{background:#0D5C35;color:#F4F1E8;box-shadow:inset 3px 0 0 #F5C518}.lgnd.val{background:#D6457A;color:#FFF7FA}
