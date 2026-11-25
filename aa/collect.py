@@ -5,6 +5,8 @@
 """
 from __future__ import annotations
 
+import re
+
 import json
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -87,6 +89,20 @@ def _venue_from_table(row: dict | None, side: str, league_avg: dict) -> dict:
     return out
 
 
+GROUP_KO = {"East": "동부", "West": "서부", "Eastern Conference": "동부 콘퍼런스", "Western Conference": "서부 콘퍼런스",
+            "East Region": "동아시아", "West Region": "서아시아", "K-League: Championship Group": "파이널A",
+            "K-League: Relegation Group": "파이널B", "K-League: Regular season": "정규"}
+
+
+def group_ko(g: str | None) -> str:
+    """순위표 조 이름을 한국어로 ('Group H' → 'H조')."""
+    g = (g or "").strip()
+    if g in GROUP_KO:
+        return GROUP_KO[g]
+    m = re.match(r"^(?:.*:\s*)?Group\s+([A-Z0-9]+)$", g)
+    return f"{m.group(1)}조" if m else g
+
+
 def _injuries(items: list, team_id: int) -> tuple[list[str], list[str]]:
     out, doubt = [], []
     for it in items:
@@ -116,6 +132,7 @@ def build_match(af: ApiFootball, league_cfg: dict, fixture: dict, odds_events: l
     if light:  # 목록용: 리그당 한 번 받은 순위표만 쓰고 경기별 호출은 하지 않는다
         st_h, st_a = _venue_from_table(rh, "home", lavg), _venue_from_table(ra, "away", lavg)
         h_out = h_doubt = a_out = a_doubt = []
+        lineup_status = "skipped"
         lineup_note = "호출 절약 수집이라 부상자 목록을 받지 않음"
     else:
         st_h = _venue_stats(af.team_stats(league_cfg["api_football_id"], season, home["id"]), "home", lavg)
@@ -123,7 +140,19 @@ def build_match(af: ApiFootball, league_cfg: dict, fixture: dict, odds_events: l
         inj = af.injuries(fx["id"])
         h_out, h_doubt = _injuries(inj, home["id"])
         a_out, a_doubt = _injuries(inj, away["id"])
-        lineup_note = "API-Football 부상자 목록 기준, 라인업 미발표"
+        try:
+            cov = (af.coverage(league_cfg["api_football_id"], season) or {}).get("injuries")
+        except Exception:  # 자료 범위를 못 받아도 수집은 계속
+            cov = None
+        if cov is False:
+            lineup_status = "unsupported"
+            lineup_note = "API-Football 이 이 리그의 결장자 자료를 제공하지 않음 (결장자가 없다는 뜻이 아님), 라인업 미발표"
+        elif h_out or h_doubt or a_out or a_doubt:
+            lineup_status = "listed"
+            lineup_note = "API-Football 부상자 목록 기준, 라인업 미발표"
+        else:
+            lineup_status = "none"
+            lineup_note = "API-Football 부상자 목록 기준 보고된 결장자 없음, 라인업 미발표"
 
     kickoff = datetime.fromisoformat(fx["date"]).astimezone(ZoneInfo(tz))
     data: dict = {
@@ -148,7 +177,7 @@ def build_match(af: ApiFootball, league_cfg: dict, fixture: dict, odds_events: l
             "away": st_a,
         },
         "lineup": {"home_absent": h_out, "home_doubtful": h_doubt, "away_absent": a_out, "away_doubtful": a_doubt,
-                   "confirmed": False, "설명": lineup_note},
+                   "confirmed": False, "status": lineup_status, "설명": lineup_note},
         "collected_detail": "light" if light else "full",
         "venue": (fx.get("venue") or {}).get("name"),
         "source_ids": {"api_football_fixture": fx["id"], "home_team": home["id"], "away_team": away["id"],
@@ -157,7 +186,8 @@ def build_match(af: ApiFootball, league_cfg: dict, fixture: dict, odds_events: l
     if rh and ra:
         def t(r):
             a = r["all"]
-            return f"{r['rank']}위 {r['points']}점 ({a['win']}승{a['draw']}무{a['lose']}패, 득실 {r['goalsDiff']:+d})"
+            grp = f"{group_ko(r.get('group'))} " if r.get("_multi") else ""
+            return f"{grp}{r['rank']}위 {r['points']}점 ({a['win']}승{a['draw']}무{a['lose']}패, 득실 {r['goalsDiff']:+d})"
         data["table"] = f"{data['home']} {t(rh)} / {data['away']} {t(ra)}"
 
     if not light:
