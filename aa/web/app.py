@@ -283,6 +283,13 @@ def create_app(company: Company) -> Flask:
 
         return jsonify(status(base))
 
+    @app.get("/api/news")
+    def news_list():
+        from ..news import load as load_news
+
+        d = load_news(base)
+        return jsonify({"updated": d.get("updated"), "items": d.get("items", [])})
+
     @app.get("/api/record")
     def record():
         lg = ledger()
