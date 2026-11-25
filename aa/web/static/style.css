@@ -418,3 +418,15 @@ a.row.val:hover{background:#C93A6E}
 
 /* 배팅 게임: 선택마다 예측 / 이득 / 예측+이득 / 개인 선택 표시 */
 .tag.tk-kind{font-size:11px;padding:1px 6px;margin-left:4px;vertical-align:1px}
+
+/* 실시간 스코어 E안: 크게, 시간·홈·원정 색 구분 */
+.lv{gap:6px;padding:0;background:none;font-size:15px}
+.lv.on{background:none;color:inherit}
+.lv .lv-t{display:inline-flex;align-items:center;gap:5px;background:#fef3c7;color:#92400e;border-radius:999px;padding:5px 10px;font-size:15px;font-weight:700}
+.lv .lv-h,.lv .lv-a{font-size:20px;font-weight:800;line-height:1.2;background:#fff;border:2px solid;border-radius:8px;padding:1px 10px;min-width:1.6em;text-align:center}
+.lv .lv-h{color:#dc2626;border-color:#dc2626}
+.lv .lv-a{color:#2563eb;border-color:#2563eb}
+.lv .dot{background:#e11d48}
+/* 점수가 커져도 막대가 찌그러지지 않게: 자리가 모자라면 점수를 막대 위 줄로 올린다 */
+.row .mid{flex-wrap:wrap;row-gap:6px}
+.row .mid>.tri-w{min-width:170px}
