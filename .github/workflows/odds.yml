@@ -5,9 +5,8 @@
 name: 배당 갱신
 
 on:
-  schedule:
-    - cron: "17 * * * *"
-    - cron: "47 * * * *"
+  # 예약 실행은 Cloudflare Worker 'raise-clock'(tools/clock-worker.js)이 정확한 시각에 workflow_dispatch 로 시작시킨다.
+  # GitHub 의 schedule 은 10~50분씩 늦고, 같이 두면 두 번 돌아 Claude 비용이 두 배가 되므로 뺐다.
   workflow_dispatch:
 
 jobs:
