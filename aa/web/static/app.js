@@ -389,11 +389,13 @@ const liveSeen = {};   /* 진행 중으로 본 적 있는 경기의 마지막 �
 let liveTimer = null;
 const LIVE_ON = ['1H', 'HT', '2H', 'ET', 'BT', 'P', 'LIVE', 'INT', 'SUSP'];
 function liveText(x, ended) {
-  const sc = `<b class="num">${esc(x.h)}-${esc(x.a)}</b>`;
-  if (ended || ['FT', 'AET', 'PEN'].includes(x.s)) return `<span class="lv-t">종료</span>${sc}`;
-  if (x.s === 'HT') return `<span class="lv-t">HT</span>${sc}`;
-  if (x.s === 'P') return `<i class="dot"></i><span class="lv-t">승부차기</span>${sc}`;
-  return `<i class="dot"></i><span class="lv-t num">${x.m != null ? esc(x.m) + "'" : 'LIVE'}</span>${sc}`;
+  /* 시간(노란 알약) · 홈 점수(빨간 테두리) · 원정 점수(파란 테두리) */
+  const sc = `<b class="lv-h num" title="홈">${esc(x.h)}</b><b class="lv-a num" title="원정">${esc(x.a)}</b>`;
+  const t = (txt, dot, cls = '') => `<span class="lv-t${cls}">${dot ? '<i class="dot"></i>' : ''}${txt}</span>`;
+  if (ended || ['FT', 'AET', 'PEN'].includes(x.s)) return t('종료', false) + sc;
+  if (x.s === 'HT') return t('HT', false) + sc;
+  if (x.s === 'P') return t('승부차기', true) + sc;
+  return t(x.m != null ? esc(x.m) + "'" : 'LIVE', true, ' num') + sc;
 }
 async function liveTick() {
   clearTimeout(liveTimer);
