@@ -474,3 +474,5 @@ a.row.val:hover{background:#C93A6E}
 .mad-go{font-size:22px;line-height:1;opacity:.6}
 @media (max-width:1099px){.mad{display:flex}}
 @media print{.mad{display:none!important}}
+/* 경기 종료 · 결과 반영 대기 (시작 2시간 뒤 ~ 결과 수집 전) */
+.lv .lv-w{display:inline-flex;align-items:center;background:#eef0f3;color:#475569;border-radius:999px;padding:5px 10px;font-size:13px;font-weight:700;white-space:nowrap}
