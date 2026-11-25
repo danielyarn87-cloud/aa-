@@ -180,6 +180,8 @@ def build_match(af: ApiFootball, league_cfg: dict, fixture: dict, odds_events: l
         ev = OddsApi.find_event(odds_events, home["name"], away["name"], aliases)
         if ev:
             data["odds"] = OddsApi.consensus(ev, fallback_line=line)  # 기준점은 경기마다 시장의 주 기준점
+            # 1시간마다 배당을 다시 받을 때(functions/api/odds.js) 이 경기를 바로 찾도록
+            data["odds"]["event_id"], data["odds"]["sport"] = ev.get("id"), league_cfg.get("odds_key")
         else:
             data["odds"]["note"] = "The Odds API 에서 이 경기를 찾지 못함 (팀 이름 별칭을 확인하세요)"
     data["sources"] = ["API-Football (일정·순위·팀 통계·부상자·상대 전적)"] + (["The Odds API (배당)"] if odds_events is not None else [])
@@ -293,6 +295,13 @@ def _collect_league(af, od, lc, ds, dept, out_dir, now, start, end, tz, light, w
                 for k in ("odds", "kickoff", "kickoff_iso", "home", "away", "home_en", "away_en", "league_id", "league_name"):
                     old[k] = m.get(k, old.get(k))
                 m = old
+        # 처음 등록했을 때의 배당은 남겨 둔다 (배당이 어떻게 움직였는지 비교용)
+        first = json.loads(path.read_text(encoding="utf-8")).get("odds_first") if path.exists() else None
+        if not first and m.get("odds", {}).get("home"):
+            first = {**{k: v for k, v in m["odds"].items() if not k.startswith("best_") and k != "source"},
+                     "at": m.get("collected_at")}
+        if first:
+            m["odds_first"] = first
         path.write_text(json.dumps(m, ensure_ascii=False, indent=2), encoding="utf-8")
         written.append(path)
         log(f"  - {m['kickoff']} {m['home']} vs {m['away']} (언더/오버 {m['odds'].get('line')}) → {path.name}")
