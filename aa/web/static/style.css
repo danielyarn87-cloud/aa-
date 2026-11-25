@@ -37,12 +37,13 @@ button,input,select{font:inherit}
 .board>*{position:relative;z-index:1}
 .board .meta{font-size:14px;opacity:.85;text-align:center}
 .fixture{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:clamp(10px,3vw,40px);margin:10px 0 18px}
-.fixture .team{font-family:var(--disp);font-size:clamp(26px,4.4vw,52px);line-height:1.05}
+.fixture .team{font-family:var(--disp);font-size:clamp(26px,4.4vw,52px);line-height:1.05;word-break:keep-all}
 .fixture .home{text-align:right}
 .fixture .vs{font-family:var(--num);font-size:clamp(26px,4vw,48px);font-weight:700;background:var(--chalk);color:var(--pitch);padding:2px 14px;border-radius:6px;white-space:nowrap}
-.verdicts{display:grid;grid-template-columns:repeat(auto-fit,minmax(15em,1fr));gap:10px;max-width:760px;margin-inline:auto}
-.verdict{background:color-mix(in srgb,#000 22%,transparent);border:1px solid color-mix(in srgb,var(--chalk) 30%,transparent);border-radius:10px;padding:10px 14px;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
-.verdict b{font-family:var(--disp);font-weight:400;font-size:24px}
+.verdicts{display:grid;grid-template-columns:repeat(auto-fit,minmax(20em,1fr));gap:12px;max-width:1120px;margin-inline:auto}
+.verdict{background:color-mix(in srgb,#000 22%,transparent);border:1px solid color-mix(in srgb,var(--chalk) 30%,transparent);border-radius:10px;padding:10px 16px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.verdict .vh{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:14px;opacity:.9}
+.verdict b{font-family:var(--disp);font-weight:400;font-size:28px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .verdict .num{font-size:20px}
 /* 목록 */
 .listhead{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px;margin-bottom:14px}
@@ -367,3 +368,4 @@ pre{background:var(--panel);padding:12px;border-radius:8px;font-size:14px;white-
 .fr-head{display:flex;align-items:center;gap:8px}.fr-rank{font-size:18px;font-weight:700;color:var(--mc)}
 .fr-nums{display:grid;grid-template-columns:1fr 1fr;gap:8px}.fr-nums>div{display:flex;flex-direction:column}
 .fr-nums b{font-size:30px;line-height:1.1}
+@media(max-width:600px){.verdicts{grid-template-columns:minmax(0,1fr)}.verdict b{font-size:24px}}
