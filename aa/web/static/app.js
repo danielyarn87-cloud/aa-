@@ -126,7 +126,7 @@ async function renderList() {
     <div class="chips lgchips" role="group" aria-label="리그 거르기" ${lgOpen ? '' : 'hidden'}>
       <button class="chip" data-lg="all" aria-pressed="${leagueFilter === 'all'}">모든 리그 <span class="num">${all.length}</span></button>
       ${Object.entries(lgCount).sort((a, b) => b[1] - a[1]).map(([n, c]) => `<button class="chip" data-lg="${esc(n)}" aria-pressed="${leagueFilter === n}">${esc(n)} <span class="num">${c}</span></button>`).join('')}</div>` : ''}
-    <p class="small mute" style="margin:0"><span class="tag pick">예측</span> 가장 유력하다고 본 결과 · 하늘색 <span class="tag value">이득</span> 우리가 본 가능성에 비해 배당이 후한 선택 · <span class="tag both"><span class="star">★ 예측+이득</span></span> 노란 바탕 빨간 글씨, 둘 다 해당 (가장 강한 신호) · 막대 <span class="trilegend"><span><i class="h"></i>홈 승</span><span><i class="d"></i>무</span><span><i class="a"></i>원정 승</span></span></p>
+    <p class="small mute" style="margin:0"><span class="tag pick">예측</span> 가장 유력하다고 본 결과 · 하늘색 <span class="tag value">이득</span> 우리가 본 가능성에 비해 배당이 후한 선택 · <span class="tag both"><span class="star">★ 예측+이득</span></span> 노란 바탕 빨간 글씨, 둘 다 해당 (가장 강한 신호) · 줄 색 <span class="lgnd hot">초록 = 예측+이득</span> <span class="lgnd val">분홍 = 이득</span> · 막대 <span class="trilegend"><span><i class="h"></i>홈 승</span><span><i class="d"></i>무</span><span><i class="a"></i>원정 승</span></span></p>
     ${isRes ? `<div class="ressearch">
         <input type="search" id="rq" placeholder="팀 이름·리그로 검색 (예: 대전, 챔피언스리그)" value="${esc(resQuery)}">
         <input type="date" id="rd" value="${esc(resDate)}" title="날짜">
@@ -337,7 +337,8 @@ function rowHtml(m) {
   }
   if (m.mock) tags.push('<span class="tag wait">모의</span>');
   const hot = both(m.pick_1x2) || both(m.pick_ou);   /* 예측+이득(★) 경기는 줄 전체를 진한 회색으로 */
-  return `<a class="row${hot ? ' hot' : ''}" href="#m-${encodeURIComponent(m.id)}">${head}<span class="mid">${liveSlot(m)}${tri(m.probs)}</span><span class="tags">${tags.join('')}</span></a>`;
+  const val = !hot && (m.value_alerts || []).length > 0;   /* 이득만 있는 경기는 연분홍 */
+  return `<a class="row${hot ? ' hot' : val ? ' val' : ''}" href="#m-${encodeURIComponent(m.id)}">${head}<span class="mid">${liveSlot(m)}${tri(m.probs)}</span><span class="tags">${tags.join('')}</span></a>`;
 }
 
 /* ---------- 실시간 스코어 ----------
