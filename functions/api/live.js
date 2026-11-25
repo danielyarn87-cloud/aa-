@@ -45,8 +45,59 @@ async function fallback(cache, now, errBody) {
   return out(b, 30);
 }
 
-export async function onRequestGet({ env }) {
+// ---- 끝난 경기 최종 스코어 ----
+// GET /api/live?ended=AF-1,AF-2 → {"at": "...", "final": {"AF-1": {"s": "FT", "h": 2, "a": 1}}}
+// 실시간 목록(live=all)은 끝난 경기를 빼 버려서, '결과 반영 대기' 경기의 최종 점수는 경기 번호로 따로 묻는다 (20경기까지 요청 1회).
+// 최종 점수는 바뀌지 않으므로 한 번 받으면 이 서버와 캐시에 하루 보관한다. 같은 서버에서는 1분에 한 번만 API 에 묻는다.
+const FINAL_DONE = ["FT", "AET", "PEN", "AWD", "WO"];
+const finals = {};
+let endedAt = 0;
+const finalKey = id => "https://aa-live.cache/v1/final/" + id;
+
+export function pickFinals(apiBody) {
+  const out = {};
+  for (const x of (apiBody && apiBody.response) || []) {
+    const f = x.fixture || {}, s = (f.status || {}).short || "";
+    if (f.id == null || !FINAL_DONE.includes(s)) continue;
+    const g = x.goals || {}, pen = (x.score || {}).penalty || {};
+    const v = { s, h: g.home ?? 0, a: g.away ?? 0 };
+    if (pen.home != null && pen.away != null) v.p = [pen.home, pen.away];
+    out["AF-" + f.id] = v;
+  }
+  return out;
+}
+
+async function ended(env, raw, now) {
+  const want = [...new Set(String(raw).split(","))].filter(id => /^AF-\d+$/.test(id)).slice(0, 20);
+  const res = {}, miss = [];
+  for (const id of want) finals[id] ? (res[id] = finals[id]) : miss.push(id);
+  const cache = typeof caches !== "undefined" ? caches.default : null;
+  if (cache) {
+    for (const id of miss.slice()) {
+      const hit = await cache.match(finalKey(id));
+      if (hit) { finals[id] = res[id] = await hit.json(); miss.splice(miss.indexOf(id), 1); }
+    }
+  }
+  if (miss.length && env.API_FOOTBALL_KEY && now - endedAt > 60e3) {
+    endedAt = now;
+    try {
+      const r = await fetch("https://v3.football.api-sports.io/fixtures?ids=" + miss.map(id => id.slice(3)).join("-"), {
+        headers: { "x-apisports-key": env.API_FOOTBALL_KEY },
+      });
+      const got = pickFinals(await r.json());
+      for (const [id, v] of Object.entries(got)) {
+        finals[id] = res[id] = v;
+        if (cache) await cache.put(finalKey(id), new Response(JSON.stringify(v), { headers: { "Content-Type": "application/json", "Cache-Control": "public, max-age=86400" } }));
+      }
+    } catch (e) { /* 오류면 다음 번에 다시 */ }
+  }
+  return out(JSON.stringify({ at: new Date(now).toISOString(), final: res }));
+}
+
+export async function onRequestGet({ request, env }) {
   const now = Date.now();
+  const q = request ? new URL(request.url).searchParams.get("ended") : null;
+  if (q) return await ended(env, q, now);
   if (memo && now - memo.t < TTL * 1000) return out(memo.body);
 
   const cache = typeof caches !== "undefined" ? caches.default : null;
