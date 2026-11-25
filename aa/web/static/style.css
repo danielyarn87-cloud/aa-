@@ -306,16 +306,16 @@ pre{background:var(--panel);padding:12px;border-radius:8px;font-size:14px;white-
 .ressearch input[type=date],.ressearch select{min-height:42px;font-size:15px;padding:4px 8px}
 
 /* 누적 숫자 카드 네 칸 (연한 색) */
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:14px 0 12px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:14px 0 12px}
 .kpi{display:flex;flex-direction:column;gap:2px;border-radius:12px;padding:14px 16px}
-.kl{font-size:14px;font-weight:600}.kn{font-family:var(--num);font-size:40px;font-weight:700;line-height:1.05}.ks{font-size:13px}
+.kl{font-size:14px;font-weight:600}.kn{font-family:var(--num);font-size:clamp(28px,2.7vw,40px);font-weight:700;line-height:1.05}.ks{font-size:13px}
 .k1{background:#E1F5EE;color:#085041}.k1 .ks{color:#0F6E56}
 .k2{background:#EEEDFE;color:#3C3489}.k2 .ks{color:#534AB7}
 .k3{background:#FAEEDA;color:#633806}.k3 .ks{color:#854F0B}
 .k4{background:#E6F1FB;color:#0C447C}.k4 .ks{color:#185FA5}
 .k5{background:#DDF4FC;color:#0B5A72}.k5 .ks{color:#0E7490}.k5 .ks b{color:#b91c1c}.k5 .ks b.plus{color:#047857}
 .k6{background:#F3F1EC;color:#3D3A33}.k6 .kn{white-space:nowrap}.k6 .kn small{font-size:.45em;font-weight:600}.k6 .ks{color:#6B665C}
-.k6 .cr-open{align-self:flex-start;margin-top:6px;font:inherit;font-size:13px;font-weight:700;padding:4px 12px;border-radius:999px;border:1px solid #CFC9BC;background:#fff;color:#3D3A33;cursor:pointer}
+.k6 .cr-open,.k7 .cr-open{align-self:flex-start;margin-top:6px;font:inherit;font-size:13px;font-weight:700;padding:4px 12px;border-radius:999px;border:1px solid #CFC9BC;background:#fff;color:#3D3A33;cursor:pointer}
 .k6.open{grid-column:1/-1}
 .cr-form{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;gap:8px;margin-top:8px;align-items:center}.cr-form[hidden]{display:none}.cr-form input{width:100%;min-width:0}.cr-form .cr-msg{grid-column:1/-1;margin:0}
 @media(max-width:600px){.cr-form{grid-template-columns:minmax(0,1fr)}}
@@ -369,3 +369,10 @@ pre{background:var(--panel);padding:12px;border-radius:8px;font-size:14px;white-
 .fr-nums{display:grid;grid-template-columns:1fr 1fr;gap:8px}.fr-nums>div{display:flex;flex-direction:column}
 .fr-nums b{font-size:30px;line-height:1.1}
 @media(max-width:600px){.verdicts{grid-template-columns:minmax(0,1fr)}.verdict b{font-size:24px}}
+.oddsline{display:block;font-size:13px;font-weight:400;color:var(--ink,#1d2520);margin:1px 0}.oddsline b{font-weight:600}
+.oa{font-style:normal;font-size:10px;margin-left:2px}.oa.up{color:#d93a3a}.oa.dn{color:#2563eb}
+.oddsh .obase td{background:color-mix(in srgb,#f5c518 14%,transparent)}
+.k7{background:#EEF2F7;color:#24324A;position:relative}.k7 .kn{white-space:nowrap}.k7 .ks{color:#4A5A75}.k7 .kn small{font-size:.45em;font-weight:600}
+.k7.warn{background:#FFF4D6}.k7.danger{background:#FDE2E2;color:#8A1F1F}
+@media(max-width:600px){.kpis .k7{grid-column:1/-1}}
+.k6 .kn,.k7 .kn{font-size:clamp(24px,2.2vw,34px)}
