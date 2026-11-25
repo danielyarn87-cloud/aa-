@@ -26,12 +26,29 @@ def run_to_dict(run) -> dict:
     }
 
 
+def _history(js: Path) -> list[dict]:
+    """다시 분석할 때 덮어쓰기 전, 예전 예측을 기록으로 남긴다 (예측이 바뀌었는지 화면에 보여 주려고)."""
+    if not js.exists():
+        return []
+    try:
+        old = json.loads(js.read_text(encoding="utf-8"))
+        d = old["decision"]
+        return old.get("pick_history", []) + [{
+            "at": old.get("analyzed_at", ""), "pick_1x2": d["one_x_two"]["pick"], "pick_ou": d["over_under"]["pick"],
+            "line": d.get("line"), "odds": old["match"].get("odds") or {},
+        }]
+    except (json.JSONDecodeError, KeyError, TypeError):
+        return []
+
+
 def save_run(run, reports_dir: Path) -> tuple[Path, Path]:
     reports_dir.mkdir(parents=True, exist_ok=True)
     md = reports_dir / f"{run.match.id}.md"
     js = reports_dir / f"{run.match.id}.json"
     md.write_text(render(run), encoding="utf-8")
-    js.write_text(json.dumps(run_to_dict(run), ensure_ascii=False, indent=2), encoding="utf-8")
+    data = run_to_dict(run)
+    data["pick_history"] = _history(js)
+    js.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
     return md, js
 
 
