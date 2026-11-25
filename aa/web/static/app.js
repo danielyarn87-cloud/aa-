@@ -320,6 +320,28 @@ function wireApiCard() {
     b.disabled = false;
   };
 }
+/* ---------- 예측 변경 ----------
+   다시 분석해서 예측이 바뀌었으면 '예측 변경 홈승→원정승' 처럼 보여 준다. 같은 예측이 이어지면 한 번만 적는다. */
+const SHORT = {home: '홈승', draw: '무', away: '원정승', over: '오버', under: '언더'};
+function pickChain(hist, cur, key) {
+  const seq = [...hist.map(h => h[key]), cur].map(k => k || null);
+  const out = seq.filter((k, i) => i === 0 || k !== seq[i - 1]);
+  return out.length > 1 ? out.map(k => k ? SHORT[k] : '보류').join('→') : '';
+}
+function pickChange(m) {
+  const h = m.pick_history || [];
+  if (!h.length) return '';
+  const a = pickChain(h, m.pick_1x2, 'pick_1x2');
+  const b = pickChain(h.filter(x => +x.line === +m.line), m.pick_ou, 'pick_ou');
+  return [a && `예측 변경 ${a}`, b && `골 수 변경 ${b}`].filter(Boolean).map(esc).join(' · ');
+}
+function pickHist(s) {
+  const h = s.pick_history || [];
+  const chg = pickChange(s);
+  if (!chg) return '';
+  const rows = [...h, {at: '지금', pick_1x2: s.pick_1x2, pick_ou: s.pick_ou, line: s.line}];
+  return `<p class="pickhist"><b>${chg}</b><br><span class="small">${rows.map(x => `${esc(x.at || '-')} ${x.pick_1x2 ? SHORT[x.pick_1x2] : '보류'} · ${x.pick_ou ? SHORT[x.pick_ou] + ' ' + esc(x.line) : '보류'}`).join('  →  ')}</span></p>`;
+}
 function rowHtml(m) {
   const N = names(m.home, m.away, m.line);
   const head = `<span class="time">${esc(timeOf(m.kickoff))}</span><span class="teams">${esc(m.home)} <span class="mute">vs</span> ${esc(m.away)}${oddsLine(m)}<span class="lg">${esc(m.league)}</span></span>`;
@@ -328,7 +350,15 @@ function rowHtml(m) {
   }
   const tags = [];
   const od = m.odds || {};
-  const at = k => od[k] ? ` <b class="num">${esc(od[k])}</b>` : '';   // 그 선택의 평균 배당
+  const now = oddsNow(m);
+  /* 그 선택의 평균 배당(분석할 때). 지금 배당이 달라졌으면 '2.11→1.86▼' 처럼 붙인다 (골 수는 기준점이 같을 때만) */
+  const at = k => {
+    if (!od[k]) return '';
+    const ou = k === 'over' || k === 'under';
+    const nv = now && (!ou || +now.line === +m.line) ? now[k] : null;
+    const ch = nv != null && Math.abs(nv - od[k]) >= 0.005;
+    return ` <b class="num">${esc(od[k])}</b>` + (ch ? `<span class="oc">→<b class="num">${esc(nv)}</b>${arrow(nv, od[k])}</span>` : '');
+  };
   const lab = k => esc(k === 'over' || k === 'under' ? N[k + 'S'] + ' ' + m.line : N[k]);
   const va = m.value_alerts || [];
   const both = k => k && va.includes(k);   // 가장 유력하면서 배당도 후한 선택 → 한 번만, 눈에 띄게
@@ -337,6 +367,8 @@ function rowHtml(m) {
   tags.push(`<span class="tag ${both(m.pick_ou) ? 'both' : ''}">${m.pick_ou ? (both(m.pick_ou) ? star : '') + lab(m.pick_ou) + at(m.pick_ou) : '골 수 판단 보류'}</span>`);
   const rest = va.filter(k => k !== m.pick_1x2 && k !== m.pick_ou);
   if (rest.length) tags.push(`<span class="tag value">이득 ${rest.map(k => lab(k) + at(k)).join(' · ')}</span>`);
+  const chg = pickChange(m);
+  if (chg) tags.push(`<span class="tag chg" title="다시 분석하면서 예측이 바뀜">${chg}</span>`);
   if (m.result) {
     tags.push(`<span class="tag ${m.result.hit_1x2 ? 'hit' : m.result.hit_1x2 === false ? 'miss' : ''}">${esc(m.result.score)} 승무패 ${m.result.hit_1x2 ? '적중' : m.result.hit_1x2 === false ? '빗나감' : '보류'}</span>`);
     if (m.result.hit_ou != null) tags.push(`<span class="tag ${m.result.hit_ou ? 'hit' : 'miss'}">언오버 ${m.result.hit_ou ? '적중' : '빗나감'}</span>`);
@@ -443,6 +475,7 @@ async function renderMatch(id) {
       <div class="verdict"><div class="vh"><span>누가 이기나</span><span class="small">${esc(voteText(one.tally))}</span></div><b class="vb">${pickName ? esc(pickName) : '판단 보류'}</b></div>
       <div class="verdict"><div class="vh"><span>골 수</span><span class="small">${esc(voteText(ou.tally))}</span></div><b class="vb">${ou.pick ? esc(N[ou.pick]) : '판단 보류'}</b></div>
     </div>
+    ${pickHist(s)}
   </div></section>
   <section class="band"><div class="wrap">
     ${mock ? '<p class="notice">모의 실행 결과입니다. 실제 AI 분석이 아니라 화면 확인용입니다.</p>' : ''}
