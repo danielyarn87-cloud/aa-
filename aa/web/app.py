@@ -180,6 +180,10 @@ def create_app(company: Company) -> Flask:
         for r in runs:
             s = _summary(r, res.get(r["match"]["id"]))
             s["league_id"], s["league_name"] = league_of(company, r["match"])
+            mp = pending_dir / f"{s['id']}.json"
+            if mp.exists():  # 분석 뒤에 다시 모은 배당(지금 배당)과 처음 등록 때 배당
+                mm = json.loads(mp.read_text(encoding="utf-8"))
+                s["odds_now"], s["odds_first"], s["kickoff_iso"] = mm.get("odds", {}), mm.get("odds_first"), mm.get("kickoff_iso")
             items.append(s)
         for p in sorted(pending_dir.glob("*.json")) if pending_dir.exists() else []:
             m = json.loads(p.read_text(encoding="utf-8"))
@@ -191,7 +195,8 @@ def create_app(company: Company) -> Flask:
             lid, lname = league_of(company, m)
             items.append({"id": m["id"], "league": m["league"], "league_id": lid, "league_name": lname,
                           "kickoff": m["kickoff"], "home": ko_name(m["home"]),
-                          "away": ko_name(m["away"]), "status": "pending", "odds": m.get("odds", {})})
+                          "away": ko_name(m["away"]), "status": "pending", "odds": m.get("odds", {}),
+                          "odds_first": m.get("odds_first"), "kickoff_iso": m.get("kickoff_iso")})
         from ..daily import load_picked
 
         picked = load_picked(company)
@@ -210,6 +215,11 @@ def create_app(company: Company) -> Flask:
             run["match"][side] = ko_name(run["match"][side])
         r = results().get(mid)
         run["summary"] = _summary(run, r)
+        mp = pending_dir / f"{mid}.json"
+        if mp.exists():  # 배당 변화 표: 처음 등록 때 배당과 지금(마지막 수집) 배당
+            mm = json.loads(mp.read_text(encoding="utf-8"))
+            run["odds_first"], run["odds_now"] = mm.get("odds_first"), mm.get("odds", {})
+            run["odds_now_at"] = mm.get("collected_at")
         run["members"] = {m.id: {"name": m.name, "title": m.title, "color": getattr(m, "color", None)} for m in company.members}
         if r:  # 결과가 나왔으면 분석가마다 처음(1차)·최종 예측이 맞았는지
             res = outcome_of(r["home_goals"], r["away_goals"])
