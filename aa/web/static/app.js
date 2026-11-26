@@ -249,6 +249,7 @@ async function renderList() {
     document.getElementById('rclear').onclick = () => { rq.value = ''; rd.value = ''; rh.value = 'all'; draw(); };
     draw();
   }
+  noticeBar();   // 목록을 다시 그려도 공지 띠 유지
   view.querySelectorAll('[data-f]').forEach(b => b.onclick = () => { listFilter = b.dataset.f; renderList(); });
   view.querySelectorAll('[data-lg]').forEach(b => b.onclick = () => { leagueFilter = b.dataset.lg; store.set('aa_league', leagueFilter); renderList(); });
   const lt = document.getElementById('lgtoggle');
@@ -1250,7 +1251,7 @@ async function route() {
     else if (h === 'news') await renderNews();
     else if (h === 'admin') await renderAdmin();
     else if (h === 'run' && STATIC) await renderRun();
-    else { await renderList(); noticeBar(); }
+    else await renderList();
     fitVerdicts();
   } catch (e) {
     view.innerHTML = `<section class="band"><div class="wrap"><h1>불러오지 못했습니다</h1><p class="lead">${esc(e.message)}</p><p><a href="#">경기 목록으로</a></p></div></section>`;
@@ -1550,9 +1551,11 @@ async function noticeBar() {
   if (!n || store.get('aa_nb') === String(n.id)) return;
   const el = document.createElement('div');
   el.id = 'nbar'; el.className = 'nbar';
-  el.innerHTML = `<div class="wrap"><a href="/notice/${n.id}"><b>공지</b> ${escRaw(n.title)}</a><button type="button" aria-label="공지 닫기">×</button></div>`;
+  el.innerHTML = `<a href="/notice/${n.id}"><b>공지</b><span>${escRaw(n.title)}</span><i aria-hidden="true">›</i></a><button type="button" aria-label="공지 닫기">×</button>`;
   el.querySelector('button').onclick = () => { store.set('aa_nb', String(n.id)); el.remove(); };
-  view.before(el);
+  const w = view.querySelector('.wrap');
+  if (document.getElementById('nbar') || !w) return;
+  w.prepend(el);   // 목록 맨 위, 목록과 같은 폭 (운세·로또 카드·오른쪽 배너와 겹치지 않게)
 }
 /* 채팅방 위: 띠 공지가 있으면 제목 한 줄 */
 async function chatNotice() {
@@ -1825,7 +1828,7 @@ const Chat = {
   drawAccount();
   const h = location.hash.replace(/^#\/?/, '');
   const onPage = onSubPage();   // 소개·약관·경기 주소면 목록으로 덮지 않음
-  if ((!h || h === 'list') && !onPage) renderList().then(noticeBar).catch(() => {});
+  if ((!h || h === 'list') && !onPage) renderList().catch(() => {});
   if (subPath() === 'help') renderHelp();   // 회원 상태를 받은 뒤 문의 칸을 다시 그림
   Chat.build(); chatNotice();
 })();
