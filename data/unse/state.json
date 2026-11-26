@@ -1,15 +1,15 @@
 {
  "pending": {
-  "msgbatch_01JjHmFb7Une8bo6tFV2tDzN": {
+  "msgbatch_011hqSeSoVFGosYrQ5X3f1iJ": {
    "date": "2026-11-28",
-   "count": 18,
-   "submitted_at": "2026-11-25T21:12:06.457843+00:00"
+   "count": 13,
+   "submitted_at": "2026-11-26T03:12:00.547349+00:00"
   }
  },
  "attempts": {
   "2026-11-25": 2,
   "2026-11-26": 3,
   "2026-11-27": 3,
-  "2026-11-28": 2
+  "2026-11-28": 3
  }
 }
