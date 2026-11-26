@@ -44,12 +44,15 @@
     }
   },
   "lineup": {
-    "home_absent": [],
+    "home_absent": [
+      "A. Bourabaa (Ankle Injury)",
+      "D. Sidibe (Foot Injury)"
+    ],
     "home_doubtful": [],
     "away_absent": [
-      "A. Ueda (Foot Injury)",
-      "Tiago Santos (Jumpers Knee)",
-      "H. Igamane (Jumpers Knee)"
+      "H. Igamane (Knee Injury)",
+      "T. Nianzou (Leg Injury)",
+      "T. Santos (Knee Injury)"
     ],
     "away_doubtful": [],
     "confirmed": false,
@@ -78,5 +81,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 11:47 KST"
+  "collected_at": "2026-11-26 14:04 KST"
 }

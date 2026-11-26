@@ -47,7 +47,6 @@
     "home_absent": [
       "J. Coburn (Injury)",
       "T. Crama (Ankle Injury)",
-      "R. Esse (Injury)",
       "R. Leonard (Muscle Injury)",
       "M. Luongo (Knee Injury)",
       "F. Marschall (Ankle Injury)",
@@ -68,8 +67,7 @@
       "M. Tresor Ndayishimiye (Lacking Match Fitness)"
     ],
     "away_doubtful": [
-      "B. Humphreys (Muscle Injury)",
-      "Lucas Pires (Inactive)"
+      "B. Humphreys (Muscle Injury)"
     ],
     "confirmed": false,
     "status": "listed",
@@ -101,5 +99,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 11:47 KST"
+  "collected_at": "2026-11-26 14:04 KST"
 }

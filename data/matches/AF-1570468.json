@@ -45,11 +45,10 @@
   },
   "lineup": {
     "home_absent": [
-      "M. Sanchez (Knee Injury)"
+      "M. Sanchez (Knee Injury)",
+      "J. Toljan (Hamstring Injury)"
     ],
-    "home_doubtful": [
-      "J. Toljan (Injury)"
-    ],
+    "home_doubtful": [],
     "away_absent": [
       "M. Gueye (Muscle Injury)",
       "A. Mantilla (Knee Injury)",
@@ -86,5 +85,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 11:47 KST"
+  "collected_at": "2026-11-26 14:04 KST"
 }
