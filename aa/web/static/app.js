@@ -1363,7 +1363,7 @@ async function renderJoin() {
 }
 
 /* ---------- 이용약관 · 개인정보 처리방침 ---------- */
-const CONTACT = '';   // 문의 이메일 (정해지면 넣기)
+const CONTACT = 'danielyarn87@gmail.com';   // 문의 이메일 (사용자가 공개로 정함 2026-11-26)
 const CONTACT_HTML = CONTACT ? `<a href="mailto:${CONTACT}">${CONTACT}</a>` : '채팅방 운영자에게 남겨 주세요';
 const POLICY = {
   about: ['RAISE 소개', `
