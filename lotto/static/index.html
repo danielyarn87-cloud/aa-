@@ -178,6 +178,12 @@ footer p{font-size:12px;color:var(--ink3);line-height:1.7}
 .cp-ad .cp-in{width:300px;max-width:100%;min-height:250px}
 .cp-ad .cp-note{margin:0;max-width:300px;font-size:11px;line-height:1.4;text-align:center;color:#888}
 html:not(.cp-on) .cp-sec{display:none}
+/* 넓은 PC(1220px+): 배너를 본문 오른쪽 빈 자리로 빼서 스크롤 따라 붙어 있게 (메뉴 줄 아래) */
+@media(min-width:1220px){
+  body{position:relative}
+  .cp-sec{position:absolute;top:260px;bottom:0;left:calc(50% + 290px);width:300px;margin:0;display:block}
+  .cp-sec .cp-ad{position:sticky;top:70px}
+}
 </style>
 </head>
 <body>
