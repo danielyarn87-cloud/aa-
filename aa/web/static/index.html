@@ -40,6 +40,10 @@
 <main id="view" aria-live="polite"><p class="loading band">불러오는 중…</p></main>
 <footer class="foot band"><p class="about">RAISE는 AI 분석가 4명이 각자 분석한 뒤 토론해서 축구 경기의 승무패와 언더·오버 가능성을 내는 스포츠 분석 사이트입니다. 챔피언스리그, 유로파리그, 프리미어리그, 라리가, 분데스리가, 세리에A, K리그, J리그 등 주요 리그의 경기 일정과 실시간 스코어, 부상·결장 소식, 분석가별 적중률을 매일 업데이트합니다.</p>
 RAISE는 분석 참고용 자료이며 결과를 보장하지 않습니다.</footer>
+<!-- 쿠팡 파트너스 배너: 쿠팡에 등록한 회원 주소(raise-fulltime.com)에서만 불러온다. 화면 안 자리는 app.js 의 placeAd 가 정한다 -->
+<div id="cp-ad" class="cp-ad" hidden><span class="cp-lab">광고</span><div class="cp-in"><script>
+if (/(^|\.)raise-fulltime\.com$/.test(location.hostname)) document.write('<script src="https://ads-partners.coupang.com/g.js"><\/script><script>new PartnersCoupang.G({"id":1059781,"template":"carousel","trackingCode":"AF1769498","width":"300","height":"250","tsource":""});<\/script>');
+</script></div><p class="cp-note">이 광고는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p></div>
 <script src="/static/app.js"></script>
 </body>
 </html>

@@ -196,6 +196,7 @@ async function renderList() {
   const shown = isRes ? [] : [...ms, ...recent].sort((a, b) => kickMs(a) - kickMs(b)).filter(m => listFilter === 'all' || (listFilter === 'analyzed' ? m.status === 'analyzed' : listFilter === 'pending' ? m.status === 'pending' : (m.value_alerts || []).length));
   const days = [...new Set(shown.map(m => dayOf(m.kickoff)))];
   const chip = (k, t, cls = '') => `<button class="seg ${cls}" data-f="${k}" aria-pressed="${listFilter === k}">${t}</button>`;
+  parkAd();
   view.innerHTML = `<section class="band"><div class="wrap">
     ${isBoss() ? `<div class="listhead"><div><h1>누적 적중률 · 전체</h1></div>
       <div class="segbar" role="group" aria-label="경기 거르기">${chip('all', '전체')}${chip('analyzed', '분석 완료')}${chip('value', '이득 신호')}${chip('pending', '분석 대기')}${chip('results', `경기 결과 <span class="num">${finished.length}</span>`, 'res')}</div></div>
@@ -213,6 +214,7 @@ async function renderList() {
       : shown.length ? days.map(d => `<h2 class="day">${esc(dayLabel(d))}</h2>${shown.filter(m => dayOf(m.kickoff) === d).map(rowHtml).join('')}`).join('')
       : `<p class="empty">조건에 맞는 경기가 없습니다.${STATIC ? ' <a href="#run">분석 요청</a>에서 리그를 골라 경기를 가져오세요.' : ''}</p>`}
   </div></section>`;
+  { const rs = view.querySelectorAll('.row'); placeAd(rs[5] || rs[rs.length - 1]); }
   if (isRes) {
     const rq = document.getElementById('rq'), rd = document.getElementById('rd'), rh = document.getElementById('rh');
     rh.value = resHit;
@@ -512,6 +514,18 @@ function liveText(x, ended, wait) {
   if (x.s === 'HT') return t('HT', false) + sc;
   if (x.s === 'P') return t('승부차기', true) + sc;
   return t(x.m != null ? esc(x.m) + "'" : 'LIVE', true, ' num') + sc;
+}
+/* ---------- 쿠팡 파트너스 배너 (회원 주소만) ----------
+   배너 상자(#cp-ad)는 index.html 에 한 번만 있다. 화면을 새로 그리기 전에 몸통으로 빼 두고(parkAd),
+   그린 뒤 알맞은 자리(경기 목록 6번째 줄 뒤, 분석가 픽 카드 아래)로 옮긴다(placeAd). */
+function parkAd() {
+  const ad = document.getElementById('cp-ad');
+  if (ad && view.contains(ad)) { ad.hidden = true; document.body.appendChild(ad); }
+}
+function placeAd(after) {
+  const ad = document.getElementById('cp-ad');
+  if (!ad || !MEMBER || !after) return;
+  after.after(ad); ad.hidden = false;
 }
 /* 회원 화면: 끝난 경기는 줄째 숨기고, 그날 경기가 다 숨겨지면 날짜 제목도 숨긴다 */
 function hideEnded(el) {
@@ -825,14 +839,17 @@ async function renderPicks() {
   const cell = (u, m) => { const x = u.picks[m.id]; return x ? `<span class="ap-pk ${esc(x.p)}">${LAB[x.p] || '-'}</span> <span class="ap-ou">${x.ou === 'over' ? '오버' : '언더'} ${esc(u.line)}</span>` : '<span class="mute">-</span>'; };
   const rows = up.map(u => `<tr><td data-l="경기" class="ap-mt"><a href="#m-${encodeURIComponent(u.id)}"><b>${esc(u.home)} vs ${esc(u.away)}</b></a><small>${esc(u.league)} · ${esc(String(u.kickoff).slice(5, 16))}</small></td>
     ${mem.map(m => `<td data-l="${esc(m.name)}">${cell(u, m)}</td>`).join('')}</tr>`).join('');
+  parkAd();
   view.innerHTML = `<section class="band"><div class="wrap"><h1>분석가 픽</h1>
     <p class="lead mute">분석가 넷이 경기마다 각자 고른 결과와, 지금까지 얼마나 맞혔는지입니다. 묶음이 아니라 한 경기씩 채점합니다.</p>
     <div class="ap-grid">${cards}</div>
     <h2 class="sec">다가오는 경기 · 분석가별 선택</h2><p class="small mute" style="margin:0 0 8px">토론을 마친 최종 선택입니다.</p>
     ${up.length ? `<div class="scroll"><table class="stack ap-tb"><thead><tr><th>경기</th>${mem.map((m, i) => `<th><span class="dot" style="background:${esc(col(m, i))}"></span>${esc(m.name)}<small>${esc((PERSONA[m.id] || [''])[0])}</small></th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div>`
       : '<p class="empty">분석이 끝난 다가오는 경기가 아직 없습니다.</p>'}
+    <div id="ap-adslot"></div>
     <p class="small mute" style="margin-top:14px">적중률은 결과가 나온 경기만 셉니다. 강팀(시장 1순위)은 여러 해외 업체가 가장 유력하게 본 결과입니다. 분석 참고용이며 결과를 보장하지 않습니다.</p>
   </div></section>`;
+  placeAd(document.getElementById('ap-adslot'));
 }
 
 /* ---------- 배팅 게임: 분석가들이 가상 100만원으로 3·5·7폴더 ---------- */
@@ -1170,6 +1187,7 @@ async function route() {
   }
   document.querySelectorAll('.run-link').forEach(a => a.hidden = !STATIC);
   if (h !== 'run') clearInterval(runPoll);
+  parkAd();
   try {
     if (h.startsWith('m-')) await renderMatch(decodeURIComponent(h.slice(2)));
     else if (h === 'team') await renderTeam();
