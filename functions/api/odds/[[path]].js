@@ -12,7 +12,7 @@
 //
 // Cloudflare Pages → 설정에 필요한 것 (코드에 쓰지 않음):
 //   KV 바인딩 ODDS       (Workers 및 Pages → KV 에서 만든 저장 공간)
-//   ODDS_API_KEY        The Odds API 키 (GitHub 비밀과 같은 값)
+//   ODDS_API_KEY        The Odds API 키 (GitHub 비밀과 같은 값) — 2026-11-26 새 키로 교체(옛 키 401)
 
 const BASE = "https://api.the-odds-api.com/v4";
 const STATE = "state-v1";
