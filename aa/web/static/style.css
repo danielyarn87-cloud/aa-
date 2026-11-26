@@ -521,6 +521,7 @@ a.row.val:hover{background:#C93A6E}
 @media(max-width:600px){.ap-grid{grid-template-columns:1fr}.ap-tb td{justify-content:flex-start;align-items:center}.ap-tb td::before{min-width:4.5em}.ap-tb td.ap-mt{display:block}.ap-tb td.ap-mt::before{content:none}}
 
 .foot .about{max-width:56em;margin:0 0 10px;line-height:1.6}
+.foot-links{margin:10px 0 0;line-height:1.9}.foot-links a{color:inherit;white-space:nowrap}
 /* 쿠팡 파트너스 배너 (회원 주소만) */
 .cp-ad{display:flex;flex-direction:column;align-items:center;gap:4px;margin:18px auto;padding:10px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .cp-ad[hidden]{display:none}

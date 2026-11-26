@@ -17,14 +17,19 @@ const MEMBER_ORIGIN = "https://raise-fulltime.com";
 // 회원 주소에서 막는 API: 분석 요청·관리·충전 (화면에서도 숨기지만 주소를 직접 쳐도 안 되게)
 const MEMBER_BLOCK = /^\/api\/(run|admin|topup)(\/|$)/;
 
+// 안내 페이지(소개·약관·개인정보)는 진짜 주소로도 열린다: 화면은 index.html 하나, app.js 가 주소를 보고 그린다
+const PAGE = /^\/(about|terms|privacy)\/?$/;
+const page = (ctx, url) => ctx.env.ASSETS.fetch(new Request(new URL("/", url).toString(), {headers: ctx.request.headers}));
+
 async function raise(ctx, url) {
   const host = url.hostname;
+  const isPage = PAGE.test(url.pathname) && ["GET", "HEAD"].includes(ctx.request.method);
   if (MEMBER_HOSTS.has(host)) {
     if (host.startsWith("www.")) return Response.redirect(MEMBER_ORIGIN + url.pathname + url.search, 301);
     if (url.pathname === "/robots.txt")
       return new Response(`User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: ${MEMBER_ORIGIN}/sitemap.xml\n`, {headers: {"content-type": "text/plain; charset=utf-8"}});
     if (url.pathname === "/sitemap.xml")
-      return new Response(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${MEMBER_ORIGIN}/</loc><changefreq>hourly</changefreq></url></urlset>\n`, {headers: {"content-type": "application/xml; charset=utf-8"}});
+      return new Response(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${MEMBER_ORIGIN}/</loc><changefreq>hourly</changefreq></url><url><loc>${MEMBER_ORIGIN}/about</loc></url><url><loc>${MEMBER_ORIGIN}/terms</loc></url><url><loc>${MEMBER_ORIGIN}/privacy</loc></url></urlset>\n`, {headers: {"content-type": "application/xml; charset=utf-8"}});
     // 배당 갱신(POST /api/odds/refresh)은 예외: 시계(raise-clock)가 여기로 부른다. 운영자 주소는 잠겨 있어서.
     //   갱신은 몇 번 불러도 정해진 간격을 넘는 호출을 하지 않게 만들어져 있다.
     const oddsRefresh = url.pathname === "/api/odds/refresh" && ctx.request.method === "POST";
@@ -32,11 +37,12 @@ async function raise(ctx, url) {
     const memberPost = /^\/api\/(auth\/(join|logout|delete)|fav)$/.test(url.pathname) && ctx.request.method === "POST";
     if (MEMBER_BLOCK.test(url.pathname) || (!oddsRefresh && !memberPost && url.pathname.startsWith("/api/") && !["GET", "HEAD"].includes(ctx.request.method)))
       return new Response("Not Found", {status: 404});
+    if (isPage) return page(ctx, url);
     return ctx.next();
   }
   // 운영자 주소: 검색엔진에 올리지 않는다
   if (url.pathname === "/robots.txt") return new Response("User-agent: *\nDisallow: /\n", {headers: {"content-type": "text/plain; charset=utf-8"}});
-  const res = await ctx.next();
+  const res = isPage ? await page(ctx, url) : await ctx.next();
   const out = new Response(res.body, res);
   out.headers.set("X-Robots-Tag", "noindex, nofollow");
   return out;

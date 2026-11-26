@@ -9,7 +9,11 @@ const CONF = {high: '확신 높음', medium: '확신 보통', low: '확신 낮�
 const PAL = ['#2563eb', '#15803d', '#ea580c', '#7c3aed', '#0891b2', '#be123c'];
 const TH = 0.05;
 
-const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+/* 회원 주소에서는 분석 글의 배당 표현을 '시장 예상'으로 바꿔 보여 준다 (저장된 글은 그대로, 화면에서만) */
+const SOFTEN = /(^|\.)raise-fulltime\.com$/.test(location.hostname);
+const soften = t => t.replace(/배당이 후한지 비싼지/g, '시장 예상이 높은지 낮은지').replace(/시장 배당/g, '시장 예상').replace(/배당 흐름/g, '시장 예상 흐름')
+  .replace(/배당/g, '시장 예상').replace(/정배/g, '인기 팀').replace(/[배베]팅/g, '선택').replace(/시장 예상 시장/g, '시장');
+const esc = v => (SOFTEN ? soften(String(v ?? '')) : String(v ?? '')).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
 const pct = (x, d = 0) => x == null ? '-' : (x * 100).toFixed(d) + '%';
 /* 기대값을 5,000원당 평균 손익으로: 0.097 → +485원 */
 const OX = h => h === true ? '<span class="ox o">○</span>' : h === false ? '<span class="ox x">✕</span>' : '';
@@ -775,7 +779,7 @@ async function renderTeam() {
     ${c.departments.map(d => `<div class="dept sec"><h2>${esc(d.name)} <span class="tag ${d.active ? 'pick' : 'wait'}">${d.active ? '운영 중' : '준비 중'}</span></h2>
       ${d.members.length ? `<div class="crew" style="margin-top:12px">${d.members.map((p, i) => `<article class="analyst member" style="--c:${esc(p.color || PAL[i % PAL.length])}">
         <div class="ahead"><span class="avatar">${esc(p.name.slice(0, 1))}</span><div><h3>${esc(p.name)}</h3><small>${esc(p.title)} · ${p.votes ? '투표 참여' : '투표 안 함'}</small></div></div>
-        <ul class="persona">${personaPoints(p.persona).map(x => `<li>${esc(x)}</li>`).join('')}</ul></article>`).join('')}</div>`
+        <ul class="persona">${personaPoints(p.persona).filter(x => !(MEMBER && /배당|정배|배팅|베팅|본전/.test(x))).map(x => `<li>${esc(x)}</li>`).join('')}</ul></article>`).join('')}</div>`
         : '<p class="mute">아직 배치된 분석가가 없습니다.</p>'}</div>`).join('')}
   </div></section>`;
 }
@@ -1192,8 +1196,12 @@ async function renderAdmin() {
 }
 
 /* ---------- 길찾기 ---------- */
+const PAGES = ['about', 'terms', 'privacy'];   // 진짜 주소(/about 등)로도 열리는 안내 페이지 (미들웨어가 index.html 을 돌려줌)
 async function route() {
-  const h = location.hash.replace(/^#\/?/, '');
+  const pk = location.pathname.replace(/^\/+|\/+$/g, '');
+  if (PAGES.includes(pk) && location.hash.length > 1) { location.replace('/' + location.hash); return; }   // 안내 페이지에서 다른 화면으로 → 첫 주소로
+  let h = location.hash.replace(/^#\/?/, '');
+  if (!h && PAGES.includes(pk)) h = pk;
   const navKey = !h || h.startsWith('m-') ? 'list' : h;
   document.querySelectorAll('[data-nav]').forEach(a => a.classList.toggle('on', a.dataset.nav === navKey));
   if (READONLY) document.querySelectorAll('.admin-link').forEach(a => a.hidden = true);
@@ -1216,7 +1224,7 @@ async function route() {
     else if (h === 'bets') await renderBets();
     else if (h === 'picks') await renderPicks();
     else if (h === 'join') await renderJoin();
-    else if (h === 'terms' || h === 'privacy') renderPolicy(h);
+    else if (PAGES.includes(h)) renderPolicy(h);
     else if (h === 'login-fail') { toast('로그인하지 못했어요. 다시 시도해 주세요.'); location.replace('#'); return; }
     else if (h === 'news') await renderNews();
     else if (h === 'admin') await renderAdmin();
@@ -1278,7 +1286,7 @@ function openLogin(reason) {
     <a class="sso kakao${ready.kakao === false ? ' off' : ''}" href="/api/auth/kakao"><span class="ic" aria-hidden="true">💬</span>카카오로 시작하기</a>
     <a class="sso google${ready.google === false ? ' off' : ''}" href="/api/auth/google"><span class="ic g" aria-hidden="true">G</span>구글로 시작하기</a>
     <p class="tiny mute">만 19세 이상만 가입할 수 있어요. 처음이면 닉네임만 정하면 끝나요. 비밀번호는 저장하지 않아요.<br>
-    <a href="#terms">이용약관</a> · <a href="#privacy">개인정보 처리방침</a></p></div>`;
+    <a href="/terms">이용약관</a> · <a href="/privacy">개인정보 처리방침</a></p></div>`;
   d.addEventListener('click', ev => { if (ev.target === d || ev.target.closest('.modal-x') || ev.target.closest('a[href^="#"]')) closeLogin(); });
   d.querySelectorAll('.sso.off').forEach(a => a.onclick = ev => { ev.preventDefault(); toast('이 로그인은 준비 중이에요. 곧 열려요.'); });
   document.body.appendChild(d);
@@ -1309,7 +1317,7 @@ function openAccount() {
     <h2>${esc(ME.user.nick)} 님</h2><p class="small mute">관심 경기 ${FAVS.size}개</p>
     <button type="button" class="btn-line" data-act="logout">로그아웃</button>
     <button type="button" class="btn-line danger" data-act="delete">회원 탈퇴</button>
-    <p class="tiny mute"><a href="#terms">이용약관</a> · <a href="#privacy">개인정보 처리방침</a></p></div>`;
+    <p class="tiny mute"><a href="/terms">이용약관</a> · <a href="/privacy">개인정보 처리방침</a></p></div>`;
   d.addEventListener('click', async ev => {
     if (ev.target === d || ev.target.closest('.modal-x') || ev.target.closest('a[href^="#"]')) return closeLogin();
     const act = ev.target.dataset && ev.target.dataset.act;
@@ -1331,7 +1339,7 @@ async function renderJoin() {
       <label class="fld"><span>닉네임 <small class="mute">한글·영문·숫자 2~12자</small></span>
         <input id="jn" name="nick" maxlength="12" autocomplete="off" value="${esc(p.suggest || '')}" required><small id="jn-msg" class="hint" aria-live="polite"></small></label>
       <label class="chk"><input type="checkbox" id="ja"> <span><b>만 19세 이상</b>이에요 (필수)</span></label>
-      <label class="chk"><input type="checkbox" id="jt"> <span><a href="#terms" target="_blank">이용약관</a>과 <a href="#privacy" target="_blank">개인정보 처리방침</a>에 동의해요 (필수)</span></label>
+      <label class="chk"><input type="checkbox" id="jt"> <span><a href="/terms" target="_blank">이용약관</a>과 <a href="/privacy" target="_blank">개인정보 처리방침</a>에 동의해요 (필수)</span></label>
       <p id="j-err" class="err" role="alert"></p>
       <button class="btn big" type="submit">가입 완료</button>
     </form></div></section>`;
@@ -1355,7 +1363,27 @@ async function renderJoin() {
 }
 
 /* ---------- 이용약관 · 개인정보 처리방침 ---------- */
+const CONTACT = '';   // 문의 이메일 (정해지면 넣기)
+const CONTACT_HTML = CONTACT ? `<a href="mailto:${CONTACT}">${CONTACT}</a>` : '채팅방 운영자에게 남겨 주세요';
 const POLICY = {
+  about: ['RAISE 소개', `
+<p class="lead">RAISE는 AI 분석가 4명이 축구 경기를 각자 분석하고 토론해서, 경기의 흐름과 가능성을 정리해 보여 주는 스포츠 분석 사이트입니다.</p>
+<h2>무엇을 보여 주나요</h2><ul>
+<li><b>경기 분석</b>: 경기마다 승·무·패와 골 수(언더·오버) 가능성, 그렇게 본 이유</li>
+<li><b>실시간 스코어</b>: 경기 중 점수와 진행 시간</li>
+<li><b>부상·결장 소식</b>과 최근 경기 흐름</li>
+<li><b>분석가 픽</b>: 분석가별 선택과 지난 적중 기록</li>
+<li><b>축구 뉴스</b>와 회원 채팅방</li></ul>
+<h2>분석가 4명</h2><p>성향이 다른 AI 분석가 4명이 같은 경기를 따로 봅니다. 서로 다른 눈으로 본 의견을 비교하면 한쪽으로 쏠린 판단을 줄일 수 있기 때문입니다.</p><ul>
+<li><b>고광렬</b> · 강팀 신뢰형: 전력과 순위를 가장 크게 봅니다</li>
+<li><b>고니</b> · 라인업 중시형: 선발 명단과 부상·결장을 먼저 봅니다</li>
+<li><b>아귀</b> · 변수 추구형: 일정, 동기, 이변 가능성을 찾습니다</li>
+<li><b>호구</b> · 상식형: 많은 사람이 예상하는 쪽을 기준으로 삼습니다</li></ul>
+<h2>다루는 리그</h2><p>챔피언스리그, 유로파리그, 프리미어리그, 라리가, 분데스리가, 세리에A, 리그1, K리그, J리그 등 주요 리그의 경기를 매일 업데이트합니다.</p>
+<h2>데이터와 분석 방식</h2><p>경기 일정·결과·선수 정보는 축구 데이터 서비스(API-Football)에서 받고, 분석은 AI(Anthropic Claude)가 씁니다. 분석은 하루 두 번, 스코어는 경기 중 수시로 새로 고칩니다.</p>
+<h2>꼭 알아 두세요</h2><p>RAISE의 분석은 <b>참고용 정보</b>이며 결과를 보장하지 않습니다. RAISE는 어떤 형태의 도박이나 배팅도 권하지 않고, 도박 사이트를 광고하거나 소개하지 않습니다.</p>
+<h2>문의</h2><p>${CONTACT_HTML}</p>
+<p class="small mute"><a href="/terms">이용약관</a> · <a href="/privacy">개인정보 처리방침</a></p>`],
   terms: ['이용약관', `
 <h2>1. 서비스</h2><p>RAISE(raise-fulltime.com)는 AI 분석가가 축구 경기를 분석한 <b>참고용 정보</b>와 실시간 스코어, 채팅방을 제공합니다. 분석은 결과를 보장하지 않으며, 어떤 형태의 도박이나 배팅도 권하지 않습니다.</p>
 <h2>2. 회원</h2><p>만 19세 이상만 가입할 수 있습니다. 카카오 또는 구글 계정으로 가입하며, 한 사람이 여러 계정을 만들어 운영을 방해해서는 안 됩니다. 회원은 언제든 '내 계정 → 회원 탈퇴'로 탈퇴할 수 있습니다.</p>
@@ -1371,14 +1399,30 @@ const POLICY = {
 <h2>3. 보관 기간</h2><ul><li>회원 정보·관심 경기: 탈퇴하면 바로 지웁니다</li><li>채팅 대화: 1시간 뒤 자동 삭제(최근 100개는 남김)</li><li>신고된 글·제재 기록: 30일 뒤 자동 삭제</li><li>로그인 유지 정보: 30일</li></ul>
 <h2>4. 맡기는 곳(처리 위탁)</h2><p>Cloudflare(사이트 운영·정보 저장), 카카오·구글(로그인 확인). 법에 따른 요청이 아니면 다른 곳에 주지 않습니다.</p>
 <h2>5. 이용자의 권리</h2><p>언제든 '내 계정 → 회원 탈퇴'로 모든 정보를 지울 수 있습니다. 카카오·구글 쪽 연결은 각 서비스의 '연결된 앱'에서 끊을 수 있습니다.</p>
-<h2>6. 광고</h2><p>사이트의 쿠팡 파트너스 배너는 쿠팡이 직접 보여 주며, 배너를 누르면 쿠팡의 정책이 적용됩니다.</p>
-<h2>7. 문의</h2><p>개인정보 관련 문의는 채팅방 운영자에게 남겨 주세요.</p>
+<h2>6. 광고와 쿠키</h2><p>사이트에는 쿠팡 파트너스 배너가 있으며, 앞으로 Google 애드센스 광고가 실릴 수 있습니다. 광고는 각 광고 회사가 직접 보여 줍니다.</p>
+<ul><li>Google을 포함한 제3자 광고 회사는 쿠키를 사용해 이용자가 이 사이트나 다른 사이트를 방문한 기록을 바탕으로 광고를 보여 줄 수 있습니다.</li>
+<li>Google의 광고 쿠키 사용은 <a href="https://adssettings.google.com" target="_blank" rel="noopener">Google 광고 설정</a>에서 끌 수 있고, 다른 광고 회사의 쿠키는 <a href="https://www.aboutads.info" target="_blank" rel="noopener">www.aboutads.info</a>에서 끌 수 있습니다.</li>
+<li>Google이 정보를 쓰는 방식은 <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">Google 파트너 사이트 정책</a>에서 볼 수 있습니다.</li>
+<li>쿠팡 배너를 누르면 쿠팡의 정책이 적용됩니다.</li></ul>
+<p>RAISE가 모은 회원 정보는 광고 회사에 넘기지 않습니다.</p>
+<h2>7. 문의</h2><p>개인정보 관련 문의: ${CONTACT_HTML}</p>
 <p class="small mute">시행일: 2026년 11월 26일</p>`],
 };
 function renderPolicy(k) {
   const [title, body] = POLICY[k];
-  view.innerHTML = `<section class="band"><div class="wrap narrow policy"><h1>${title}</h1>${body}<p><a href="#">← 경기 목록으로</a></p></div></section>`;
+  view.innerHTML = `<section class="band"><div class="wrap narrow policy"><h1>${title}</h1>${body}<p><a href="/">← 경기 목록으로</a></p></div></section>`;
+  // 안내 페이지 주소(/about 등)로 들어왔으면 제목·대표 주소도 그 페이지로 (검색엔진용)
+  if (location.pathname.replace(/^\/+|\/+$/g, '') === k) {
+    document.title = `${title} · RAISE 스포츠 분석`;
+    const c = document.querySelector('link[rel=canonical]'); if (c) c.href = `${location.origin}/${k}`;
+  }
 }
+// 안내 페이지 주소에서 # 링크(메뉴·로고)를 누르면 첫 주소로 가서 그 화면을 연다
+document.addEventListener('click', e => {
+  const a = e.target.closest && e.target.closest('a[href^="#"]');
+  if (!a || !PAGES.includes(location.pathname.replace(/^\/+|\/+$/g, ''))) return;
+  e.preventDefault(); location.href = '/' + a.getAttribute('href');
+});
 
 /* ---------- 실시간 채팅방 ---------- */
 const Chat = {
@@ -1523,7 +1567,8 @@ const Chat = {
   }
   drawAccount();
   const h = location.hash.replace(/^#\/?/, '');
-  if (!h || h === 'list') renderList().catch(() => {});
+  const onPage = PAGES.includes(location.pathname.replace(/^\/+|\/+$/g, ''));   // 소개·약관 주소면 목록으로 덮지 않음
+  if ((!h || h === 'list') && !onPage) renderList().catch(() => {});
   Chat.build();
 })();
 
