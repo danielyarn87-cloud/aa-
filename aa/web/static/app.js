@@ -1031,6 +1031,7 @@ async function renderBets() {
 }
 
 /* ---------- 분석 요청 (정적 사이트: Cloudflare 함수 /api/run → GitHub Actions) ---------- */
+const runOpen = new Set();   // 진행 상황에서 펼쳐 둔 실행
 let runPoll = null;
 async function renderRun() {
   const [L, M] = await Promise.all([api('/api/leagues'), api('/api/matches')]);
@@ -1156,8 +1157,14 @@ async function renderRun() {
       if (!j.configured) { el.innerHTML = '분석 요청 기능이 아직 설정되지 않았습니다 (Cloudflare 에 GH_TOKEN, RUN_PASSWORD 필요).'; return; }
       if (!j.runs.length) { el.textContent = '아직 실행 기록이 없습니다.'; return; }
       const busy = j.runs.some(x => x.status !== 'completed');
-      el.innerHTML = `<table><tbody>${j.runs.map(x => `<tr><td class="num">#${esc(x.number)}</td><td>${x.event === 'schedule' ? '자동 (6시·14시)' : '요청'}</td><td>${esc(when(x.created_at))}</td><td class="r">${label(x)}</td></tr>`).join('')}</tbody></table>
+      const all = Object.fromEntries((M.matches || []).map(m => [m.id, m]));
+      const kind = x => x.ids.length ? `분석 ${x.ids.length}경기` : x.named ? '목록 수집' : x.event === 'schedule' ? '자동 (6시·14시)' : '요청';
+      const detail = x => !x.ids.length
+        ? `<p class="small mute">${x.named ? '경기 목록만 모으는 실행이에요 (분석 없음).' : '이 기능을 넣기 전에 신청한 요청이라 경기 목록을 알 수 없어요.'}</p>`
+        : `<ul class="run-ms">${x.ids.map(id => { const m = all[id]; return `<li>${m ? `<span class="num">${esc(m.kickoff.slice(5, 16).replace('-', '/'))}</span> ${esc(m.home)} <span class="mute">vs</span> ${esc(m.away)} <span class="lg">${esc(lgName(m))}</span>${m.status === 'analyzed' ? ' <span class="tag hit">분석 끝</span>' : ''}` : `<span class="mute">${esc(id)}</span>`}</li>`; }).join('')}</ul>`;
+      el.innerHTML = `<div class="runs">${j.runs.map(x => `<details class="run" data-run="${esc(x.number)}" ${runOpen.has(String(x.number)) ? 'open' : ''}><summary><span class="num">#${esc(x.number)}</span><span>${kind(x)}</span><span class="num">${esc(when(x.created_at))}</span><span class="r">${label(x)}</span></summary>${detail(x)}</details>`).join('')}</div>
         <p class="small mute" style="margin:8px 0 0">${busy ? '분석이 끝나면 사이트가 1~2분 안에 새로 고쳐집니다. 이 화면은 15초마다 다시 확인합니다.' : '끝난 분석은 경기 목록에서 볼 수 있습니다.'}</p>`;
+      el.querySelectorAll('details.run').forEach(d => d.ontoggle = () => { d.open ? runOpen.add(d.dataset.run) : runOpen.delete(d.dataset.run); });   // 15초마다 다시 그려도 펼친 칸 유지
     } catch (err) { el.textContent = '상태를 불러오지 못했습니다.'; }
   }
   clearInterval(runPoll);

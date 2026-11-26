@@ -4,6 +4,8 @@
 # 사이트의 '분석 요청' 화면도 이 작업을 실행한다 (functions/api/run.js).
 # API 키는 저장소 Settings → Secrets and variables → Actions 에 넣는다 (코드에 쓰지 않음).
 name: 매일 분석
+# 실행 이름에 고른 경기 번호를 넣는다 → 사이트 '진행 상황'에서 어느 경기를 분석 중인지 보여 줌 (functions/api/run.js)
+run-name: "${{ inputs.ids && format('매일 분석 · {0}', inputs.ids) || '매일 분석 · 목록' }}"
 
 on:
   # 예약 실행은 Cloudflare Worker 'raise-clock'(tools/clock-worker.js)이 정확한 시각에 workflow_dispatch 로 시작시킨다.

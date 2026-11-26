@@ -105,7 +105,7 @@ export async function onRequestPost({ request, env }) {
 
 export async function onRequestGet({ env }) {
   if (!env.GH_TOKEN) return json({ configured: false, runs: [] });
-  const r = await gh(env, `/actions/workflows/${WORKFLOW}/runs?per_page=3`);
+  const r = await gh(env, `/actions/workflows/${WORKFLOW}/runs?per_page=5`);
   if (!r.ok) return json({ configured: true, error: `GitHub ${r.status}`, runs: [] }, 502);
   const data = await r.json();
   const runs = (data.workflow_runs || []).map((x) => ({
@@ -115,6 +115,9 @@ export async function onRequestGet({ env }) {
     event: x.event, // schedule | workflow_dispatch
     created_at: x.created_at,
     updated_at: x.updated_at,
+    // 고른 경기 번호 (.github/workflows/daily.yml 의 run-name 에 들어 있음). 없으면 목록만 모으는 실행
+    ids: String(x.display_title || "").match(/[A-Z]{1,5}-\d{1,12}/g) || [],
+    named: String(x.display_title || "").includes("·"),   // 이 기능 이후 실행 (예전 실행은 이름이 '매일 분석' 뿐)
   }));
   return json({ configured: true, runs });
 }
