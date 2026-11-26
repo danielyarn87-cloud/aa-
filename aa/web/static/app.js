@@ -341,8 +341,8 @@ function nineChart(kind) {
   pts.forEach((p, i) => { g += `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="4" fill="${color}"/>`; if (i === pts.length - 1 || S.length <= 7) g += `<text x="${p[0].toFixed(1)}" y="${(p[1] - 9).toFixed(1)}" class="pv" text-anchor="middle">${isV ? lab(Math.round(cum[i] / 1000) * 1000).replace(/(\.\d)\d+/, '$1') : Math.round(cum[i]) + '%'}</text>`; });
   /* 칸이 좁으면 "12/55" 와 "−126,700원"(또는 "61%")이 두 줄로 나뉘되, 각각은 한 줄 */
   const fmt = (a, extra) => `<span>${a[0]}/${a[1]}</span> ${extra != null ? `<b class="${extra >= 0 ? 'kd-ok' : 'kd-no'}">${wonTxt(extra)}</b>` : `<b>${a[1] ? Math.round(a[0] / a[1] * 100) + '%' : '-'}</b>`}`;
-  const table = `<table class="kd-tt"><thead><tr><th>아침 9시</th><th>누적</th><th>그날</th></tr></thead><tbody>${[...S].reverse().slice(0, 7).map(r => `<tr><td>${r.lab}</td><td class="num">${fmt(r.ch, isV ? r.cum : null)}</td><td class="num">${fmt(r.dh, isV ? r.day : null)}</td></tr>`).join('')}</tbody></table>`;
-  return `<div class="kd-trend"><p class="kd-note">매일 아침 9시 갱신 · 선은 누적${isV ? ' 손익' : ' 적중률'}, 막대는 그날${isV ? ' 손익 (5,000원씩)' : ' 적중률'}</p>
+  const table = `<table class="kd-tt"><thead><tr><th>날짜 (아침 9시)</th><th>누적 <small>처음부터</small></th><th>하루 <small>전날 9시부터</small></th></tr></thead><tbody>${[...S].reverse().slice(0, 7).map(r => `<tr><td>${r.lab}</td><td class="num">${fmt(r.ch, isV ? r.cum : null)}</td><td class="num">${fmt(r.dh, isV ? r.day : null)}</td></tr>`).join('')}</tbody></table>`;
+  return `<div class="kd-trend"><p class="kd-note">매일 아침 9시 갱신 · 선은 처음부터 누적${isV ? ' 손익' : ' 적중률'}, 막대는 하루(전날 9시~그날 9시)${isV ? ' 손익 (5,000원씩)' : ' 적중률'}</p>
     <svg class="kd-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="아침 9시 기준 추이">${g}</svg>${table}</div>`;
 }
 function kpiDetail() {

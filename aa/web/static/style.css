@@ -776,3 +776,8 @@ button.kpi-btn[aria-expanded="true"]{border-color:currentColor}
 .kd-tt th:first-child,.kd-tt td:first-child{text-align:left}
 .kd-tt td{white-space:normal}.kd-tt td>span,.kd-tt td>b,.kd-tt th,.kd-tt td:first-child{white-space:nowrap}
 .kd-tt td>span{color:var(--mute);margin-right:4px}
+/* 추이 표: 넓은 화면에서 칸이 너무 벌어지지 않게 */
+.kd-tt{width:auto;min-width:min(100%,420px);max-width:100%}
+.kd-tt th,.kd-tt td{padding-left:14px;padding-right:2px}.kd-tt th:first-child,.kd-tt td:first-child{padding-left:2px;padding-right:10px}
+.kd-tt th small{font-size:11px;color:var(--mute);font-weight:400;margin-left:2px}
+@media(max-width:400px){.kd-tt th small{display:block;margin:0}}
