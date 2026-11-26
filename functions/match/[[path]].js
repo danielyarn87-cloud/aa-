@@ -19,6 +19,14 @@ const asset = async (ctx, url, path) => {
 };
 
 export async function onRequestGet(ctx) {
+  try { return await render(ctx); }
+  catch (e) {   // 자료 모양이 예상과 달라도 사람은 평소 화면을 보게 (검색용 글만 빠짐)
+    const r = await ctx.env.ASSETS.fetch(new Request(new URL("/", ctx.request.url).toString()));
+    return new Response(r.body, { headers: { "content-type": "text/html; charset=utf-8" } });
+  }
+}
+
+async function render(ctx) {
   const url = new URL(ctx.request.url);
   const notFound = () => ctx.env.ASSETS.fetch(new Request(new URL("/404.html", url).toString())).then((r) => new Response(r.body, { status: 404, headers: r.headers }));
   let slug = "";
@@ -49,12 +57,13 @@ export async function onRequestGet(ctx) {
   const res = s.result && s.result.home_goals != null ? `${s.result.home_goals} : ${s.result.away_goals}` : "";
 
   const title = `${home} vs ${away} 분석 · ${day} ${league}`;
-  const finals = Array.isArray(d.final) && d.final.length ? d.final : (d.initial || []);
+  const finals = (Array.isArray(d.final) && d.final.length ? d.final : Array.isArray(d.initial) ? d.initial : []).filter((f) => f && typeof f === "object");
   const lead = finals.map((f) => f.summary).find(Boolean) || "";
   const desc = cut(T(`AI 분석가 ${finals.length || 4}명의 예측: ${home} 승 ${pct(p.home)} · 무 ${pct(p.draw)} · ${away} 승 ${pct(p.away)}. ${ouName} ${pct(s.pick_ou === "over" ? over : 1 - over)}.${res ? ` 결과 ${res}.` : ""} ${lead}`), 155);
   const canon = `${MEMBER_ORIGIN}/match/${encodeURIComponent(slug)}`;
 
-  const h2h = ((m.data || {}).head_to_head || []).slice(0, 5);
+  const h2hRaw = (m.data || {}).head_to_head;   // 자료가 없으면 "자료 없음" 글자로 온다
+  const h2h = Array.isArray(h2hRaw) ? h2hRaw.slice(0, 5) : [];
   const body = `<article class="band seo-match"><div class="wrap narrow">
 <p class="small mute"><a href="/">경기 목록</a> › ${esc(league)}</p>
 <h1>${esc(home)} vs ${esc(away)} 분석</h1>
@@ -62,7 +71,7 @@ export async function onRequestGet(ctx) {
 <h2>AI 예측</h2>
 <ul><li>${esc(home)} 승 ${pct(p.home)} · 무승부 ${pct(p.draw)} · ${esc(away)} 승 ${pct(p.away)}</li>
 <li>예측: <b>${esc(pickName)}</b>, <b>${esc(ouName)}</b> (${line}골 초과 가능성 ${pct(over)})</li></ul>
-${finals.map((f) => `<h3>${esc((d.members && d.members[f.member_id] && d.members[f.member_id].name) || f.member_name || "")}</h3><p>${esc(T(f.summary || (f.key_reasons || []).slice(0, 2).join(" ")))}</p>`).join("\n")}
+${finals.map((f) => `<h3>${esc((d.members && d.members[f.member_id] && d.members[f.member_id].name) || f.member_name || "")}</h3><p>${esc(T(f.summary || (Array.isArray(f.key_reasons) ? f.key_reasons.slice(0, 2).join(" ") : "")))}</p>`).join("\n")}
 ${h2h.length ? `<h2>최근 맞대결</h2><ul>${h2h.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
 <p class="small mute">RAISE의 분석은 참고용 정보이며 결과를 보장하지 않습니다.</p>
 </div></article>`;
