@@ -70,13 +70,13 @@
     "2024-08-03 V-바렌 나가사키 1-2 미토 홀리호크"
   ],
   "schedule": {
-    "home_prev": "2026-11-20 J1 League",
-    "home_days_rest": 8,
-    "away_prev": "2026-11-21 J1 League",
-    "away_days_rest": 8
+    "home_prev": "2026-11-25 J1 League",
+    "home_days_rest": 3,
+    "away_prev": "2026-11-25 J1 League",
+    "away_days_rest": 3
   },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 10:11 KST"
+  "collected_at": "2026-11-26 11:47 KST"
 }

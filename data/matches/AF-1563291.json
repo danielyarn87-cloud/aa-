@@ -15,8 +15,8 @@
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
-    "home_goals": 1.65,
-    "away_goals": 1.26
+    "home_goals": 1.632,
+    "away_goals": 1.27
   },
   "stats": {
     "basis": "venue",
@@ -24,23 +24,23 @@
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (8경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.832,
-      "xg_against": 1.289,
+      "xg_for": 1.827,
+      "xg_against": 1.292,
       "raw_goals_for": 1.9,
       "raw_goals_against": 1.3,
       "played": 8,
       "record": "3승 2무 3패",
-      "form": "LWLLL"
+      "form": "WLLLL"
     },
     "away": {
       "설명": "원정 경기 경기당 득실 (8경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.653,
-      "xg_against": 2.341,
+      "xg_for": 1.655,
+      "xg_against": 2.336,
       "raw_goals_for": 1.8,
       "raw_goals_against": 2.6,
       "played": 8,
       "record": "1승 2무 5패",
-      "form": "LDDLD"
+      "form": "DDLDL"
     }
   },
   "lineup": {
@@ -84,7 +84,7 @@
     "league": 40,
     "season": 2026
   },
-  "table": "밀월 18위 18점 (5승3무8패, 득실 -5) / 번리 23위 11점 (1승8무7패, 득실 -9)",
+  "table": "밀월 18위 18점 (5승3무9패, 득실 -6) / 번리 23위 11점 (1승8무8패, 득실 -11)",
   "head_to_head": [
     "2026-01-10 번리 5-1 밀월",
     "2025-05-03 번리 3-1 밀월",
@@ -93,13 +93,13 @@
     "2022-08-30 번리 2-0 밀월"
   ],
   "schedule": {
-    "home_prev": "2026-11-21 Championship",
-    "home_days_rest": 7,
-    "away_prev": "2026-11-22 Championship",
-    "away_days_rest": 6
+    "home_prev": "2026-11-26 Championship",
+    "home_days_rest": 2,
+    "away_prev": "2026-11-26 Championship",
+    "away_days_rest": 2
   },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 10:11 KST"
+  "collected_at": "2026-11-26 11:47 KST"
 }

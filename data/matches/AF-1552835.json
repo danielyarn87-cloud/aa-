@@ -75,13 +75,13 @@
     "2023-04-30 파리 생제르맹 1-3 로리앙"
   ],
   "schedule": {
-    "home_prev": "2026-11-22 Ligue 1",
-    "home_days_rest": 7,
+    "home_prev": "2026-11-26 UEFA Champions League",
+    "home_days_rest": 2,
     "away_prev": "2026-11-23 Ligue 1",
     "away_days_rest": 6
   },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 10:11 KST"
+  "collected_at": "2026-11-26 11:47 KST"
 }

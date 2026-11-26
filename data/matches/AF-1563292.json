@@ -15,8 +15,8 @@
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
-    "home_goals": 1.65,
-    "away_goals": 1.26
+    "home_goals": 1.632,
+    "away_goals": 1.27
   },
   "stats": {
     "basis": "venue",
@@ -24,8 +24,8 @@
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (8경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.177,
-      "xg_against": 1.507,
+      "xg_for": 1.172,
+      "xg_against": 1.51,
       "raw_goals_for": 1.0,
       "raw_goals_against": 1.6,
       "played": 8,
@@ -34,8 +34,8 @@
     },
     "away": {
       "설명": "원정 경기 경기당 득실 (8경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 2.089,
-      "xg_against": 1.541,
+      "xg_for": 2.092,
+      "xg_against": 1.536,
       "raw_goals_for": 2.4,
       "raw_goals_against": 1.5,
       "played": 8,
@@ -91,5 +91,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 10:11 KST"
+  "collected_at": "2026-11-26 11:47 KST"
 }

@@ -76,13 +76,13 @@
     "2024-04-13 슈투트가르트 3-0 프랑크푸르트"
   ],
   "schedule": {
-    "home_prev": "2026-11-22 Bundesliga",
-    "home_days_rest": 7,
+    "home_prev": "2026-11-26 UEFA Champions League",
+    "home_days_rest": 2,
     "away_prev": "2026-11-21 Bundesliga",
     "away_days_rest": 7
   },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 10:11 KST"
+  "collected_at": "2026-11-26 11:47 KST"
 }

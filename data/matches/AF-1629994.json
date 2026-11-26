@@ -15,8 +15,8 @@
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
-    "home_goals": 1.831,
-    "away_goals": 1.468
+    "home_goals": 1.848,
+    "away_goals": 1.43
   },
   "stats": {
     "basis": "venue",
@@ -24,8 +24,8 @@
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 2.099,
-      "xg_against": 1.481,
+      "xg_for": 2.109,
+      "xg_against": 1.458,
       "raw_goals_for": 2.5,
       "raw_goals_against": 1.5,
       "played": 2,
@@ -34,8 +34,8 @@
     },
     "away": {
       "설명": "원정 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.281,
-      "xg_against": 1.899,
+      "xg_for": 1.258,
+      "xg_against": 1.909,
       "raw_goals_for": 1.0,
       "raw_goals_against": 2.0,
       "played": 2,
@@ -61,7 +61,7 @@
     "league": 17,
     "season": 2026
   },
-  "table": "베이징 궈안 동아시아 9위 7점 (2승1무2패, 득실 -1) / 랏차부리 동아시아 14위 2점 (0승2무3패, 득실 -4)",
+  "table": "베이징 궈안 동아시아 8위 7점 (2승1무2패, 득실 -1) / 랏차부리 동아시아 14위 2점 (0승2무3패, 득실 -4)",
   "head_to_head": "자료 없음",
   "schedule": {
     "home_prev": "2026-11-24 AFC Champions League Elite",
@@ -72,5 +72,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 10:11 KST"
+  "collected_at": "2026-11-26 11:48 KST"
 }

@@ -15,8 +15,8 @@
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
-    "home_goals": 1.389,
-    "away_goals": 1.194
+    "home_goals": 1.384,
+    "away_goals": 1.168
   },
   "stats": {
     "basis": "venue",
@@ -24,23 +24,23 @@
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (9경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.697,
-      "xg_against": 1.348,
+      "xg_for": 1.696,
+      "xg_against": 1.342,
       "raw_goals_for": 1.8,
       "raw_goals_against": 1.4,
       "played": 9,
       "record": "4승 3무 2패",
-      "form": "LWLLD"
+      "form": "WLLDL"
     },
     "away": {
-      "설명": "원정 경기 경기당 득실 (9경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 0.973,
-      "xg_against": 1.397,
-      "raw_goals_for": 0.9,
+      "설명": "원정 경기 경기당 득실 (10경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.039,
+      "xg_against": 1.396,
+      "raw_goals_for": 1.0,
       "raw_goals_against": 1.4,
-      "played": 9,
-      "record": "3승 1무 5패",
-      "form": "LLLWL"
+      "played": 10,
+      "record": "4승 1무 5패",
+      "form": "LLWLW"
     }
   },
   "lineup": {
@@ -61,7 +61,7 @@
     "league": 99,
     "season": 2026
   },
-  "table": "오이타 트리니타 12위 23점 (5승8무5패, 득실 +0) / 도쿠시마 보르티스 14위 20점 (6승2무10패, 득실 -5)",
+  "table": "오이타 트리니타 13위 23점 (5승8무6패, 득실 -4) / 도쿠시마 보르티스 14위 23점 (7승2무10패, 득실 -4)",
   "head_to_head": [
     "2026-08-29 도쿠시마 보르티스 1-0 오이타 트리니타",
     "2025-06-21 도쿠시마 보르티스 2-0 오이타 트리니타",
@@ -70,13 +70,13 @@
     "2024-06-01 오이타 트리니타 1-2 도쿠시마 보르티스"
   ],
   "schedule": {
-    "home_prev": "2026-11-21 J2 League",
-    "home_days_rest": 8,
-    "away_prev": "2026-11-22 J2 League",
-    "away_days_rest": 7
+    "home_prev": "2026-11-25 J2 League",
+    "home_days_rest": 3,
+    "away_prev": "2026-11-25 J2 League",
+    "away_days_rest": 3
   },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 10:11 KST"
+  "collected_at": "2026-11-26 11:48 KST"
 }

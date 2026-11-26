@@ -15,8 +15,8 @@
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
-    "home_goals": 1.831,
-    "away_goals": 1.468
+    "home_goals": 1.848,
+    "away_goals": 1.43
   },
   "stats": {
     "basis": "venue",
@@ -24,8 +24,8 @@
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.699,
-      "xg_against": 1.881,
+      "xg_for": 1.709,
+      "xg_against": 1.858,
       "raw_goals_for": 1.5,
       "raw_goals_against": 2.5,
       "played": 2,
@@ -34,8 +34,8 @@
     },
     "away": {
       "설명": "원정 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 2.881,
-      "xg_against": 2.299,
+      "xg_for": 2.858,
+      "xg_against": 2.309,
       "raw_goals_for": 5.0,
       "raw_goals_against": 3.0,
       "played": 2,
@@ -61,7 +61,7 @@
     "league": 17,
     "season": 2026
   },
-  "table": "포항 스틸러스 동아시아 15위 1점 (0승1무4패, 득실 -8) / 상하이 포트 동아시아 4위 10점 (3승1무1패, 득실 +5)",
+  "table": "포항 스틸러스 동아시아 15위 1점 (0승1무4패, 득실 -8) / 상하이 포트 동아시아 5위 10점 (3승1무1패, 득실 +5)",
   "head_to_head": [
     "2024-10-01 포항 스틸러스 3-0 상하이 포트"
   ],
@@ -74,5 +74,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 10:11 KST"
+  "collected_at": "2026-11-26 11:48 KST"
 }

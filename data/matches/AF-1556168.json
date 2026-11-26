@@ -70,13 +70,13 @@
     "2022-07-16 시미즈 S펄스 1-2 우라와 레즈"
   ],
   "schedule": {
-    "home_prev": "2026-11-20 J1 League",
-    "home_days_rest": 7,
-    "away_prev": "2026-11-21 J1 League",
-    "away_days_rest": 7
+    "home_prev": "2026-11-25 J1 League",
+    "home_days_rest": 2,
+    "away_prev": "2026-11-25 J1 League",
+    "away_days_rest": 2
   },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 10:11 KST"
+  "collected_at": "2026-11-26 11:47 KST"
 }

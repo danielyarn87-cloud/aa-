@@ -15,8 +15,8 @@
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
-    "home_goals": 1.389,
-    "away_goals": 1.194
+    "home_goals": 1.384,
+    "away_goals": 1.168
   },
   "stats": {
     "basis": "venue",
@@ -24,23 +24,23 @@
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (10경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.551,
-      "xg_against": 1.122,
+      "xg_for": 1.55,
+      "xg_against": 1.116,
       "raw_goals_for": 1.6,
       "raw_goals_against": 1.1,
       "played": 10,
       "record": "8승 0무 2패",
-      "form": "LWWLW"
+      "form": "WWLWW"
     },
     "away": {
-      "설명": "원정 경기 경기당 득실 (9경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 0.824,
-      "xg_against": 2.372,
-      "raw_goals_for": 0.7,
-      "raw_goals_against": 2.7,
-      "played": 9,
-      "record": "1승 2무 6패",
-      "form": "DLLLL"
+      "설명": "원정 경기 경기당 득실 (10경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.731,
+      "xg_against": 2.242,
+      "raw_goals_for": 0.6,
+      "raw_goals_against": 2.5,
+      "played": 10,
+      "record": "1승 2무 7패",
+      "form": "LLLLL"
     }
   },
   "lineup": {
@@ -61,7 +61,7 @@
     "league": 99,
     "season": 2026
   },
-  "table": "알비렉스 니가타 1위 35점 (11승2무5패, 득실 +0) / 반포레 고후 20위 12점 (3승3무12패, 득실 -25)",
+  "table": "알비렉스 니가타 1위 38점 (12승2무5패, 득실 +1) / 반포레 고후 20위 12점 (3승3무13패, 득실 -26)",
   "head_to_head": [
     "2026-11-03 반포레 고후 0-1 알비렉스 니가타",
     "2022-09-14 반포레 고후 1-2 알비렉스 니가타",
@@ -70,13 +70,13 @@
     "2021-06-05 반포레 고후 2-2 알비렉스 니가타"
   ],
   "schedule": {
-    "home_prev": "2026-11-21 J2 League",
-    "home_days_rest": 8,
-    "away_prev": "2026-11-21 J2 League",
-    "away_days_rest": 8
+    "home_prev": "2026-11-25 J2 League",
+    "home_days_rest": 3,
+    "away_prev": "2026-11-25 J2 League",
+    "away_days_rest": 3
   },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 10:11 KST"
+  "collected_at": "2026-11-26 11:48 KST"
 }

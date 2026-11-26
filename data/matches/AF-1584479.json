@@ -70,13 +70,13 @@
     "2019-05-20 에르주룸스포르 0-1 페네르바흐체"
   ],
   "schedule": {
-    "home_prev": "2026-11-22 Süper Lig",
-    "home_days_rest": 8,
+    "home_prev": "2026-11-26 UEFA Champions League",
+    "home_days_rest": 3,
     "away_prev": "2026-11-22 Süper Lig",
     "away_days_rest": 7
   },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 10:11 KST"
+  "collected_at": "2026-11-26 11:47 KST"
 }

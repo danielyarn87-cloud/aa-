@@ -72,13 +72,13 @@
     "2024-03-04 인터 밀란 2-1 제노아"
   ],
   "schedule": {
-    "home_prev": "2026-11-23 Serie A",
-    "home_days_rest": 6,
+    "home_prev": "2026-11-26 UEFA Champions League",
+    "home_days_rest": 2,
     "away_prev": "2026-11-22 Serie A",
     "away_days_rest": 6
   },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 10:10 KST"
+  "collected_at": "2026-11-26 11:47 KST"
 }

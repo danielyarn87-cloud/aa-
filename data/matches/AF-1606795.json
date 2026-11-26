@@ -15,32 +15,32 @@
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
-    "home_goals": 1.389,
-    "away_goals": 1.194
+    "home_goals": 1.384,
+    "away_goals": 1.168
   },
   "stats": {
     "basis": "venue",
     "metric": "goals",
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
-      "설명": "홈 경기 경기당 득실 (8경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.761,
-      "xg_against": 0.98,
-      "raw_goals_for": 1.9,
+      "설명": "홈 경기 경기당 득실 (9경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.621,
+      "xg_against": 0.967,
+      "raw_goals_for": 1.7,
       "raw_goals_against": 0.9,
-      "played": 8,
-      "record": "5승 1무 2패",
-      "form": "WLWDD"
+      "played": 9,
+      "record": "5승 1무 3패",
+      "form": "LWDDL"
     },
     "away": {
       "설명": "원정 경기 경기당 득실 (10경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.429,
-      "xg_against": 1.013,
+      "xg_for": 1.423,
+      "xg_against": 1.012,
       "raw_goals_for": 1.5,
       "raw_goals_against": 0.9,
       "played": 10,
       "record": "5승 1무 4패",
-      "form": "WWWLW"
+      "form": "WWLWW"
     }
   },
   "lineup": {
@@ -61,7 +61,7 @@
     "league": 99,
     "season": 2026
   },
-  "table": "이와키 FC 10위 25점 (7승4무7패, 득실 +4) / 콘사도레 삿포로 8위 29점 (9승2무7패, 득실 +4)",
+  "table": "이와키 FC 11위 25점 (7승4무8패, 득실 +3) / 콘사도레 삿포로 7위 32점 (10승2무7패, 득실 +5)",
   "head_to_head": [
     "2026-10-04 콘사도레 삿포로 2-1 이와키 FC",
     "2026-04-25 콘사도레 삿포로 2-1 이와키 FC",
@@ -70,13 +70,13 @@
     "2025-05-11 이와키 FC 1-1 콘사도레 삿포로"
   ],
   "schedule": {
-    "home_prev": "2026-11-21 J2 League",
-    "home_days_rest": 8,
-    "away_prev": "2026-11-21 J2 League",
-    "away_days_rest": 8
+    "home_prev": "2026-11-25 J2 League",
+    "home_days_rest": 3,
+    "away_prev": "2026-11-25 J2 League",
+    "away_days_rest": 3
   },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 10:11 KST"
+  "collected_at": "2026-11-26 11:48 KST"
 }

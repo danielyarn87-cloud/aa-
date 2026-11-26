@@ -30,7 +30,7 @@
       "raw_goals_against": 0.9,
       "played": 17,
       "record": "8승 5무 4패",
-      "form": "DDWLL"
+      "form": "DWLLL"
     },
     "away": {
       "설명": "원정 경기 경기당 득실 (17경기, 리그 평균 쪽으로 3경기만큼 보정)",
@@ -86,5 +86,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 10:11 KST"
+  "collected_at": "2026-11-26 11:48 KST"
 }

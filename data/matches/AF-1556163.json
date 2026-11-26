@@ -70,13 +70,13 @@
     "2023-08-06 가와사키 프론탈레 3-4 감바 오사카"
   ],
   "schedule": {
-    "home_prev": "2026-11-21 J1 League",
-    "home_days_rest": 8,
-    "away_prev": "2026-11-21 J1 League",
-    "away_days_rest": 7
+    "home_prev": "2026-11-25 J1 League",
+    "home_days_rest": 3,
+    "away_prev": "2026-11-25 AFC Champions League Elite",
+    "away_days_rest": 3
   },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 10:11 KST"
+  "collected_at": "2026-11-26 11:48 KST"
 }
