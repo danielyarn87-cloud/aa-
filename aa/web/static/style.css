@@ -765,3 +765,14 @@ button.kpi-btn[aria-expanded="true"]{border-color:currentColor}
 #kpiDetail{grid-column:1/-1;order:9;min-width:0}#kpiDetail:empty{display:none}
 #kpiDetail .kd{margin:0}
 @media(max-width:720px){.kpis>.kpi{order:3}.kpis>.k1,.kpis>.k5,.kpis>.k2,.kpis>.k3{order:1}#kpiDetail{order:2}}
+/* 아침 9시 추이 그래프 (승무패·언더오버·이득 모두 같은 크기·같은 눈금 3줄) */
+.kd-trend{margin:0 0 6px}
+.kd-svg{width:100%;height:auto;display:block;background:var(--panel);border-radius:10px;margin-top:6px}
+.kd-svg .gl{stroke:#d6dbd8;stroke-width:1}.kd-svg .z0{stroke:#8b938f;stroke-width:1;stroke-dasharray:5 4}
+.kd-svg .ax{font-size:13px;fill:#6b7280}.kd-svg .pv{font-size:13px;font-weight:700;fill:var(--ink)}
+.kd-tt{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+.kd-tt th{font-weight:500;color:var(--mute);text-align:right;padding:4px 2px;border-bottom:1px solid var(--line)}
+.kd-tt td{text-align:right;padding:5px 2px;white-space:nowrap;border-bottom:1px solid var(--line)}
+.kd-tt th:first-child,.kd-tt td:first-child{text-align:left}
+.kd-tt td{white-space:normal}.kd-tt td>span,.kd-tt td>b,.kd-tt th,.kd-tt td:first-child{white-space:nowrap}
+.kd-tt td>span{color:var(--mute);margin-right:4px}

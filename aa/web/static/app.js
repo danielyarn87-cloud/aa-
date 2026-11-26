@@ -275,6 +275,76 @@ let KPI_DONE = [], kpiOpen = null, kpiAll = false;
 const PK = {home: '홈 승', draw: '무', away: '원정 승', over: '오버', under: '언더'};
 const goalsOf = m => { const g = String((m.result || {}).score || '').match(/(\d+)\s*[-:]\s*(\d+)/); return g ? [+g[1], +g[2]] : null; };
 const wonTxt = v => (v >= 0 ? '+' : '−') + Math.abs(Math.round(v)).toLocaleString('ko-KR') + '원';
+/* 이득 장(5,000원씩) 목록: 경기 결과로 맞았는지·손익 */
+function valueTickets(arr) {
+  const V = [];
+  arr.forEach(m => { const g = goalsOf(m); if (!g) return; const line = parseFloat(m.line) || 2.5;
+    (m.value_alerts || []).forEach(k => { const w = {home: g[0] > g[1], draw: g[0] === g[1], away: g[0] < g[1], over: g[0] + g[1] > line, under: g[0] + g[1] < line}[k];
+      if (w === undefined) return; const o = parseFloat((m.odds || {})[k]) || 0; V.push({m, k, o, w, pl: w ? (o - 1) * UNIT : -UNIT}); }); });
+  return V;
+}
+/* 매일 아침 9시 기준 추이: 9시까지 끝난 경기(킥오프 2시간 뒤)만 센다. 선 = 누적, 막대 = 그날(전날 9시~그날 9시) */
+const NINE = 9 * 3600e3, DAYMS = 864e5, KST = 9 * 3600e3;
+function nineSeries(kind) {
+  const end = m => kickMs(m) + 2 * 3600e3;
+  const ms = KPI_DONE.filter(m => isFinite(end(m)));
+  if (!ms.length) return [];
+  const at9 = t => Math.floor((t + KST - NINE) / DAYMS) * DAYMS - KST + NINE;   // t 직전(같거나 이전) 아침 9시
+  const last = at9(Date.now());
+  let c = at9(Math.min(...ms.map(end))) + DAYMS;
+  const out = [];
+  for (; c <= last; c += DAYMS) {
+    const upto = ms.filter(m => end(m) <= c), day = upto.filter(m => end(m) > c - DAYMS);
+    const lab = new Date(c + KST).toISOString().slice(5, 10).replace('-', '/');
+    if (kind === 'value') {
+      const a = valueTickets(upto), b = valueTickets(day), sum = v => Math.round(v.reduce((x, y) => x + y.pl, 0));
+      out.push({lab, cum: sum(a), day: sum(b), ch: [a.filter(v => v.w).length, a.length], dh: [b.filter(v => v.w).length, b.length]});
+    } else {
+      const key = kind === 'ou' ? 'hit_ou' : 'hit_1x2', f = arr => { const x = arr.filter(m => m.result[key] != null); return [x.filter(m => m.result[key]).length, x.length]; };
+      out.push({lab, ch: f(upto), dh: f(day)});
+    }
+  }
+  return out.slice(-14);   // 최근 2주
+}
+function nineChart(kind) {
+  const S = nineSeries(kind);
+  if (!S.length) return '<p class="kd-note">아침 9시 기록이 아직 없어요. 내일 아침 9시에 첫 점이 생겨요.</p>';
+  const narrow = innerWidth < 600;   // 폰: 글자가 작아지지 않게 좁은 그림판
+  const W = narrow ? 330 : 600, H = narrow ? 200 : 190, L = narrow ? 44 : 56, R = 8, T = 18, B = 26, cw = (W - L - R) / S.length;
+  const isV = kind === 'value', pc = a => a[1] ? a[0] / a[1] * 100 : null;
+  const cum = S.map(r => isV ? r.cum : pc(r.ch)), day = S.map(r => isV ? r.day : pc(r.dh));
+  let lo, hi, ticks;
+  if (isV) {   // 보기 좋은 돈 단위 눈금 3줄
+    const m = Math.max(1, ...cum.map(Math.abs), ...day.map(Math.abs)), step = [10000, 20000, 50000, 100000, 200000, 500000, 1000000].find(x => x * 1.05 >= m) || 1000000;
+    const neg = Math.min(0, ...cum, ...day) < 0, pos = Math.max(0, ...cum, ...day) > 0;
+    lo = neg ? -step : 0; hi = pos ? step : 0; if (!neg && !pos) hi = step;
+    ticks = [...new Set([lo, 0, hi])];
+    if (ticks.length < 3) ticks = lo < 0 ? [lo, lo / 2, 0] : [0, hi / 2, hi];
+    lo = ticks[0]; hi = ticks[ticks.length - 1];
+  } else {     // 적중률: 30~80% (벗어나면 넓힘)
+    const v = [...cum, ...day].filter(x => x != null);
+    lo = Math.min(30, Math.floor(Math.min(...v) / 10) * 10); hi = Math.max(80, Math.ceil(Math.max(...v) / 10) * 10);
+    ticks = [lo, Math.round((lo + hi) / 2), hi];
+  }
+  const y = v => T + (H - T - B) * (1 - (v - lo) / ((hi - lo) || 1));
+  const lab = v => isV ? (v === 0 ? '0' : (v > 0 ? '+' : '−') + (Math.abs(v) / 10000) + '만') : v + '%';
+  const color = {'1x2': '#0F6E56', ou: '#534AB7', value: '#A32D2D'}[kind];
+  const base = isV ? 0 : lo;
+  let g = ticks.map(t => `<line x1="${L}" x2="${W - R}" y1="${y(t)}" y2="${y(t)}" class="${t === 0 && isV ? 'z0' : 'gl'}"/><text x="${L - 8}" y="${y(t) + 4}" class="ax" text-anchor="end">${lab(t)}</text>`).join('');
+  S.forEach((r, i) => {
+    const x = L + cw * i + cw * .3, w = Math.max(4, cw * .4), v = day[i];
+    if (v != null) { const top = Math.min(y(v), y(base)), h = Math.abs(y(v) - y(base)); g += `<rect x="${x.toFixed(1)}" y="${top.toFixed(1)}" width="${w.toFixed(1)}" height="${Math.max(1, h).toFixed(1)}" rx="3" fill="${isV ? (v >= 0 ? '#1D9E75' : '#E24B4A') : color}" opacity=".28"/>`; }
+    if (S.length <= 8 || i % 2 === S.length % 2 || i === S.length - 1) g += `<text x="${(x + w / 2).toFixed(1)}" y="${H - 8}" class="ax" text-anchor="middle">${r.lab}</text>`;
+  });
+  const pts = cum.map((v, i) => v == null ? null : [L + cw * i + cw * .5, y(v)]).filter(Boolean);
+  g += `<polyline points="${pts.map(p => p.map(n => n.toFixed(1)).join(',')).join(' ')}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linejoin="round"/>`;
+  pts.forEach((p, i) => { g += `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="4" fill="${color}"/>`; if (i === pts.length - 1 || S.length <= 7) g += `<text x="${p[0].toFixed(1)}" y="${(p[1] - 9).toFixed(1)}" class="pv" text-anchor="middle">${isV ? lab(Math.round(cum[i] / 1000) * 1000).replace(/(\.\d)\d+/, '$1') : Math.round(cum[i]) + '%'}</text>`; });
+  /* 칸이 좁으면 "12/55" 와 "−126,700원"(또는 "61%")이 두 줄로 나뉘되, 각각은 한 줄 */
+  const fmt = (a, extra) => `<span>${a[0]}/${a[1]}</span> ${extra != null ? `<b class="${extra >= 0 ? 'kd-ok' : 'kd-no'}">${wonTxt(extra)}</b>` : `<b>${a[1] ? Math.round(a[0] / a[1] * 100) + '%' : '-'}</b>`}`;
+  const table = `<table class="kd-tt"><thead><tr><th>아침 9시</th><th>누적</th><th>그날</th></tr></thead><tbody>${[...S].reverse().slice(0, 7).map(r => `<tr><td>${r.lab}</td><td class="num">${fmt(r.ch, isV ? r.cum : null)}</td><td class="num">${fmt(r.dh, isV ? r.day : null)}</td></tr>`).join('')}</tbody></table>`;
+  return `<div class="kd-trend"><p class="kd-note">매일 아침 9시 갱신 · 선은 누적${isV ? ' 손익' : ' 적중률'}, 막대는 그날${isV ? ' 손익 (5,000원씩)' : ' 적중률'}</p>
+    <svg class="kd-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="아침 9시 기준 추이">${g}</svg>${table}</div>`;
+}
 function kpiDetail() {
   if (!kpiOpen) return '';
   const byNew = [...KPI_DONE].sort((a, b) => kickMs(b) - kickMs(a));
@@ -288,22 +358,15 @@ function kpiDetail() {
   let body = '';
   if (kpiOpen === '1x2') {
     const p = byNew.filter(m => m.result.hit_1x2 != null);
-    body = `<h3>리그별</h3>${bars(group(p, lgName, m => m.result.hit_1x2))}
+    body = `${nineChart('1x2')}<h3>리그별</h3>${bars(group(p, lgName, m => m.result.hit_1x2))}
       <h3>예측별</h3>${bars(group(p, m => m.pick_1x2 || '-', m => m.result.hit_1x2), k => PK[k] || k)}
       <h3>경기 (최근 순)</h3>${rows(p, m => `<div class="kd-row">${head(m)} · 예측 ${esc(PK[m.pick_1x2] || '-')}</small></a><span class="kd-r num">${esc(m.result.score)} ${ok(m.result.hit_1x2)}</span></div>`)}`;
   } else if (kpiOpen === 'ou') {
     const p = byNew.filter(m => m.result.hit_ou != null);
-    body = `<h3>예측별</h3>${bars(group(p, m => m.pick_ou || '-', m => m.result.hit_ou), k => PK[k] || k)}
+    body = `${nineChart('ou')}<h3>예측별</h3>${bars(group(p, m => m.pick_ou || '-', m => m.result.hit_ou), k => PK[k] || k)}
       <h3>경기 (최근 순)</h3>${rows(p, m => { const g = goalsOf(m); return `<div class="kd-row">${head(m)} · ${esc(PK[m.pick_ou] || '-')} ${esc(m.line ?? 2.5)} · 실제 ${g ? g[0] + g[1] : '-'}골</small></a><span class="kd-r">${ok(m.result.hit_ou)}</span></div>`; })}`;
   } else if (kpiOpen === 'value') {
-    const V = [];
-    byNew.forEach(m => { const g = goalsOf(m); if (!g) return; const line = parseFloat(m.line) || 2.5;
-      (m.value_alerts || []).forEach(k => { const w = {home: g[0] > g[1], draw: g[0] === g[1], away: g[0] < g[1], over: g[0] + g[1] > line, under: g[0] + g[1] < line}[k];
-        if (w === undefined) return; const o = parseFloat((m.odds || {})[k]) || 0; V.push({m, k, o, w, pl: w ? (o - 1) * UNIT : -UNIT}); }); });
-    /* 누적 손익 흐름 (오래된 것 → 최근) */
-    let acc = 0; const pts = [...V].reverse().map(v => (acc += v.pl));
-    const lo = Math.min(0, ...pts), hi = Math.max(0, ...pts), W = 600, H = 120, sx = i => pts.length > 1 ? i / (pts.length - 1) * W : W / 2, sy = y => H - 8 - (y - lo) / ((hi - lo) || 1) * (H - 16);
-    const chart = pts.length ? `<svg class="kd-chart" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="누적 손익 흐름, 마지막 ${wonTxt(acc)}"><line x1="0" x2="${W}" y1="${sy(0)}" y2="${sy(0)}" class="z"/><polyline points="${pts.map((y, i) => `${sx(i).toFixed(1)},${sy(y).toFixed(1)}`).join(' ')}" class="${acc >= 0 ? 'up' : 'dn'}"/></svg><p class="kd-note">누적 손익 흐름 (5,000원씩, 왼쪽이 오래된 것) · 지금 <b class="${acc >= 0 ? 'kd-ok' : 'kd-no'}">${wonTxt(acc)}</b></p>` : '';
+    const V = valueTickets(byNew), chart = nineChart('value');
     const byK = group(V, v => v.k, v => v.w).map(([k, hn]) => [k, hn, V.filter(v => v.k === k).reduce((a, v) => a + v.pl, 0)]);
     body = `${chart}<h3>종류별</h3><div class="kd-bars">${byK.map(([k, [h, n], pl]) => `<div class="kd-bar"><span class="kd-k">${esc(PK[k] || k)}</span><span class="kd-t"><i style="width:${n ? h / n * 100 : 0}%"></i></span><span class="kd-v num">${h}/${n} · <b class="${pl >= 0 ? 'kd-ok' : 'kd-no'}">${wonTxt(pl)}</b></span></div>`).join('')}</div>
       <h3>한 장씩 (최근 순)</h3>${rows(V, v => `<div class="kd-row">${head(v.m)} · ${esc(PK[v.k])} @ ${esc(v.o)} · 결과 ${esc(v.m.result.score)}</small></a><span class="kd-r num ${v.w ? 'kd-ok' : 'kd-no'}">${wonTxt(v.pl)}</span></div>`)}`;
