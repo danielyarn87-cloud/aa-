@@ -44,13 +44,36 @@
     }
   },
   "lineup": {
-    "home_absent": [],
+    "home_absent": [
+      "J. Coburn (Injury)",
+      "T. Crama (Ankle Injury)",
+      "R. Esse (Injury)",
+      "R. Leonard (Muscle Injury)",
+      "M. Luongo (Knee Injury)",
+      "F. Marschall (Ankle Injury)",
+      "M. Servais (Hamstring Injury)"
+    ],
     "home_doubtful": [],
-    "away_absent": [],
-    "away_doubtful": [],
+    "away_absent": [
+      "B. Amos (Inactive)",
+      "A. Barnes (Muscle Injury)",
+      "J. Beyer (Lacking Match Fitness)",
+      "A. Broja (Muscle Injury)",
+      "J. Bruun Larsen (Leg Injury)",
+      "H. Mejbri (Hamstring Injury)",
+      "M. Obafemi (Inactive)",
+      "C. Roberts (Suspended)",
+      "S. Sambo (Hand Injury)",
+      "D. Satpaev (Muscle Injury)",
+      "M. Tresor Ndayishimiye (Lacking Match Fitness)"
+    ],
+    "away_doubtful": [
+      "B. Humphreys (Muscle Injury)",
+      "Lucas Pires (Inactive)"
+    ],
     "confirmed": false,
-    "status": "none",
-    "설명": "API-Football 부상자 목록 기준 보고된 결장자 없음, 라인업 미발표"
+    "status": "listed",
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
   "collected_detail": "full",
   "venue": "The Den",
@@ -78,5 +101,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 06:04 KST"
+  "collected_at": "2026-11-26 10:11 KST"
 }

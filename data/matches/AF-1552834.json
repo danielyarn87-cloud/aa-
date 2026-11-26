@@ -45,11 +45,20 @@
   },
   "lineup": {
     "home_absent": [
-      "L. Abergel (Jumpers Knee)"
+      "L. Abergel (Knee Injury)",
+      "M. Bombito (Leg Injury)",
+      "A. Mendy (Knee Injury)"
     ],
-    "home_doubtful": [],
-    "away_absent": [],
-    "away_doubtful": [],
+    "home_doubtful": [
+      "M. Abdelmonem (Hamstring Injury)"
+    ],
+    "away_absent": [
+      "P. Gozzi (Hamstring Injury)",
+      "Y. Kone (Knee Injury)"
+    ],
+    "away_doubtful": [
+      "M. Ifnaoui (Injury)"
+    ],
     "confirmed": false,
     "status": "listed",
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
@@ -80,5 +89,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 06:04 KST"
+  "collected_at": "2026-11-26 10:11 KST"
 }

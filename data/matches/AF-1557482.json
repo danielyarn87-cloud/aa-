@@ -45,10 +45,13 @@
   },
   "lineup": {
     "home_absent": [],
-    "home_doubtful": [],
+    "home_doubtful": [
+      "L. Davis (Ankle Injury)"
+    ],
     "away_absent": [
-      "A. Onana (Jumpers Knee)",
-      "M. Ruggeri (Muscle Bruise)"
+      "M. Cash (Concussion)",
+      "A. Onana (Knee Injury)",
+      "M. Ruggeri (Muscle Injury)"
     ],
     "away_doubtful": [],
     "confirmed": false,
@@ -56,7 +59,7 @@
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
   "collected_detail": "full",
-  "venue": "Portman Road",
+  "venue": "Portman Road Stadium",
   "source_ids": {
     "api_football_fixture": 1557482,
     "home_team": 57,
@@ -81,5 +84,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 06:04 KST"
+  "collected_at": "2026-11-26 10:10 KST"
 }

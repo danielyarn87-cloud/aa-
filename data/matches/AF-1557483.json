@@ -44,14 +44,21 @@
     }
   },
   "lineup": {
-    "home_absent": [],
+    "home_absent": [
+      "M. Joseph (Knee Injury)"
+    ],
     "home_doubtful": [],
     "away_absent": [
-      "J. Eccles (Sprained Ankle)",
-      "L. Woolfenden (Jumpers Knee)",
-      "H. Wright (Muscle Bruise)"
+      "A. Amenda (Calf Injury)",
+      "J. Eccles (Ankle Injury)",
+      "E. Mason-Clark (Knee Injury)",
+      "L. Woolfenden (Knee Injury)",
+      "H. Wright (Muscle Injury)",
+      "C. Yirenkyi (Injury)"
     ],
-    "away_doubtful": [],
+    "away_doubtful": [
+      "T. Awoniyi (Ankle Injury)"
+    ],
     "confirmed": false,
     "status": "listed",
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
@@ -82,5 +89,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 06:04 KST"
+  "collected_at": "2026-11-26 10:10 KST"
 }

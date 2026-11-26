@@ -44,16 +44,24 @@
     }
   },
   "lineup": {
-    "home_absent": [],
+    "home_absent": [
+      "D. Birligea (Thigh Injury)",
+      "F. Grillitsch (Thigh Injury)",
+      "A. Raimondo (Ankle Injury)"
+    ],
     "home_doubtful": [],
-    "away_absent": [],
+    "away_absent": [
+      "D. Drobnic (Foot Injury)",
+      "D. Romero (Shoulder Injury)",
+      "L. Valenti (Coach's decision)"
+    ],
     "away_doubtful": [],
     "confirmed": false,
-    "status": "none",
-    "설명": "API-Football 부상자 목록 기준 보고된 결장자 없음, 라인업 미발표"
+    "status": "listed",
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
   "collected_detail": "full",
-  "venue": "Stadio Benito Stirpe",
+  "venue": "PSC Arena",
   "source_ids": {
     "api_football_fixture": 1550210,
     "home_team": 512,
@@ -78,5 +86,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 06:04 KST"
+  "collected_at": "2026-11-26 10:10 KST"
 }

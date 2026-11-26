@@ -44,13 +44,15 @@
     }
   },
   "lineup": {
-    "home_absent": [],
+    "home_absent": [
+      "B. Diatta (Ankle Injury)"
+    ],
     "home_doubtful": [],
     "away_absent": [
-      "O. Édouard (Groin Injury)",
-      "I. Ganiou (Jumpers Knee)",
-      "M. Nawrocki (Jumpers Knee)",
-      "A. Sima (Muscle Bruise)"
+      "R. Aguilar (Muscle Injury)",
+      "M. Cuisance (Illness)",
+      "O. Edouard (Groin Injury)",
+      "M. Nawrocki (Knee Injury)"
     ],
     "away_doubtful": [],
     "confirmed": false,
@@ -58,7 +60,7 @@
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
   "collected_detail": "full",
-  "venue": "Stade Raymond-Kopa",
+  "venue": "Stade Raymond Kopa",
   "source_ids": {
     "api_football_fixture": 1552828,
     "home_team": 77,
@@ -83,5 +85,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 06:04 KST"
+  "collected_at": "2026-11-26 10:11 KST"
 }

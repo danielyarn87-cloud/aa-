@@ -48,7 +48,8 @@
       "A. Chatzigiovanis (Off the roster)",
       "K. Kodro (Injury)",
       "K. Krizmanic (Injury)",
-      "A. Leya Iseka (Inactive)"
+      "A. Leya Iseka (Inactive)",
+      "N. Marinakis (Off the roster)"
     ],
     "home_doubtful": [],
     "away_absent": [
@@ -85,5 +86,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 06:04 KST"
+  "collected_at": "2026-11-26 10:11 KST"
 }

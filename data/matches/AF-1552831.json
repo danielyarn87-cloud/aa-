@@ -45,12 +45,21 @@
   },
   "lineup": {
     "home_absent": [
-      "F. Mambimbi (Achilles Tendon Problems)",
-      "Stephan Zagadou (Jumpers Knee)"
+      "E. Koffi (Red Card)",
+      "F. Mambimbi (Achilles Tendon Injury)",
+      "D. Mosengo (Ankle Injury)",
+      "L. Mpasi-Nzau (Achilles Tendon Injury)",
+      "S. Nakamura (Injury)",
+      "R. Ndiaye (Muscle Injury)",
+      "T. Pembele (Muscle Injury)",
+      "S. Zagadou (Knee Injury)"
     ],
     "home_doubtful": [],
     "away_absent": [
-      "J. Panichelli (Jumpers Knee)"
+      "F. Balde (Leg Injury)",
+      "Oso (Injury)",
+      "J. Panichelli (Knee Injury)",
+      "G. Reyna (Muscle Injury)"
     ],
     "away_doubtful": [],
     "confirmed": false,
@@ -83,5 +92,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 06:04 KST"
+  "collected_at": "2026-11-26 10:11 KST"
 }

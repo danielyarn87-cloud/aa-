@@ -44,13 +44,26 @@
     }
   },
   "lineup": {
-    "home_absent": [],
-    "home_doubtful": [],
-    "away_absent": [],
+    "home_absent": [
+      "A. Castro-Montes (Calf Injury)",
+      "T. Dallinga (Knee Injury)",
+      "T. Hubers (Knee Injury)",
+      "G. Mensah (Injury)",
+      "I. Rondic (Muscle Injury)",
+      "E. Skhiri (Ankle Injury)",
+      "R. van den Berg (Muscle Injury)"
+    ],
+    "home_doubtful": [
+      "M. Schwabe (Back Injury)"
+    ],
+    "away_absent": [
+      "N. Mickelson (Injury)",
+      "L. Seifert (Ankle Injury)"
+    ],
     "away_doubtful": [],
     "confirmed": false,
-    "status": "none",
-    "설명": "API-Football 부상자 목록 기준 보고된 결장자 없음, 라인업 미발표"
+    "status": "listed",
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
   "collected_detail": "full",
   "venue": "RheinEnergieStadion",
@@ -76,5 +89,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 06:04 KST"
+  "collected_at": "2026-11-26 10:11 KST"
 }

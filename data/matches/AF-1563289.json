@@ -44,16 +44,35 @@
     }
   },
   "lineup": {
-    "home_absent": [],
-    "home_doubtful": [],
-    "away_absent": [],
+    "home_absent": [
+      "C. Forsyth (Knee Injury)",
+      "S. Langas (Groin Injury)",
+      "H. Meister (Injury)",
+      "D. Murkin (Hamstring Injury)",
+      "S. Szmodics (Knee Injury)",
+      "C. Taylor (Hamstring Injury)"
+    ],
+    "home_doubtful": [
+      "P. Agyemang (Achilles Tendon Injury)",
+      "R. Hedges (Muscle Injury)"
+    ],
+    "away_absent": [
+      "M. Antonio (Injury)",
+      "K. Baah (Knock)",
+      "M. Boadu (Inactive)",
+      "N. Chikovani (Inactive)",
+      "K. Diatta (Inactive)",
+      "J. Ngakia (Thigh Injury)",
+      "M. Pollock (Yellow Cards)",
+      "J. Zemura (Red Card)"
+    ],
     "away_doubtful": [],
     "confirmed": false,
-    "status": "none",
-    "설명": "API-Football 부상자 목록 기준 보고된 결장자 없음, 라인업 미발표"
+    "status": "listed",
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
   "collected_detail": "full",
-  "venue": "Pride Park",
+  "venue": "Pride Park Stadium",
   "source_ids": {
     "api_football_fixture": 1563289,
     "home_team": 69,
@@ -78,5 +97,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 06:04 KST"
+  "collected_at": "2026-11-26 10:11 KST"
 }

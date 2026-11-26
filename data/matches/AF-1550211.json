@@ -55,7 +55,7 @@
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
   "collected_detail": "full",
-  "venue": null,
+  "venue": "San Siro/Giuseppe Meazza",
   "source_ids": {
     "api_football_fixture": 1550211,
     "home_team": 505,
@@ -80,5 +80,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 06:04 KST"
+  "collected_at": "2026-11-26 10:10 KST"
 }

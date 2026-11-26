@@ -48,9 +48,7 @@
       "D. Cornelius (Hip Injury)",
       "Emerson (Knee Injury)"
     ],
-    "home_doubtful": [
-      "P. Hojbjerg (Illness)"
-    ],
+    "home_doubtful": [],
     "away_absent": [
       "P. Hristov (Off the roster)",
       "O. Kamdem (Off the roster)",
@@ -82,5 +80,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 06:04 KST"
+  "collected_at": "2026-11-26 10:11 KST"
 }

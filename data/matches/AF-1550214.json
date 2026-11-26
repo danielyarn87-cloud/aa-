@@ -45,17 +45,27 @@
   },
   "lineup": {
     "home_absent": [
-      "P. Pellegri (Jumpers Knee)"
+      "A. Ismajli (Thigh Injury)",
+      "F. Israel (Shoulder Injury)"
     ],
-    "home_doubtful": [],
-    "away_absent": [],
+    "home_doubtful": [
+      "R. Belghali (Knee Injury)",
+      "N. Fortini (Thigh Injury)"
+    ],
+    "away_absent": [
+      "A. Furlanetto (Knee Injury)",
+      "A. Marusic (Muscle Injury)",
+      "J. Sutalo (Muscle Injury)",
+      "N. Tavares (Muscle Injury)",
+      "M. Zaccagni (Thigh Injury)"
+    ],
     "away_doubtful": [],
     "confirmed": false,
     "status": "listed",
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
   "collected_detail": "full",
-  "venue": "Stadio Olimpico di Torino",
+  "venue": "Stadio Olimpico Grande Torino",
   "source_ids": {
     "api_football_fixture": 1550214,
     "home_team": 503,
@@ -80,5 +90,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 06:04 KST"
+  "collected_at": "2026-11-26 10:10 KST"
 }

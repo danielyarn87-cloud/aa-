@@ -47,13 +47,15 @@
     "home_absent": [],
     "home_doubtful": [],
     "away_absent": [],
-    "away_doubtful": [],
+    "away_doubtful": [
+      "J. Seedorf (Inactive)"
+    ],
     "confirmed": false,
-    "status": "none",
-    "설명": "API-Football 부상자 목록 기준 보고된 결장자 없음, 라인업 미발표"
+    "status": "listed",
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
   "collected_detail": "full",
-  "venue": "Stadion Woudestein",
+  "venue": "Van Donge & De Roo Stadion",
   "source_ids": {
     "api_football_fixture": 1552236,
     "home_team": 196,
@@ -78,5 +80,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 06:04 KST"
+  "collected_at": "2026-11-26 10:11 KST"
 }

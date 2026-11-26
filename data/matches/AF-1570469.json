@@ -44,16 +44,28 @@
     }
   },
   "lineup": {
-    "home_absent": [],
+    "home_absent": [
+      "H. Abaida (Personal Reasons)",
+      "F. Calero (Muscle Injury)",
+      "R. Garrido Hierro (Hamstring Injury)",
+      "Juani (Inactive)",
+      "J. Lobete (Knee Injury)",
+      "A. Ochoa (Knee Injury)"
+    ],
     "home_doubtful": [],
-    "away_absent": [],
+    "away_absent": [
+      "U. Egiluz (Knee Injury)",
+      "G. Guruzeta (Knee Injury)",
+      "M. Sannadi (Muscle Injury)",
+      "D. Vivian (Muscle Injury)"
+    ],
     "away_doubtful": [],
     "confirmed": false,
-    "status": "none",
-    "설명": "API-Football 부상자 목록 기준 보고된 결장자 없음, 라인업 미발표"
+    "status": "listed",
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
   "collected_detail": "full",
-  "venue": "Estadio La Rosaleda",
+  "venue": "La Rosaleda",
   "source_ids": {
     "api_football_fixture": 1570469,
     "home_team": 535,
@@ -78,5 +90,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 06:04 KST"
+  "collected_at": "2026-11-26 10:10 KST"
 }

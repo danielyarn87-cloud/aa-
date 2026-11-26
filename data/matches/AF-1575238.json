@@ -44,13 +44,25 @@
     }
   },
   "lineup": {
-    "home_absent": [],
-    "home_doubtful": [],
-    "away_absent": [],
+    "home_absent": [
+      "N. Awortwie-Grant (Knee Injury)",
+      "T. Gayret (Knee Injury)",
+      "M. Hoffmeier (Muscle Injury)"
+    ],
+    "home_doubtful": [
+      "S. Marino (Ankle Injury)"
+    ],
+    "away_absent": [
+      "T. Becker (Foot Injury)",
+      "B. Lasme (Thigh Injury)",
+      "R. Schallenberg (Leg Injury)",
+      "L. Vozar (Thigh Injury)",
+      "M. Wober (Muscle Injury)"
+    ],
     "away_doubtful": [],
     "confirmed": false,
-    "status": "none",
-    "설명": "API-Football 부상자 목록 기준 보고된 결장자 없음, 라인업 미발표"
+    "status": "listed",
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
   "collected_detail": "full",
   "venue": "Home Deluxe Arena",
@@ -78,5 +90,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 06:04 KST"
+  "collected_at": "2026-11-26 10:11 KST"
 }

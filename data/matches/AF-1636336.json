@@ -58,11 +58,12 @@
       "H. Sochurek (Illness)"
     ],
     "away_absent": [
+      "E. Dijkstra (Inactive)",
       "J. Hornkamp (Injury)",
+      "M. Meerdink (Inactive)",
       "S. Resink (Knee Injury)",
       "L. Schouten (Injury)",
       "K. Smit (Groin Injury)",
-      "H. Verhulst (Off the roster)",
       "Weslley Patati (Injury)"
     ],
     "away_doubtful": [],
@@ -93,5 +94,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 06:04 KST"
+  "collected_at": "2026-11-26 10:11 KST"
 }

@@ -45,14 +45,19 @@
   },
   "lineup": {
     "home_absent": [
+      "C. Baleba (Thigh Injury)",
       "M. Rashford (Hip Injury)",
-      "B. Šeško (Leg Injury)",
-      "L. Shaw (Wound)"
+      "B. Sesko (Leg Injury)",
+      "M. Ugarte (Knee Injury)"
     ],
     "home_doubtful": [],
     "away_absent": [
-      "Kaye Iyowuna Furo (Operation)",
-      "J. Dasilva (Muscle Bruise)"
+      "N. Collins (Knee Injury)",
+      "J. Dasilva (Muscle Injury)",
+      "K. Furo (Surgery)",
+      "R. Henry (Hip Injury)",
+      "A. Hickey (Hamstring Injury)",
+      "I. Thiago (Red Card)"
     ],
     "away_doubtful": [],
     "confirmed": false,
@@ -85,5 +90,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 06:04 KST"
+  "collected_at": "2026-11-26 10:10 KST"
 }

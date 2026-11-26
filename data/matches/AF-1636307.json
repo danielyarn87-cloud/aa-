@@ -58,13 +58,16 @@
     ],
     "home_doubtful": [],
     "away_absent": [
+      "D. Bartesaghi (Leg Injury)",
       "W. Bondo (Off the roster)",
+      "F. Camarda (Ankle Injury)",
       "S. Chukwueze (Hip Injury)",
       "M. Gabbia (Thigh Injury)",
       "R. Loftus-Cheek (Thigh Injury)",
       "L. Modric (Thigh Injury)",
+      "S. Pavlovic (Illness)",
       "A. Saelemaekers (Ankle Injury)",
-      "F. Tomori (Muscle Injury)"
+      "P. Terracciano (Shoulder Injury)"
     ],
     "away_doubtful": [],
     "confirmed": false,
@@ -94,5 +97,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 06:04 KST"
+  "collected_at": "2026-11-26 10:11 KST"
 }

@@ -44,16 +44,29 @@
     }
   },
   "lineup": {
-    "home_absent": [],
+    "home_absent": [
+      "Y. E. Cift (Inactive)",
+      "F. Kaya (Inactive)",
+      "C. Yuksel (Hamstring Injury)"
+    ],
     "home_doubtful": [],
-    "away_absent": [],
-    "away_doubtful": [],
+    "away_absent": [
+      "G. Akkan (Inactive)",
+      "A. Dursun (Inactive)",
+      "D. Goutas (Injury)",
+      "K. Rodrigues (Muscle Injury)",
+      "Thalisson (Groin Injury)"
+    ],
+    "away_doubtful": [
+      "E. Cavusoglu (Inactive)",
+      "P. Etebo (Inactive)"
+    ],
     "confirmed": false,
-    "status": "none",
-    "설명": "API-Football 부상자 목록 기준 보고된 결장자 없음, 라인업 미발표"
+    "status": "listed",
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
   "collected_detail": "full",
-  "venue": "Samsun 19 Mayis Stadyumu",
+  "venue": "Samsun 19 Mayıs Stadyumu",
   "source_ids": {
     "api_football_fixture": 1584483,
     "home_team": 3603,
@@ -78,5 +91,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 06:04 KST"
+  "collected_at": "2026-11-26 10:11 KST"
 }
