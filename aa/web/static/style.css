@@ -670,3 +670,52 @@ a.row.val:hover{background:#C93A6E}
 @media(max-width:600px){.nav{overflow-x:auto;justify-content:flex-start;scrollbar-width:none}.nav::-webkit-scrollbar{display:none}.nav a{flex:1 0 auto;min-width:4.4em;padding:10px 8px}}
 .mg-meta .em{grid-column:1/-1}
 .mg-meta .em dd{overflow-wrap:normal;word-break:keep-all}
+/* 공지사항 · 고객센터 · 1:1 문의 (폴드 접은 화면부터) */
+a.btn-line{text-align:center;text-decoration:none;box-sizing:border-box}
+.acctbtn{position:relative}
+.acctbtn .dot{position:absolute;top:-2px;right:-2px;width:10px;height:10px;border-radius:50%;background:#e11d2e;border:2px solid var(--pitch)}
+.newb{display:inline-block;font-size:11px;font-weight:700;color:#fff;background:#e11d2e;border-radius:999px;padding:1px 7px;margin-left:6px;vertical-align:middle;white-space:nowrap}
+.nbar{background:#fff8db;border-bottom:1px solid #f1e3a6;color:#5c4400}
+.nbar .wrap{display:flex;align-items:center;gap:8px;padding-top:8px;padding-bottom:8px}
+.nbar a{flex:1;min-width:0;color:inherit;text-decoration:none;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nbar a b{background:#ffd60a;color:#3d2e00;border-radius:6px;padding:1px 7px;margin-right:6px;font-size:12px}
+.nbar button{flex:none;border:0;background:transparent;font-size:22px;line-height:1;color:inherit;cursor:pointer;min-width:36px;min-height:36px}
+.chat .ch-pin{display:block;margin-top:4px;color:#5c4400;font-weight:700;text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cs-page h2{margin-top:28px}
+.nlist{list-style:none;padding:0;margin:16px 0;border-top:2px solid var(--ink)}
+.nlist li{border-bottom:1px solid var(--line)}
+.nlist a{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;padding:14px 4px;color:var(--ink);text-decoration:none;min-height:44px}
+.nlist a b{flex:1 1 12em;min-width:0;overflow-wrap:anywhere;font-weight:500}
+.nlist small{color:var(--mute);font-size:13px;white-space:nowrap}
+.tag.ntag{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.ntitle{overflow-wrap:anywhere}
+.nbody{font-size:16px;line-height:1.8;margin:18px 0 26px;overflow-wrap:anywhere}
+.faq details{border:1px solid var(--line);border-radius:10px;margin:8px 0;background:var(--bg)}
+.faq summary{cursor:pointer;padding:13px 14px;font-weight:700;min-height:44px;box-sizing:border-box;list-style-position:inside}
+.faq details p{margin:0;padding:0 14px 14px;color:var(--ink);line-height:1.7}
+.inq-form{display:grid;gap:12px;border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--panel);margin:12px 0 20px}
+.inq-form label{display:grid;gap:6px;font-size:14px;font-weight:700}
+.inq-form input,.inq-form select,.inq-form textarea,.mg-note input,.mg-note textarea,.mg-ans textarea{font:inherit;font-weight:400;font-size:16px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);min-height:44px;width:100%;box-sizing:border-box}
+.inq-err{color:#c62828;font-size:13px;margin:0;min-height:0}
+.inq-err:empty{display:none}
+.inq-form .btn{justify-self:start}
+.inq-list{display:grid;gap:10px}
+.inq{border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.inq-top{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.inq-top small{margin-left:auto;font-size:12px}
+.inq-t{display:block;margin-top:8px;overflow-wrap:anywhere}
+.inq-b{margin:6px 0 0;color:var(--mute);overflow-wrap:anywhere}
+.inq-a{margin-top:10px;background:#eef7f1;border-left:4px solid var(--pitch);border-radius:0;padding:10px 12px;color:#123d27}
+.inq-a p{margin:6px 0 0;overflow-wrap:anywhere}
+.tag.mg-wait{background:#fff4d6;color:#7a5200;border-color:#f1dc9c}
+.inq-guest{border:1px dashed var(--line);border-radius:12px;padding:16px;margin:12px 0}
+.mg-sub{margin:0 0 6px}
+.mg-list.mg-one{grid-template-columns:1fr}
+.mg-q{margin:8px 0 0;overflow-wrap:anywhere}
+.mg-ans{display:grid;gap:8px;margin-top:10px}
+.mg-ans .btn{justify-self:start}
+.mg-note{display:grid;gap:10px;border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--panel);margin-bottom:14px}
+.mg-note h2{margin:0;font-size:18px}
+.mg-chk{display:flex;gap:8px;align-items:flex-start;font-size:14px;line-height:1.5}
+.mg-chk input{width:20px;height:20px;flex:none;margin-top:1px}
+@media(max-width:400px){.mg-tabs{grid-template-columns:repeat(2,minmax(0,1fr))!important}}

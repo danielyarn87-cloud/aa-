@@ -18,7 +18,7 @@ const MEMBER_ORIGIN = "https://raise-fulltime.com";
 const MEMBER_BLOCK = /^\/api\/(run|admin|topup|members)(\/|$)/;   // members = 회원 관리 (운영자 주소에서만)
 
 // 안내 페이지(소개·약관·개인정보)는 진짜 주소로도 열린다: 화면은 index.html 하나, app.js 가 주소를 보고 그린다
-const PAGE = /^\/(about|terms|privacy)\/?$/;
+const PAGE = /^\/(about|terms|privacy|help|notice(\/\d+)?)\/?$/;   // help = 고객센터, notice = 공지사항
 const page = (ctx, url) => ctx.env.ASSETS.fetch(new Request(new URL("/", url).toString(), {headers: ctx.request.headers}));
 
 async function raise(ctx, url) {
@@ -36,13 +36,13 @@ async function raise(ctx, url) {
         if (r.ok) matches = Object.entries(await r.json())
           .map(([slug, v]) => `<url><loc>${MEMBER_ORIGIN}/match/${encodeURIComponent(slug)}</loc><lastmod>${String(v.kickoff).slice(0, 10)}</lastmod></url>`).join("");
       } catch (e) {}
-      return new Response(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${MEMBER_ORIGIN}/</loc><changefreq>hourly</changefreq></url><url><loc>${MEMBER_ORIGIN}/about</loc></url><url><loc>${MEMBER_ORIGIN}/terms</loc></url><url><loc>${MEMBER_ORIGIN}/privacy</loc></url>${matches}</urlset>\n`, {headers: {"content-type": "application/xml; charset=utf-8"}});
+      return new Response(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${MEMBER_ORIGIN}/</loc><changefreq>hourly</changefreq></url><url><loc>${MEMBER_ORIGIN}/about</loc></url><url><loc>${MEMBER_ORIGIN}/notice</loc></url><url><loc>${MEMBER_ORIGIN}/help</loc></url><url><loc>${MEMBER_ORIGIN}/terms</loc></url><url><loc>${MEMBER_ORIGIN}/privacy</loc></url>${matches}</urlset>\n`, {headers: {"content-type": "application/xml; charset=utf-8"}});
     }
     // 배당 갱신(POST /api/odds/refresh)은 예외: 시계(raise-clock)가 여기로 부른다. 운영자 주소는 잠겨 있어서.
     //   갱신은 몇 번 불러도 정해진 간격을 넘는 호출을 하지 않게 만들어져 있다.
     const oddsRefresh = url.pathname === "/api/odds/refresh" && ctx.request.method === "POST";
     // 회원 기능(로그인·가입·탈퇴·관심 경기)은 POST 허용
-    const memberPost = /^\/api\/(auth\/(join|logout|delete)|fav)$/.test(url.pathname) && ctx.request.method === "POST";
+    const memberPost = /^\/api\/(auth\/(join|logout|delete)|fav|inquiry(\/seen)?)$/.test(url.pathname) && ctx.request.method === "POST";
     if (MEMBER_BLOCK.test(url.pathname) || (!oddsRefresh && !memberPost && url.pathname.startsWith("/api/") && !["GET", "HEAD"].includes(ctx.request.method)))
       return new Response("Not Found", {status: 404});
     if (isPage) return page(ctx, url);

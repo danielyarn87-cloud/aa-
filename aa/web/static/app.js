@@ -13,6 +13,8 @@ const TH = 0.05;
 const SOFTEN = /(^|\.)raise-fulltime\.com$/.test(location.hostname);
 const soften = t => t.replace(/배당이 후한지 비싼지/g, '시장 예상이 높은지 낮은지').replace(/시장 배당/g, '시장 예상').replace(/배당 흐름/g, '시장 예상 흐름')
   .replace(/배당/g, '시장 예상').replace(/정배/g, '인기 팀').replace(/[배베]팅/g, '선택').replace(/시장 예상 시장/g, '시장');
+const escRaw = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));   // 공지·문의처럼 사람이 쓴 글은 그대로
+const textHtml = v => escRaw(v).replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>').replace(/\n/g, '<br>');
 const esc = v => (SOFTEN ? soften(String(v ?? '')) : String(v ?? '')).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
 const pct = (x, d = 0) => x == null ? '-' : (x * 100).toFixed(d) + '%';
 /* 기대값을 5,000원당 평균 손익으로: 0.097 → +485원 */
@@ -1203,15 +1205,18 @@ async function renderAdmin() {
 
 /* ---------- 길찾기 ---------- */
 const PAGES = ['about', 'terms', 'privacy'];
+const SUBS = /^(about|terms|privacy|help|notice(\/\d+)?)$/;   // 진짜 주소로 열리는 화면 (help 고객센터, notice 공지)
 const subPath = () => location.pathname.replace(/^\/+|\/+$/g, '');
-const onSubPage = () => { const p = subPath(); return PAGES.includes(p) || p.startsWith('match/'); };   // 첫 주소(/)가 아닌 화면
+const onSubPage = () => { const p = subPath(); return SUBS.test(p) || p.startsWith('match/'); };   // 첫 주소(/)가 아닌 화면
 /* 회원 주소: 경기 링크는 검색엔진용 진짜 주소(/match/…), 운영자 주소는 지금처럼 #m- */
 const matchHref = (id, slug) => MEMBER && slug ? '/match/' + encodeURIComponent(slug) : '#m-' + encodeURIComponent(id);   // 진짜 주소(/about 등)로도 열리는 안내 페이지 (미들웨어가 index.html 을 돌려줌)
 async function route() {
   const pk = subPath();
-  if (onSubPage() && location.hash.length > 1) { location.replace('/' + location.hash); return; }   // 안내·경기 주소에서 다른 화면으로 → 첫 주소로
-  let h = location.hash.replace(/^#\/?/, '');
-  if (!h && PAGES.includes(pk)) h = pk;
+  const keepHash = pk === 'help';   // /help#my 는 고객센터 안의 위치
+  if (onSubPage() && !keepHash && location.hash.length > 1) { location.replace('/' + location.hash); return; }   // 안내·경기 주소에서 다른 화면으로 → 첫 주소로
+  const nb = document.getElementById('nbar'); if (nb) nb.remove();
+  let h = keepHash ? '' : location.hash.replace(/^#\/?/, '');
+  if (!h && SUBS.test(pk)) h = pk;
   if (!h && pk.startsWith('match/') && window.AA_MATCH) h = 'm-' + window.AA_MATCH;
   const navKey = !h || h.startsWith('m-') ? 'list' : h;
   document.querySelectorAll('[data-nav]').forEach(a => a.classList.toggle('on', a.dataset.nav === navKey));
@@ -1237,12 +1242,15 @@ async function route() {
     else if (h === 'picks') await renderPicks();
     else if (h === 'join') await renderJoin();
     else if (PAGES.includes(h)) renderPolicy(h);
+    else if (h === 'help') await renderHelp();
+    else if (h === 'notice') await renderNotices();
+    else if (/^notice\/\d+$/.test(h)) await renderNotice(+h.split('/')[1]);
     else if (h === 'login-fail') { toast('로그인하지 못했어요. 다시 시도해 주세요.'); location.replace('#'); return; }
     else if (h === 'members') await renderMembers();
     else if (h === 'news') await renderNews();
     else if (h === 'admin') await renderAdmin();
     else if (h === 'run' && STATIC) await renderRun();
-    else await renderList();
+    else { await renderList(); noticeBar(); }
     fitVerdicts();
   } catch (e) {
     view.innerHTML = `<section class="band"><div class="wrap"><h1>불러오지 못했습니다</h1><p class="lead">${esc(e.message)}</p><p><a href="#">경기 목록으로</a></p></div></section>`;
@@ -1315,7 +1323,7 @@ function drawAccount() {
   let b = document.getElementById('acctBtn');
   if (!b) { b = document.createElement('button'); b.id = 'acctBtn'; b.type = 'button'; b.className = 'acctbtn'; (document.getElementById('zoomBtn') || top.querySelector('.brand')).after(b); }
   if (ME.user) {
-    b.innerHTML = `<span class="av">${esc(ME.user.nick.slice(0, 1))}</span><span class="nm">${esc(ME.user.nick)}</span>`;
+    b.innerHTML = `<span class="av">${esc(ME.user.nick.slice(0, 1))}</span><span class="nm">${esc(ME.user.nick)}</span>${ME.user.unread ? '<i class="dot" aria-label="새 답변"></i>' : ''}`;
     b.onclick = () => openAccount();
   } else {
     b.textContent = '로그인';
@@ -1328,6 +1336,8 @@ function openAccount() {
   d.id = 'aa-login'; d.className = 'modal-bg';
   d.innerHTML = `<div class="modal" role="dialog" aria-modal="true"><button type="button" class="modal-x" aria-label="닫기">×</button>
     <h2>${esc(ME.user.nick)} 님</h2><p class="small mute">관심 경기 ${FAVS.size}개</p>
+    <a class="btn-line" href="/help#my">1:1 문의${ME.user.unread ? ` <b class="newb">새 답변 ${ME.user.unread}</b>` : ''}</a>
+    <a class="btn-line" href="/notice">공지사항</a>
     <button type="button" class="btn-line" data-act="logout">로그아웃</button>
     <button type="button" class="btn-line danger" data-act="delete">회원 탈퇴</button>
     <p class="tiny mute"><a href="/terms">이용약관</a> · <a href="/privacy">개인정보 처리방침</a></p></div>`;
@@ -1437,8 +1447,122 @@ document.addEventListener('click', e => {
   e.preventDefault(); location.href = '/' + a.getAttribute('href');
 });
 
+
+/* ---------- 공지사항 · 고객센터 ---------- */
+let NOTICES = null;
+async function loadNotices(force) {
+  if (NOTICES && !force) return NOTICES;
+  NOTICES = await fetch('/api/notice', {cache: 'no-store'}).then(r => r.ok ? r.json() : {notices: []}).then(j => j.notices || []).catch(() => []);
+  return NOTICES;
+}
+const kdate = ms => new Date(ms).toLocaleDateString('ko-KR', {year: 'numeric', month: 'long', day: 'numeric'});
+const isNew = ms => Date.now() - ms < 3 * 864e5;
+function setPageMeta(title, path) {
+  document.title = `${title} · RAISE`;
+  const c = document.querySelector('link[rel=canonical]'); if (c) c.href = location.origin + path;
+}
+async function renderNotices() {
+  const list = await loadNotices(true);
+  setPageMeta('공지사항', '/notice');
+  view.innerHTML = `<section class="band"><div class="wrap narrow cs-page">
+    <h1>공지사항</h1>
+    ${list.length ? `<ul class="nlist">${list.map(n => `<li><a href="/notice/${n.id}">${n.pinned ? '<span class="tag ntag">고정</span>' : ''}<b>${escRaw(n.title)}</b>${isNew(n.created) ? '<span class="newb">새 글</span>' : ''}<small>${kdate(n.created)}</small></a></li>`).join('')}</ul>`
+      : '<p class="mute">아직 공지가 없어요.</p>'}
+    <p class="small mute"><a href="/help">고객센터</a> · <a href="/">경기 목록</a></p></div></section>`;
+}
+async function renderNotice(id) {
+  const r = await fetch('/api/notice/' + id, {cache: 'no-store'}).then(x => x.ok ? x.json() : null).catch(() => null);
+  if (!r || !r.notice) { view.innerHTML = '<section class="band"><div class="wrap narrow"><h1>없는 공지예요</h1><p><a href="/notice">공지사항 목록</a></p></div></section>'; return; }
+  const n = r.notice;
+  setPageMeta(n.title, '/notice/' + id);
+  view.innerHTML = `<section class="band"><div class="wrap narrow cs-page">
+    <p class="small mute"><a href="/notice">공지사항</a></p>
+    <h1 class="ntitle">${escRaw(n.title)}</h1><p class="small mute">${kdate(n.created)}${n.updated > n.created + 6e4 ? ` · 고침 ${kdate(n.updated)}` : ''}</p>
+    <div class="nbody">${textHtml(n.body)}</div>
+    <p><a class="btn ghost" href="/notice">목록으로</a></p></div></section>`;
+}
+const FAQ = [
+  ['RAISE는 어떤 사이트인가요?', 'AI 분석가 4명이 축구 경기를 각자 분석하고 토론해서 승·무·패와 골 수 가능성을 보여 주는 스포츠 분석 사이트예요. 자세한 내용은 사이트 소개에 있어요.'],
+  ['가입은 어떻게 하나요?', '오른쪽 위 로그인 버튼을 눌러 카카오나 구글로 로그인하고 닉네임을 정하면 끝나요. 만 19세 이상만 가입할 수 있어요.'],
+  ['회원이 되면 무엇이 좋나요?', '채팅방에서 대화할 수 있고, 경기 시간 앞 ☆을 눌러 관심 경기를 모아 볼 수 있어요. 관심 경기는 계정에 저장돼서 폰과 PC에서 똑같이 보여요.'],
+  ['닉네임을 바꾸고 싶어요.', '지금은 직접 바꾸는 기능이 없어요. 아래 1:1 문의로 원하는 닉네임을 남겨 주시면 바꿔 드릴게요.'],
+  ['탈퇴는 어떻게 하나요?', '오른쪽 위 내 닉네임 → 회원 탈퇴를 누르면 바로 탈퇴돼요. 닉네임과 관심 경기가 모두 지워지고 되돌릴 수 없어요.'],
+  ['채팅이 안 써져요.', '채팅은 회원만 쓸 수 있고, 3초에 한 번까지 보낼 수 있어요. 링크나 전화번호는 가려지고, 운영 정책을 어기면 채팅이 제한될 수 있어요.'],
+  ['분석은 언제 올라오나요?', '하루 두 번(오전 6시, 오후 2시쯤) 새 경기를 분석해요. 스코어는 경기 중에 수시로 새로 고쳐요.'],
+  ['분석대로 결과가 나오나요?', 'RAISE의 분석은 참고용 정보이며 결과를 보장하지 않아요. RAISE는 어떤 형태의 도박이나 배팅도 권하지 않아요.'],
+  ['광고나 제휴 문의는 어디로 하나요?', `1:1 문의에서 "광고·제휴"를 고르거나 ${CONTACT ? `<a href="mailto:${CONTACT}">${CONTACT}</a>` : '운영 메일'}로 보내 주세요. 도박·배팅 관련 광고는 받지 않아요.`],
+];
+async function renderHelp() {
+  setPageMeta('고객센터', '/help');
+  const member = MEMBER && ME.user;
+  let my = {inquiries: [], kinds: ['오류 신고', '계정', '제안', '광고·제휴', '기타']};
+  if (member) my = await fetch('/api/inquiry', {cache: 'no-store'}).then(r => r.ok ? r.json() : my).catch(() => my);
+  const inq = q => `<article class="inq${q.answer ? ' done' : ''}"><div class="inq-top"><span class="tag">${escRaw(q.kind)}</span><span class="tag ${q.answer ? 'mg-ok' : 'mg-wait'}">${q.answer ? '답변 완료' : '답변 기다리는 중'}</span>${q.answer && !q.seen ? '<span class="newb">새 답변</span>' : ''}<small class="mute">${kdate(q.created)}</small></div>
+    <b class="inq-t">${escRaw(q.title)}</b><p class="inq-b">${textHtml(q.body)}</p>
+    ${q.answer ? `<div class="inq-a"><b>운영자 답변</b> <small class="mute">${kdate(q.answered_at)}</small><p>${textHtml(q.answer)}</p></div>` : ''}</article>`;
+  view.innerHTML = `<section class="band"><div class="wrap narrow cs-page">
+    <h1>고객센터</h1>
+    <p class="lead mute">자주 묻는 질문을 먼저 확인해 주세요. 해결되지 않으면 1:1 문의를 남겨 주세요.</p>
+    <h2>자주 묻는 질문</h2>
+    <div class="faq">${FAQ.map(([q, a]) => `<details><summary>${q}</summary><p>${a}</p></details>`).join('')}</div>
+    <h2 id="my">1:1 문의</h2>
+    ${member ? `<form class="inq-form" novalidate>
+        <label>문의 종류<select name="kind">${my.kinds.map(k => `<option>${k}</option>`).join('')}</select></label>
+        <label>제목<input name="title" maxlength="60" placeholder="예: 관심 경기가 폰에서 안 보여요" required></label>
+        <label>내용<textarea name="body" rows="5" maxlength="2000" placeholder="어떤 화면에서 무엇을 했는지 적어 주시면 빨리 확인할 수 있어요." required></textarea></label>
+        <p class="inq-err" role="alert"></p>
+        <button class="btn">문의 남기기</button></form>
+      <h3>내 문의</h3>
+      <div class="inq-list">${my.inquiries.length ? my.inquiries.map(inq).join('') : '<p class="mute">남긴 문의가 없어요.</p>'}</div>`
+    : `<div class="inq-guest"><p>1:1 문의는 회원만 남길 수 있어요. 답변을 사이트 안에서 바로 확인할 수 있어요.</p>
+        ${MEMBER ? '<button type="button" class="btn" id="helpLogin">로그인 · 회원가입</button>' : ''}
+        ${CONTACT ? `<p class="small mute">회원이 아니면 <a href="mailto:${CONTACT}">${CONTACT}</a>로 보내 주세요.</p>` : ''}</div>`}
+    <p class="small mute"><a href="/notice">공지사항</a> · <a href="/about">사이트 소개</a> · <a href="/terms">이용약관</a> · <a href="/privacy">개인정보 처리방침</a></p>
+  </div></section>`;
+  const lb = document.getElementById('helpLogin'); if (lb) lb.onclick = () => openLogin('1:1 문의는 회원 전용 기능이에요.');
+  if (location.hash === '#my' || location.hash === '') { const t = location.hash === '#my' && document.getElementById('my'); if (t) t.scrollIntoView(); }
+  if (member && my.inquiries.some(q => q.answer && !q.seen)) {   // 새 답변 읽음 처리 → 계정 버튼 빨간 점 끄기
+    fetch('/api/inquiry/seen', {method: 'POST'}).catch(() => null);
+    ME.user.unread = 0; drawAccount();
+  }
+  const f = view.querySelector('.inq-form');
+  if (f) {
+    const err = f.querySelector('.inq-err');
+    f.oninput = () => { err.textContent = ''; };
+    f.onsubmit = async e => {
+      e.preventDefault();
+      const d = Object.fromEntries(new FormData(f));
+      if (d.title.trim().length < 2) { err.textContent = '제목을 2자 이상 써 주세요.'; return; }
+      if (d.body.trim().length < 5) { err.textContent = '내용을 5자 이상 써 주세요.'; return; }
+      const btn = f.querySelector('button'); btn.disabled = true;
+      const r = await fetch('/api/inquiry', {method: 'POST', headers: {'content-type': 'application/json'}, body: JSON.stringify(d)}).catch(() => null);
+      const j = r ? await r.json().catch(() => ({})) : {};
+      if (!r || !r.ok) { err.textContent = j.error || '보내지 못했어요. 잠시 뒤 다시 해 주세요.'; btn.disabled = false; return; }
+      toast('문의를 남겼어요. 답변이 달리면 닉네임 옆에 빨간 점이 떠요.');
+      renderHelp();
+    };
+  }
+}
+/* 첫 화면 위 공지 띠 (운영자가 '띠로 알리기'를 켠 공지 하나, 닫으면 그 공지는 다시 안 보임) */
+async function noticeBar() {
+  if (!MEMBER || document.getElementById('nbar')) return;
+  const n = (await loadNotices()).find(x => x.banner);
+  if (!n || store.get('aa_nb') === String(n.id)) return;
+  const el = document.createElement('div');
+  el.id = 'nbar'; el.className = 'nbar';
+  el.innerHTML = `<div class="wrap"><a href="/notice/${n.id}"><b>공지</b> ${escRaw(n.title)}</a><button type="button" aria-label="공지 닫기">×</button></div>`;
+  el.querySelector('button').onclick = () => { store.set('aa_nb', String(n.id)); el.remove(); };
+  view.before(el);
+}
+/* 채팅방 위: 띠 공지가 있으면 제목 한 줄 */
+async function chatNotice() {
+  const box = document.querySelector('#chat .ch-n'); if (!box || box.dataset.n) return;
+  const n = (await loadNotices()).find(x => x.banner); box.dataset.n = '1';
+  if (n) box.insertAdjacentHTML('beforeend', `<a class="ch-pin" href="/notice/${n.id}">공지 · ${escRaw(n.title)}</a>`);
+}
+
 /* ---------- 회원 관리 (운영자 주소에서만) ---------- */
-let memTab = 'list', memQ = '', memArm = '';   // memArm: 강제 탈퇴 확인 대기 중인 회원 번호
+let memTab = 'list', memQ = '', memArm = '', memInqDone = false, memEdit = null;   // memEdit: 고치는 중인 공지   // memArm: 강제 탈퇴 확인 대기 중인 회원 번호
 const mapi = async (path, body) => {
   const r = await fetch(path, body ? {method: 'POST', headers: {'content-type': 'application/json'}, body: JSON.stringify(body)} : {cache: 'no-store'});
   const j = await r.json().catch(() => ({}));
@@ -1451,7 +1575,9 @@ const BAN_DAYS = [[1, '1일'], [7, '7일'], [30, '30일'], [0, '영구']];
 async function renderMembers() {
   if (!OPERATOR) { location.replace('#'); return; }
   view.innerHTML = '<section class="band"><div class="wrap"><h1>회원 관리</h1><p class="loading">불러오는 중…</p></div></section>';
-  const [d, rp] = await Promise.all([mapi('/api/members' + (memQ ? '?q=' + encodeURIComponent(memQ) : '')), mapi('/api/members/reports').catch(() => ({reports: [], bans: []}))]);
+  const [d, rp, iq, nt] = await Promise.all([mapi('/api/members' + (memQ ? '?q=' + encodeURIComponent(memQ) : '')), mapi('/api/members/reports').catch(() => ({reports: [], bans: []})),
+    mapi('/api/inquiry/all?state=' + (memInqDone ? 'done' : 'open')).catch(() => ({inquiries: [], open: 0})),
+    memTab === 'notice' ? loadNotices(true) : Promise.resolve([])]);
   const s = d.summary || {};
   const nickOf = Object.fromEntries(d.users.map(u => [String(u.id), u.nick]));
   const who = r => r === 'admin' ? '운영자' : r === 'admin-hide' ? '운영자 가림' : r === 'admin-ban' ? '운영자 제한' : (nickOf[r] || '회원 ' + r);
@@ -1473,22 +1599,71 @@ async function renderMembers() {
   const logs = (rp.reports || []).filter(r => String(r.reporter).startsWith('admin-'));
   view.innerHTML = `<section class="band"><div class="wrap mg">
     <h1>회원 관리</h1>
-    <div class="mg-stats">${stat(s.total, '전체 회원', `카카오 ${s.kakao || 0} · 구글 ${s.google || 0}`)}${stat(s.today, '오늘 가입', `7일 ${s.week || 0}`)}${stat(s.active_today, '오늘 접속')}${stat(s.chatsToday, '오늘 채팅', `지금 ${s.online || 0}명 접속`)}${stat(open, '처리 전 신고')}</div>
-    <div class="segbar mg-tabs" role="group" aria-label="회원 관리 보기"><button class="seg" data-tab="list" aria-pressed="${memTab === 'list'}">회원 목록</button><button class="seg" data-tab="rep" aria-pressed="${memTab === 'rep'}">신고함${open ? ` (${open})` : ''}</button><button class="seg" data-tab="log" aria-pressed="${memTab === 'log'}">제재 기록</button></div>
+    <div class="mg-stats">${stat(s.total, '전체 회원', `카카오 ${s.kakao || 0} · 구글 ${s.google || 0}`)}${stat(s.today, '오늘 가입', `7일 ${s.week || 0}`)}${stat(s.active_today, '오늘 접속')}${stat(s.chatsToday, '오늘 채팅', `지금 ${s.online || 0}명 접속`)}${stat(open, '처리 전 신고')}${stat(iq.open, '답변 전 문의')}</div>
+    <div class="segbar mg-tabs" role="group" aria-label="회원 관리 보기"><button class="seg" data-tab="list" aria-pressed="${memTab === 'list'}">회원 목록</button><button class="seg" data-tab="rep" aria-pressed="${memTab === 'rep'}">신고함${open ? ` (${open})` : ''}</button><button class="seg" data-tab="log" aria-pressed="${memTab === 'log'}">제재 기록</button><button class="seg" data-tab="inq" aria-pressed="${memTab === 'inq'}">1:1 문의${iq.open ? ` (${iq.open})` : ''}</button><button class="seg" data-tab="notice" aria-pressed="${memTab === 'notice'}">공지 관리</button></div>
     ${memTab === 'list' ? `<form class="mg-search" role="search"><input id="mgq" type="search" placeholder="닉네임 검색" value="${esc(memQ)}" aria-label="닉네임 검색"><button class="btn sm">찾기</button></form>
       <p class="small mute">${memQ ? `"${esc(memQ)}" ` : ''}${d.users.length}명 · 최근 가입 순 · 이메일은 앞 두 글자만 보여요</p>
       <div class="mg-list">${d.users.map(card).join('') || '<p class="mute">아직 가입한 회원이 없어요.</p>'}</div>`
     : memTab === 'rep' ? `<p class="small mute">회원이 신고한 채팅 글 (30일 보관). 1시간이 지나 채팅방에서 지워진 글은 가리기가 필요 없어요.</p>
       <div class="mg-list">${userReports.map(rcard).join('') || '<p class="mute">들어온 신고가 없어요.</p>'}</div>`
+    : memTab === 'inq' ? `<div class="segbar mg-sub" role="group" aria-label="문의 상태"><button class="seg" data-inq="open" aria-pressed="${!memInqDone}">답변 전</button><button class="seg" data-inq="done" aria-pressed="${memInqDone}">답변 완료</button></div>
+      <div class="mg-list mg-one">${iq.inquiries.map(q => `<article class="mg-card" data-qid="${q.id}">
+        <div class="mg-top"><b class="mg-nick">${escRaw(q.nick || '')}</b><span class="tag">${escRaw(q.kind)}</span><small class="mute">${kdt(q.created)}</small></div>
+        <p class="mg-q"><b>${escRaw(q.title)}</b></p><p class="mg-text">${textHtml(q.body)}</p>
+        ${q.answer ? `<div class="inq-a"><b>보낸 답변</b> <small class="mute">${kdt(q.answered_at)}${q.seen ? ' · 회원이 읽음' : ' · 아직 안 읽음'}</small><p>${textHtml(q.answer)}</p></div>` : ''}
+        <form class="mg-ans"><textarea rows="3" maxlength="3000" placeholder="답변을 써 주세요. 회원은 고객센터에서 바로 봐요.">${q.answer ? escRaw(q.answer) : ''}</textarea><button class="btn sm">${q.answer ? '답변 고치기' : '답변 보내기'}</button></form></article>`).join('')
+        || `<p class="mute">${memInqDone ? '답변한 문의가 없어요.' : '답변 기다리는 문의가 없어요.'}</p>`}</div>`
+    : memTab === 'notice' ? `<form class="mg-note" novalidate><h2>${memEdit ? '공지 고치기' : '새 공지 쓰기'}</h2>
+        <input name="title" maxlength="80" placeholder="제목" value="${memEdit ? escRaw(memEdit.title) : ''}">
+        <textarea name="body" rows="8" maxlength="5000" placeholder="내용. 줄바꿈과 링크(https://…)는 그대로 보여요.">${memEdit ? escRaw(memEdit.body) : ''}</textarea>
+        <label class="mg-chk"><input type="checkbox" name="pinned" ${memEdit && memEdit.pinned ? 'checked' : ''}> 목록 맨 위에 고정</label>
+        <label class="mg-chk"><input type="checkbox" name="banner" ${memEdit && memEdit.banner ? 'checked' : ''}> 첫 화면 띠와 채팅방 위에 알리기 (하나만, 켜면 다른 공지의 띠는 꺼져요)</label>
+        <p class="inq-err" role="alert"></p>
+        <div class="mg-act"><button class="btn">${memEdit ? '고친 내용 저장' : '공지 올리기'}</button>${memEdit ? '<button type="button" class="btn ghost" data-new>새로 쓰기</button>' : ''}</div></form>
+      <div class="mg-list mg-one">${nt.map(n => `<article class="mg-card" data-nid="${n.id}"><div class="mg-top"><b class="mg-nick">${escRaw(n.title)}</b>${n.pinned ? '<span class="tag ntag">고정</span>' : ''}${n.banner ? '<span class="tag mg-ok">띠 알림</span>' : ''}<small class="mute">${kdt(n.created)}</small></div>
+        <div class="mg-act"><a class="btn sm ghost" href="/notice/${n.id}" target="_blank">보기</a><button class="btn sm ghost" data-edit>고치기</button><button class="btn sm ${memArm === 'n' + n.id ? 'mg-danger on' : 'ghost mg-danger'}" data-ndel>${memArm === 'n' + n.id ? '정말 지우기' : '지우기'}</button></div></article>`).join('') || '<p class="mute">올린 공지가 없어요.</p>'}</div>`
     : `<p class="small mute">운영자가 가리거나 제한한 기록 (30일 보관)</p>
       <div class="mg-list">${logs.map(r => `<article class="mg-card"><div class="mg-top"><b class="mg-nick">${esc(r.nick || '')}</b><span class="tag">${esc(who(String(r.reporter)))}</span><small class="mute">${kdt(r.ts)}</small></div><p class="mg-text">${esc(r.text || '')}</p></article>`).join('') || '<p class="mute">기록이 없어요.</p>'}</div>`}
   </div></section>`;
-  view.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { memTab = b.dataset.tab; memArm = ''; renderMembers(); });
+  view.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { memTab = b.dataset.tab; memArm = ''; memEdit = null; renderMembers(); });
+  view.querySelectorAll('[data-inq]').forEach(b => b.onclick = () => { memInqDone = b.dataset.inq === 'done'; renderMembers(); });
+  view.querySelectorAll('.mg-ans').forEach(f => f.onsubmit = async e => {
+    e.preventDefault();
+    const answer = f.querySelector('textarea').value.trim();
+    if (!answer) { toast('답변을 써 주세요.'); return; }
+    try { await mapi('/api/inquiry/answer', {id: +f.closest('.mg-card').dataset.qid, answer}); toast('답변을 보냈어요.'); renderMembers(); } catch (err) { toast(err.message); }
+  });
+  const nf = view.querySelector('.mg-note');
+  if (nf) {
+    const err = nf.querySelector('.inq-err');
+    nf.oninput = () => { err.textContent = ''; };
+    const nw = nf.querySelector('[data-new]'); if (nw) nw.onclick = () => { memEdit = null; renderMembers(); };
+    nf.onsubmit = async e => {
+      e.preventDefault();
+      const title = nf.elements.title.value.trim(), body = nf.elements.body.value.trim();
+      if (!title) { err.textContent = '제목을 써 주세요.'; return; }
+      if (!body) { err.textContent = '내용을 써 주세요.'; return; }
+      try {
+        await mapi('/api/notice/save', {id: memEdit && memEdit.id, title, body, pinned: nf.elements.pinned.checked, banner: nf.elements.banner.checked});
+        toast(memEdit ? '공지를 고쳤어요.' : '공지를 올렸어요.'); memEdit = null; NOTICES = null; renderMembers();
+      } catch (er) { err.textContent = er.message; }
+    };
+  }
   const f = view.querySelector('.mg-search');
   if (f) f.onsubmit = e => { e.preventDefault(); memQ = view.querySelector('#mgq').value.trim(); renderMembers(); };
-  view.querySelector('.mg-list').onclick = async e => {
-    const b = e.target.closest('button'); if (!b) return;
+  view.querySelectorAll('.mg-list').forEach(l => l.onclick = async e => {
+    const b = e.target.closest('button'); if (!b || b.closest('form')) return;
     const c = b.closest('.mg-card'); const uid = c.dataset.uid, nick = c.dataset.nick;
+    if (b.hasAttribute('data-edit')) {
+      const r = await mapi('/api/notice/' + c.dataset.nid).catch(err => { toast(err.message); return null; });
+      if (r) { memEdit = r.notice; renderMembers().then(() => view.querySelector('.mg-note').scrollIntoView({block: 'start'})); }
+      return;
+    }
+    if (b.hasAttribute('data-ndel')) {
+      if (memArm !== 'n' + c.dataset.nid) { memArm = 'n' + c.dataset.nid; return renderMembers(); }
+      memArm = ''; try { await mapi('/api/notice/delete', {id: +c.dataset.nid}); toast('공지를 지웠어요.'); NOTICES = null; } catch (err) { toast(err.message); }
+      return renderMembers();
+    }
     b.disabled = true;
     try {
       if (b.hasAttribute('data-ban')) { const days = +b.dataset.ban; await mapi('/api/members/ban', {uid, nick, days}); toast(`${nick} 님 채팅을 ${days ? days + '일' : '영구'} 제한했어요.`); }
@@ -1503,7 +1678,7 @@ async function renderMembers() {
       else if (b.hasAttribute('data-undo')) await mapi('/api/members/done', {id: +c.dataset.rid, undo: true});
       renderMembers();
     } catch (err) { toast(err.message); b.disabled = false; }
-  };
+  });
 }
 
 /* ---------- 실시간 채팅방 ---------- */
@@ -1650,8 +1825,9 @@ const Chat = {
   drawAccount();
   const h = location.hash.replace(/^#\/?/, '');
   const onPage = onSubPage();   // 소개·약관·경기 주소면 목록으로 덮지 않음
-  if ((!h || h === 'list') && !onPage) renderList().catch(() => {});
-  Chat.build();
+  if ((!h || h === 'list') && !onPage) renderList().then(noticeBar).catch(() => {});
+  if (subPath() === 'help') renderHelp();   // 회원 상태를 받은 뒤 문의 칸을 다시 그림
+  Chat.build(); chatNotice();
 })();
 
 window.addEventListener('hashchange', route);
