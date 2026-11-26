@@ -593,7 +593,7 @@ a.row.val:hover{background:#C93A6E}
 .chat{position:fixed;z-index:7;display:flex;flex-direction:column;align-items:stretch;background:var(--bg);color:var(--ink);font-size:14px}
 .chat>*{align-self:stretch}
 .chat[hidden],.chat-fab[hidden],.chat-tab[hidden]{display:none!important}
-.chat.chdock{top:var(--toph);bottom:0;left:0;width:300px;border-right:1px solid var(--line)}
+.chat.chdock{top:calc(var(--toph) + 12px);bottom:12px;left:12px;width:288px;border:1px solid #cfdcd3;border-radius:14px;overflow:hidden;box-shadow:0 6px 20px rgba(15,60,35,.12),0 1px 3px rgba(0,0,0,.06)}   /* PC: 떠 있는 카드 */
 .chat.chsheet{left:0;right:0;bottom:0;height:62vh;border-radius:16px 16px 0 0;border:1px solid var(--line);box-shadow:0 -8px 24px rgba(0,0,0,.18);z-index:12}
 @media(max-width:600px){.chat.chsheet{bottom:calc(64px + env(safe-area-inset-bottom,0px));height:min(62vh,calc(100vh - 140px))}}
 .chat .ch-h{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 14px;background:var(--pitch);color:#fff;flex:none}
@@ -630,7 +630,7 @@ a.row.val:hover{background:#C93A6E}
 .chat-tab span{writing-mode:vertical-rl;letter-spacing:2px}.chat-tab i{margin:0}
 /* PC 에서 채팅방이 펼쳐져 있으면 본문을 오른쪽으로 민다 (넓은 화면 1900px+ 는 자리가 남아서 그대로) */
 @media(min-width:1100px) and (max-width:1899px){
-  body.chat-dock main,body.chat-dock .foot{margin-left:300px}
+  body.chat-dock main,body.chat-dock .foot{margin-left:316px}   /* 카드 288 + 양옆 여백 */
   body.chat-dock .wrap{margin-left:auto;margin-right:max(0px,calc(193px - 5vw))}
   body.chat-dock .fad,body.chat-dock .cp-side{left:auto!important;right:12px!important}
 }
@@ -720,3 +720,7 @@ a.btn-line{text-align:center;text-decoration:none;box-sizing:border-box}
 .mg-chk{display:flex;gap:8px;align-items:flex-start;font-size:14px;line-height:1.5}
 .mg-chk input{width:20px;height:20px;flex:none;margin-top:1px}
 @media(max-width:400px){.mg-tabs{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+/* 폰·접은 화면 채팅 창: 위 손잡이 막대 + 진한 위 경계 (목록과 겹쳐 보이지 않게) */
+.chat.chsheet{border-top:3px solid var(--pitch)}
+.chat.chsheet .ch-h{position:relative;padding-top:16px}
+.chat.chsheet .ch-h::before{content:"";position:absolute;top:6px;left:50%;width:40px;height:4px;margin-left:-20px;border-radius:2px;background:rgba(255,255,255,.55)}
