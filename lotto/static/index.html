@@ -182,8 +182,11 @@ html:not(.cp-on) .cp-sec{display:none}
 @media(min-width:1220px){
   body{position:relative}
   .cp-sec{position:absolute;top:260px;bottom:0;left:calc(50% + 290px);width:300px;margin:0;display:block}
-  .cp-sec .cp-ad{position:sticky;top:70px}
+  .cp-sec{display:block}
+  .cp-sec .cp-stack{position:sticky;top:70px;display:flex;flex-direction:column;gap:14px}
 }
+/* 폰·좁은 화면: 번호 생성 아래에 B 하나만 (A 는 넓은 PC 오른쪽에서만) */
+@media(max-width:1219px){.cp-sec #cp-ad{display:none}}
 </style>
 </head>
 <body>
@@ -272,9 +275,11 @@ html:not(.cp-on) .cp-sec{display:none}
   </section>
 
   <!-- 광고: 쿠팡 파트너스 (raise-lotto.com 에서만 불러옴) -->
-  <section class="cp-sec"><div id="cp-ad" class="cp-ad"><div class="cp-in"><script>
+  <section class="cp-sec"><div class="cp-stack"><div id="cp-ad" class="cp-ad"><div class="cp-in"><script>
 if (/(^|\.)raise-lotto\.com$/.test(location.hostname)) document.write('<script src="https://ads-partners.coupang.com/g.js"><\/script><script>new PartnersCoupang.G({"id":1059781,"template":"carousel","trackingCode":"AF1769498","width":"300","height":"250","tsource":""});<\/script>');
-</script></div><p class="cp-note">이 광고는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p></div></section>
+</script></div><p class="cp-note">이 광고는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p></div><div id="cp-ad2" class="cp-ad"><div class="cp-in"><script>
+if (/(^|\.)raise-lotto\.com$/.test(location.hostname)) document.write('<script>new PartnersCoupang.G({"id":1059791,"template":"carousel","trackingCode":"AF1769498","width":"300","height":"250","tsource":""});<\/script>');
+</script></div><p class="cp-note">이 광고는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p></div></div></section>
 
   <!-- 4. 통계 -->
   <section id="stats">

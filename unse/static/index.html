@@ -39,6 +39,8 @@ button{font:inherit}
 .hero .wrap{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr) 300px;gap:clamp(20px,3.4vw,48px);align-items:center}
 /* 오른쪽 광고 칸: 구글 애드센스·쿠팡 파트너스 300×250. 넓은 화면은 세 번째 열, 좁으면 요약 아래 한 줄 */
 .adcol{display:flex;flex-direction:column;gap:16px;align-items:center}
+.cp-slot2{display:flex;justify-content:center;margin-top:clamp(28px,4vw,44px)}
+.cp-slot2 .cp-in{box-shadow:0 1px 3px rgba(0,0,0,.12)}
 .cp-ad{display:flex;flex-direction:column;align-items:center;gap:4px}.cp-ad[hidden]{display:none}
 .cp-ad .cp-in{width:300px;max-width:100%;min-height:250px;background:#fff;border-radius:8px;overflow:hidden}
 .cp-ad .cp-note{margin:0;max-width:300px;font-size:11px;line-height:1.4;text-align:center;opacity:.8}
@@ -124,6 +126,9 @@ button{font:inherit}
 <body>
 <div id="cp-ad" class="cp-ad" hidden><div class="cp-in"><script>
 if (/(^|\.)raise-lucky\.com$/.test(location.hostname)) document.write('<script src="https://ads-partners.coupang.com/g.js"><\/script><script>new PartnersCoupang.G({"id":1059781,"template":"carousel","trackingCode":"AF1769498","width":"300","height":"250","tsource":""});<\/script>');
+</script></div><p class="cp-note">이 광고는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p></div>
+<div id="cp-ad2" class="cp-ad" hidden><div class="cp-in"><script>
+if (/(^|\.)raise-lucky\.com$/.test(location.hostname)) document.write('<script>new PartnersCoupang.G({"id":1059791,"template":"carousel","trackingCode":"AF1769498","width":"300","height":"250","tsource":""});<\/script>');
 </script></div><p class="cp-note">이 광고는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p></div>
 <header class="top"><div class="wrap">
   <a class="brand" href="#ddi"><span class="seal" aria-hidden="true">運</span>오늘의 운세</a>
@@ -300,7 +305,6 @@ function dayChips(day) {
     <p class="date">${day.y}년 ${day.m}월 ${day.dd}일 ${day.wd}요일 · 일진 ${gzName(day.gz)}일(${gzHan(day.gz)}日) · ${gzName(yearGz(day.y))}년</p>`;
 }
 function bindDays(rerender) { view.querySelectorAll('[data-off]').forEach(b => b.onclick = () => { offset = +b.dataset.off; rerender(); }); }
-const ad = '<div class="ad" aria-label="광고 영역">광고</div>';
 /* 실제 광고 코드는 아래 두 칸(id)에 넣는다 */
 // 광고 칸 표시: 운영자 주소(pages.dev·로컬)나 관리자 표시가 있을 때만. 회원 주소에선 빈칸 없이 숨김
 const SHOW_ADS = /(^|\.)pages\.dev$|^localhost$|^127\.0\.0\.1$/.test(location.hostname) || store.get('aa_boss') === '1' || !!store.get('aa_run_pw');
@@ -310,8 +314,10 @@ const LUCKY = /(^|\.)raise-lucky\.com$/.test(location.hostname);
 if (LUCKY) document.documentElement.classList.remove('noads');
 const adcol = LUCKY ? '<aside class="adcol" aria-label="광고"><div id="cp-slot"></div></aside>'
   : !SHOW_ADS ? '' : '<aside class="adcol" aria-label="광고"><div class="slot" id="ad-google-side">구글 광고<br>300×250</div><div class="slot" id="ad-coupang-side">쿠팡 광고<br>300×250</div></aside>';
-const CP = document.getElementById('cp-ad');
-if (CP && LUCKY) new MutationObserver(() => { const s = document.getElementById('cp-slot'); if (s && !s.contains(CP)) { s.appendChild(CP); CP.hidden = false; } }).observe(document.body, {childList: true, subtree: true});
+/* 아래쪽 광고 칸: 운세 주소면 쿠팡 배너 B, 운영자면 점선 자리 표시, 그 밖엔 없음 */
+const ad = LUCKY ? '<div id="cp-slot2" class="cp-slot2"></div>' : SHOW_ADS ? '<div class="ad" aria-label="광고 영역">광고</div>' : '';
+const CP = document.getElementById('cp-ad'), CP2 = document.getElementById('cp-ad2');
+if (CP && LUCKY) new MutationObserver(() => { const s = document.getElementById('cp-slot'); if (s && !s.contains(CP)) { s.appendChild(CP); CP.hidden = false; } const s2 = document.getElementById('cp-slot2'); if (s2 && CP2 && !s2.contains(CP2)) { s2.appendChild(CP2); CP2.hidden = false; } }).observe(document.body, {childList: true, subtree: true});
 
 /* AI 운세: /fortune/data/날짜.json (GitHub Actions 가 만들고 Cloudflare Pages 가 올림). 없거나 실패하면 위의 문장 조합으로 대신 보여 준다 */
 const SERVER = {};

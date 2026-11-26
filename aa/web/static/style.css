@@ -537,10 +537,14 @@ a.row.val:hover{background:#C93A6E}
 .lgd .trilegend>span{white-space:nowrap}
 @media(max-width:600px){.lgd{display:grid;grid-template-columns:1fr;gap:6px}.lgd-i{align-items:center}}
 
-/* 쿠팡 배너 PC 오른쪽 (운세·로또 배너 아래). 위치 규칙은 .fad 와 같고, 화면 높이가 낮으면 숨김 */
-.cp-side{display:none;position:fixed;top:576px;z-index:4;width:165px;flex-direction:column;gap:3px}
-.cp-side .cp-in{width:165px;height:240px;border-radius:10px;overflow:hidden;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.12)}
-.cp-side .cp-note{margin:0;font-size:10px;line-height:1.35;color:var(--mute);text-align:center}
-@media (min-width:1660px) and (min-height:840px){.cp-host .cp-side{display:flex;left:calc(50% + 636px)}}
-@media (min-width:1100px) and (max-width:1659px) and (min-height:840px){.cp-host .cp-side{display:flex;right:12px}}
+/* 쿠팡 배너 PC 오른쪽 (회원 주소): 운세·로또 홍보 배너를 낮게(150) 위로 올리고, 그 아래 A(165×200) → B(165×200).
+   화면 높이 650+ 이면 A, 860+ 이면 B 까지. B 가 오른쪽에 안 보이는 화면(폰·좁은 PC·낮은 PC)에선 목록 중간 B(#cp-ad)가 대신 보인다 */
+@media (min-width:1100px){.cp-host .fad{top:84px;height:150px}.cp-host .fad.lad{top:244px}.cp-host .fad .fh{font-size:96px}}
+.cp-side{display:none;position:fixed;top:404px;z-index:4;width:165px;flex-direction:column;gap:10px}
+.cp-side .cp-in{width:165px;height:200px;min-height:0;border-radius:10px;overflow:hidden;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.cp-side .cp-b{display:none}
+.cp-side .cp-note{margin:-6px 0 0;font-size:10px;line-height:1.35;color:var(--mute);text-align:center}
+@media (min-width:1660px) and (min-height:650px){.cp-host .cp-side{display:flex;left:calc(50% + 636px)}}
+@media (min-width:1100px) and (max-width:1659px) and (min-height:650px){.cp-host .cp-side{display:flex;right:12px}}
+@media (min-width:1100px) and (min-height:860px){.cp-host .cp-side .cp-b{display:block}.cp-host #cp-ad{display:none!important}}
 @media print{.cp-side{display:none!important}}
