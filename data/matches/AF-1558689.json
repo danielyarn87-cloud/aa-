@@ -12,17 +12,17 @@
   "away_en": "Anderlecht",
   "odds": {
     "line": 2.5,
-    "home": 3.46,
-    "best_home": 3.8,
+    "home": 3.36,
+    "best_home": 3.6,
     "draw": 3.7,
     "best_draw": 4.12,
-    "away": 1.87,
-    "best_away": 1.93,
+    "away": 1.91,
+    "best_away": 2.0,
     "over": 1.62,
-    "best_over": 1.66,
+    "best_over": 1.65,
     "under": 2.21,
     "best_under": 2.3,
-    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 10곳 북메이커)",
+    "source": "The Odds API 평균 배당 (승무패 21곳, 언더/오버 11곳 북메이커)",
     "event_id": "f07207aafb2fb29c4a9f5ae9fc52ccd4",
     "sport": "soccer_belgium_first_div"
   },
@@ -92,7 +92,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 3.46,

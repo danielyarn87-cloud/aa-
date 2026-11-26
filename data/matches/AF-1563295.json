@@ -14,9 +14,9 @@
     "line": 3.5,
     "home": 2.02,
     "best_home": 2.14,
-    "draw": 3.71,
+    "draw": 3.72,
     "best_draw": 4.1,
-    "away": 3.16,
+    "away": 3.18,
     "best_away": 3.55,
     "over": 2.17,
     "best_over": 2.25,
@@ -57,8 +57,14 @@
     }
   },
   "lineup": {
-    "home_absent": [],
-    "home_doubtful": [],
+    "home_absent": [
+      "C. Burgess (Achilles Tendon Injury)",
+      "G. Franco (Inactive)"
+    ],
+    "home_doubtful": [
+      "Ronald (Hamstring Injury)",
+      "M. K. Yeo (Inactive)"
+    ],
     "away_absent": [
       "C. Chambers (Knee Injury)",
       "I. Davies (Muscle Injury)",
@@ -99,7 +105,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 3.5,
     "home": 2.02,

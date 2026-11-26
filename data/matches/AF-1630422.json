@@ -15,8 +15,8 @@
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
-    "home_goals": 1.342,
-    "away_goals": 1.178
+    "home_goals": 1.35,
+    "away_goals": 1.312
   },
   "stats": {
     "basis": "venue",
@@ -24,23 +24,23 @@
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 2.005,
-      "xg_against": 0.907,
+      "xg_for": 2.01,
+      "xg_against": 0.987,
       "raw_goals_for": 3.0,
       "raw_goals_against": 0.5,
       "played": 2,
       "record": "1승 1무 0패",
-      "form": "DWWW"
+      "form": "DWWWW"
     },
     "away": {
       "설명": "원정 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 0.907,
-      "xg_against": 2.205,
+      "xg_for": 0.987,
+      "xg_against": 2.21,
       "raw_goals_for": 0.5,
       "raw_goals_against": 3.5,
       "played": 2,
       "record": "0승 0무 2패",
-      "form": "LLLL"
+      "form": "LLLLL"
     }
   },
   "lineup": {
@@ -61,18 +61,18 @@
     "league": 18,
     "season": 2026
   },
-  "table": "홈 유나이티드  1위 10점 (3승1무0패, 득실 +8) / 타이포  4위 0점 (0승0무4패, 득실 -10)",
+  "table": "홈 유나이티드  1위 13점 (4승1무0패, 득실 +11) / 타이포  4위 0점 (0승0무5패, 득실 -16)",
   "head_to_head": [
     "2026-10-15 타이포 0-1 홈 유나이티드"
   ],
   "schedule": {
-    "home_prev": "2026-11-22 Premier League",
-    "home_days_rest": 10,
-    "away_prev": "2026-11-21 Premier League",
-    "away_days_rest": 12
+    "home_prev": "2026-11-26 AFC Champions League Two",
+    "home_days_rest": 6,
+    "away_prev": "2026-11-26 AFC Champions League Two",
+    "away_days_rest": 6
   },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 23:59 KST"
+  "collected_at": "2026-11-27 06:04 KST"
 }

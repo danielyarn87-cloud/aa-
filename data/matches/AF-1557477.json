@@ -12,16 +12,16 @@
   "away_en": "Manchester City",
   "odds": {
     "line": 2.5,
-    "home": 1.95,
-    "best_home": 2.06,
-    "draw": 3.7,
-    "best_draw": 3.9,
-    "away": 3.62,
-    "best_away": 3.95,
+    "home": 1.96,
+    "best_home": 2.07,
+    "draw": 3.72,
+    "best_draw": 3.96,
+    "away": 3.61,
+    "best_away": 3.9,
     "over": 1.72,
-    "best_over": 1.79,
-    "under": 2.1,
-    "best_under": 2.19,
+    "best_over": 1.82,
+    "under": 2.12,
+    "best_under": 2.21,
     "source": "The Odds API 평균 배당 (승무패 25곳, 언더/오버 16곳 북메이커)",
     "event_id": "d20ede55e54ed7b55fdc36ca373727c0",
     "sport": "soccer_epl"
@@ -57,12 +57,10 @@
     }
   },
   "lineup": {
-    "home_absent": [
-      "B. Saka (Thigh Problems)"
-    ],
+    "home_absent": [],
     "home_doubtful": [],
     "away_absent": [
-      "A. Semenyo (Jumpers Knee)"
+      "A. Semenyo (Knee Injury)"
     ],
     "away_doubtful": [],
     "confirmed": false,
@@ -96,7 +94,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 1.95,

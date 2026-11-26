@@ -12,15 +12,15 @@
   "away_en": "Eintracht Frankfurt",
   "odds": {
     "line": 3.5,
-    "home": 1.72,
-    "best_home": 1.81,
-    "draw": 4.47,
-    "best_draw": 4.77,
-    "away": 3.84,
+    "home": 1.73,
+    "best_home": 1.83,
+    "draw": 4.46,
+    "best_draw": 4.76,
+    "away": 3.85,
     "best_away": 4.16,
     "over": 1.68,
     "best_over": 1.77,
-    "under": 2.14,
+    "under": 2.13,
     "best_under": 2.22,
     "source": "The Odds API 평균 배당 (승무패 23곳, 언더/오버 9곳 북메이커)",
     "event_id": "5d838190a8f5932d7fcfbcc26bacdd9c",
@@ -62,9 +62,7 @@
     "away_absent": [
       "J. Ngankam (Groin Injury)"
     ],
-    "away_doubtful": [
-      "C. Uzun (Illness)"
-    ],
+    "away_doubtful": [],
     "confirmed": false,
     "status": "listed",
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
@@ -96,7 +94,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 3.5,
     "home": 1.72,

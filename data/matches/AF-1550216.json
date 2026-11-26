@@ -12,16 +12,16 @@
   "away_en": "Bologna",
   "odds": {
     "line": 2.5,
-    "home": 3.32,
-    "best_home": 3.55,
-    "draw": 3.27,
+    "home": 3.31,
+    "best_home": 3.5,
+    "draw": 3.3,
     "best_draw": 3.55,
-    "away": 2.21,
-    "best_away": 2.34,
+    "away": 2.2,
+    "best_away": 2.36,
     "over": 2.04,
     "best_over": 2.18,
     "under": 1.77,
-    "best_under": 1.83,
+    "best_under": 1.85,
     "source": "The Odds API 평균 배당 (승무패 25곳, 언더/오버 17곳 북메이커)",
     "event_id": "e9a663f13e7503c0ac20a54804338b60",
     "sport": "soccer_italy_serie_a"
@@ -59,10 +59,8 @@
   "lineup": {
     "home_absent": [
       "A. Adorante (Hernia)",
-      "T. Basic (Muscle Injury)",
       "T. Correia (Thigh Injury)",
       "B. Franjic (Shoulder Injury)",
-      "P. Mazzocchi (Muscle Injury)",
       "M. Sverko (Hip Injury)"
     ],
     "home_doubtful": [],
@@ -103,7 +101,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 3.32,

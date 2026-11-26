@@ -1,0 +1,69 @@
+{
+  "id": "AF-1556171",
+  "sport": "soccer",
+  "league": "J1리그 Regular Season - 18",
+  "league_id": 98,
+  "league_name": "J1리그",
+  "kickoff": "2026-12-04 18:30 KST",
+  "kickoff_iso": "2026-12-04T18:30:00+09:00",
+  "home": "FC 도쿄",
+  "away": "가와사키 프론탈레",
+  "home_en": "FC Tokyo",
+  "away_en": "Kawasaki Frontale",
+  "odds": {
+    "line": 2.5,
+    "note": "The Odds API 에서 이 경기를 찾지 못함 (팀 이름 별칭을 확인하세요)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.533,
+    "away_goals": 1.367
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (9경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.717,
+      "xg_against": 1.258,
+      "raw_goals_for": 1.778,
+      "raw_goals_against": 1.222,
+      "played": 9,
+      "record": "6승 0무 3패"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (9경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.092,
+      "xg_against": 1.217,
+      "raw_goals_for": 1.0,
+      "raw_goals_against": 1.111,
+      "played": 9,
+      "record": "4승 0무 5패"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "status": "skipped",
+    "설명": "호출 절약 수집이라 부상자 목록을 받지 않음"
+  },
+  "collected_detail": "light",
+  "venue": "Ajinomoto Stadium",
+  "source_ids": {
+    "api_football_fixture": 1556171,
+    "home_team": 292,
+    "away_team": 294,
+    "league": 98,
+    "season": 2026
+  },
+  "table": "FC 도쿄 동부 2위 37점 (13승0무5패, 득실 +14) / 가와사키 프론탈레 동부 4위 28점 (10승0무8패, 득실 -2)",
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-27 06:04 KST"
+}

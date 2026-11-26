@@ -12,16 +12,16 @@
   "away_en": "Lazio",
   "odds": {
     "line": 2.5,
-    "home": 3.49,
-    "best_home": 3.8,
-    "draw": 3.44,
+    "home": 3.48,
+    "best_home": 3.75,
+    "draw": 3.43,
     "best_draw": 3.71,
-    "away": 2.07,
+    "away": 2.08,
     "best_away": 2.2,
-    "over": 1.87,
+    "over": 1.86,
     "best_over": 1.95,
     "under": 1.92,
-    "best_under": 2.0,
+    "best_under": 2.02,
     "source": "The Odds API 평균 배당 (승무패 25곳, 언더/오버 18곳 북메이커)",
     "event_id": "aec86b479e922f437ba228b9a9d74da1",
     "sport": "soccer_italy_serie_a"
@@ -63,16 +63,17 @@
     ],
     "home_doubtful": [
       "R. Belghali (Knee Injury)",
-      "N. Fortini (Thigh Injury)"
+      "C. Biraghi (Knee Injury)"
     ],
     "away_absent": [
       "A. Furlanetto (Knee Injury)",
       "A. Marusic (Muscle Injury)",
       "J. Sutalo (Muscle Injury)",
-      "N. Tavares (Muscle Injury)",
-      "M. Zaccagni (Thigh Injury)"
+      "N. Tavares (Muscle Injury)"
     ],
-    "away_doubtful": [],
+    "away_doubtful": [
+      "K. Taylor (Injury)"
+    ],
     "confirmed": false,
     "status": "listed",
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
@@ -104,7 +105,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 3.49,

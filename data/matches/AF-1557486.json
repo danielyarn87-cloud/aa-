@@ -12,7 +12,7 @@
   "away_en": "Tottenham",
   "odds": {
     "line": 2.5,
-    "home": 3.65,
+    "home": 3.68,
     "best_home": 4.0,
     "draw": 3.4,
     "best_draw": 3.67,
@@ -58,12 +58,22 @@
   },
   "lineup": {
     "home_absent": [
-      "D. Ballard (Muscle Bruise)",
-      "H. Diarra (Muscle Bruise)",
-      "R. Mundle (Jumpers Knee)"
+      "D. Ballard (Muscle Injury)",
+      "B. Brobbey (Muscle Injury)",
+      "K. Danso (Loan agreement)",
+      "H. Diarra (Muscle Injury)",
+      "R. Mundle (Knee Injury)",
+      "G. Xhaka (Calf Injury)"
     ],
     "home_doubtful": [],
-    "away_absent": [],
+    "away_absent": [
+      "T. Adarabioyo (Calf Injury)",
+      "M. Mudryk (Ankle Injury)",
+      "W. Odobert (Knee Injury)",
+      "Savio (Muscle Injury)",
+      "X. Simons (Knee Injury)",
+      "M. Tel (Achilles Tendon Injury)"
+    ],
     "away_doubtful": [],
     "confirmed": false,
     "status": "listed",
@@ -87,8 +97,8 @@
     "2016-01-16 토트넘 4-1 선덜랜드"
   ],
   "schedule": {
-    "home_prev": "2026-11-22 Premier League",
-    "home_days_rest": 7,
+    "home_prev": "2026-11-27 UEFA Europa League",
+    "home_days_rest": 2,
     "away_prev": "2026-11-22 Premier League",
     "away_days_rest": 7
   },
@@ -96,7 +106,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 3.65,

@@ -12,13 +12,13 @@
   "away_en": "Kilmarnock",
   "odds": {
     "line": 2.5,
-    "home": 2.1,
-    "best_home": 2.23,
-    "draw": 3.5,
-    "best_draw": 3.75,
-    "away": 3.08,
+    "home": 2.11,
+    "best_home": 2.24,
+    "draw": 3.49,
+    "best_draw": 3.8,
+    "away": 3.07,
     "best_away": 3.25,
-    "over": 1.57,
+    "over": 1.58,
     "best_over": 1.65,
     "under": 2.25,
     "best_under": 2.36,
@@ -92,7 +92,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 2.1,

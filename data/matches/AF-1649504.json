@@ -14,7 +14,7 @@
     "line": 3.5,
     "home": 2.08,
     "best_home": 2.19,
-    "draw": 3.83,
+    "draw": 3.84,
     "best_draw": 4.2,
     "away": 2.97,
     "best_away": 3.3,
@@ -59,7 +59,7 @@
   "lineup": {
     "home_absent": [
       "A. Bonetig (Shoulder Injury)",
-      "B. Bye (Leg Injury)",
+      "B. Bye (Knee Injury)",
       "Z. McGraw (Back Injury)",
       "J. Mosquera (Foot Injury)"
     ],
@@ -103,7 +103,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 3.5,
     "home": 2.08,

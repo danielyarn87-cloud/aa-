@@ -58,6 +58,10 @@
   },
   "lineup": {
     "home_absent": [
+      "L. Becvinovski (International duty)",
+      "N. McCann (Concussion)",
+      "C. McCaskey (International duty)",
+      "O. O'Carroll (International duty)",
       "T. Sainsbury (Achilles Tendon Injury)"
     ],
     "home_doubtful": [],
@@ -99,7 +103,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 3.57,

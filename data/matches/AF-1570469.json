@@ -12,16 +12,16 @@
   "away_en": "Athletic Club",
   "odds": {
     "line": 2.5,
-    "home": 4.8,
-    "best_home": 5.4,
-    "draw": 3.75,
+    "home": 4.71,
+    "best_home": 5.2,
+    "draw": 3.78,
     "best_draw": 4.0,
-    "away": 1.7,
+    "away": 1.71,
     "best_away": 1.77,
     "over": 1.85,
     "best_over": 1.92,
     "under": 1.95,
-    "best_under": 2.1,
+    "best_under": 2.06,
     "source": "The Odds API 평균 배당 (승무패 21곳, 언더/오버 15곳 북메이커)",
     "event_id": "33d92dabbd2606dfe9d31058f7b20cc8",
     "sport": "soccer_spain_la_liga"
@@ -72,7 +72,10 @@
       "M. Sannadi (Muscle Injury)",
       "D. Vivian (Muscle Injury)"
     ],
-    "away_doubtful": [],
+    "away_doubtful": [
+      "Y. Berchiche (Injury)",
+      "A. Paredes (Injury)"
+    ],
     "confirmed": false,
     "status": "listed",
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
@@ -104,7 +107,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 4.8,

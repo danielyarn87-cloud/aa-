@@ -12,13 +12,13 @@
   "away_en": "Santa Clara",
   "odds": {
     "line": 2.5,
-    "home": 3.13,
+    "home": 3.15,
     "best_home": 3.25,
     "draw": 3.01,
-    "best_draw": 3.15,
-    "away": 2.29,
-    "best_away": 2.44,
-    "over": 2.29,
+    "best_draw": 3.11,
+    "away": 2.3,
+    "best_away": 2.48,
+    "over": 2.28,
     "best_over": 2.43,
     "under": 1.56,
     "best_under": 1.62,
@@ -92,7 +92,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 3.13,

@@ -1,0 +1,107 @@
+{
+  "id": "AF-1557496",
+  "sport": "soccer",
+  "league": "프리미어리그 Regular Season - 13",
+  "league_id": 39,
+  "league_name": "프리미어리그",
+  "kickoff": "2026-12-04 05:00 KST",
+  "kickoff_iso": "2026-12-04T05:00:00+09:00",
+  "home": "토트넘",
+  "away": "풀럼",
+  "home_en": "Tottenham",
+  "away_en": "Fulham",
+  "odds": {
+    "line": 2.5,
+    "home": 1.82,
+    "best_home": 1.89,
+    "draw": 3.69,
+    "best_draw": 3.96,
+    "away": 4.04,
+    "best_away": 4.4,
+    "over": 1.75,
+    "best_over": 1.83,
+    "under": 2.04,
+    "best_under": 2.14,
+    "source": "The Odds API 평균 배당 (승무패 19곳, 언더/오버 12곳 북메이커)",
+    "event_id": "0c1ccc010b185ada698661a21316696c",
+    "sport": "soccer_epl"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.582,
+    "away_goals": 1.173
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.527,
+      "xg_against": 1.058,
+      "raw_goals_for": 1.5,
+      "raw_goals_against": 1.0,
+      "played": 6,
+      "record": "3승 1무 2패",
+      "form": "WWWLW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.858,
+      "xg_against": 1.061,
+      "raw_goals_for": 0.7,
+      "raw_goals_against": 0.8,
+      "played": 6,
+      "record": "1승 3무 2패",
+      "form": "WWDDD"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "status": "none",
+    "설명": "API-Football 부상자 목록 기준 보고된 결장자 없음, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Tottenham Hotspur Stadium",
+  "source_ids": {
+    "api_football_fixture": 1557496,
+    "home_team": 47,
+    "away_team": 36,
+    "league": 39,
+    "season": 2026
+  },
+  "table": "토트넘 10위 15점 (4승3무4패, 득실 +1) / 풀럼 15위 11점 (2승5무4패, 득실 -2)",
+  "head_to_head": [
+    "2026-03-01 풀럼 2-1 토트넘",
+    "2025-11-29 토트넘 1-2 풀럼",
+    "2025-03-16 풀럼 2-0 토트넘",
+    "2024-12-01 토트넘 1-1 풀럼",
+    "2024-03-16 풀럼 3-0 토트넘"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Premier League",
+    "home_days_rest": 12,
+    "away_prev": "2026-11-21 Premier League",
+    "away_days_rest": 12
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-27 06:04 KST",
+  "odds_first": {
+    "line": 2.5,
+    "home": 1.82,
+    "draw": 3.69,
+    "away": 4.04,
+    "over": 1.75,
+    "under": 2.04,
+    "event_id": "0c1ccc010b185ada698661a21316696c",
+    "sport": "soccer_epl",
+    "at": "2026-11-27 06:04 KST"
+  }
+}

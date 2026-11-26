@@ -12,11 +12,11 @@
   "away_en": "Liverpool",
   "odds": {
     "line": 2.5,
-    "home": 4.4,
-    "best_home": 4.9,
-    "draw": 3.8,
+    "home": 4.39,
+    "best_home": 4.85,
+    "draw": 3.81,
     "best_draw": 4.16,
-    "away": 1.76,
+    "away": 1.77,
     "best_away": 1.84,
     "over": 1.66,
     "best_over": 1.73,
@@ -57,13 +57,18 @@
     }
   },
   "lineup": {
-    "home_absent": [],
+    "home_absent": [
+      "J. Tarkowski (Red Card)"
+    ],
     "home_doubtful": [],
     "away_absent": [
-      "A. Nallo (Leg Injury)",
-      "J. Frimpong (Muscle Bruise)",
-      "G. Leoni (Jumpers Knee)",
-      "C. Bradley (Jumpers Knee)"
+      "C. Bradley (Knee Injury)",
+      "H. Ekitike (Achilles Tendon Injury)",
+      "C. Gakpo (Calf Injury)",
+      "R. Gravenberch (Heel Injury)",
+      "G. Leoni (Knee Injury)",
+      "V. Munoz (Knee Injury)",
+      "A. Nallo (Leg Injury)"
     ],
     "away_doubtful": [],
     "confirmed": false,
@@ -97,7 +102,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 4.4,

@@ -12,7 +12,7 @@
   "away_en": "V-varen Nagasaki",
   "odds": {
     "line": 2.5,
-    "home": 2.67,
+    "home": 2.66,
     "best_home": 2.8,
     "draw": 3.16,
     "best_draw": 3.33,
@@ -92,7 +92,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 2.67,

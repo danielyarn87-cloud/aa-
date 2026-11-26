@@ -12,15 +12,15 @@
   "away_en": "Bournemouth",
   "odds": {
     "line": 2.5,
-    "home": 2.64,
-    "best_home": 2.8,
+    "home": 2.67,
+    "best_home": 2.9,
     "draw": 3.47,
     "best_draw": 3.7,
-    "away": 2.55,
-    "best_away": 2.7,
+    "away": 2.52,
+    "best_away": 2.65,
     "over": 1.75,
     "best_over": 1.84,
-    "under": 2.05,
+    "under": 2.06,
     "best_under": 2.14,
     "source": "The Odds API 평균 배당 (승무패 25곳, 언더/오버 16곳 북메이커)",
     "event_id": "56ea91809ff11d3a67557a21b3371cb9",
@@ -57,11 +57,15 @@
     }
   },
   "lineup": {
-    "home_absent": [],
+    "home_absent": [
+      "B. Lecomte (Achilles Tendon Injury)",
+      "E. Smith Rowe (Injury)"
+    ],
     "home_doubtful": [],
     "away_absent": [
-      "J. Araujo (Thigh Problems)",
-      "A. Tóth (Muscle Bruise)"
+      "J. Araujo (Thigh Injury)",
+      "J. Sanchez (Ankle Injury)",
+      "A. Toth (Muscle Injury)"
     ],
     "away_doubtful": [],
     "confirmed": false,
@@ -88,14 +92,14 @@
   "schedule": {
     "home_prev": "2026-11-21 Premier League",
     "home_days_rest": 8,
-    "away_prev": "2026-11-22 Premier League",
-    "away_days_rest": 7
+    "away_prev": "2026-11-27 UEFA Europa League",
+    "away_days_rest": 2
   },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 2.64,

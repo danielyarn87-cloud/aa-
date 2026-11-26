@@ -12,16 +12,16 @@
   "away_en": "Borussia Mönchengladbach",
   "odds": {
     "line": 3.5,
-    "home": 1.71,
-    "best_home": 1.77,
-    "draw": 4.17,
-    "best_draw": 4.46,
-    "away": 4.21,
-    "best_away": 4.6,
-    "over": 2.21,
-    "best_over": 2.42,
-    "under": 1.65,
-    "best_under": 1.72,
+    "home": 1.7,
+    "best_home": 1.78,
+    "draw": 4.2,
+    "best_draw": 4.55,
+    "away": 4.29,
+    "best_away": 4.8,
+    "over": 2.22,
+    "best_over": 2.44,
+    "under": 1.66,
+    "best_under": 1.75,
     "source": "The Odds API 평균 배당 (승무패 23곳, 언더/오버 10곳 북메이커)",
     "event_id": "698f4a7967ead89e10205a68ceb4bda4",
     "sport": "soccer_germany_bundesliga"
@@ -67,7 +67,7 @@
       "K. Topp (Knee Injury)"
     ],
     "home_doubtful": [
-      "S. Lynen (Illness)"
+      "J. Njinmah (Muscle Injury)"
     ],
     "away_absent": [
       "H. Bolin (Muscle Injury)",
@@ -109,7 +109,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 3.5,
     "home": 1.71,

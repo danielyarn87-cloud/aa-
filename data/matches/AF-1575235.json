@@ -12,14 +12,14 @@
   "away_en": "Bayern München",
   "odds": {
     "line": 3.5,
-    "home": 9.47,
-    "best_home": 10.7,
-    "draw": 6.62,
+    "home": 9.57,
+    "best_home": 11.0,
+    "draw": 6.66,
     "best_draw": 7.5,
     "away": 1.24,
     "best_away": 1.29,
     "over": 1.74,
-    "best_over": 1.87,
+    "best_over": 1.89,
     "under": 2.07,
     "best_under": 2.14,
     "source": "The Odds API 평균 배당 (승무패 23곳, 언더/오버 11곳 북메이커)",
@@ -62,12 +62,9 @@
       "M. Muheim (Calf Injury)",
       "B. Nadir (Muscle Injury)",
       "Y. Poulsen (Thigh Injury)",
-      "N. Remberg (Knee Injury)",
-      "J. Torunarigha (Hip Injury)"
+      "N. Remberg (Knee Injury)"
     ],
-    "home_doubtful": [
-      "S. Nandja (Pelvis Injury)"
-    ],
+    "home_doubtful": [],
     "away_absent": [
       "A. Davies (Hamstring Injury)",
       "S. Gnabry (Muscle Injury)",
@@ -108,7 +105,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 3.5,
     "home": 9.47,

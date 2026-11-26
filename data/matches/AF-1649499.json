@@ -12,17 +12,17 @@
   "away_en": "Chicago Fire",
   "odds": {
     "line": 3.5,
-    "home": 2.6,
+    "home": 2.61,
     "best_home": 2.8,
-    "draw": 3.72,
+    "draw": 3.73,
     "best_draw": 4.0,
-    "away": 2.34,
+    "away": 2.35,
     "best_away": 2.48,
-    "over": 1.88,
-    "best_over": 1.94,
+    "over": 1.89,
+    "best_over": 1.95,
     "under": 1.87,
     "best_under": 1.96,
-    "source": "The Odds API 평균 배당 (승무패 22곳, 언더/오버 13곳 북메이커)",
+    "source": "The Odds API 평균 배당 (승무패 23곳, 언더/오버 14곳 북메이커)",
     "event_id": "e98180af14a84c9f346a3b1c5019cba8",
     "sport": "soccer_usa_mls"
   },
@@ -60,11 +60,11 @@
     "home_absent": [
       "N. Berchimas (Foot Injury)",
       "A. Goodwin (Foot Injury)",
-      "A. John (Shoulder Injury)"
+      "A. John (Shoulder Injury)",
+      "T. Ream (Achilles Tendon Injury)"
     ],
     "home_doubtful": [
-      "N. Byrne (Injury)",
-      "T. Ream (Achilles Tendon Injury)"
+      "N. Byrne (Injury)"
     ],
     "away_absent": [],
     "away_doubtful": [
@@ -102,7 +102,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 3.5,
     "home": 2.6,

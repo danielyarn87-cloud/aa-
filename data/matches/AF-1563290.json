@@ -12,12 +12,12 @@
   "away_en": "Wolves",
   "odds": {
     "line": 2.5,
-    "home": 5.31,
-    "best_home": 6.2,
+    "home": 5.35,
+    "best_home": 6.4,
     "draw": 3.98,
     "best_draw": 4.4,
-    "away": 1.57,
-    "best_away": 1.68,
+    "away": 1.56,
+    "best_away": 1.66,
     "over": 1.74,
     "best_over": 1.82,
     "under": 2.01,
@@ -92,7 +92,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 5.31,

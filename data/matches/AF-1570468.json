@@ -12,17 +12,17 @@
   "away_en": "Racing Santander",
   "odds": {
     "line": 3.5,
-    "home": 2.06,
-    "best_home": 2.18,
-    "draw": 3.86,
-    "best_draw": 4.1,
-    "away": 3.18,
-    "best_away": 3.35,
-    "over": 2.2,
-    "best_over": 2.28,
-    "under": 1.66,
-    "best_under": 1.78,
-    "source": "The Odds API 평균 배당 (승무패 21곳, 언더/오버 9곳 북메이커)",
+    "home": 2.01,
+    "best_home": 2.1,
+    "draw": 3.92,
+    "best_draw": 4.11,
+    "away": 3.25,
+    "best_away": 3.46,
+    "over": 2.07,
+    "best_over": 2.16,
+    "under": 1.75,
+    "best_under": 1.87,
+    "source": "The Odds API 평균 배당 (승무패 21곳, 언더/오버 11곳 북메이커)",
     "event_id": "80c92a163a81b69fef76530221e2edd0",
     "sport": "soccer_spain_la_liga"
   },
@@ -61,7 +61,9 @@
       "M. Sanchez (Knee Injury)",
       "J. Toljan (Hamstring Injury)"
     ],
-    "home_doubtful": [],
+    "home_doubtful": [
+      "P. Ratkov (Injury)"
+    ],
     "away_absent": [
       "M. Gueye (Muscle Injury)",
       "A. Mantilla (Knee Injury)",
@@ -99,7 +101,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 3.5,
     "home": 2.06,

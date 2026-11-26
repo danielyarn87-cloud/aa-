@@ -17,10 +17,10 @@
     "draw": 3.99,
     "best_draw": 4.3,
     "away": 1.66,
-    "best_away": 1.75,
-    "over": 1.53,
-    "best_over": 1.6,
-    "under": 2.35,
+    "best_away": 1.76,
+    "over": 1.52,
+    "best_over": 1.58,
+    "under": 2.36,
     "best_under": 2.4,
     "source": "The Odds API 평균 배당 (승무패 22곳, 언더/오버 10곳 북메이커)",
     "event_id": "d47bc722be164b3a733434e89f224654",
@@ -62,6 +62,7 @@
       "J. Erabi (Injury)",
       "L. Gibbs (Muscle Injury)",
       "L. Gibson (Muscle Injury)",
+      "A. Hughes (Yellow Cards)",
       "J. Kenny (Hamstring Injury)",
       "A. McCann (Hamstring Injury)",
       "P. Valentin (Hamstring Injury)"
@@ -105,7 +106,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 4.46,

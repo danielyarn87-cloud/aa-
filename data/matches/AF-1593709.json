@@ -12,15 +12,15 @@
   "away_en": "Melbourne City",
   "odds": {
     "line": 2.5,
-    "home": 3.21,
-    "best_home": 3.46,
+    "home": 3.18,
+    "best_home": 3.41,
     "draw": 3.52,
     "best_draw": 3.75,
-    "away": 2.05,
+    "away": 2.07,
     "best_away": 2.15,
     "over": 1.69,
     "best_over": 1.75,
-    "under": 2.05,
+    "under": 2.06,
     "best_under": 2.13,
     "source": "The Odds API 평균 배당 (승무패 19곳, 언더/오버 12곳 북메이커)",
     "event_id": "acbf7c0545986cd60dd4e4cb0152bd41",
@@ -58,16 +58,17 @@
   },
   "lineup": {
     "home_absent": [
-      "J. Hilton (Inactive)",
-      "W. McKay (Inactive)",
-      "B. Oliveira (Inactive)"
+      "J. Hilton (Injury)",
+      "W. McKay (Injury)",
+      "B. Oliveira (Injury)",
+      "N. Paull (Injury)"
     ],
     "home_doubtful": [],
     "away_absent": [
-      "M. Caputo (Hamstring Injury)",
       "M. Freke (Groin Injury)",
+      "A. Gerald (International duty)",
       "R. Kalms (Knee Injury)",
-      "A. Lopane (Muscle Injury)",
+      "B. Kutleshi (International duty)",
       "A. Mabil (Red Card)",
       "B. Mazzeo (Ankle Injury)"
     ],
@@ -103,7 +104,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 3.21,

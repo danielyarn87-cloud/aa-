@@ -12,12 +12,12 @@
   "away_en": "Tokyo Verdy",
   "odds": {
     "line": 2.5,
-    "home": 1.49,
-    "best_home": 1.53,
-    "draw": 3.77,
+    "home": 1.5,
+    "best_home": 1.55,
+    "draw": 3.76,
     "best_draw": 4.04,
-    "away": 6.19,
-    "best_away": 7.4,
+    "away": 6.16,
+    "best_away": 7.2,
     "over": 2.09,
     "best_over": 2.2,
     "under": 1.66,
@@ -92,7 +92,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 1.49,

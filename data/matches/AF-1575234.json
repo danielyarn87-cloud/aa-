@@ -12,14 +12,14 @@
   "away_en": "Union Berlin",
   "odds": {
     "line": 3.5,
-    "home": 1.48,
+    "home": 1.49,
     "best_home": 1.55,
-    "draw": 4.59,
+    "draw": 4.58,
     "best_draw": 4.9,
     "away": 5.9,
     "best_away": 6.75,
     "over": 2.31,
-    "best_over": 2.48,
+    "best_over": 2.5,
     "under": 1.6,
     "best_under": 1.66,
     "source": "The Odds API 평균 배당 (승무패 23곳, 언더/오버 10곳 북메이커)",
@@ -65,15 +65,14 @@
     "away_absent": [
       "L. Burcu (Injury)",
       "J. Juranovic (Illness)",
+      "R. Khedira (Injury)",
       "A. Markgraf (Knee Injury)",
       "S. Nsoki (Muscle Injury)",
       "R. Skov (Injury)",
+      "F. Uduokhai (Muscle Injury)",
       "Z. Van Den Bosch (Yellow Cards)"
     ],
-    "away_doubtful": [
-      "R. Khedira (Injury)",
-      "F. Uduokhai (Muscle Injury)"
-    ],
+    "away_doubtful": [],
     "confirmed": false,
     "status": "listed",
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
@@ -105,7 +104,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 3.5,
     "home": 1.48,

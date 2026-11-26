@@ -12,9 +12,9 @@
   "away_en": "Utrecht",
   "odds": {
     "line": 2.5,
-    "home": 2.65,
+    "home": 2.64,
     "best_home": 2.88,
-    "draw": 3.57,
+    "draw": 3.56,
     "best_draw": 3.85,
     "away": 2.35,
     "best_away": 2.48,
@@ -101,7 +101,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 2.65,

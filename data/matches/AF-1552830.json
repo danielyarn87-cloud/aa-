@@ -12,8 +12,8 @@
   "away_en": "Paris FC",
   "odds": {
     "line": 2.5,
-    "home": 3.28,
-    "best_home": 3.55,
+    "home": 3.29,
+    "best_home": 3.6,
     "draw": 3.4,
     "best_draw": 3.68,
     "away": 2.16,
@@ -61,10 +61,7 @@
       "B. Chardonnet (Calf Injury)",
       "R. Le Guen (Broken Leg)"
     ],
-    "home_doubtful": [
-      "K. Doumbia (Ankle Injury)",
-      "K. Lala (Knee Injury)"
-    ],
+    "home_doubtful": [],
     "away_absent": [],
     "away_doubtful": [
       "N. Sangui (Muscle Injury)"
@@ -100,7 +97,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 3.28,

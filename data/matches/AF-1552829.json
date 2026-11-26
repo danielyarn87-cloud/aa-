@@ -58,11 +58,18 @@
   },
   "lineup": {
     "home_absent": [
-      "B. Okoh (Jumpers Knee)"
+      "C. Akpa (Inactive)",
+      "A. Diousse (Knee Injury)",
+      "S. Fofana (Groin Injury)",
+      "D. Namaso (Ankle Injury)",
+      "B. Okoh (Knee Injury)"
     ],
-    "home_doubtful": [],
+    "home_doubtful": [
+      "L. Sy (Knee Injury)"
+    ],
     "away_absent": [
-      "D. Cornelius (Hip Injury)"
+      "D. Cornelius (Hip Injury)",
+      "Emerson (Knee Injury)"
     ],
     "away_doubtful": [],
     "confirmed": false,
@@ -96,7 +103,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 3.77,

@@ -12,11 +12,11 @@
   "away_en": "Atletico Madrid",
   "odds": {
     "line": 2.5,
-    "home": 6.31,
+    "home": 6.41,
     "best_home": 7.2,
-    "draw": 4.75,
-    "best_draw": 5.2,
-    "away": 1.45,
+    "draw": 4.79,
+    "best_draw": 5.1,
+    "away": 1.44,
     "best_away": 1.52,
     "over": 1.54,
     "best_over": 1.63,
@@ -58,7 +58,6 @@
   },
   "lineup": {
     "home_absent": [
-      "M. Aguado (Ankle Injury)",
       "A. Boayar (Injury)",
       "T. Lemar (Hamstring Injury)",
       "R. Sanchez (Groin Injury)",
@@ -68,11 +67,10 @@
       "A. Houary (Ankle Injury)"
     ],
     "away_absent": [
-      "A. Lookman (Knee Injury)",
-      "C. Romero (Muscle Injury)"
+      "A. Lookman (Knee Injury)"
     ],
     "away_doubtful": [
-      "A. Sorloth (Injury)"
+      "C. Romero (Muscle Injury)"
     ],
     "confirmed": false,
     "status": "listed",
@@ -105,7 +103,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 6.31,

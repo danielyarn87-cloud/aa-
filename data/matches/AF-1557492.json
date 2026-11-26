@@ -12,7 +12,7 @@
   "away_en": "Nottingham Forest",
   "odds": {
     "line": 2.5,
-    "home": 3.99,
+    "home": 4.0,
     "best_home": 4.31,
     "draw": 3.51,
     "best_draw": 3.73,
@@ -22,7 +22,7 @@
     "best_over": 2.0,
     "under": 1.88,
     "best_under": 1.97,
-    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 14곳 북메이커)",
+    "source": "The Odds API 평균 배당 (승무패 21곳, 언더/오버 15곳 북메이커)",
     "event_id": "4bd9a6fe4abb6774b3e8700b3dbe8d00",
     "sport": "soccer_epl"
   },
@@ -96,7 +96,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 3.99,

@@ -14,15 +14,15 @@
     "line": 3.5,
     "home": 2.09,
     "best_home": 2.19,
-    "draw": 3.86,
+    "draw": 3.87,
     "best_draw": 4.1,
     "away": 3.08,
     "best_away": 3.3,
     "over": 2.21,
     "best_over": 2.3,
-    "under": 1.65,
+    "under": 1.64,
     "best_under": 1.75,
-    "source": "The Odds API 평균 배당 (승무패 23곳, 언더/오버 11곳 북메이커)",
+    "source": "The Odds API 평균 배당 (승무패 23곳, 언더/오버 9곳 북메이커)",
     "event_id": "98415e21c147d701bd81e70b1af0f3a7",
     "sport": "soccer_germany_bundesliga"
   },
@@ -57,13 +57,22 @@
     }
   },
   "lineup": {
-    "home_absent": [],
+    "home_absent": [
+      "E. Can (Knee Injury)",
+      "S. Inacio (Knee Injury)",
+      "G. Konstantelias (Knee Injury)",
+      "J. Lerma (Muscle Injury)"
+    ],
     "home_doubtful": [],
-    "away_absent": [],
+    "away_absent": [
+      "K. Eichhorn (Illness)",
+      "M. Terrier (Muscle Injury)",
+      "L. Vazquez (Injury)"
+    ],
     "away_doubtful": [],
     "confirmed": false,
-    "status": "none",
-    "설명": "API-Football 부상자 목록 기준 보고된 결장자 없음, 라인업 미발표"
+    "status": "listed",
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
   "collected_detail": "full",
   "venue": "Signal Iduna Park",
@@ -92,7 +101,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 3.5,
     "home": 2.09,

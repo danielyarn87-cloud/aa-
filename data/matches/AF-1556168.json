@@ -12,10 +12,10 @@
   "away_en": "Urawa",
   "odds": {
     "line": 2.5,
-    "home": 3.82,
-    "best_home": 4.23,
+    "home": 3.83,
+    "best_home": 4.3,
     "draw": 3.43,
-    "best_draw": 3.67,
+    "best_draw": 3.7,
     "away": 1.86,
     "best_away": 1.95,
     "over": 1.89,
@@ -92,7 +92,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 3.82,

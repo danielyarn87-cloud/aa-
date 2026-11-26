@@ -12,12 +12,12 @@
   "away_en": "KV Mechelen",
   "odds": {
     "line": 2.5,
-    "home": 1.92,
+    "home": 1.93,
     "best_home": 1.98,
     "draw": 3.55,
     "best_draw": 3.75,
     "away": 3.45,
-    "best_away": 3.72,
+    "best_away": 3.75,
     "over": 1.65,
     "best_over": 1.7,
     "under": 2.15,
@@ -92,7 +92,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 1.92,

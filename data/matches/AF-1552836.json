@@ -17,10 +17,10 @@
     "draw": 3.57,
     "best_draw": 3.85,
     "away": 2.59,
-    "best_away": 2.7,
+    "best_away": 2.76,
     "over": 1.63,
     "best_over": 1.7,
-    "under": 2.23,
+    "under": 2.22,
     "best_under": 2.33,
     "source": "The Odds API 평균 배당 (승무패 22곳, 언더/오버 11곳 북메이커)",
     "event_id": "71c08940a73e9f42d503449f052a1bdf",
@@ -57,10 +57,16 @@
     }
   },
   "lineup": {
-    "home_absent": [],
-    "home_doubtful": [],
+    "home_absent": [
+      "R. Messali (Thigh Injury)"
+    ],
+    "home_doubtful": [
+      "M. McKenzie (Hamstring Injury)"
+    ],
     "away_absent": [
-      "E. Lepaul (Sprained Ankle)"
+      "M. Camara (Injury)",
+      "V. Rongier (Thigh Injury)",
+      "A. Thomasson (Red Card)"
     ],
     "away_doubtful": [],
     "confirmed": false,
@@ -94,7 +100,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 2.51,

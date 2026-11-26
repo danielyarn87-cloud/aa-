@@ -12,15 +12,15 @@
   "away_en": "Hull City",
   "odds": {
     "line": 2.5,
-    "home": 1.86,
-    "best_home": 1.97,
+    "home": 1.88,
+    "best_home": 2.0,
     "draw": 3.76,
     "best_draw": 4.0,
-    "away": 3.91,
-    "best_away": 4.2,
+    "away": 3.88,
+    "best_away": 4.25,
     "over": 1.72,
     "best_over": 1.82,
-    "under": 2.11,
+    "under": 2.1,
     "best_under": 2.19,
     "source": "The Odds API 평균 배당 (승무패 25곳, 언더/오버 16곳 북메이커)",
     "event_id": "e12585885a7f135127f276b7f1ecdf89",
@@ -58,14 +58,23 @@
   },
   "lineup": {
     "home_absent": [
+      "J. Mateta (Red Card)",
+      "Y. Pino (Yellow Cards)",
+      "C. Riad (Knee Injury)",
       "I. Sarr (Groin Injury)",
-      "T. Tomiyasu (Calf Injury)",
-      "C. Riad (Jumpers Knee)"
+      "T. Tomiyasu (Calf Injury)"
     ],
-    "home_doubtful": [],
+    "home_doubtful": [
+      "O. Mingueza (Muscle Injury)"
+    ],
     "away_absent": [
+      "I. Ansah (Back Injury)",
+      "J. Gelhardt (Muscle Injury)",
       "C. Hughes (Groin Injury)",
-      "Ilyas  Ansah (Back Injury)"
+      "T. Iroegbunam (Hamstring Injury)",
+      "E. Matazo (Knee Injury)",
+      "H. Morita (Muscle Injury)",
+      "M. Targett (Ankle Injury)"
     ],
     "away_doubtful": [],
     "confirmed": false,
@@ -90,8 +99,8 @@
     "2014-01-28 크리스털 팰리스 1-0 헐 시티"
   ],
   "schedule": {
-    "home_prev": "2026-11-22 Premier League",
-    "home_days_rest": 7,
+    "home_prev": "2026-11-27 UEFA Europa League",
+    "home_days_rest": 2,
     "away_prev": "2026-11-22 Premier League",
     "away_days_rest": 7
   },
@@ -99,7 +108,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:59 KST",
+  "collected_at": "2026-11-27 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 1.86,
