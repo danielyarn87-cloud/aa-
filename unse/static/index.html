@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#b8312a">
+<meta name="theme-color" content="#f5c23d">
 <title>오늘의 운세</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +15,7 @@
    COLOUR 주홍 #b8312a 바탕이 주도, 먹 #1c1714와 흰 지면이 받치고, 부적 노랑 #f2c94c 이 고른 것과 행운을 표시
    TYPE 제목·한자 Song Myung, 본문 Noto Sans KR
    LAYOUT 노트북: 주홍 띠 왼쪽 원판, 오른쪽 띠 요약. 아래 흰 지면에 출생연도 4칸이 한 줄. 720px 2×2, 휴대폰은 원판, 요약, 카드 순 한 줄 */
-:root{color-scheme:light dark;--bg:light-dark(#ffffff,#14100e);--ink:light-dark(#1c1714,#f1e9e2);--mute:light-dark(#6b5f58,#b3a59b);--line:light-dark(#e8dfd8,#30261f);--panel:light-dark(#faf6f2,#1d1714);--red:light-dark(#b8312a,#8f241e);--red2:light-dark(#a02a24,#7a1f1a);--ink-on:#fff8f0;--yel:#f2c94c;--yink:#2a1d00;--mark:light-dark(#b8312a,#ff8a7a)}
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#14100e);--ink:light-dark(#1c1714,#f1e9e2);--mute:light-dark(#6b5f58,#b3a59b);--line:light-dark(#e8dfd8,#30261f);--panel:light-dark(#faf6f2,#1d1714);--red:light-dark(#f7c948,#d9a92e);--red2:light-dark(#e9b22a,#c4941c);--ink-on:#2b1a04;--yel:#c8102e;--yink:#fff;--mark:light-dark(#b8312a,#ff8a7a)}
 :root[data-theme=light]{color-scheme:light}
 :root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
@@ -39,12 +39,12 @@ button{font:inherit}
 .hero .wrap{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr) 300px;gap:clamp(20px,3.4vw,48px);align-items:center}
 /* 오른쪽 광고 칸: 구글 애드센스·쿠팡 파트너스 300×250. 넓은 화면은 세 번째 열, 좁으면 요약 아래 한 줄 */
 .adcol{display:flex;flex-direction:column;gap:16px;align-items:center}
-.slot{width:300px;max-width:100%;height:250px;border:1px dashed rgb(255 248 240/.45);border-radius:8px;background:rgb(0 0 0/.12);display:grid;place-items:center;text-align:center;font-size:13px;line-height:1.5;color:rgb(255 248 240/.8)}
+.slot{width:300px;max-width:100%;height:250px;border:1px dashed rgb(43 26 4/.45);border-radius:8px;background:rgb(255 255 255/.35);display:grid;place-items:center;text-align:center;font-size:13px;line-height:1.5;color:rgb(43 26 4/.8)}
 .wheel{width:100%;max-width:400px;aspect-ratio:1;margin-inline:auto}
 .wheel svg{width:100%;height:100%;display:block;overflow:visible}
 .seg{cursor:pointer;outline:none}
-.seg path{fill:transparent;stroke:rgb(255 248 240/.55);stroke-width:1.5;transition:fill .35s ease}
-.seg:hover path{fill:rgb(255 255 255/.1)}
+.seg path{fill:transparent;stroke:rgb(43 26 4/.55);stroke-width:1.5;transition:fill .35s ease}
+.seg:hover path{fill:rgb(255 255 255/.35)}
 .seg:focus-visible path{stroke:var(--yel);stroke-width:3}
 .seg.on path{fill:var(--yel);stroke:var(--yel)}
 .seg text{fill:var(--ink-on);text-anchor:middle;dominant-baseline:central;pointer-events:none}
@@ -56,15 +56,15 @@ button{font:inherit}
 .hubt{fill:var(--ink-on);text-anchor:middle;dominant-baseline:central}
 .hubt.big{font-family:"Song Myung",serif;fill:var(--yel)}
 .days{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
-.day{border:1px solid rgb(255 248 240/.5);background:transparent;color:var(--ink-on);border-radius:999px;padding:6px 14px;font-size:14px;min-height:40px;cursor:pointer}
-.day[aria-pressed=true]{background:var(--ink-on);color:var(--red2);border-color:var(--ink-on);font-weight:700}
+.day{border:1px solid rgb(43 26 4/.5);background:transparent;color:var(--ink-on);border-radius:999px;padding:6px 14px;font-size:14px;min-height:40px;cursor:pointer}
+.day[aria-pressed=true]{background:var(--ink-on);color:#fff4d6;border-color:var(--ink-on);font-weight:700}
 .day:focus-visible,.tabs a:focus-visible{outline:3px solid var(--yel);outline-offset:2px}
 .date{font-size:15px;opacity:.92;margin:0 0 6px}
 .name{font-size:clamp(40px,6vw,64px);line-height:1.05}
 .name small{font-size:.42em;opacity:.85;margin-left:8px}
 .sum{font-size:17px;margin:14px 0 0;max-width:36em}
 .lucky{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
-.lucky span{background:rgb(0 0 0/.18);border:1px solid rgb(255 248 240/.28);border-radius:8px;padding:6px 12px;font-size:14px}
+.lucky span{background:rgb(255 255 255/.45);border:1px solid rgb(43 26 4/.28);border-radius:8px;padding:6px 12px;font-size:14px}
 .lucky b{color:var(--yel);font-weight:700;margin-left:6px}
 .rel{display:inline-block;background:var(--yel);color:var(--yink);font-weight:700;font-size:14px;border-radius:6px;padding:2px 10px;margin-top:10px}
 .cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,2vw,24px)}
@@ -111,6 +111,7 @@ button{font:inherit}
 .foot{border-top:1px solid var(--line);color:var(--mute);font-size:14px}
 .foot .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px}
 @media(max-width:1100px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:761px){.noads .hero .wrap{grid-template-columns:minmax(0,380px) minmax(0,1fr)}}
 @media(max-width:1199px){.hero .wrap{grid-template-columns:minmax(0,380px) minmax(0,1fr)}.adcol{grid-column:1/-1;flex-direction:row;flex-wrap:wrap;justify-content:center}}
 @media(max-width:760px){.hero .wrap,.split{grid-template-columns:minmax(0,1fr)}.wheel{max-width:340px}}
 @media(max-width:600px){.cards{grid-template-columns:minmax(0,1fr)}.top .wrap{justify-content:center}}
@@ -295,7 +296,10 @@ function dayChips(day) {
 function bindDays(rerender) { view.querySelectorAll('[data-off]').forEach(b => b.onclick = () => { offset = +b.dataset.off; rerender(); }); }
 const ad = '<div class="ad" aria-label="광고 영역">광고</div>';
 /* 실제 광고 코드는 아래 두 칸(id)에 넣는다 */
-const adcol = '<aside class="adcol" aria-label="광고"><div class="slot" id="ad-google-side">구글 광고<br>300×250</div><div class="slot" id="ad-coupang-side">쿠팡 광고<br>300×250</div></aside>';
+// 광고 칸 표시: 운영자 주소(pages.dev·로컬)나 관리자 표시가 있을 때만. 회원 주소에선 빈칸 없이 숨김
+const SHOW_ADS = /(^|\.)pages\.dev$|^localhost$|^127\.0\.0\.1$/.test(location.hostname) || store.get('aa_boss') === '1' || !!store.get('aa_run_pw');
+if (!SHOW_ADS) document.documentElement.classList.add('noads');
+const adcol = !SHOW_ADS ? '' : '<aside class="adcol" aria-label="광고"><div class="slot" id="ad-google-side">구글 광고<br>300×250</div><div class="slot" id="ad-coupang-side">쿠팡 광고<br>300×250</div></aside>';
 
 /* AI 운세: /fortune/data/날짜.json (GitHub Actions 가 만들고 Cloudflare Pages 가 올림). 없거나 실패하면 위의 문장 조합으로 대신 보여 준다 */
 const SERVER = {};
