@@ -777,7 +777,7 @@ ${MEMBER ? `        <div class="panel"><h2>숨은 기회</h2><p class="lead">${e
             <p><b>5,000원당 평균 손익</b>은 같은 판단을 아주 여러 번 했을 때 5,000원마다 평균으로 남거나 잃는 돈입니다. <span class="ev plus">+250원</span> 이상일 때만 노란 <b>이득 신호</b>를 켭니다. 우리 계산에도 오차가 있어서, 작은 차이는 믿지 않습니다.</p>
             <p><b>이득 신호가 이번 경기에서 맞는다는 뜻은 아닙니다.</b> 가능성 31%라면 10번 중 7번은 빗나갑니다. 또 배당이 바뀌면 이득도 바뀝니다.</p>
           </div></details></div>`}
-        <div class="panel small"><b>분석 방식</b><br><span class="mute">${esc(r.engine)}</span><br><b>분석 시각</b> <span class="mute">${esc(r.analyzed_at || '-')}</span><br><b>투표 비중</b> <span class="mute">${r.final.map(o => esc(o.member_name) + ' ' + (d.weights[o.member_id] != null ? d.weights[o.member_id].toFixed(2) : '투표 안 함')).join(', ')}</span></div>
+        <div class="panel small">${MEMBER ? '' : `<b>분석 방식</b><br><span class="mute">${esc(r.engine)}</span><br>`}<b>분석 시각</b> <span class="mute">${esc(r.analyzed_at || '-')}</span><br><b>투표 비중</b> <span class="mute">${r.final.map(o => esc(o.member_name) + ' ' + (d.weights[o.member_id] != null ? d.weights[o.member_id].toFixed(2) : '투표 안 함')).join(', ')}</span></div>
       </div>
     </div>
 
