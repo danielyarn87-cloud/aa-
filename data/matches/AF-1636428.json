@@ -11,7 +11,20 @@
   "home_en": "Inter Club d'Escaldes",
   "away_en": "FC Copenhagen",
   "odds": {
-    "line": 2.5
+    "line": 2.5,
+    "home": 11.97,
+    "best_home": 14.0,
+    "draw": 5.5,
+    "best_draw": 5.8,
+    "away": 1.26,
+    "best_away": 1.31,
+    "over": 1.74,
+    "best_over": 1.82,
+    "under": 2.09,
+    "best_under": 2.16,
+    "source": "The Odds API 평균 배당 (승무패 15곳, 언더/오버 8곳 북메이커)",
+    "event_id": "4f10f55b47b83f7f4f2a8cd745a9e67f",
+    "sport": "soccer_uefa_europa_conference_league"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -70,7 +83,19 @@
     "away_days_rest": 4
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:09 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 2.5,
+    "home": 11.97,
+    "draw": 5.5,
+    "away": 1.26,
+    "over": 1.74,
+    "under": 2.09,
+    "event_id": "4f10f55b47b83f7f4f2a8cd745a9e67f",
+    "sport": "soccer_uefa_europa_conference_league",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

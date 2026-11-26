@@ -11,7 +11,20 @@
   "home_en": "1. FC Köln",
   "away_en": "SV Elversberg",
   "odds": {
-    "line": 2.5
+    "line": 3.5,
+    "home": 1.96,
+    "best_home": 2.06,
+    "draw": 3.8,
+    "best_draw": 4.08,
+    "away": 3.44,
+    "best_away": 3.7,
+    "over": 2.33,
+    "best_over": 2.45,
+    "under": 1.58,
+    "best_under": 1.65,
+    "source": "The Odds API 평균 배당 (승무패 23곳, 언더/오버 7곳 북메이커)",
+    "event_id": "2c30e2ebaf6c30aaa4e3fb56cffa6a29",
+    "sport": "soccer_germany_bundesliga"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -87,7 +100,19 @@
     "away_days_rest": 7
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:09 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 3.5,
+    "home": 1.96,
+    "draw": 3.8,
+    "away": 3.44,
+    "over": 2.33,
+    "under": 1.58,
+    "event_id": "2c30e2ebaf6c30aaa4e3fb56cffa6a29",
+    "sport": "soccer_germany_bundesliga",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

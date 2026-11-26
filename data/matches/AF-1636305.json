@@ -11,7 +11,20 @@
   "home_en": "OFI",
   "away_en": "Anderlecht",
   "odds": {
-    "line": 2.5
+    "line": 2.5,
+    "home": 4.37,
+    "best_home": 4.7,
+    "draw": 3.78,
+    "best_draw": 4.0,
+    "away": 1.77,
+    "best_away": 1.84,
+    "over": 1.69,
+    "best_over": 1.81,
+    "under": 2.15,
+    "best_under": 2.21,
+    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 13곳 북메이커)",
+    "event_id": "de10dd2e5917108a9478c07275ba8cdb",
+    "sport": "soccer_uefa_europa_league"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -84,7 +97,19 @@
     "away_days_rest": 4
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:09 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 2.5,
+    "home": 4.37,
+    "draw": 3.78,
+    "away": 1.77,
+    "over": 1.69,
+    "under": 2.15,
+    "event_id": "de10dd2e5917108a9478c07275ba8cdb",
+    "sport": "soccer_uefa_europa_league",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

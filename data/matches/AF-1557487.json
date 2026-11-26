@@ -11,7 +11,20 @@
   "home_en": "Aston Villa",
   "away_en": "Everton",
   "odds": {
-    "line": 2.5
+    "line": 2.5,
+    "home": 1.98,
+    "best_home": 2.06,
+    "draw": 3.61,
+    "best_draw": 3.87,
+    "away": 3.52,
+    "best_away": 3.84,
+    "over": 1.71,
+    "best_over": 1.78,
+    "under": 2.11,
+    "best_under": 2.2,
+    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 13곳 북메이커)",
+    "event_id": "2198fb9aab762e9e1c8c6af4113a1d31",
+    "sport": "soccer_epl"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -79,7 +92,19 @@
     "away_days_rest": 9
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:08 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 2.5,
+    "home": 1.98,
+    "draw": 3.61,
+    "away": 3.52,
+    "over": 1.71,
+    "under": 2.11,
+    "event_id": "2198fb9aab762e9e1c8c6af4113a1d31",
+    "sport": "soccer_epl",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

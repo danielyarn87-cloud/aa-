@@ -11,7 +11,20 @@
   "home_en": "Deportivo La Coruna",
   "away_en": "Barcelona",
   "odds": {
-    "line": 2.5
+    "line": 3.5,
+    "home": 10.25,
+    "best_home": 12.0,
+    "draw": 7.06,
+    "best_draw": 8.2,
+    "away": 1.21,
+    "best_away": 1.27,
+    "over": 1.63,
+    "best_over": 1.74,
+    "under": 2.23,
+    "best_under": 2.3,
+    "source": "The Odds API 평균 배당 (승무패 21곳, 언더/오버 9곳 북메이커)",
+    "event_id": "69fc06d019491be2aa1bf69b8f8041e3",
+    "sport": "soccer_spain_la_liga"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -76,7 +89,19 @@
     "away_days_rest": 3
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:09 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 3.5,
+    "home": 10.25,
+    "draw": 7.06,
+    "away": 1.21,
+    "over": 1.63,
+    "under": 2.23,
+    "event_id": "69fc06d019491be2aa1bf69b8f8041e3",
+    "sport": "soccer_spain_la_liga",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

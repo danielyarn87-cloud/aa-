@@ -11,7 +11,20 @@
   "home_en": "AS Roma",
   "away_en": "Monza",
   "odds": {
-    "line": 2.5
+    "line": 3.5,
+    "home": 1.19,
+    "best_home": 1.22,
+    "draw": 7.23,
+    "best_draw": 8.2,
+    "away": 12.38,
+    "best_away": 15.0,
+    "over": 1.87,
+    "best_over": 1.97,
+    "under": 1.91,
+    "best_under": 2.01,
+    "source": "The Odds API 평균 배당 (승무패 25곳, 언더/오버 15곳 북메이커)",
+    "event_id": "c979bd4559d2d81a8e2fe8f2d4aec376",
+    "sport": "soccer_italy_serie_a"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -76,7 +89,19 @@
     "away_days_rest": 5
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:09 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 3.5,
+    "home": 1.19,
+    "draw": 7.23,
+    "away": 12.38,
+    "over": 1.87,
+    "under": 1.91,
+    "event_id": "c979bd4559d2d81a8e2fe8f2d4aec376",
+    "sport": "soccer_italy_serie_a",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

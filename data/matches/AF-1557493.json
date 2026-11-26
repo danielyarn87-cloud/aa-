@@ -11,7 +11,20 @@
   "home_en": "Liverpool",
   "away_en": "Sunderland",
   "odds": {
-    "line": 2.5
+    "line": 2.5,
+    "home": 1.43,
+    "best_home": 1.5,
+    "draw": 4.7,
+    "best_draw": 5.0,
+    "away": 6.47,
+    "best_away": 7.0,
+    "over": 1.57,
+    "best_over": 1.64,
+    "under": 2.36,
+    "best_under": 2.49,
+    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 12곳 북메이커)",
+    "event_id": "9629fcc970336d106d144eaa25cec853",
+    "sport": "soccer_epl"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -83,7 +96,19 @@
     "away_days_rest": 11
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:08 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 2.5,
+    "home": 1.43,
+    "draw": 4.7,
+    "away": 6.47,
+    "over": 1.57,
+    "under": 2.36,
+    "event_id": "9629fcc970336d106d144eaa25cec853",
+    "sport": "soccer_epl",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

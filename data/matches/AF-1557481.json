@@ -11,7 +11,20 @@
   "home_en": "Fulham",
   "away_en": "Bournemouth",
   "odds": {
-    "line": 2.5
+    "line": 2.5,
+    "home": 2.64,
+    "best_home": 2.8,
+    "draw": 3.47,
+    "best_draw": 3.7,
+    "away": 2.55,
+    "best_away": 2.7,
+    "over": 1.75,
+    "best_over": 1.84,
+    "under": 2.05,
+    "best_under": 2.14,
+    "source": "The Odds API 평균 배당 (승무패 25곳, 언더/오버 16곳 북메이커)",
+    "event_id": "56ea91809ff11d3a67557a21b3371cb9",
+    "sport": "soccer_epl"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -79,7 +92,19 @@
     "away_days_rest": 7
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:08 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 2.5,
+    "home": 2.64,
+    "draw": 3.47,
+    "away": 2.55,
+    "over": 1.75,
+    "under": 2.05,
+    "event_id": "56ea91809ff11d3a67557a21b3371cb9",
+    "sport": "soccer_epl",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

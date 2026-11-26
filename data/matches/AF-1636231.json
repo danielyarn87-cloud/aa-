@@ -11,7 +11,20 @@
   "home_en": "Beşiktaş",
   "away_en": "Hapoel Beer Sheva",
   "odds": {
-    "line": 2.5
+    "line": 3.5,
+    "home": 1.23,
+    "best_home": 1.27,
+    "draw": 6.7,
+    "best_draw": 7.4,
+    "away": 10.45,
+    "best_away": 12.5,
+    "over": 1.92,
+    "best_over": 2.06,
+    "under": 1.88,
+    "best_under": 1.94,
+    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 11곳 북메이커)",
+    "event_id": "a18687d4f17a96a7732fb0c8673ea037",
+    "sport": "soccer_uefa_europa_league"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -85,7 +98,19 @@
     "away_days_rest": 17
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:09 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 3.5,
+    "home": 1.23,
+    "draw": 6.7,
+    "away": 10.45,
+    "over": 1.92,
+    "under": 1.88,
+    "event_id": "a18687d4f17a96a7732fb0c8673ea037",
+    "sport": "soccer_uefa_europa_league",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

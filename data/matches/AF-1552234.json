@@ -11,7 +11,20 @@
   "home_en": "Cambuur",
   "away_en": "Sparta Rotterdam",
   "odds": {
-    "line": 2.5
+    "line": 3.5,
+    "home": 2.14,
+    "best_home": 2.32,
+    "draw": 3.78,
+    "best_draw": 4.1,
+    "away": 2.87,
+    "best_away": 3.03,
+    "over": 2.0,
+    "best_over": 2.08,
+    "under": 1.75,
+    "best_under": 1.81,
+    "source": "The Odds API 평균 배당 (승무패 21곳, 언더/오버 11곳 북메이커)",
+    "event_id": "708641646f92ec14288beaaf1154e996",
+    "sport": "soccer_netherlands_eredivisie"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -84,7 +97,19 @@
     "away_days_rest": 6
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:09 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 3.5,
+    "home": 2.14,
+    "draw": 3.78,
+    "away": 2.87,
+    "over": 2.0,
+    "under": 1.75,
+    "event_id": "708641646f92ec14288beaaf1154e996",
+    "sport": "soccer_netherlands_eredivisie",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

@@ -11,7 +11,20 @@
   "home_en": "Fortuna Sittard",
   "away_en": "Heerenveen",
   "odds": {
-    "line": 2.5
+    "line": 3.5,
+    "home": 3.51,
+    "best_home": 3.8,
+    "draw": 3.7,
+    "best_draw": 4.0,
+    "away": 1.89,
+    "best_away": 1.97,
+    "over": 2.27,
+    "best_over": 2.35,
+    "under": 1.57,
+    "best_under": 1.62,
+    "source": "The Odds API 평균 배당 (승무패 21곳, 언더/오버 8곳 북메이커)",
+    "event_id": "2bebeea09c64f8187e5b44dd6ab27b53",
+    "sport": "soccer_netherlands_eredivisie"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -76,7 +89,19 @@
     "away_days_rest": 7
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:09 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 3.5,
+    "home": 3.51,
+    "draw": 3.7,
+    "away": 1.89,
+    "over": 2.27,
+    "under": 1.57,
+    "event_id": "2bebeea09c64f8187e5b44dd6ab27b53",
+    "sport": "soccer_netherlands_eredivisie",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

@@ -11,7 +11,20 @@
   "home_en": "Kairat Almaty",
   "away_en": "Mjallby AIF",
   "odds": {
-    "line": 2.5
+    "line": 2.5,
+    "home": 2.19,
+    "best_home": 2.3,
+    "draw": 3.37,
+    "best_draw": 3.55,
+    "away": 3.28,
+    "best_away": 3.5,
+    "over": 1.97,
+    "best_over": 2.1,
+    "under": 1.84,
+    "best_under": 1.91,
+    "source": "The Odds API 평균 배당 (승무패 15곳, 언더/오버 11곳 북메이커)",
+    "event_id": "b11e430b1d8052d0c718bcee69145f7a",
+    "sport": "soccer_uefa_europa_conference_league"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -70,7 +83,19 @@
     "away_days_rest": 5
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:09 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 2.5,
+    "home": 2.19,
+    "draw": 3.37,
+    "away": 3.28,
+    "over": 1.97,
+    "under": 1.84,
+    "event_id": "b11e430b1d8052d0c718bcee69145f7a",
+    "sport": "soccer_uefa_europa_conference_league",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

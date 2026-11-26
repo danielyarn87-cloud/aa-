@@ -11,7 +11,20 @@
   "home_en": "Aberdeen",
   "away_en": "Dundee",
   "odds": {
-    "line": 2.5
+    "line": 2.5,
+    "home": 1.82,
+    "best_home": 1.88,
+    "draw": 3.7,
+    "best_draw": 4.0,
+    "away": 3.73,
+    "best_away": 4.0,
+    "over": 1.62,
+    "best_over": 1.66,
+    "under": 2.16,
+    "best_under": 2.28,
+    "source": "The Odds API 평균 배당 (승무패 18곳, 언더/오버 12곳 북메이커)",
+    "event_id": "dfce7c648af34f7903af25e12fdf642c",
+    "sport": "soccer_spl"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -76,7 +89,19 @@
     "away_days_rest": 3
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:10 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 2.5,
+    "home": 1.82,
+    "draw": 3.7,
+    "away": 3.73,
+    "over": 1.62,
+    "under": 2.16,
+    "event_id": "dfce7c648af34f7903af25e12fdf642c",
+    "sport": "soccer_spl",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

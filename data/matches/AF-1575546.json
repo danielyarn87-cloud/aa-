@@ -11,7 +11,20 @@
   "home_en": "Arouca",
   "away_en": "Rio Ave",
   "odds": {
-    "line": 2.5
+    "line": 2.5,
+    "home": 1.65,
+    "best_home": 1.7,
+    "draw": 3.7,
+    "best_draw": 3.95,
+    "away": 4.77,
+    "best_away": 5.4,
+    "over": 1.85,
+    "best_over": 1.93,
+    "under": 1.88,
+    "best_under": 1.94,
+    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 14곳 북메이커)",
+    "event_id": "d583b1676d961c26794a3ccedf7edffb",
+    "sport": "soccer_portugal_primeira_liga"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -76,7 +89,19 @@
     "away_days_rest": 6
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:09 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 2.5,
+    "home": 1.65,
+    "draw": 3.7,
+    "away": 4.77,
+    "over": 1.85,
+    "under": 1.88,
+    "event_id": "d583b1676d961c26794a3ccedf7edffb",
+    "sport": "soccer_portugal_primeira_liga",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

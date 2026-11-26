@@ -11,7 +11,20 @@
   "home_en": "Maritimo",
   "away_en": "Nacional",
   "odds": {
-    "line": 2.5
+    "line": 2.5,
+    "home": 2.06,
+    "best_home": 2.2,
+    "draw": 3.25,
+    "best_draw": 3.45,
+    "away": 3.43,
+    "best_away": 3.62,
+    "over": 2.02,
+    "best_over": 2.12,
+    "under": 1.72,
+    "best_under": 1.78,
+    "source": "The Odds API 평균 배당 (승무패 19곳, 언더/오버 11곳 북메이커)",
+    "event_id": "abfc6851b152aecbb4bf84a348967f69",
+    "sport": "soccer_portugal_primeira_liga"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -76,7 +89,19 @@
     "away_days_rest": 19
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:09 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 2.5,
+    "home": 2.06,
+    "draw": 3.25,
+    "away": 3.43,
+    "over": 2.02,
+    "under": 1.72,
+    "event_id": "abfc6851b152aecbb4bf84a348967f69",
+    "sport": "soccer_portugal_primeira_liga",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

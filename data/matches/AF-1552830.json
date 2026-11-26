@@ -11,7 +11,20 @@
   "home_en": "Stade Brestois 29",
   "away_en": "Paris FC",
   "odds": {
-    "line": 2.5
+    "line": 2.5,
+    "home": 3.28,
+    "best_home": 3.55,
+    "draw": 3.4,
+    "best_draw": 3.68,
+    "away": 2.16,
+    "best_away": 2.28,
+    "over": 1.85,
+    "best_over": 1.96,
+    "under": 1.93,
+    "best_under": 2.02,
+    "source": "The Odds API 평균 배당 (승무패 22곳, 언더/오버 15곳 북메이커)",
+    "event_id": "02ff879cf54f6d1fec2664efee0431db",
+    "sport": "soccer_france_ligue_one"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -84,7 +97,19 @@
     "away_days_rest": 5
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:09 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 2.5,
+    "home": 3.28,
+    "draw": 3.4,
+    "away": 2.16,
+    "over": 1.85,
+    "under": 1.93,
+    "event_id": "02ff879cf54f6d1fec2664efee0431db",
+    "sport": "soccer_france_ligue_one",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

@@ -11,7 +11,20 @@
   "home_en": "Valencia",
   "away_en": "Osasuna",
   "odds": {
-    "line": 2.5
+    "line": 2.5,
+    "home": 2.14,
+    "best_home": 2.23,
+    "draw": 3.22,
+    "best_draw": 3.45,
+    "away": 3.52,
+    "best_away": 3.85,
+    "over": 2.19,
+    "best_over": 2.38,
+    "under": 1.66,
+    "best_under": 1.72,
+    "source": "The Odds API 평균 배당 (승무패 21곳, 언더/오버 12곳 북메이커)",
+    "event_id": "1ab9541320cecbe9f043565fd4a141e0",
+    "sport": "soccer_spain_la_liga"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -76,7 +89,19 @@
     "away_days_rest": 6
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:08 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 2.5,
+    "home": 2.14,
+    "draw": 3.22,
+    "away": 3.52,
+    "over": 2.19,
+    "under": 1.66,
+    "event_id": "1ab9541320cecbe9f043565fd4a141e0",
+    "sport": "soccer_spain_la_liga",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

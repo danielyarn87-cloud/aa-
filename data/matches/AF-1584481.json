@@ -11,7 +11,20 @@
   "home_en": "Göztepe",
   "away_en": "Trabzonspor",
   "odds": {
-    "line": 2.5
+    "line": 2.5,
+    "home": 3.19,
+    "best_home": 3.4,
+    "draw": 3.69,
+    "best_draw": 3.95,
+    "away": 1.99,
+    "best_away": 2.12,
+    "over": 1.56,
+    "best_over": 1.62,
+    "under": 2.29,
+    "best_under": 2.42,
+    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 11곳 북메이커)",
+    "event_id": "61e4741f21230122441a7a07f53f4341",
+    "sport": "soccer_turkey_super_league"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -76,7 +89,19 @@
     "away_days_rest": 8
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:10 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 2.5,
+    "home": 3.19,
+    "draw": 3.69,
+    "away": 1.99,
+    "over": 1.56,
+    "under": 2.29,
+    "event_id": "61e4741f21230122441a7a07f53f4341",
+    "sport": "soccer_turkey_super_league",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

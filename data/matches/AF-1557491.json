@@ -11,7 +11,20 @@
   "home_en": "Coventry",
   "away_en": "Ipswich",
   "odds": {
-    "line": 2.5
+    "line": 2.5,
+    "home": 2.23,
+    "best_home": 2.33,
+    "draw": 3.56,
+    "best_draw": 3.75,
+    "away": 2.98,
+    "best_away": 3.15,
+    "over": 1.67,
+    "best_over": 1.75,
+    "under": 2.17,
+    "best_under": 2.25,
+    "source": "The Odds API 평균 배당 (승무패 21곳, 언더/오버 13곳 북메이커)",
+    "event_id": "c7aff6bfea3ca1c4b177694977831b85",
+    "sport": "soccer_epl"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -78,7 +91,19 @@
     "away_days_rest": 10
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:08 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 2.5,
+    "home": 2.23,
+    "draw": 3.56,
+    "away": 2.98,
+    "over": 1.67,
+    "under": 2.17,
+    "event_id": "c7aff6bfea3ca1c4b177694977831b85",
+    "sport": "soccer_epl",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

@@ -11,7 +11,20 @@
   "home_en": "Kashima",
   "away_en": "Fagiano Okayama",
   "odds": {
-    "line": 2.5
+    "line": 2.5,
+    "home": 1.75,
+    "best_home": 1.82,
+    "draw": 3.54,
+    "best_draw": 3.75,
+    "away": 4.19,
+    "best_away": 4.7,
+    "over": 1.85,
+    "best_over": 1.93,
+    "under": 1.86,
+    "best_under": 1.95,
+    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 14곳 북메이커)",
+    "event_id": "0178a5e10b9ec15701b1580cb06c83b8",
+    "sport": "soccer_japan_j_league"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -76,7 +89,19 @@
     "away_days_rest": 2
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:10 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 2.5,
+    "home": 1.75,
+    "draw": 3.54,
+    "away": 4.19,
+    "over": 1.85,
+    "under": 1.86,
+    "event_id": "0178a5e10b9ec15701b1580cb06c83b8",
+    "sport": "soccer_japan_j_league",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

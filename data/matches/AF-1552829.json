@@ -11,7 +11,20 @@
   "home_en": "Auxerre",
   "away_en": "Marseille",
   "odds": {
-    "line": 2.5
+    "line": 2.5,
+    "home": 3.77,
+    "best_home": 4.0,
+    "draw": 3.89,
+    "best_draw": 4.2,
+    "away": 1.85,
+    "best_away": 1.95,
+    "over": 1.57,
+    "best_over": 1.64,
+    "under": 2.33,
+    "best_under": 2.47,
+    "source": "The Odds API 평균 배당 (승무패 22곳, 언더/오버 11곳 북메이커)",
+    "event_id": "a370db12aaff183a94f8e9a6acb6d4c9",
+    "sport": "soccer_france_ligue_one"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -80,7 +93,19 @@
     "away_days_rest": 6
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:09 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 2.5,
+    "home": 3.77,
+    "draw": 3.89,
+    "away": 1.85,
+    "over": 1.57,
+    "under": 2.33,
+    "event_id": "a370db12aaff183a94f8e9a6acb6d4c9",
+    "sport": "soccer_france_ligue_one",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

@@ -11,7 +11,20 @@
   "home_en": "SC Paderborn 07",
   "away_en": "FC Schalke 04",
   "odds": {
-    "line": 2.5
+    "line": 2.5,
+    "home": 2.42,
+    "best_home": 2.55,
+    "draw": 3.45,
+    "best_draw": 3.73,
+    "away": 2.78,
+    "best_away": 2.95,
+    "over": 1.75,
+    "best_over": 1.85,
+    "under": 2.06,
+    "best_under": 2.14,
+    "source": "The Odds API 평균 배당 (승무패 23곳, 언더/오버 15곳 북메이커)",
+    "event_id": "f84a9da7eedd0ca11a28a1a7a8edddc7",
+    "sport": "soccer_germany_bundesliga"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -87,7 +100,19 @@
     "away_days_rest": 6
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:09 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 2.5,
+    "home": 2.42,
+    "draw": 3.45,
+    "away": 2.78,
+    "over": 1.75,
+    "under": 2.06,
+    "event_id": "f84a9da7eedd0ca11a28a1a7a8edddc7",
+    "sport": "soccer_germany_bundesliga",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

@@ -11,7 +11,20 @@
   "home_en": "Como",
   "away_en": "Juventus",
   "odds": {
-    "line": 2.5
+    "line": 2.5,
+    "home": 2.05,
+    "best_home": 2.17,
+    "draw": 3.52,
+    "best_draw": 3.77,
+    "away": 3.43,
+    "best_away": 3.75,
+    "over": 1.79,
+    "best_over": 1.87,
+    "under": 2.01,
+    "best_under": 2.11,
+    "source": "The Odds API 평균 배당 (승무패 25곳, 언더/오버 18곳 북메이커)",
+    "event_id": "3876ad367184af2f8fc04a544fc894aa",
+    "sport": "soccer_italy_serie_a"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -75,7 +88,19 @@
     "away_days_rest": 7
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:09 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 2.5,
+    "home": 2.05,
+    "draw": 3.52,
+    "away": 3.43,
+    "over": 1.79,
+    "under": 2.01,
+    "event_id": "3876ad367184af2f8fc04a544fc894aa",
+    "sport": "soccer_italy_serie_a",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

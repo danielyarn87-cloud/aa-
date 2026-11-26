@@ -11,7 +11,20 @@
   "home_en": "ST Johnstone",
   "away_en": "ST Mirren",
   "odds": {
-    "line": 2.5
+    "line": 2.5,
+    "home": 2.0,
+    "best_home": 2.12,
+    "draw": 3.26,
+    "best_draw": 3.62,
+    "away": 2.91,
+    "best_away": 3.25,
+    "over": 1.69,
+    "best_over": 1.72,
+    "under": 2.05,
+    "best_under": 2.12,
+    "source": "The Odds API 평균 배당 (승무패 13곳, 언더/오버 10곳 북메이커)",
+    "event_id": "df0d05d99ce3261396e40d8c8a8968f3",
+    "sport": "soccer_spl"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -76,7 +89,19 @@
     "away_days_rest": 11
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:10 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 2.5,
+    "home": 2.0,
+    "draw": 3.26,
+    "away": 2.91,
+    "over": 1.69,
+    "under": 2.05,
+    "event_id": "df0d05d99ce3261396e40d8c8a8968f3",
+    "sport": "soccer_spl",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

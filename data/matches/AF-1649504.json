@@ -11,7 +11,20 @@
   "home_en": "Portland Timbers",
   "away_en": "FC Dallas",
   "odds": {
-    "line": 2.5
+    "line": 3.5,
+    "home": 2.08,
+    "best_home": 2.19,
+    "draw": 3.83,
+    "best_draw": 4.2,
+    "away": 2.97,
+    "best_away": 3.3,
+    "over": 1.98,
+    "best_over": 2.07,
+    "under": 1.78,
+    "best_under": 1.89,
+    "source": "The Odds API 평균 배당 (승무패 22곳, 언더/오버 12곳 북메이커)",
+    "event_id": "8eb6c0ad9c8ce02d93e5413dcba1d13a",
+    "sport": "soccer_usa_mls"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -87,7 +100,19 @@
     "away_days_rest": 7
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:11 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 3.5,
+    "home": 2.08,
+    "draw": 3.83,
+    "away": 2.97,
+    "over": 1.98,
+    "under": 1.78,
+    "event_id": "8eb6c0ad9c8ce02d93e5413dcba1d13a",
+    "sport": "soccer_usa_mls",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

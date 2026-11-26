@@ -11,7 +11,20 @@
   "home_en": "Beşiktaş",
   "away_en": "Galatasaray",
   "odds": {
-    "line": 2.5
+    "line": 3.5,
+    "home": 1.97,
+    "best_home": 2.18,
+    "draw": 3.72,
+    "best_draw": 3.91,
+    "away": 3.2,
+    "best_away": 3.41,
+    "over": 2.1,
+    "best_over": 2.23,
+    "under": 1.65,
+    "best_under": 1.71,
+    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 9곳 북메이커)",
+    "event_id": "4106cffbfdc215fb99e5a2e60a1f9f80",
+    "sport": "soccer_turkey_super_league"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -76,7 +89,19 @@
     "away_days_rest": 6
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:10 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 3.5,
+    "home": 1.97,
+    "draw": 3.72,
+    "away": 3.2,
+    "over": 2.1,
+    "under": 1.65,
+    "event_id": "4106cffbfdc215fb99e5a2e60a1f9f80",
+    "sport": "soccer_turkey_super_league",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

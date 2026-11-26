@@ -11,7 +11,20 @@
   "home_en": "Cagliari",
   "away_en": "AC Milan",
   "odds": {
-    "line": 2.5
+    "line": 2.5,
+    "home": 4.8,
+    "best_home": 5.2,
+    "draw": 3.77,
+    "best_draw": 4.03,
+    "away": 1.69,
+    "best_away": 1.77,
+    "over": 1.84,
+    "best_over": 1.92,
+    "under": 1.94,
+    "best_under": 2.03,
+    "source": "The Odds API 평균 배당 (승무패 25곳, 언더/오버 18곳 북메이커)",
+    "event_id": "3d57da6bdb20b65145bc2479ee5f2ae7",
+    "sport": "soccer_italy_serie_a"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -78,7 +91,19 @@
     "away_days_rest": 8
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:09 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 2.5,
+    "home": 4.8,
+    "draw": 3.77,
+    "away": 1.69,
+    "over": 1.84,
+    "under": 1.94,
+    "event_id": "3d57da6bdb20b65145bc2479ee5f2ae7",
+    "sport": "soccer_italy_serie_a",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

@@ -11,7 +11,20 @@
   "home_en": "Elche",
   "away_en": "Atletico Madrid",
   "odds": {
-    "line": 2.5
+    "line": 2.5,
+    "home": 6.31,
+    "best_home": 7.2,
+    "draw": 4.75,
+    "best_draw": 5.2,
+    "away": 1.45,
+    "best_away": 1.52,
+    "over": 1.54,
+    "best_over": 1.63,
+    "under": 2.43,
+    "best_under": 2.49,
+    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 9곳 북메이커)",
+    "event_id": "40236ab976955345ebd1edb72abf6b22",
+    "sport": "soccer_spain_la_liga"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -89,7 +102,19 @@
     "away_days_rest": 2
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:08 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 2.5,
+    "home": 6.31,
+    "draw": 4.75,
+    "away": 1.45,
+    "over": 1.54,
+    "under": 2.43,
+    "event_id": "40236ab976955345ebd1edb72abf6b22",
+    "sport": "soccer_spain_la_liga",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

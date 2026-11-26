@@ -11,7 +11,20 @@
   "home_en": "Torreense",
   "away_en": "Celtic",
   "odds": {
-    "line": 2.5
+    "line": 3.5,
+    "home": 4.66,
+    "best_home": 5.0,
+    "draw": 4.39,
+    "best_draw": 4.7,
+    "away": 1.62,
+    "best_away": 1.68,
+    "over": 2.04,
+    "best_over": 2.14,
+    "under": 1.77,
+    "best_under": 1.86,
+    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 10곳 북메이커)",
+    "event_id": "e2036567ee9394a55f022358781dce15",
+    "sport": "soccer_uefa_europa_league"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -84,7 +97,19 @@
     "away_days_rest": 5
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:09 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 3.5,
+    "home": 4.66,
+    "draw": 4.39,
+    "away": 1.62,
+    "over": 2.04,
+    "under": 1.77,
+    "event_id": "e2036567ee9394a55f022358781dce15",
+    "sport": "soccer_uefa_europa_league",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

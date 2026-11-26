@@ -11,7 +11,20 @@
   "home_en": "Real Betis",
   "away_en": "Rayo Vallecano",
   "odds": {
-    "line": 2.5
+    "line": 3.5,
+    "home": 1.57,
+    "best_home": 1.64,
+    "draw": 4.33,
+    "best_draw": 4.75,
+    "away": 5.23,
+    "best_away": 6.0,
+    "over": 2.34,
+    "best_over": 2.5,
+    "under": 1.6,
+    "best_under": 1.66,
+    "source": "The Odds API 평균 배당 (승무패 21곳, 언더/오버 7곳 북메이커)",
+    "event_id": "c81520b9a9794749cfdab57f89bdeb16",
+    "sport": "soccer_spain_la_liga"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -85,7 +98,19 @@
     "away_days_rest": 6
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:08 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 3.5,
+    "home": 1.57,
+    "draw": 4.33,
+    "away": 5.23,
+    "over": 2.34,
+    "under": 1.6,
+    "event_id": "c81520b9a9794749cfdab57f89bdeb16",
+    "sport": "soccer_spain_la_liga",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

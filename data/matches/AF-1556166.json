@@ -11,7 +11,20 @@
   "home_en": "Mito Hollyhock",
   "away_en": "V-varen Nagasaki",
   "odds": {
-    "line": 2.5
+    "line": 2.5,
+    "home": 2.67,
+    "best_home": 2.8,
+    "draw": 3.16,
+    "best_draw": 3.33,
+    "away": 2.48,
+    "best_away": 2.62,
+    "over": 2.0,
+    "best_over": 2.08,
+    "under": 1.72,
+    "best_under": 1.8,
+    "source": "The Odds API 평균 배당 (승무패 19곳, 언더/오버 11곳 북메이커)",
+    "event_id": "f7632c77b259388080dddd4000da2dd9",
+    "sport": "soccer_japan_j_league"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -76,7 +89,19 @@
     "away_days_rest": 3
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:10 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 2.5,
+    "home": 2.67,
+    "draw": 3.16,
+    "away": 2.48,
+    "over": 2.0,
+    "under": 1.72,
+    "event_id": "f7632c77b259388080dddd4000da2dd9",
+    "sport": "soccer_japan_j_league",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

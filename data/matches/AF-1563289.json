@@ -11,7 +11,20 @@
   "home_en": "Derby",
   "away_en": "Watford",
   "odds": {
-    "line": 2.5
+    "line": 2.5,
+    "home": 2.19,
+    "best_home": 2.3,
+    "draw": 3.3,
+    "best_draw": 3.55,
+    "away": 3.15,
+    "best_away": 3.35,
+    "over": 1.9,
+    "best_over": 2.0,
+    "under": 1.84,
+    "best_under": 1.89,
+    "source": "The Odds API 평균 배당 (승무패 21곳, 언더/오버 16곳 북메이커)",
+    "event_id": "82ef491ed2f8399e4ccec9f5d8315cee",
+    "sport": "soccer_efl_champ"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -95,7 +108,19 @@
     "away_days_rest": 2
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:09 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 2.5,
+    "home": 2.19,
+    "draw": 3.3,
+    "away": 3.15,
+    "over": 1.9,
+    "under": 1.84,
+    "event_id": "82ef491ed2f8399e4ccec9f5d8315cee",
+    "sport": "soccer_efl_champ",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

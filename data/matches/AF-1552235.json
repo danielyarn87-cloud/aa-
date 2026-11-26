@@ -11,7 +11,20 @@
   "home_en": "ADO Den Haag",
   "away_en": "Utrecht",
   "odds": {
-    "line": 2.5
+    "line": 2.5,
+    "home": 2.65,
+    "best_home": 2.88,
+    "draw": 3.57,
+    "best_draw": 3.85,
+    "away": 2.35,
+    "best_away": 2.48,
+    "over": 1.57,
+    "best_over": 1.62,
+    "under": 2.29,
+    "best_under": 2.35,
+    "source": "The Odds API 평균 배당 (승무패 21곳, 언더/오버 11곳 북메이커)",
+    "event_id": "d77c244bd9dd91534c40b863e44cf905",
+    "sport": "soccer_netherlands_eredivisie"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -85,7 +98,19 @@
     "away_days_rest": 7
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:09 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 2.5,
+    "home": 2.65,
+    "draw": 3.57,
+    "away": 2.35,
+    "over": 1.57,
+    "under": 2.29,
+    "event_id": "d77c244bd9dd91534c40b863e44cf905",
+    "sport": "soccer_netherlands_eredivisie",
+    "at": "2026-11-26 23:18 KST"
+  }
 }

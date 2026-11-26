@@ -11,7 +11,20 @@
   "home_en": "Red Bull Salzburg",
   "away_en": "Ararat-Armenia",
   "odds": {
-    "line": 2.5
+    "line": 3.5,
+    "home": 1.14,
+    "best_home": 1.17,
+    "draw": 8.63,
+    "best_draw": 10.5,
+    "away": 16.1,
+    "best_away": 20.0,
+    "over": 1.73,
+    "best_over": 1.79,
+    "under": 2.06,
+    "best_under": 2.12,
+    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 9곳 북메이커)",
+    "event_id": "5902b4703e9ddc1f573091e14107834c",
+    "sport": "soccer_uefa_europa_league"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -87,7 +100,19 @@
     "away_days_rest": 6
   },
   "sources": [
-    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-26 23:09 KST"
+  "collected_at": "2026-11-26 23:18 KST",
+  "odds_first": {
+    "line": 3.5,
+    "home": 1.14,
+    "draw": 8.63,
+    "away": 16.1,
+    "over": 1.73,
+    "under": 2.06,
+    "event_id": "5902b4703e9ddc1f573091e14107834c",
+    "sport": "soccer_uefa_europa_league",
+    "at": "2026-11-26 23:18 KST"
+  }
 }
