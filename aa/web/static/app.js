@@ -205,7 +205,7 @@ async function renderList() {
     <div class="chips lgchips" role="group" aria-label="리그 거르기" ${lgOpen ? '' : 'hidden'}>
       <button class="chip" data-lg="all" aria-pressed="${leagueFilter === 'all'}">모든 리그 <span class="num">${all.length}</span></button>
       ${Object.entries(lgCount).sort((a, b) => b[1] - a[1]).map(([n, c]) => `<button class="chip" data-lg="${esc(n)}" aria-pressed="${leagueFilter === n}">${esc(n)} <span class="num">${c}</span></button>`).join('')}</div>` : ''}
-    ${MEMBER ? `<p class="small mute" style="margin:0"><span class="tag pick">예측</span> 가장 유력하다고 본 결과 · 하늘색 <span class="tag value">숨은 기회</span> 우리가 본 가능성이 시장 예상보다 충분히 높은 선택 · <span class="tag both"><span class="star">★ 예측+기회</span></span> 둘 다 해당 · 줄 색 <span class="lgnd hot">초록 = 예측+기회</span> <span class="lgnd val">분홍 = 숨은 기회</span> · 막대 <span class="trilegend"><span><i class="h"></i>홈 승</span><span><i class="d"></i>무</span><span><i class="a"></i>원정 승</span></span></p>` : `<p class="small mute" style="margin:0"><span class="tag pick">예측</span> 가장 유력하다고 본 결과 · 하늘색 <span class="tag value">이득</span> 우리가 본 가능성에 비해 배당이 후한 선택 · <span class="tag both"><span class="star">★ 예측+이득</span></span> 노란 바탕 빨간 글씨, 둘 다 해당 (가장 강한 신호) · 줄 색 <span class="lgnd hot">초록 = 예측+이득</span> <span class="lgnd val">분홍 = 이득</span> · 막대 <span class="trilegend"><span><i class="h"></i>홈 승</span><span><i class="d"></i>무</span><span><i class="a"></i>원정 승</span></span></p>`}
+    ${legendHtml()}
     ${isRes ? `<div class="ressearch">
         <input type="search" id="rq" placeholder="팀 이름·리그로 검색 (예: 대전, 챔피언스리그)" value="${esc(resQuery)}">
         <input type="date" id="rd" value="${esc(resDate)}" title="날짜">
@@ -514,6 +514,18 @@ function liveText(x, ended, wait) {
   if (x.s === 'HT') return t('HT', false) + sc;
   if (x.s === 'P') return t('승부차기', true) + sc;
   return t(x.m != null ? esc(x.m) + "'" : 'LIVE', true, ' num') + sc;
+}
+/* ---------- 경기 목록 위 표시 설명 (한 항목씩 끊어서, 좁은 폰·폴드 커버에선 한 줄에 하나) ---------- */
+function legendHtml() {
+  const G = MEMBER ? '숨은 기회' : '이득', S = MEMBER ? '★ 예측+기회' : '★ 예측+이득';
+  const it = (k, t) => `<span class="lgd-i">${k}<span>${t}</span></span>`;
+  return `<div class="lgd small mute" role="note">
+    ${it('<span class="tag pick">예측</span>', '가장 유력한 결과')}
+    ${it(`<span class="tag value">${G}</span>`, MEMBER ? '시장보다 우리가 높게 본 선택' : '우리 가능성에 비해 배당이 후한 선택')}
+    ${it(`<span class="tag both"><span class="star">${S}</span></span>`, '둘 다 해당')}
+    ${it(`<span class="lgd-k">줄 색</span>`, `<span class="lgnd hot">초록</span> ${S.slice(2)} · <span class="lgnd val">분홍</span> ${G}`)}
+    ${it(`<span class="lgd-k">막대</span>`, '<span class="trilegend"><span><i class="h"></i>홈 승</span><span><i class="d"></i>무</span><span><i class="a"></i>원정 승</span></span>')}
+  </div>`;
 }
 /* ---------- 쿠팡 파트너스 배너 (회원 주소만) ----------
    배너 상자(#cp-ad)는 index.html 에 한 번만 있다. 화면을 새로 그리기 전에 몸통으로 빼 두고(parkAd),
