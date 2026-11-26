@@ -635,3 +635,38 @@ a.row.val:hover{background:#C93A6E}
   body.chat-dock .fad,body.chat-dock .cp-side{left:auto!important;right:12px!important}
 }
 @media print{.chat,.chat-fab,.chat-tab{display:none!important}}
+/* 회원 관리 (운영자 주소) — 폴드 접은 화면(344px)부터 PC까지 카드형 */
+.mg-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:14px 0 18px}
+.mg-stat{border:1px solid var(--line);border-left:4px solid var(--pitch);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.mg-stat b{font-size:28px;line-height:1.1}
+.mg-stat span{font-size:14px;color:var(--ink)}
+.mg-stat small{font-size:12px;color:var(--mute)}
+.mg-tabs{margin:0 0 14px}
+.mg-search{display:flex;gap:8px;margin:0 0 6px}
+.mg-search input{flex:1;min-width:0;min-height:44px;padding:8px 12px;border:1px solid var(--line);border-radius:8px;font:inherit;background:var(--bg);color:var(--ink)}
+.mg-list{display:grid;gap:10px;margin-top:10px}
+@media (min-width:900px){.mg-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.mg-card{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--bg);min-width:0}
+.mg-top{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.mg-nick{font-size:17px;margin-right:2px;word-break:break-all}
+.mg-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:6px 12px;margin:10px 0 0}
+.mg-meta div{min-width:0}
+.mg-meta dt{font-size:12px;color:var(--mute)}
+.mg-meta dd{margin:0;font-size:14px;overflow-wrap:anywhere}
+.mg-act{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:10px}
+.mg-lbl{font-size:13px;color:var(--mute);margin-right:2px}
+.mg-act .btn.sm{min-height:36px}
+.mg-danger{color:#c62828!important;border-color:#e3a5a5!important}
+.mg-danger.on{background:#c62828!important;color:#fff!important}
+.mg-warn{color:#c62828;font-size:13px;margin:8px 0 0}
+.tag.mg-ban{background:#ffe9e9;color:#a1001c;border-color:#f5c2c2}
+.tag.mg-ok{background:#e8f5ec;color:#1b6b35;border-color:#bfe3cb}
+.tag.mg-kakao{background:#fee500;color:#3a1d1d;border-color:#e6cf00}
+.tag.mg-google{background:#eef3ff;color:#1e3a8a;border-color:#c9d6f5}
+.mg-text{background:var(--panel);border-radius:8px;padding:8px 10px;margin:8px 0 0;overflow-wrap:anywhere;font-size:14px}
+.mg-rep.done{opacity:.65}
+.mg-top small{flex-basis:100%;font-size:12px}
+/* 폰 아래 메뉴: 항목이 많으면(운영자 주소) 옆으로 밀어서 보기, 글자 겹침 없음 */
+@media(max-width:600px){.nav{overflow-x:auto;justify-content:flex-start;scrollbar-width:none}.nav::-webkit-scrollbar{display:none}.nav a{flex:1 0 auto;min-width:4.4em;padding:10px 8px}}
+.mg-meta .em{grid-column:1/-1}
+.mg-meta .em dd{overflow-wrap:normal;word-break:keep-all}

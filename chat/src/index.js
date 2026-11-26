@@ -25,6 +25,9 @@ const PHONE = /(\+?82[-\s]?)?0?1[016789][-\s.]?\d{3,4}[-\s.]?\d{4}|\b0\d{1,2}[-\
 // 불법 도박 홍보로 보이면 아예 올리지 않는다
 const PROMO = /(토토사이트|사설토토|먹튀|바카라|카지노|슬롯|홀덤|파워볼|충전\s*\d|가입\s*코드|추천\s*코드|텔레그램|텔레\s*@|카톡\s*@|오픈\s*채팅|꽁머니|입플|첫충|매충|환전)/i;
 
+// 한국 날짜 (YYYY-MM-DD)
+const kday = (ms) => new Date(ms + 9 * 3600e3).toISOString().slice(0, 10);
+
 export default {
   async fetch() { return new Response("Not Found", { status: 404 }); },
 };
@@ -36,6 +39,10 @@ export class ChatRoom {
     this.sql.exec(`CREATE TABLE IF NOT EXISTS msgs (id INTEGER PRIMARY KEY AUTOINCREMENT, ts INTEGER, uid TEXT, nick TEXT, role TEXT, text TEXT, hidden INTEGER DEFAULT 0)`);
     this.sql.exec(`CREATE TABLE IF NOT EXISTS reports (id INTEGER PRIMARY KEY AUTOINCREMENT, ts INTEGER, msg_id INTEGER, reporter TEXT, uid TEXT, nick TEXT, text TEXT)`);
     this.sql.exec(`CREATE TABLE IF NOT EXISTS bans (uid TEXT PRIMARY KEY, nick TEXT, ts INTEGER, until INTEGER, reason TEXT)`);
+    // 하루 채팅 수 (회원 관리 화면 요약용, 글 내용 없이 숫자만. 60일 보관)
+    this.sql.exec(`CREATE TABLE IF NOT EXISTS daily (day TEXT PRIMARY KEY, n INTEGER)`);
+    // 신고 처리 표시 (회원 관리 → 신고함)
+    try { this.sql.exec(`ALTER TABLE reports ADD COLUMN done INTEGER DEFAULT 0`); } catch (e) {}
     this.last = new Map();            // uid → 마지막으로 보낸 시각 (3초 제한)
   }
 
@@ -81,6 +88,11 @@ export class ChatRoom {
         bans: this.rows(`SELECT * FROM bans ORDER BY ts DESC LIMIT 200`),
       });
     }
+    // 운영자 전용: 회원 관리 화면에서 부르는 것들
+    if (url.pathname.startsWith("/admin/")) {
+      if (role !== "admin") return new Response("Forbidden", { status: 403 });
+      return this.admin(url.pathname.slice(7), request.method === "POST" ? await request.json().catch(() => ({})) : {});
+    }
     if (request.headers.get("Upgrade") !== "websocket") return new Response("Expected websocket", { status: 426 });
 
     const pair = new WebSocketPair();
@@ -110,6 +122,7 @@ export class ChatRoom {
       if (me.role !== "admin" && PROMO.test(text)) return this.send(ws, { t: "err", msg: "홍보로 보이는 글은 올릴 수 없어요." });
       if (me.role !== "admin") text = text.replace(LINK, "[링크 가림]").replace(PHONE, "[번호 가림]");
       this.last.set(me.uid, now);
+      this.sql.exec(`INSERT INTO daily (day, n) VALUES (?, 1) ON CONFLICT(day) DO UPDATE SET n = n + 1`, kday(now));
       const row = this.rows(`INSERT INTO msgs (ts, uid, nick, role, text) VALUES (?, ?, ?, ?, ?) RETURNING *`, now, me.uid, me.nick, me.role, text)[0];
       this.broadcast((admin) => ({ t: "msg", m: this.view(row, admin) }));
       await this.ensureAlarm();
@@ -149,6 +162,52 @@ export class ChatRoom {
     }
   }
 
+  // 회원 관리: 상태 조회, 채팅 제한·해제, 신고 처리, 탈퇴한 회원 연결 끊기
+  async admin(op, d) {
+    const now = Date.now();
+    if (op === "status") {
+      const ids = (Array.isArray(d.uids) ? d.uids : []).map(String).slice(0, 500);
+      const bans = {};
+      for (const b of this.rows(`SELECT * FROM bans WHERE until > ?`, now)) if (!ids.length || ids.includes(b.uid)) bans[b.uid] = { until: b.until, reason: b.reason };
+      const today = this.rows(`SELECT n FROM daily WHERE day = ?`, kday(now))[0];
+      const open = this.rows(`SELECT COUNT(*) AS n FROM reports WHERE done = 0 AND reporter NOT LIKE 'admin-%'`)[0].n;
+      return Response.json({ bans, chatsToday: today ? today.n : 0, openReports: open, online: this.ctx.getWebSockets().length });
+    }
+    if (op === "ban") {
+      const uid = String(d.uid || ""); if (!uid) return Response.json({ error: "uid" }, { status: 400 });
+      const days = Number(d.days) > 0 ? Math.min(Number(d.days), 365) : 36500;   // 0 = 영구
+      this.sql.exec(`INSERT OR REPLACE INTO bans (uid, nick, ts, until, reason) VALUES (?, ?, ?, ?, ?)`, uid, String(d.nick || ""), now, now + days * 86400e3, String(d.reason || "운영 정책 위반").slice(0, 100));
+      this.sql.exec(`INSERT INTO reports (ts, msg_id, reporter, uid, nick, text, done) VALUES (?, 0, 'admin-ban', ?, ?, ?, 1)`, now, uid, String(d.nick || ""), `회원 관리에서 ${days >= 36500 ? "영구" : days + "일"} 제한`);
+      this.tellUser(uid, { t: "err", msg: "운영 정책 위반으로 채팅이 제한됐어요." });
+      return Response.json({ ok: true, until: now + days * 86400e3 });
+    }
+    if (op === "unban") {
+      this.sql.exec(`DELETE FROM bans WHERE uid = ?`, String(d.uid || ""));
+      return Response.json({ ok: true });
+    }
+    if (op === "done") {
+      this.sql.exec(`UPDATE reports SET done = ? WHERE id = ?`, d.undo ? 0 : 1, Number(d.id));
+      return Response.json({ ok: true });
+    }
+    if (op === "hide") {   // 신고함에서 글 가리기 (아직 지워지지 않은 글만)
+      const m = this.rows(`SELECT * FROM msgs WHERE id = ?`, Number(d.id))[0];
+      if (m) { this.sql.exec(`UPDATE msgs SET hidden = 1 WHERE id = ?`, m.id); this.broadcast(() => ({ t: "hide", id: m.id })); }
+      return Response.json({ ok: true, found: !!m });
+    }
+    if (op === "gone") {   // 탈퇴(강제 포함): 연결을 끊고 그 회원 글은 가린다
+      const uid = String(d.uid || "");
+      this.sql.exec(`UPDATE msgs SET hidden = 1 WHERE uid = ?`, uid);
+      const ids = this.rows(`SELECT id FROM msgs WHERE uid = ?`, uid).map((r) => r.id);
+      if (ids.length) this.broadcast(() => ({ t: "hideMany", ids }));
+      for (const ws of this.ctx.getWebSockets()) if (this.who(ws).uid === uid) { try { ws.close(4001, "gone"); } catch (e) {} }
+      this.online();
+      return Response.json({ ok: true });
+    }
+    return Response.json({ error: "unknown" }, { status: 404 });
+  }
+
+  tellUser(uid, obj) { for (const ws of this.ctx.getWebSockets()) if (this.who(ws).uid === uid) this.send(ws, obj); }
+
   async webSocketClose(ws, code) {
     try { ws.close(code, "bye"); } catch (e) {}
     this.online();
@@ -162,6 +221,7 @@ export class ChatRoom {
     this.sql.exec(`DELETE FROM msgs WHERE ts < ? AND id NOT IN (SELECT id FROM msgs ORDER BY id DESC LIMIT ${KEEP_MIN})`, now - KEEP_MS);
     this.sql.exec(`DELETE FROM reports WHERE ts < ?`, now - LOG_MS);
     this.sql.exec(`DELETE FROM bans WHERE ts < ? AND until < ?`, now - LOG_MS, now);
+    this.sql.exec(`DELETE FROM daily WHERE day < ?`, kday(now - 60 * 86400e3));
     const left = this.rows(`SELECT COUNT(*) AS n FROM msgs`)[0].n;
     if (left > 0 || this.ctx.getWebSockets().length) await this.ctx.storage.setAlarm(now + SWEEP_MS);
   }

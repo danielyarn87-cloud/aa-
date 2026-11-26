@@ -1215,6 +1215,7 @@ async function route() {
     }
   }
   document.querySelectorAll('.run-link').forEach(a => a.hidden = !STATIC);
+  document.querySelectorAll('.mem-link').forEach(a => a.hidden = !OPERATOR);   /* 회원 관리: 운영자 주소만 */
   if (h !== 'run') clearInterval(runPoll);
   parkAd();
   try {
@@ -1226,6 +1227,7 @@ async function route() {
     else if (h === 'join') await renderJoin();
     else if (PAGES.includes(h)) renderPolicy(h);
     else if (h === 'login-fail') { toast('로그인하지 못했어요. 다시 시도해 주세요.'); location.replace('#'); return; }
+    else if (h === 'members') await renderMembers();
     else if (h === 'news') await renderNews();
     else if (h === 'admin') await renderAdmin();
     else if (h === 'run' && STATIC) await renderRun();
@@ -1423,6 +1425,75 @@ document.addEventListener('click', e => {
   if (!a || !PAGES.includes(location.pathname.replace(/^\/+|\/+$/g, ''))) return;
   e.preventDefault(); location.href = '/' + a.getAttribute('href');
 });
+
+/* ---------- 회원 관리 (운영자 주소에서만) ---------- */
+let memTab = 'list', memQ = '', memArm = '';   // memArm: 강제 탈퇴 확인 대기 중인 회원 번호
+const mapi = async (path, body) => {
+  const r = await fetch(path, body ? {method: 'POST', headers: {'content-type': 'application/json'}, body: JSON.stringify(body)} : {cache: 'no-store'});
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(j.error || '처리하지 못했어요.');
+  return j;
+};
+const kdt = ms => ms ? new Date(ms).toLocaleString('ko-KR', {month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false}) : '—';
+const kd = ms => ms ? new Date(ms).toLocaleDateString('ko-KR', {year: '2-digit', month: 'numeric', day: 'numeric'}) : '—';
+const BAN_DAYS = [[1, '1일'], [7, '7일'], [30, '30일'], [0, '영구']];
+async function renderMembers() {
+  if (!OPERATOR) { location.replace('#'); return; }
+  view.innerHTML = '<section class="band"><div class="wrap"><h1>회원 관리</h1><p class="loading">불러오는 중…</p></div></section>';
+  const [d, rp] = await Promise.all([mapi('/api/members' + (memQ ? '?q=' + encodeURIComponent(memQ) : '')), mapi('/api/members/reports').catch(() => ({reports: [], bans: []}))]);
+  const s = d.summary || {};
+  const nickOf = Object.fromEntries(d.users.map(u => [String(u.id), u.nick]));
+  const who = r => r === 'admin' ? '운영자' : r === 'admin-hide' ? '운영자 가림' : r === 'admin-ban' ? '운영자 제한' : (nickOf[r] || '회원 ' + r);
+  const userReports = (rp.reports || []).filter(r => !String(r.reporter).startsWith('admin-'));
+  const open = userReports.filter(r => !r.done).length;
+  const stat = (n, t, sub = '') => `<div class="mg-stat"><b class="num">${esc(n ?? 0)}</b><span>${t}</span>${sub ? `<small>${sub}</small>` : ''}</div>`;
+  const banTag = u => { const b = d.bans[String(u.id)]; return b ? `<span class="tag mg-ban">채팅 제한 · ${b.until > Date.now() + 3650 * 864e5 ? '영구' : kd(b.until) + '까지'}</span>` : '<span class="tag mg-ok">정상</span>'; };
+  const card = u => { const b = d.bans[String(u.id)]; return `<article class="mg-card" data-uid="${u.id}" data-nick="${esc(u.nick)}">
+    <div class="mg-top"><b class="mg-nick">${esc(u.nick)}</b><span class="tag mg-${u.provider}">${u.provider === 'kakao' ? '카카오' : '구글'}</span>${banTag(u)}</div>
+    <dl class="mg-meta"><div><dt>가입</dt><dd>${kd(u.created)}</dd></div><div><dt>최근 접속</dt><dd>${kdt(u.last_login)}</dd></div><div><dt>관심 경기</dt><dd>☆ ${esc(u.favs)}</dd></div>${u.email ? `<div class="em"><dt>이메일</dt><dd>${esc(u.email)}</dd></div>` : ''}</dl>
+    <div class="mg-act">${b ? '<button class="btn sm ghost" data-unban>제한 해제</button>'
+      : `<span class="mg-lbl">채팅 제한</span>${BAN_DAYS.map(([v, t]) => `<button class="btn sm ghost" data-ban="${v}">${t}</button>`).join('')}`}
+      <button class="btn sm ${memArm === String(u.id) ? 'mg-danger on' : 'ghost mg-danger'}" data-del>${memArm === String(u.id) ? '정말 탈퇴시키기' : '강제 탈퇴'}</button></div>
+    ${memArm === String(u.id) ? '<p class="mg-warn">회원 정보·관심 경기·로그인이 모두 지워지고 되돌릴 수 없어요. 한 번 더 누르면 탈퇴돼요.</p>' : ''}</article>`; };
+  const rcard = r => `<article class="mg-card mg-rep${r.done ? ' done' : ''}" data-rid="${r.id}" data-mid="${r.msg_id}" data-uid="${esc(r.uid)}" data-nick="${esc(r.nick)}">
+    <div class="mg-top"><b class="mg-nick">${esc(r.nick || '알 수 없음')}</b><span class="tag ${r.done ? 'mg-ok' : 'mg-ban'}">${r.done ? '처리함' : '처리 전'}</span><small class="mute">${kdt(r.ts)} · 신고 ${esc(who(String(r.reporter)))}</small></div>
+    <p class="mg-text">${esc(r.text || '')}</p>
+    <div class="mg-act">${r.done ? '<button class="btn sm ghost" data-undo>처리 전으로</button>' : `<button class="btn sm ghost" data-hide>글 가리기</button><button class="btn sm ghost" data-rban>7일 제한</button><button class="btn sm" data-done>처리 완료</button>`}</div></article>`;
+  const logs = (rp.reports || []).filter(r => String(r.reporter).startsWith('admin-'));
+  view.innerHTML = `<section class="band"><div class="wrap mg">
+    <h1>회원 관리</h1>
+    <div class="mg-stats">${stat(s.total, '전체 회원', `카카오 ${s.kakao || 0} · 구글 ${s.google || 0}`)}${stat(s.today, '오늘 가입', `7일 ${s.week || 0}`)}${stat(s.active_today, '오늘 접속')}${stat(s.chatsToday, '오늘 채팅', `지금 ${s.online || 0}명 접속`)}${stat(open, '처리 전 신고')}</div>
+    <div class="segbar mg-tabs" role="group" aria-label="회원 관리 보기"><button class="seg" data-tab="list" aria-pressed="${memTab === 'list'}">회원 목록</button><button class="seg" data-tab="rep" aria-pressed="${memTab === 'rep'}">신고함${open ? ` (${open})` : ''}</button><button class="seg" data-tab="log" aria-pressed="${memTab === 'log'}">제재 기록</button></div>
+    ${memTab === 'list' ? `<form class="mg-search" role="search"><input id="mgq" type="search" placeholder="닉네임 검색" value="${esc(memQ)}" aria-label="닉네임 검색"><button class="btn sm">찾기</button></form>
+      <p class="small mute">${memQ ? `"${esc(memQ)}" ` : ''}${d.users.length}명 · 최근 가입 순 · 이메일은 앞 두 글자만 보여요</p>
+      <div class="mg-list">${d.users.map(card).join('') || '<p class="mute">아직 가입한 회원이 없어요.</p>'}</div>`
+    : memTab === 'rep' ? `<p class="small mute">회원이 신고한 채팅 글 (30일 보관). 1시간이 지나 채팅방에서 지워진 글은 가리기가 필요 없어요.</p>
+      <div class="mg-list">${userReports.map(rcard).join('') || '<p class="mute">들어온 신고가 없어요.</p>'}</div>`
+    : `<p class="small mute">운영자가 가리거나 제한한 기록 (30일 보관)</p>
+      <div class="mg-list">${logs.map(r => `<article class="mg-card"><div class="mg-top"><b class="mg-nick">${esc(r.nick || '')}</b><span class="tag">${esc(who(String(r.reporter)))}</span><small class="mute">${kdt(r.ts)}</small></div><p class="mg-text">${esc(r.text || '')}</p></article>`).join('') || '<p class="mute">기록이 없어요.</p>'}</div>`}
+  </div></section>`;
+  view.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { memTab = b.dataset.tab; memArm = ''; renderMembers(); });
+  const f = view.querySelector('.mg-search');
+  if (f) f.onsubmit = e => { e.preventDefault(); memQ = view.querySelector('#mgq').value.trim(); renderMembers(); };
+  view.querySelector('.mg-list').onclick = async e => {
+    const b = e.target.closest('button'); if (!b) return;
+    const c = b.closest('.mg-card'); const uid = c.dataset.uid, nick = c.dataset.nick;
+    b.disabled = true;
+    try {
+      if (b.hasAttribute('data-ban')) { const days = +b.dataset.ban; await mapi('/api/members/ban', {uid, nick, days}); toast(`${nick} 님 채팅을 ${days ? days + '일' : '영구'} 제한했어요.`); }
+      else if (b.hasAttribute('data-unban')) { await mapi('/api/members/unban', {uid}); toast(`${nick} 님 제한을 풀었어요.`); }
+      else if (b.hasAttribute('data-del')) {
+        if (memArm !== uid) { memArm = uid; return renderMembers(); }
+        memArm = ''; await mapi('/api/members/delete', {uid}); toast(`${nick} 님을 탈퇴 처리했어요.`);
+      }
+      else if (b.hasAttribute('data-hide')) { const r = await mapi('/api/members/hide', {id: +c.dataset.mid}); toast(r.found ? '글을 가렸어요.' : '이미 채팅방에서 지워진 글이에요.'); }
+      else if (b.hasAttribute('data-rban')) { await mapi('/api/members/ban', {uid, nick, days: 7}); await mapi('/api/members/done', {id: +c.dataset.rid}); toast(`${nick} 님 채팅을 7일 제한했어요.`); }
+      else if (b.hasAttribute('data-done')) await mapi('/api/members/done', {id: +c.dataset.rid});
+      else if (b.hasAttribute('data-undo')) await mapi('/api/members/done', {id: +c.dataset.rid, undo: true});
+      renderMembers();
+    } catch (err) { toast(err.message); b.disabled = false; }
+  };
+}
 
 /* ---------- 실시간 채팅방 ---------- */
 const Chat = {

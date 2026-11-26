@@ -145,6 +145,10 @@ export async function onRequest({ request, env, params }) {
       env.DB.prepare("DELETE FROM sessions WHERE uid = ?").bind(me.id),
       env.DB.prepare("DELETE FROM users WHERE id = ?").bind(me.id),
     ]);
+    // 채팅방: 연결 끊고 그 회원 글 가리기
+    if (env.CHAT) await env.CHAT.get(env.CHAT.idFromName("main")).fetch(new Request("https://chat/admin/gone", {
+      method: "POST", headers: { "X-Chat-Role": "admin", "content-type": "application/json" }, body: JSON.stringify({ uid: String(me.id) }),
+    })).catch(() => null);
     return json({ ok: true }, 200, { "Set-Cookie": setCookie(SESSION_COOKIE, "", 0) });
   }
 
