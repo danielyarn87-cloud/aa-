@@ -42,14 +42,14 @@
 RAISE는 분석 참고용 자료이며 결과를 보장하지 않습니다.
 <p class="foot-links"><a href="/about">사이트 소개</a> · <a href="/terms">이용약관</a> · <a href="/privacy">개인정보 처리방침</a></p></footer>
 <!-- 쿠팡 파트너스 배너: 쿠팡에 등록한 회원 주소(raise-fulltime.com)에서만 불러온다. 화면 안 자리는 app.js 의 placeAd 가 정한다 -->
-<div id="cp-ad" class="cp-ad" hidden><span class="cp-lab">광고</span><div class="cp-in"><script>
-if (/(^|\.)raise-fulltime\.com$/.test(location.hostname)) document.write('<script src="https://ads-partners.coupang.com/g.js"><\/script><script>new PartnersCoupang.G({"id":1059791,"template":"carousel","trackingCode":"AF1769498","width":"300","height":"250","tsource":""});<\/script>');
+<div id="cp-ad" class="cp-ad" hidden><span class="cp-lab">광고</span><div class="cp-in"><script src="https://ads-partners.coupang.com/g.js"></script><script>
+if (/(^|\.)raise-fulltime\.com$/.test(location.hostname) && window.PartnersCoupang) new PartnersCoupang.G({"id":1059791,"template":"carousel","trackingCode":"AF1769498","width":"300","height":"250","tsource":""});
 </script></div><p class="cp-note">이 광고는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p></div>
 <!-- 쿠팡 배너 PC 오른쪽 (로또 배너 아래 A, 그 아래 B, 같이 따라다님): 회원 주소만. 넓고 충분히 높은 화면에서만 (style.css .cp-side) -->
 <div id="cp-side" class="cp-side"><div class="cp-in"><script>
-if (/(^|\.)raise-fulltime\.com$/.test(location.hostname)) { document.documentElement.classList.add('cp-host'); document.write('<script>new PartnersCoupang.G({"id":1059781,"template":"carousel","trackingCode":"AF1769498","width":"165","height":"200","tsource":""});<\/script>'); }
+if (/(^|\.)raise-fulltime\.com$/.test(location.hostname)) { document.documentElement.classList.add('cp-host'); if (window.PartnersCoupang) new PartnersCoupang.G({"id":1059781,"template":"carousel","trackingCode":"AF1769498","width":"165","height":"200","tsource":""}); }
 </script></div><div class="cp-in cp-b"><script>
-if (/(^|\.)raise-fulltime\.com$/.test(location.hostname)) document.write('<script>new PartnersCoupang.G({"id":1059791,"template":"carousel","trackingCode":"AF1769498","width":"165","height":"200","tsource":""});<\/script>');
+if (/(^|\.)raise-fulltime\.com$/.test(location.hostname)) if (window.PartnersCoupang) new PartnersCoupang.G({"id":1059791,"template":"carousel","trackingCode":"AF1769498","width":"165","height":"200","tsource":""});
 </script></div><p class="cp-note">쿠팡 파트너스 활동의 일환으로 수수료를 제공받습니다.</p></div>
 <script src="/static/app.js"></script>
 </body>
