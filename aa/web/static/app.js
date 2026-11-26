@@ -166,6 +166,13 @@ async function renderNews() {
 /* 관리자 화면: 이 기기에 분석 요청 비밀번호를 기억시켰거나 한 번이라도 요청에 성공했으면 관리자로 본다.
    회원(그 밖의 방문자)에게는 누적 적중률·크레딧·API 사용량 칸을 숨기고 리그 고르기부터 보여 준다 (화면만 숨김). */
 const isBoss = () => !!store.get('aa_run_pw') || store.get('aa_boss') === '1';
+/* 회원 모드: 회원용 주소(raise-fulltime.com)로 들어오면 돈·배당 숫자·배팅 표현을 빼고 관리 메뉴를 숨긴다.
+   운영자 주소(raise-bet.com, aa-2kp.pages.dev)는 지금 그대로. */
+const MEMBER = /(^|\.)raise-fulltime\.com$/.test(location.hostname);
+const GAIN = MEMBER ? '숨은 기회' : '이득';
+const STAR_T = MEMBER ? '★ 예측+기회' : '★ 예측+이득';
+/* 시장 예상: 배당을 가능성으로 바꾸고(1÷배당) 북메이커 몫을 빼서 합이 100%가 되게 맞춘다 */
+const mkt = (o, keys) => { const s = keys.reduce((a, k) => a + (o[k] ? 1 / o[k] : 0), 0); return Object.fromEntries(keys.map(k => [k, o[k] && s ? 1 / o[k] / s : null])); };
 async function renderList() {
   const data = await api('/api/matches');
   await loadNews();
@@ -196,7 +203,7 @@ async function renderList() {
     <div class="chips lgchips" role="group" aria-label="리그 거르기" ${lgOpen ? '' : 'hidden'}>
       <button class="chip" data-lg="all" aria-pressed="${leagueFilter === 'all'}">모든 리그 <span class="num">${all.length}</span></button>
       ${Object.entries(lgCount).sort((a, b) => b[1] - a[1]).map(([n, c]) => `<button class="chip" data-lg="${esc(n)}" aria-pressed="${leagueFilter === n}">${esc(n)} <span class="num">${c}</span></button>`).join('')}</div>` : ''}
-    <p class="small mute" style="margin:0"><span class="tag pick">예측</span> 가장 유력하다고 본 결과 · 하늘색 <span class="tag value">이득</span> 우리가 본 가능성에 비해 배당이 후한 선택 · <span class="tag both"><span class="star">★ 예측+이득</span></span> 노란 바탕 빨간 글씨, 둘 다 해당 (가장 강한 신호) · 줄 색 <span class="lgnd hot">초록 = 예측+이득</span> <span class="lgnd val">분홍 = 이득</span> · 막대 <span class="trilegend"><span><i class="h"></i>홈 승</span><span><i class="d"></i>무</span><span><i class="a"></i>원정 승</span></span></p>
+    ${MEMBER ? `<p class="small mute" style="margin:0"><span class="tag pick">예측</span> 가장 유력하다고 본 결과 · 하늘색 <span class="tag value">숨은 기회</span> 우리가 본 가능성이 시장 예상보다 충분히 높은 선택 · <span class="tag both"><span class="star">★ 예측+기회</span></span> 둘 다 해당 · 줄 색 <span class="lgnd hot">초록 = 예측+기회</span> <span class="lgnd val">분홍 = 숨은 기회</span> · 막대 <span class="trilegend"><span><i class="h"></i>홈 승</span><span><i class="d"></i>무</span><span><i class="a"></i>원정 승</span></span></p>` : `<p class="small mute" style="margin:0"><span class="tag pick">예측</span> 가장 유력하다고 본 결과 · 하늘색 <span class="tag value">이득</span> 우리가 본 가능성에 비해 배당이 후한 선택 · <span class="tag both"><span class="star">★ 예측+이득</span></span> 노란 바탕 빨간 글씨, 둘 다 해당 (가장 강한 신호) · 줄 색 <span class="lgnd hot">초록 = 예측+이득</span> <span class="lgnd val">분홍 = 이득</span> · 막대 <span class="trilegend"><span><i class="h"></i>홈 승</span><span><i class="d"></i>무</span><span><i class="a"></i>원정 승</span></span></p>`}
     ${isRes ? `<div class="ressearch">
         <input type="search" id="rq" placeholder="팀 이름·리그로 검색 (예: 대전, 챔피언스리그)" value="${esc(resQuery)}">
         <input type="date" id="rd" value="${esc(resDate)}" title="날짜">
@@ -313,7 +320,7 @@ const pickSet = () => new Set((store.get('aa_pick_ids') || '').split(',').filter
 function pickBar() {
   let bar = document.getElementById('pickbar');
   const n = pickSet().size;
-  if (!STATIC || !n || location.hash === '#run') { if (bar) bar.remove(); return; }
+  if (MEMBER || !STATIC || !n || location.hash === '#run') { if (bar) bar.remove(); return; }
   if (!bar) { bar = document.createElement('div'); bar.id = 'pickbar'; document.body.appendChild(bar); }
   bar.innerHTML = `<span><b class="num">${n}</b>경기 담음</span><a class="btn" href="#run">분석 요청하러 가기 →</a><button type="button" class="btn ghost" id="pickClear">비우기</button>`;
   document.getElementById('pickClear').onclick = () => { store.set('aa_pick_ids', ''); renderList(); };
@@ -334,11 +341,13 @@ function arrow(now, base) {
 }
 function oddsLine(m) {
   const o = oddsNow(m), b = oddsBase(m);
-  if (!o || !o.home) return '<span class="oddsline mute">배당 없음</span>';
+  if (!o || !o.home) return `<span class="oddsline mute">${MEMBER ? '시장 예상 없음' : '배당 없음'}</span>`;
+  if (MEMBER) { const q = mkt(o, ['home', 'draw', 'away']); return `<span class="oddsline">시장 예상 · 승 <b class="num">${pct(q.home)}</b> · 무 <b class="num">${pct(q.draw)}</b> · 패 <b class="num">${pct(q.away)}</b></span>`; }
   const c = (lab, k) => `${lab} <b class="num">${esc(o[k])}</b>${arrow(o[k], b[k])}`;
   return `<span class="oddsline">${c('승', 'home')} · ${c('무', 'draw')} · ${c('패', 'away')}</span>`;
 }
 function oddsTable(r) {
+  if (MEMBER) return '';   /* 회원 화면: 배당 변화 표는 운영자만 */
   const rows = [];
   const lab = {hour: '1시간 갱신', final: '마감 30분 전'};
   const t = iso => { const d = new Date(iso); return isNaN(d) ? esc(iso || '') : esc(kst(iso)); };
@@ -410,14 +419,14 @@ function rowHtml(m) {
   const N = names(m.home, m.away, m.line);
   const head = `<span class="time">${esc(timeOf(m.kickoff))}</span><span class="teams">${esc(m.home)} <span class="mute">vs</span> ${esc(m.away)}${newsBadge(m)}${oddsLine(m)}<span class="lg">${esc(m.league)}</span></span>`;
   if (m.status !== 'analyzed') {
-    return `<div class="row">${head}<span class="mid"></span><span class="tags">${m.picked ? '<span class="tag value">분석 요청함</span>' : STATIC ? `<button type="button" class="pk-toggle" data-pick="${esc(m.id)}" aria-pressed="${pickSet().has(m.id)}">${pickSet().has(m.id) ? '✓ 분석에 담음' : '＋ 분석하기'}</button>` : '<span class="tag wait">분석 대기</span>'}</span></div>`;
+    return `<div class="row">${head}<span class="mid"></span><span class="tags">${m.picked && !MEMBER ? '<span class="tag value">분석 요청함</span>' : STATIC && !MEMBER ? `<button type="button" class="pk-toggle" data-pick="${esc(m.id)}" aria-pressed="${pickSet().has(m.id)}">${pickSet().has(m.id) ? '✓ 분석에 담음' : '＋ 분석하기'}</button>` : '<span class="tag wait">분석 대기</span>'}</span></div>`;
   }
   const tags = [];
   const od = m.odds || {};
   const now = oddsNow(m);
   /* 그 선택의 평균 배당(분석할 때). 지금 배당이 달라졌으면 '2.11→1.86▼' 처럼 붙인다 (골 수는 기준점이 같을 때만) */
   const at = k => {
-    if (!od[k]) return '';
+    if (MEMBER || !od[k]) return '';
     const ou = k === 'over' || k === 'under';
     const nv = now && (!ou || +now.line === +m.line) ? now[k] : null;
     const ch = nv != null && Math.abs(nv - od[k]) >= 0.005;
@@ -426,11 +435,11 @@ function rowHtml(m) {
   const lab = k => esc(k === 'over' || k === 'under' ? N[k + 'S'] + ' ' + m.line : N[k]);
   const va = m.value_alerts || [];
   const both = k => k && va.includes(k);   // 가장 유력하면서 배당도 후한 선택 → 한 번만, 눈에 띄게
-  const star = '<span class="star">★ 예측+이득</span> ';
+  const star = `<span class="star">${STAR_T}</span> `;
   tags.push(`<span class="tag ${both(m.pick_1x2) ? 'pick both' : 'pick'}">${m.pick_1x2 ? (both(m.pick_1x2) ? star : '예측 ') + esc(N[m.pick_1x2]) + at(m.pick_1x2) : '승패 판단 보류'}</span>`);
   tags.push(`<span class="tag ${both(m.pick_ou) ? 'both' : ''}">${m.pick_ou ? (both(m.pick_ou) ? star : '') + lab(m.pick_ou) + at(m.pick_ou) : '골 수 판단 보류'}</span>`);
   const rest = va.filter(k => k !== m.pick_1x2 && k !== m.pick_ou);
-  if (rest.length) tags.push(`<span class="tag value">이득 ${rest.map(k => lab(k) + at(k)).join(' · ')}</span>`);
+  if (rest.length) tags.push(`<span class="tag value">${GAIN} ${rest.map(k => lab(k) + at(k)).join(' · ')}</span>`);
   const chg = pickChange(m);
   if (chg) tags.push(`<span class="tag chg" title="다시 분석하면서 예측이 바뀜">${chg}</span>`);
   if (m.result) {
@@ -557,7 +566,7 @@ async function renderMatch(id) {
     {sep: true},
     {who: '회사 종합', sub: one.pick ? `${N[one.pick]} · ${voteText(one.tally)}` : '판단 보류', p: one.probs, pick: one.pick, over: ou.probs.over, c: 'var(--ink)', cls: 'co'},
   ];
-  if (hasMarket) rows.push({who: '시장', sub: '배당에 담긴 가능성', p: one.market_probs, over: ou.market_probs && ou.market_probs.over, c: 'var(--mute)', cls: 'mk'});
+  if (hasMarket) rows.push({who: '시장', sub: MEMBER ? '시장 예상' : '배당에 담긴 가능성', p: one.market_probs, over: ou.market_probs && ou.market_probs.over, c: 'var(--mute)', cls: 'mk'});
 
   const seg = (p, k, pk) => `<i class="${k[0]}${pk === k ? ' pk' : ''}" style="flex:0 0 calc(${p[k] * 100}% - 2px)" title="${esc(N[k])} ${pct(p[k], 1)}">${p[k] >= .09 ? pct(p[k]) : ''}</i>`;
   const ladder = rows.map(x => x.sep ? '<div class="sep"></div>' :
@@ -583,6 +592,16 @@ async function renderMatch(id) {
   else if (!pickName) lead = '분석가 의견이 갈려 승패는 판단을 보류합니다.' + (good.length ? ` 배당이 후한 쪽: ${good.map(c => c.label).join(', ')}.` : '');
   else lead = '이번 경기는 배당이 후하게 나온 선택이 없습니다.';
   const why = good.map(c => `<li><b>${esc(c.label)}</b>: 우리는 ${pct(c.p)}로 보는데, 이 배당은 ${pct(c.be)}만 돼도 본전입니다. 5,000원을 걸면 평균 <b>${won(c.e)}</b>.</li>`).join('');
+  /* 회원 화면용: 돈·배당 숫자 없이 우리 예상 vs 시장 예상 */
+  const mq = {...mkt(odds, ['home', 'draw', 'away']), ...mkt(odds, ['over', 'under'])};
+  const mRow = c => { const q = mq[c.k], g = c.e != null && c.e >= TH, df = q != null && c.p != null ? Math.round((c.p - q) * 100) : null;
+    return `<tr class="${c.pick ? 'pk' : ''}"><td data-l="선택">${esc(c.label)}${c.pick ? ' <span class="small mute" style="white-space:nowrap">예측</span>' : ''}${g ? ' <span class="tag value">숨은 기회</span>' : ''}</td>
+    <td data-l="우리 예상" class="r num">${pct(c.p)}</td><td data-l="시장 예상" class="r num">${pct(q)}</td><td data-l="차이" class="r num">${df == null ? '-' : (df > 0 ? '+' : df < 0 ? '−' : '±') + Math.abs(df) + '%p'}</td></tr>`; };
+  const gl = good.map(c => c.label).join(', ');
+  const mLead = pickName && good.length && !good.some(c => c.k === one.pick) ? `가장 일어날 것 같은 결과는 ${pickName}이지만, 시장이 낮게 본 쪽은 ${gl}입니다.`
+    : pickName && good.some(c => c.k === one.pick) ? `${pickName}은 가장 일어날 것 같고, 시장보다 우리가 더 높게 봤습니다.`
+    : !pickName ? '분석가 의견이 갈려 승패는 판단을 보류합니다.' + (good.length ? ` 시장이 낮게 본 쪽: ${gl}.` : '')
+    : '이번 경기는 시장과 우리 예상이 크게 다르지 않습니다.';
 
   const res = s.result ? `<span class="result">${esc(s.result.score)}</span>` : '<span class="vs">VS</span>';
   const lu = md.lineup || {};
@@ -614,7 +633,15 @@ async function renderMatch(id) {
         <div class="ou">${ouRows}<span></span><div class="axis"><span>골 적게</span><span>50%</span><span>골 많이</span></div></div>
       </div>
       <div>
-        <div class="panel"><h2>배당 이득 계산</h2><p class="lead">${esc(lead)}</p>
+${MEMBER ? `        <div class="panel"><h2>숨은 기회</h2><p class="lead">${esc(mLead)}</p>
+          <div class="scroll"><table class="stack vt"><thead><tr><th>선택</th><th class="r">우리 예상</th><th class="r">시장 예상</th><th class="r">차이</th></tr></thead><tbody>
+          ${choices.map(mRow).join('')}
+          </tbody></table></div>
+          <details><summary>이 표 읽는 법</summary><div class="small">
+            <p><b>시장 예상</b>은 여러 해외 업체가 매긴 숫자를 가능성으로 바꾼 값입니다. 세 결과(또는 언더·오버)의 합이 100%가 되게 맞췄습니다.</p>
+            <p><b>우리 예상</b>이 시장 예상보다 충분히 높으면 <b>숨은 기회</b>로 표시합니다. 시장이 놓친 부분을 우리가 봤을 수 있다는 뜻입니다.</p>
+            <p><b>숨은 기회가 이번 경기에서 맞는다는 뜻은 아닙니다.</b> 가능성 31%라면 10번 중 7번은 빗나갑니다.</p>
+          </div></details></div>` : `        <div class="panel"><h2>배당 이득 계산</h2><p class="lead">${esc(lead)}</p>
           <div class="scroll"><table class="stack vt"><thead><tr><th>선택</th><th class="r">우리 예상</th><th class="r">본전</th><th class="r">배당</th><th class="r">5,000원당</th></tr></thead><tbody>
           ${choices.map(vRow).join('')}
           </tbody></table></div>
@@ -625,7 +652,7 @@ async function renderMatch(id) {
             <p><b>우리가 본 가능성</b>이 본전 가능성보다 높으면 배당이 후하게 나온 것이고, 낮으면 비싸게 나온 것입니다.</p>
             <p><b>5,000원당 평균 손익</b>은 같은 판단을 아주 여러 번 했을 때 5,000원마다 평균으로 남거나 잃는 돈입니다. <span class="ev plus">+250원</span> 이상일 때만 노란 <b>이득 신호</b>를 켭니다. 우리 계산에도 오차가 있어서, 작은 차이는 믿지 않습니다.</p>
             <p><b>이득 신호가 이번 경기에서 맞는다는 뜻은 아닙니다.</b> 가능성 31%라면 10번 중 7번은 빗나갑니다. 또 배당이 바뀌면 이득도 바뀝니다.</p>
-          </div></details></div>
+          </div></details></div>`}
         <div class="panel small"><b>분석 방식</b><br><span class="mute">${esc(r.engine)}</span><br><b>분석 시각</b> <span class="mute">${esc(r.analyzed_at || '-')}</span><br><b>투표 비중</b> <span class="mute">${r.final.map(o => esc(o.member_name) + ' ' + (d.weights[o.member_id] != null ? d.weights[o.member_id].toFixed(2) : '투표 안 함')).join(', ')}</span></div>
       </div>
     </div>
@@ -691,7 +718,8 @@ async function renderTeam() {
     <h1>분석팀</h1><p class="lead mute">분야를 나누지 않고 생각하는 방식을 나눴습니다. 모두가 전술, 데이터, 부상, 동기, 시장을 보지만 무게를 두는 곳이 다릅니다.</p>
     <div class="rules sec">
       <div class="stat"><span class="num">과반</span><span>같은 결과를 고른 사람이 절반을 넘으면 예측, 갈리면 판단 보류</span></div>
-      <div class="stat"><span class="num">+${Math.round(c.policy.value_threshold * UNIT).toLocaleString('ko-KR')}원</span><span>5,000원당 평균 손익이 이 이상이면 이득 신호</span></div>
+      ${MEMBER ? '<div class="stat"><span class="num">숨은 기회</span><span>우리가 본 가능성이 시장 예상보다 충분히 높으면 표시</span></div>'
+        : `<div class="stat"><span class="num">+${Math.round(c.policy.value_threshold * UNIT).toLocaleString('ko-KR')}원</span><span>5,000원당 평균 손익이 이 이상이면 이득 신호</span></div>`}
       <div class="stat"><span class="num">${esc(c.policy.min_samples_for_weight)}경기</span><span>채점이 쌓이면 잘 맞힌 사람의 투표 비중을 올림</span></div>
     </div>
     ${c.departments.map(d => `<div class="dept sec"><h2>${esc(d.name)} <span class="tag ${d.active ? 'pick' : 'wait'}">${d.active ? '운영 중' : '준비 중'}</span></h2>
@@ -1077,6 +1105,10 @@ async function route() {
   const navKey = !h || h.startsWith('m-') ? 'list' : h;
   document.querySelectorAll('[data-nav]').forEach(a => a.classList.toggle('on', a.dataset.nav === navKey));
   if (READONLY) document.querySelectorAll('.admin-link').forEach(a => a.hidden = true);
+  if (MEMBER) {   /* 회원 화면: 경기·분석팀·뉴스만. 배팅 게임·인사평가·관리·분석 요청은 운영자 주소에서만 */
+    document.querySelectorAll('[data-nav="bets"],[data-nav="record"],[data-nav="admin"],[data-nav="run"]').forEach(a => a.remove());
+    if (['bets', 'record', 'admin', 'run'].includes(h)) { location.replace('#'); return; }
+  }
   document.querySelectorAll('.run-link').forEach(a => a.hidden = !STATIC);
   if (h !== 'run') clearInterval(runPoll);
   try {
