@@ -1,0 +1,16 @@
+# RAISE 실시간 채팅방 서버 (Cloudflare Worker + Durable Object)
+# 이 워커는 바깥에서 직접 열리지 않는다 (workers_dev 꺼짐, 경로 없음).
+# 회원 사이트의 Pages 함수(functions/api/chat.js)가 바인딩 CHAT 으로만 부른다.
+name = "raise-chat"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+workers_dev = false
+preview_urls = false
+
+[[durable_objects.bindings]]
+name = "ROOM"
+class_name = "ChatRoom"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["ChatRoom"]

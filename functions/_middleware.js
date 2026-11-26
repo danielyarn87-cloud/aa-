@@ -28,7 +28,9 @@ async function raise(ctx, url) {
     // 배당 갱신(POST /api/odds/refresh)은 예외: 시계(raise-clock)가 여기로 부른다. 운영자 주소는 잠겨 있어서.
     //   갱신은 몇 번 불러도 정해진 간격을 넘는 호출을 하지 않게 만들어져 있다.
     const oddsRefresh = url.pathname === "/api/odds/refresh" && ctx.request.method === "POST";
-    if (MEMBER_BLOCK.test(url.pathname) || (!oddsRefresh && url.pathname.startsWith("/api/") && !["GET", "HEAD"].includes(ctx.request.method)))
+    // 회원 기능(로그인·가입·탈퇴·관심 경기)은 POST 허용
+    const memberPost = /^\/api\/(auth\/(join|logout|delete)|fav)$/.test(url.pathname) && ctx.request.method === "POST";
+    if (MEMBER_BLOCK.test(url.pathname) || (!oddsRefresh && !memberPost && url.pathname.startsWith("/api/") && !["GET", "HEAD"].includes(ctx.request.method)))
       return new Response("Not Found", {status: 404});
     return ctx.next();
   }

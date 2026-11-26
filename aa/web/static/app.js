@@ -171,6 +171,11 @@ const isBoss = () => !MEMBER || !!store.get('aa_run_pw') || store.get('aa_boss')
    운영자 주소(raise-bet.com, aa-2kp.pages.dev)는 지금 그대로. */
 const MEMBER = /(^|\.)raise-fulltime\.com$/.test(location.hostname);
 const GAIN = MEMBER ? '숨은 기회' : '이득';
+/* 회원 상태: /api/me 로 받는다. 관심 경기(☆)는 회원 계정에 저장 */
+const OPERATOR = !MEMBER && /(^|\.)raise-bet\.com$|(^|\.)aa-2kp\.pages\.dev$/.test(location.hostname);
+let ME = {user: null, admin: false, ready: {}};
+let FAVS = new Set();
+let favOnly = false;
 const STAR_T = MEMBER ? '★ 예측+기회' : '★ 예측+이득';
 /* 시장 예상: 배당을 가능성으로 바꾸고(1÷배당) 북메이커 몫을 빼서 합이 100%가 되게 맞춘다 */
 const mkt = (o, keys) => { const s = keys.reduce((a, k) => a + (o[k] ? 1 / o[k] : 0), 0); return Object.fromEntries(keys.map(k => [k, o[k] && s ? 1 / o[k] / s : null])); };
@@ -193,7 +198,7 @@ async function renderList() {
   const isRes = listFilter === 'results';
   /* 끝난 경기는 최종 점수와 함께 끝나고 약 3시간 동안만 목록에 남긴다 (킥오프 기준 5시간 = 경기 2시간 + 3시간) */
   const recent = MEMBER ? [] : inLg.filter(m => m.result && m.status === 'analyzed' && Date.now() - kickMs(m) < 5 * 3600e3);
-  const shown = isRes ? [] : [...ms, ...recent].sort((a, b) => kickMs(a) - kickMs(b)).filter(m => listFilter === 'all' || (listFilter === 'analyzed' ? m.status === 'analyzed' : listFilter === 'pending' ? m.status === 'pending' : (m.value_alerts || []).length));
+  const shown = isRes ? [] : [...ms, ...recent].sort((a, b) => kickMs(a) - kickMs(b)).filter(m => !favOnly || FAVS.has(m.id)).filter(m => listFilter === 'all' || (listFilter === 'analyzed' ? m.status === 'analyzed' : listFilter === 'pending' ? m.status === 'pending' : (m.value_alerts || []).length));
   const days = [...new Set(shown.map(m => dayOf(m.kickoff)))];
   const chip = (k, t, cls = '') => `<button class="seg ${cls}" data-f="${k}" aria-pressed="${listFilter === k}">${t}</button>`;
   parkAd();
@@ -205,6 +210,7 @@ async function renderList() {
     <div class="chips lgchips" role="group" aria-label="리그 거르기" ${lgOpen ? '' : 'hidden'}>
       <button class="chip" data-lg="all" aria-pressed="${leagueFilter === 'all'}">모든 리그 <span class="num">${all.length}</span></button>
       ${Object.entries(lgCount).sort((a, b) => b[1] - a[1]).map(([n, c]) => `<button class="chip" data-lg="${esc(n)}" aria-pressed="${leagueFilter === n}">${esc(n)} <span class="num">${c}</span></button>`).join('')}</div>` : ''}
+    ${MEMBER ? favBarHtml() : ''}
     ${legendHtml()}
     ${isRes ? `<div class="ressearch">
         <input type="search" id="rq" placeholder="팀 이름·리그로 검색 (예: 대전, 챔피언스리그)" value="${esc(resQuery)}">
@@ -212,6 +218,7 @@ async function renderList() {
         <select id="rh"><option value="all">적중 여부 전체</option><option value="hit">승무패 맞힌 경기</option><option value="miss">승무패 틀린 경기</option></select>
         <button type="button" class="btn ghost sm" id="rclear">초기화</button></div><div id="reslist"></div>`
       : shown.length ? days.map(d => `<h2 class="day">${esc(dayLabel(d))}</h2>${shown.filter(m => dayOf(m.kickoff) === d).map(rowHtml).join('')}`).join('')
+      : favOnly ? `<p class="empty">아직 관심 경기가 없어요. 경기 시간 앞 <b style="color:#dc2626">☆</b>을 누르면 여기에 모여요.</p>`
       : `<p class="empty">조건에 맞는 경기가 없습니다.${STATIC ? ' <a href="#run">분석 요청</a>에서 리그를 골라 경기를 가져오세요.' : ''}</p>`}
   </div></section>`;
   { const rs = view.querySelectorAll('.row'); placeAd(rs[5] || rs[rs.length - 1]); }
@@ -240,6 +247,8 @@ async function renderList() {
   view.querySelectorAll('[data-lg]').forEach(b => b.onclick = () => { leagueFilter = b.dataset.lg; store.set('aa_league', leagueFilter); renderList(); });
   const lt = document.getElementById('lgtoggle');
   if (lt) lt.onclick = () => { lgOpen = !lgOpen; store.set('aa_lg_open', lgOpen ? '1' : ''); renderList(); };
+  const fo = document.getElementById('favonly');
+  if (fo) fo.onclick = () => { if (!ME.user) return openLogin('관심 경기는 회원 전용 기능이에요'); favOnly = !favOnly; renderList(); };
   view.querySelectorAll('[data-pick]').forEach(b => b.onclick = () => {
     const s = pickSet(); const id = b.dataset.pick;
     s.has(id) ? s.delete(id) : s.add(id);
@@ -420,7 +429,7 @@ function pickHist(s) {
 }
 function rowHtml(m) {
   const N = names(m.home, m.away, m.line);
-  const head = `<span class="time">${esc(timeOf(m.kickoff))}</span><span class="teams">${esc(m.home)} <span class="mute">vs</span> ${esc(m.away)}${newsBadge(m)}${oddsLine(m)}<span class="lg">${esc(m.league)}</span></span>`;
+  const head = `<span class="time">${favStar(m.id)}${esc(timeOf(m.kickoff))}</span><span class="teams">${esc(m.home)} <span class="mute">vs</span> ${esc(m.away)}${newsBadge(m)}${oddsLine(m)}<span class="lg">${esc(m.league)}</span></span>`;
   if (m.status !== 'analyzed') {
     return `<div class="row">${head}<span class="mid"></span><span class="tags">${m.picked && !MEMBER ? '<span class="tag value">분석 요청함</span>' : STATIC && !MEMBER ? `<button type="button" class="pk-toggle" data-pick="${esc(m.id)}" aria-pressed="${pickSet().has(m.id)}">${pickSet().has(m.id) ? '✓ 분석에 담음' : '＋ 분석하기'}</button>` : '<span class="tag wait">분석 대기</span>'}</span></div>`;
   }
@@ -1206,6 +1215,9 @@ async function route() {
     else if (h === 'record') await renderRecord();
     else if (h === 'bets') await renderBets();
     else if (h === 'picks') await renderPicks();
+    else if (h === 'join') await renderJoin();
+    else if (h === 'terms' || h === 'privacy') renderPolicy(h);
+    else if (h === 'login-fail') { toast('로그인하지 못했어요. 다시 시도해 주세요.'); location.replace('#'); return; }
     else if (h === 'news') await renderNews();
     else if (h === 'admin') await renderAdmin();
     else if (h === 'run' && STATIC) await renderRun();
@@ -1216,6 +1228,305 @@ async function route() {
   }
   window.scrollTo(0, 0);
 }
+/* =====================================================================
+   회원 (카카오·구글 로그인) · 관심 경기 ☆ · 실시간 채팅방
+   - 회원 주소(raise-fulltime.com): 로그인·가입, ☆, 채팅(회원만 말하기, 비회원은 읽기)
+   - 운영자 주소(raise-bet.com·pages.dev, Access 잠금): 채팅에 '운영자'로 말하기, 가리기·차단
+   서버: functions/api/{me,fav,auth,chat}, chat/ (raise-chat 워커), db/members.sql
+   ===================================================================== */
+function toast(msg, ms = 2600) {
+  let t = document.getElementById('aa-toast');
+  if (!t) { t = document.createElement('div'); t.id = 'aa-toast'; t.setAttribute('role', 'status'); document.body.appendChild(t); }
+  t.textContent = msg; t.classList.add('on');
+  clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('on'), ms);
+}
+function favStar(id) {
+  if (!MEMBER) return '';
+  const on = FAVS.has(id);
+  return `<button type="button" class="favb${on ? ' on' : ''}" data-fav="${esc(id)}" aria-pressed="${on}" aria-label="관심 경기${on ? ' 해제' : ''}" title="관심 경기">${on ? '★' : '☆'}</button>`;
+}
+function favBarHtml() {
+  return `<div class="favbar"><button type="button" id="favonly" class="favonly" aria-pressed="${favOnly}"><span class="st">${favOnly ? '★' : '☆'}</span> 관심 경기 ${ME.user ? `<span class="num">${FAVS.size}</span>` : '<small>회원 전용</small>'}</button>${favOnly ? '<span class="small mute">관심 경기만 보는 중 · 다시 누르면 전체</span>' : ''}</div>`;
+}
+document.addEventListener('click', async (e) => {
+  const b = e.target.closest && e.target.closest('.favb');
+  if (!b) return;
+  e.preventDefault(); e.stopPropagation();
+  if (!ME.user) return openLogin('관심 경기는 회원 전용 기능이에요');
+  const id = b.dataset.fav, on = !FAVS.has(id);
+  on ? FAVS.add(id) : FAVS.delete(id);
+  document.querySelectorAll(`.favb[data-fav="${CSS.escape(id)}"]`).forEach(x => { x.classList.toggle('on', on); x.textContent = on ? '★' : '☆'; x.setAttribute('aria-pressed', on); });
+  const n = document.querySelector('#favonly .num'); if (n) n.textContent = FAVS.size;
+  try {
+    const r = await fetch('/api/fav', {method: 'POST', headers: {'content-type': 'application/json'}, body: JSON.stringify({id, on})});
+    if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || '저장하지 못했어요');
+    toast(on ? '관심 경기에 넣었어요' : '관심 경기에서 뺐어요', 1400);
+  } catch (err) { on ? FAVS.delete(id) : FAVS.add(id); toast(err.message); renderList(); }
+}, true);
+
+/* ---------- 로그인 창 ---------- */
+function openLogin(reason) {
+  closeLogin();
+  const ready = ME.ready || {};
+  const d = document.createElement('div');
+  d.id = 'aa-login'; d.className = 'modal-bg';
+  d.innerHTML = `<div class="modal" role="dialog" aria-modal="true" aria-labelledby="lg-t">
+    <button type="button" class="modal-x" aria-label="닫기">×</button>
+    ${reason ? `<p class="modal-why">${esc(reason)}</p>` : ''}
+    <h2 id="lg-t">RAISE 회원으로 시작하기</h2>
+    <p class="small mute">채팅방에서 대화하고, 관심 경기를 모아 볼 수 있어요.</p>
+    <a class="sso kakao${ready.kakao === false ? ' off' : ''}" href="/api/auth/kakao"><span class="ic" aria-hidden="true">💬</span>카카오로 시작하기</a>
+    <a class="sso google${ready.google === false ? ' off' : ''}" href="/api/auth/google"><span class="ic g" aria-hidden="true">G</span>구글로 시작하기</a>
+    <p class="tiny mute">만 19세 이상만 가입할 수 있어요. 처음이면 닉네임만 정하면 끝나요. 비밀번호는 저장하지 않아요.<br>
+    <a href="#terms">이용약관</a> · <a href="#privacy">개인정보 처리방침</a></p></div>`;
+  d.addEventListener('click', ev => { if (ev.target === d || ev.target.closest('.modal-x') || ev.target.closest('a[href^="#"]')) closeLogin(); });
+  d.querySelectorAll('.sso.off').forEach(a => a.onclick = ev => { ev.preventDefault(); toast('이 로그인은 준비 중이에요. 곧 열려요.'); });
+  document.body.appendChild(d);
+  d.querySelector('.sso').focus();
+}
+function closeLogin() { const d = document.getElementById('aa-login'); if (d) d.remove(); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLogin(); });
+
+/* ---------- 머리말 계정 버튼 (회원 주소) ---------- */
+function drawAccount() {
+  if (!MEMBER) return;
+  const top = document.querySelector('.top');
+  let b = document.getElementById('acctBtn');
+  if (!b) { b = document.createElement('button'); b.id = 'acctBtn'; b.type = 'button'; b.className = 'acctbtn'; (document.getElementById('zoomBtn') || top.querySelector('.brand')).after(b); }
+  if (ME.user) {
+    b.innerHTML = `<span class="av">${esc(ME.user.nick.slice(0, 1))}</span><span class="nm">${esc(ME.user.nick)}</span>`;
+    b.onclick = () => openAccount();
+  } else {
+    b.textContent = '로그인';
+    b.onclick = () => openLogin('');
+  }
+}
+function openAccount() {
+  closeLogin();
+  const d = document.createElement('div');
+  d.id = 'aa-login'; d.className = 'modal-bg';
+  d.innerHTML = `<div class="modal" role="dialog" aria-modal="true"><button type="button" class="modal-x" aria-label="닫기">×</button>
+    <h2>${esc(ME.user.nick)} 님</h2><p class="small mute">관심 경기 ${FAVS.size}개</p>
+    <button type="button" class="btn-line" data-act="logout">로그아웃</button>
+    <button type="button" class="btn-line danger" data-act="delete">회원 탈퇴</button>
+    <p class="tiny mute"><a href="#terms">이용약관</a> · <a href="#privacy">개인정보 처리방침</a></p></div>`;
+  d.addEventListener('click', async ev => {
+    if (ev.target === d || ev.target.closest('.modal-x') || ev.target.closest('a[href^="#"]')) return closeLogin();
+    const act = ev.target.dataset && ev.target.dataset.act;
+    if (!act) return;
+    if (act === 'delete' && !confirm('회원 탈퇴하면 닉네임과 관심 경기가 모두 지워지고 되돌릴 수 없어요. 탈퇴할까요?')) return;
+    await fetch('/api/auth/' + act, {method: 'POST'}).catch(() => null);
+    location.replace('/');
+  });
+  document.body.appendChild(d);
+}
+
+/* ---------- 가입 마무리: 닉네임 · 19세 · 약관 ---------- */
+async function renderJoin() {
+  const p = await fetch('/api/auth/pending', {cache: 'no-store'}).then(r => r.json()).catch(() => ({pending: false}));
+  if (!p.pending) { view.innerHTML = `<section class="band"><div class="wrap narrow"><h1>가입 시간이 지났어요</h1><p class="lead">다시 로그인해 주세요.</p><p><button type="button" class="btn" id="relogin">로그인</button></p></div></section>`; document.getElementById('relogin').onclick = () => openLogin(''); return; }
+  view.innerHTML = `<section class="band"><div class="wrap narrow"><h1>거의 다 됐어요</h1>
+    <p class="lead mute">채팅방에서 쓸 닉네임을 정하고 동의해 주세요.</p>
+    <form id="joinf" class="joinf" novalidate>
+      <label class="fld"><span>닉네임 <small class="mute">한글·영문·숫자 2~12자</small></span>
+        <input id="jn" name="nick" maxlength="12" autocomplete="off" value="${esc(p.suggest || '')}" required><small id="jn-msg" class="hint" aria-live="polite"></small></label>
+      <label class="chk"><input type="checkbox" id="ja"> <span><b>만 19세 이상</b>이에요 (필수)</span></label>
+      <label class="chk"><input type="checkbox" id="jt"> <span><a href="#terms" target="_blank">이용약관</a>과 <a href="#privacy" target="_blank">개인정보 처리방침</a>에 동의해요 (필수)</span></label>
+      <p id="j-err" class="err" role="alert"></p>
+      <button class="btn big" type="submit">가입 완료</button>
+    </form></div></section>`;
+  const nick = document.getElementById('jn'), msg = document.getElementById('jn-msg');
+  let t;
+  const check = () => { clearTimeout(t); t = setTimeout(async () => {
+    const v = nick.value.trim(); if (!v) { msg.textContent = ''; return; }
+    const r = await fetch('/api/auth/nick?n=' + encodeURIComponent(v)).then(x => x.json()).catch(() => null);
+    if (r) { msg.textContent = r.ok ? '쓸 수 있는 닉네임이에요' : r.why; msg.className = 'hint ' + (r.ok ? 'ok' : 'bad'); }
+  }, 350); };
+  nick.oninput = check; check();
+  document.getElementById('joinf').onsubmit = async ev => {
+    ev.preventDefault();
+    const err = document.getElementById('j-err'); err.textContent = '';
+    const r = await fetch('/api/auth/join', {method: 'POST', headers: {'content-type': 'application/json'},
+      body: JSON.stringify({nick: nick.value.trim(), adult: document.getElementById('ja').checked, terms: document.getElementById('jt').checked})});
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) { err.textContent = j.error || '가입하지 못했어요.'; return; }
+    location.replace('/#'); location.reload();
+  };
+}
+
+/* ---------- 이용약관 · 개인정보 처리방침 ---------- */
+const POLICY = {
+  terms: ['이용약관', `
+<h2>1. 서비스</h2><p>RAISE(raise-fulltime.com)는 AI 분석가가 축구 경기를 분석한 <b>참고용 정보</b>와 실시간 스코어, 채팅방을 제공합니다. 분석은 결과를 보장하지 않으며, 어떤 형태의 도박이나 배팅도 권하지 않습니다.</p>
+<h2>2. 회원</h2><p>만 19세 이상만 가입할 수 있습니다. 카카오 또는 구글 계정으로 가입하며, 한 사람이 여러 계정을 만들어 운영을 방해해서는 안 됩니다. 회원은 언제든 '내 계정 → 회원 탈퇴'로 탈퇴할 수 있습니다.</p>
+<h2>3. 채팅방 이용 규칙</h2><ul><li>불법 도박·사설 토토 사이트 홍보, 링크·연락처·메신저 아이디 공유 금지</li><li>욕설·비방·차별·음란한 내용, 다른 사람의 개인정보 공개 금지</li><li>같은 글 반복(도배) 금지 · 3초에 한 번만 보낼 수 있습니다</li></ul>
+<p>규칙을 어기면 운영자가 글을 가리거나 채팅을 제한할 수 있습니다. 불법 도박 홍보는 경고 없이 제한합니다.</p>
+<h2>4. 대화 보관</h2><p>채팅 대화는 1시간이 지나면 자동으로 지워집니다(최근 100개는 남김). 신고된 글과 제재 기록은 운영을 위해 30일 동안 보관합니다.</p>
+<h2>5. 책임</h2><p>서비스의 분석·통계·점수는 참고용이며, 이를 근거로 한 이용자의 판단과 결과에 대해 RAISE는 책임지지 않습니다. 서비스 내용은 사전 안내 후 바뀔 수 있습니다.</p>
+<p class="small mute">시행일: 2026년 11월 26일</p>`],
+  privacy: ['개인정보 처리방침', `
+<h2>1. 모으는 정보</h2><ul><li>카카오 로그인: 카카오 회원번호, 카카오 닉네임(가입 때 닉네임 추천에만 사용)</li><li>구글 로그인: 구글 회원번호, 이메일, 이름(가입 때 닉네임 추천에만 사용)</li><li>가입 때 직접 입력: RAISE 닉네임, 만 19세 이상 확인, 약관 동의 시각</li><li>이용 중 생기는 정보: 관심 경기 목록, 채팅 내용, 로그인 유지용 정보(쿠키)</li></ul>
+<p>비밀번호와 주민등록번호, 휴대폰 번호는 모으지 않습니다.</p>
+<h2>2. 쓰는 목적</h2><p>회원 확인과 로그인 유지, 채팅방 운영(닉네임 표시, 규칙 위반 대응), 관심 경기 저장에만 씁니다. 광고 목적으로 쓰거나 다른 곳에 팔지 않습니다.</p>
+<h2>3. 보관 기간</h2><ul><li>회원 정보·관심 경기: 탈퇴하면 바로 지웁니다</li><li>채팅 대화: 1시간 뒤 자동 삭제(최근 100개는 남김)</li><li>신고된 글·제재 기록: 30일 뒤 자동 삭제</li><li>로그인 유지 정보: 30일</li></ul>
+<h2>4. 맡기는 곳(처리 위탁)</h2><p>Cloudflare(사이트 운영·정보 저장), 카카오·구글(로그인 확인). 법에 따른 요청이 아니면 다른 곳에 주지 않습니다.</p>
+<h2>5. 이용자의 권리</h2><p>언제든 '내 계정 → 회원 탈퇴'로 모든 정보를 지울 수 있습니다. 카카오·구글 쪽 연결은 각 서비스의 '연결된 앱'에서 끊을 수 있습니다.</p>
+<h2>6. 광고</h2><p>사이트의 쿠팡 파트너스 배너는 쿠팡이 직접 보여 주며, 배너를 누르면 쿠팡의 정책이 적용됩니다.</p>
+<h2>7. 문의</h2><p>개인정보 관련 문의는 채팅방 운영자에게 남겨 주세요.</p>
+<p class="small mute">시행일: 2026년 11월 26일</p>`],
+};
+function renderPolicy(k) {
+  const [title, body] = POLICY[k];
+  view.innerHTML = `<section class="band"><div class="wrap narrow policy"><h1>${title}</h1>${body}<p><a href="#">← 경기 목록으로</a></p></div></section>`;
+}
+
+/* ---------- 실시간 채팅방 ---------- */
+const Chat = {
+  ws: null, tries: 0, open: false, unread: 0, me: {role: 'guest'}, list: [], online: 0, ok: false,
+  isWide: () => matchMedia('(min-width:1100px)').matches,
+  build() {
+    if (!(MEMBER || OPERATOR) || document.getElementById('chat')) return;
+    const el = document.createElement('aside');
+    el.id = 'chat'; el.className = 'chat'; el.setAttribute('aria-label', '실시간 채팅');
+    el.innerHTML = `<div class="ch-h"><div><span class="live" aria-hidden="true"></span><b>실시간 채팅</b> <small class="ch-on"></small></div>
+      <div class="ch-hb"><button type="button" class="ch-min" aria-label="채팅 접기" title="접기">◀</button><button type="button" class="ch-x" aria-label="채팅 닫기">×</button></div></div>
+      <div class="ch-n">링크·홍보 금지 · 불법 도박 홍보는 즉시 차단돼요</div>
+      <div class="ch-l" aria-live="polite"><p class="ch-sys">채팅방에 연결하는 중…</p></div>
+      <p class="ch-flash" role="status"></p>
+      <div class="ch-f"></div>`;
+    document.body.appendChild(el);
+    const fab = document.createElement('button');
+    fab.type = 'button'; fab.id = 'chatFab'; fab.className = 'chat-fab'; fab.innerHTML = '💬 채팅<i hidden></i>';
+    document.body.appendChild(fab);
+    const tab = document.createElement('button');
+    tab.type = 'button'; tab.id = 'chatTab'; tab.className = 'chat-tab'; tab.innerHTML = '💬<span>채팅</span><i hidden></i>'; tab.setAttribute('aria-label', '채팅 펼치기');
+    document.body.appendChild(tab);
+    fab.onclick = () => this.show(true);
+    tab.onclick = () => { store.set('aa_chat_min', ''); this.layout(); };
+    el.querySelector('.ch-x').onclick = () => this.show(false);
+    el.querySelector('.ch-min').onclick = () => { store.set('aa_chat_min', '1'); this.layout(); };
+    el.querySelector('.ch-l').addEventListener('click', e => this.onListClick(e));
+    addEventListener('resize', () => this.layout());
+    const hdr = document.querySelector('.top');
+    const setTop = () => document.documentElement.style.setProperty('--toph', (hdr ? hdr.getBoundingClientRect().height : 60) + 'px');
+    setTop(); addEventListener('resize', setTop);
+    this.drawFoot(); this.layout();
+    if (ME.ready && ME.ready.chat === false) this.status('채팅방 오픈 준비 중이에요. 곧 열려요!'); else this.connect();
+  },
+  layout() {
+    const wide = this.isWide(), min = !!store.get('aa_chat_min');
+    const el = document.getElementById('chat'); if (!el) return;
+    document.body.classList.toggle('chat-dock', wide && !min);
+    el.classList.toggle('chdock', wide && !min);
+    el.classList.toggle('chsheet', !wide);
+    el.hidden = wide ? min : !this.open;
+    document.getElementById('chatTab').hidden = !(wide && min);
+    document.getElementById('chatFab').hidden = wide || this.open;
+    if (!el.hidden) { this.unread = 0; this.badge(); this.scroll(true); }
+  },
+  show(on) { this.open = on; this.layout(); if (on) { const i = document.querySelector('#chat .ch-f input'); if (i && this.isWide()) i.focus(); } },
+  badge() {
+    ['#chatFab i', '#chatTab i'].forEach(s => { const i = document.querySelector(s); if (i) { i.hidden = !this.unread; i.textContent = this.unread > 99 ? '99+' : this.unread; } });
+  },
+  connect() {
+    let ws;
+    try { ws = new WebSocket((location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/api/chat'); } catch (e) { return this.status('채팅방 준비 중이에요.'); }
+    this.ws = ws;
+    ws.onopen = () => { this.tries = 0; this.ok = true; };
+    ws.onmessage = ev => { let d; try { d = JSON.parse(ev.data); } catch (e) { return; } this.on(d); };
+    ws.onclose = () => {
+      this.ok = false;
+      if (this.tries === 0 && !this.list.length) this.status('채팅방 준비 중이에요. 잠시 후 다시 연결할게요.');
+      const wait = Math.min(30000, 3000 * 2 ** this.tries++);
+      setTimeout(() => this.connect(), wait);
+    };
+  },
+  status(t) { const l = document.querySelector('#chat .ch-l'); if (l && !this.list.length) l.innerHTML = `<p class="ch-sys">${esc(t)}</p>`; },
+  flash(t, bad) { const f = document.querySelector('#chat .ch-flash'); if (!f) return; f.textContent = t; f.className = 'ch-flash on' + (bad ? ' bad' : ''); clearTimeout(f._h); f._h = setTimeout(() => f.className = 'ch-flash', 2800); },
+  on(d) {
+    if (d.t === 'hello') { this.me = d.me || {role: 'guest'}; this.list = d.msgs || []; this.drawList(); this.drawFoot(); }
+    else if (d.t === 'msg') {
+      this.list.push(d.m); if (this.list.length > 300) this.list.shift();
+      const l = document.querySelector('#chat .ch-l'); const atEnd = l && l.scrollHeight - l.scrollTop - l.clientHeight < 60;
+      if (l) { const sys = l.querySelector('.ch-sys.wait'); if (sys) sys.remove(); l.insertAdjacentHTML('beforeend', this.item(d.m)); }
+      const el = document.getElementById('chat');
+      if (el && el.hidden && d.m.nick !== this.me.nick) { this.unread++; this.badge(); }
+      if (atEnd || d.m.nick === this.me.nick) this.scroll(true);
+    }
+    else if (d.t === 'hide' || d.t === 'hideMany') {
+      const ids = d.t === 'hide' ? [d.id] : d.ids;
+      this.list.forEach(m => { if (ids.includes(m.id)) m.hidden = true; });
+      ids.forEach(id => { const n = document.querySelector(`#chat [data-mid="${id}"]`); if (n) n.outerHTML = this.item(this.list.find(m => m.id === id) || {id, hidden: true}); });
+    }
+    else if (d.t === 'online') { this.online = d.n; const o = document.querySelector('#chat .ch-on'); if (o) o.textContent = `접속 ${d.n}명`; }
+    else if (d.t === 'err') this.flash(d.msg, true);
+    else if (d.t === 'ok') this.flash(d.msg);
+  },
+  item(m) {
+    const admin = this.me.role === 'admin';
+    if (m.hidden && !admin) return `<div class="m hid" data-mid="${m.id}"><div class="txt">관리자가 가린 메시지예요</div></div>`;
+    const mine = m.nick && m.nick === this.me.nick;
+    const t = new Date(m.ts).toLocaleTimeString('ko-KR', {hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Asia/Seoul'});
+    const op = m.role === 'admin';
+    const tools = admin && !op ? `<span class="tools"><button type="button" data-act="hide">가리기</button><button type="button" data-act="ban">차단</button></span>`
+      : (!mine && !op && this.me.role !== 'guest') ? `<button type="button" class="rp" data-act="report">신고</button>` : '';
+    return `<div class="m${mine ? ' me' : ''}${op ? ' op' : ''}${m.hidden ? ' wasHid' : ''}" data-mid="${m.id}">
+      <div class="who">${op ? '<b class="opname">👑 운영자</b>' : `<b>${esc(m.nick || '')}</b>`}<span>${t}</span>${tools}</div>
+      <div class="txt">${esc(m.text || '')}${m.hidden ? ' <small>(가림)</small>' : ''}</div></div>`;
+  },
+  drawList() {
+    const l = document.querySelector('#chat .ch-l'); if (!l) return;
+    l.innerHTML = `<p class="ch-sys">1시간 지난 대화는 자동으로 지워져요 (최근 100개는 남김)</p>`
+      + (this.list.length ? this.list.map(m => this.item(m)).join('') : '<p class="ch-sys wait">아직 대화가 없어요. 첫 마디를 남겨 보세요!</p>');
+    this.scroll(true);
+  },
+  drawFoot() {
+    const f = document.querySelector('#chat .ch-f'); if (!f) return;
+    if (this.me.role === 'guest') {
+      f.innerHTML = `<div class="ch-lock">채팅은 회원만 쓸 수 있어요. 읽기는 누구나 가능해요.<br><button type="button" class="ch-join">로그인 · 회원가입</button></div>`;
+      f.querySelector('.ch-join').onclick = () => openLogin('채팅은 회원만 쓸 수 있어요');
+      return;
+    }
+    if (this.me.banned) { f.innerHTML = '<div class="ch-lock">운영 정책 위반으로 채팅이 제한된 상태예요.</div>'; return; }
+    f.innerHTML = `<form class="ch-in"><input maxlength="200" placeholder="메시지 입력 (링크·전화번호는 자동으로 가려져요)" aria-label="메시지"><button type="submit">보내기</button></form>
+      <div class="ch-meta"><span>${this.me.role === 'admin' ? '👑 운영자로 말하는 중' : '닉네임: ' + esc(this.me.nick || '')}</span><span>3초에 1번</span></div>`;
+    f.querySelector('form').onsubmit = e => {
+      e.preventDefault();
+      const i = f.querySelector('input'), v = i.value.trim();
+      if (!v) return;
+      if (!this.ws || this.ws.readyState !== 1) return this.flash('연결이 끊겼어요. 잠시 후 다시 보내 주세요.', true);
+      this.ws.send(JSON.stringify({t: 'say', text: v})); i.value = '';
+    };
+  },
+  onListClick(e) {
+    const b = e.target.closest('button[data-act]'); if (!b) return;
+    const id = Number(b.closest('[data-mid]').dataset.mid), act = b.dataset.act;
+    if (act === 'report' && !confirm('이 메시지를 신고할까요?')) return;
+    if (act === 'ban') {
+      const days = prompt('며칠 동안 채팅을 막을까요? (1~365)', '7'); if (!days) return;
+      return this.ws && this.ws.send(JSON.stringify({t: 'ban', id, days: Number(days)}));
+    }
+    this.ws && this.ws.send(JSON.stringify({t: act, id}));
+  },
+  scroll(force) { const l = document.querySelector('#chat .ch-l'); if (l && force) l.scrollTop = l.scrollHeight; },
+};
+
+/* 시작: 회원 상태 받고 → 계정 버튼, ☆, 채팅방 */
+(async function startMembers() {
+  if (!(MEMBER || OPERATOR)) return;
+  try {
+    const r = await fetch('/api/me', {cache: 'no-store'});
+    if (r.ok) ME = await r.json();
+  } catch (e) {}
+  if (ME.user) {
+    try { const f = await fetch('/api/fav', {cache: 'no-store'}).then(r => r.json()); FAVS = new Set(f.ids || []); } catch (e) {}
+  }
+  drawAccount();
+  const h = location.hash.replace(/^#\/?/, '');
+  if (!h || h === 'list') renderList().catch(() => {});
+  Chat.build();
+})();
+
 window.addEventListener('hashchange', route);
 route();
 }

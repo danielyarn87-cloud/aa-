@@ -548,3 +548,89 @@ a.row.val:hover{background:#C93A6E}
 @media (min-width:1100px) and (max-width:1659px) and (min-height:650px){.cp-host .cp-side{display:flex;right:12px}}
 @media (min-width:1100px) and (min-height:860px){.cp-host .cp-side .cp-b{display:block}.cp-host #cp-ad{display:none!important}}
 @media print{.cp-side{display:none!important}}
+
+/* ===== 회원 · 관심 경기 ☆ · 채팅방 ===== */
+/* 머리말 계정 버튼 */
+.acctbtn{display:inline-flex;align-items:center;gap:6px;margin-right:8px;font:inherit;font-size:13px;font-weight:700;color:var(--pitch);background:var(--chalk);border:0;border-radius:999px;padding:6px 12px;cursor:pointer;max-width:150px}
+.acctbtn .av{display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--pitch);color:#fff;font-size:11px}
+.acctbtn .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(max-width:400px){.acctbtn .nm{display:none}.acctbtn{padding:5px 8px}}
+/* 시간 앞 빨간 ☆ */
+.favb{display:inline-block;border:0;background:none;color:#dc2626;font-size:20px;line-height:1;padding:2px 4px 2px 0;margin-right:2px;cursor:pointer;vertical-align:2px;font-family:system-ui,sans-serif}
+.favb:hover{transform:scale(1.15)}.favb.on{color:#dc2626}
+.row.hot .favb,.row.val .favb{color:#ffd1d1}.row.hot .favb.on,.row.val .favb.on{color:#ffe066}
+@media(max-width:720px){.row .time{display:flex;align-items:center}.favb{font-size:18px}}
+.favbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0 4px}
+.favonly{display:inline-flex;align-items:center;gap:6px;font:inherit;font-size:14px;font-weight:700;border:1px solid #f3b4b4;background:#fff5f5;color:#b91c1c;border-radius:999px;padding:6px 14px;cursor:pointer}
+.favonly .st{font-size:16px;color:#dc2626}.favonly small{font-weight:500;color:#9a6b6b}
+.favonly[aria-pressed=true]{background:#dc2626;color:#fff;border-color:#dc2626}.favonly[aria-pressed=true] .st{color:#ffe066}
+/* 알림 한 줄 */
+#aa-toast{position:fixed;left:50%;bottom:90px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#0f1a14;color:#fff;font-size:14px;padding:10px 16px;border-radius:999px;z-index:30;transition:.25s;max-width:90vw;text-align:center}
+#aa-toast.on{opacity:1;transform:translate(-50%,0)}
+/* 로그인 창 */
+.modal-bg{position:fixed;inset:0;background:rgba(10,20,14,.55);z-index:40;display:grid;place-items:center;padding:16px}
+.modal{position:relative;width:min(380px,100%);background:var(--bg);color:var(--ink);border-radius:16px;padding:26px 22px 18px;box-shadow:0 12px 40px rgba(0,0,0,.3)}
+.modal h2{margin:0 0 6px;font-size:20px}.modal-why{margin:0 0 10px;font-weight:700;color:#b91c1c;font-size:14px}
+.modal-x{position:absolute;top:8px;right:10px;border:0;background:none;font-size:24px;color:var(--mute);cursor:pointer}
+.sso{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:10px;border-radius:10px;padding:12px;font-weight:700;font-size:15px;text-decoration:none}
+.sso.kakao{background:#FEE500;color:#191600}.sso.google{background:#fff;color:#1f1f1f;border:1px solid #dadce0}
+.sso .g{font-family:Arial,sans-serif;font-weight:800;color:#4285f4}.sso.off{opacity:.55}
+.tiny{font-size:12px;line-height:1.55;margin:14px 0 0}
+.btn-line{display:block;width:100%;margin-top:10px;font:inherit;font-weight:700;padding:11px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}.btn-line.danger{color:#b91c1c}
+/* 가입 마무리 · 약관 */
+.wrap.narrow{max-width:560px}
+.joinf{display:flex;flex-direction:column;gap:14px;margin-top:14px}
+.joinf .fld{display:flex;flex-direction:column;gap:6px;font-weight:700}
+.joinf input[type=text],.joinf input:not([type]){font:inherit;font-size:16px;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
+.joinf .chk{display:flex;gap:10px;align-items:flex-start;line-height:1.5}.joinf .chk input{width:20px;height:20px;margin-top:2px;flex:none}
+.hint{font-weight:500;font-size:13px;min-height:1.3em}.hint.ok{color:var(--hit)}.hint.bad{color:#b91c1c}
+.err{color:#b91c1c;font-weight:700;min-height:1.2em;margin:0}
+.btn.big{font-size:16px;padding:13px}
+.policy h2{font-size:18px;margin:24px 0 6px}.policy p,.policy li{line-height:1.7}
+/* ---- 채팅방 ---- */
+:root{--toph:60px}
+.chat{position:fixed;z-index:7;display:flex;flex-direction:column;align-items:stretch;background:var(--bg);color:var(--ink);font-size:14px}
+.chat>*{align-self:stretch}
+.chat[hidden],.chat-fab[hidden],.chat-tab[hidden]{display:none!important}
+.chat.chdock{top:var(--toph);bottom:0;left:0;width:300px;border-right:1px solid var(--line)}
+.chat.chsheet{left:0;right:0;bottom:0;height:62vh;border-radius:16px 16px 0 0;border:1px solid var(--line);box-shadow:0 -8px 24px rgba(0,0,0,.18);z-index:12}
+@media(max-width:600px){.chat.chsheet{bottom:calc(64px + env(safe-area-inset-bottom,0px));height:min(62vh,calc(100vh - 140px))}}
+.chat .ch-h{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 14px;background:var(--pitch);color:#fff;flex:none}
+.chat.chsheet .ch-h{border-radius:16px 16px 0 0}
+.chat .ch-h b{font-size:16px}.chat .ch-on{font-size:12px;opacity:.85;margin-left:4px}
+.chat .live{display:inline-block;width:8px;height:8px;border-radius:50%;background:#4ade80;margin-right:6px;vertical-align:1px}
+.chat .ch-hb button{border:0;background:none;color:#fff;font-size:18px;cursor:pointer;padding:0 4px}
+.chat.chdock .ch-x,.chat.chsheet .ch-min{display:none}
+.chat .ch-n{flex:none;font-size:11.5px;line-height:1.45;color:#7a5b00;background:#fff8db;border-bottom:1px solid #f1e3a6;padding:7px 12px}
+.chat .ch-l{flex:1;overflow:auto;padding:10px 12px;display:flex;flex-direction:column;gap:9px;overscroll-behavior:contain}
+.ch-sys{margin:0;text-align:center;color:var(--mute);font-size:12px}
+.chat .m{display:flex;flex-direction:column;gap:2px}
+.chat .m .who{font-size:12px;color:var(--mute);display:flex;gap:6px;align-items:center}.chat .m .who b{color:var(--ink);font-size:12.5px}
+.chat .m .txt{font-size:14px;line-height:1.45;background:var(--panel);border-radius:10px;padding:6px 10px;align-self:flex-start;max-width:100%;overflow-wrap:anywhere}
+.chat .m.me{align-items:flex-end}.chat .m.me .who{flex-direction:row-reverse}.chat .m.me .txt{background:var(--pitch);color:#fff}
+.chat .m.op .txt{background:#fff8e1;color:#5c4400;border:2px solid #f5b70a;font-weight:600}
+.chat .m.op .opname{color:#a16207}
+.chat .m.hid .txt{background:none;color:var(--mute);font-style:italic;padding:0 2px}
+.chat .m.wasHid .txt{opacity:.5;text-decoration:line-through}
+.chat .rp,.chat .tools button{margin-left:auto;border:0;background:none;color:var(--mute);font-size:11px;cursor:pointer;padding:0 2px}
+.chat .tools{margin-left:auto;display:flex;gap:4px}.chat .tools button{margin:0;color:#b91c1c}
+.chat .ch-flash{flex:none;margin:0;max-height:0;overflow:hidden;font-size:12.5px;text-align:center;color:var(--hit);transition:.2s}
+.chat .ch-flash.on{max-height:40px;padding:4px 8px}.chat .ch-flash.bad{color:#b91c1c}
+.chat .ch-f{flex:none;border-top:1px solid var(--line);padding:10px}
+.chat .ch-in{display:flex;gap:6px}.chat .ch-in input{flex:1;min-width:0;font:inherit;font-size:16px;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--bg);color:var(--ink)}
+.chat .ch-in button{flex:none;font:inherit;background:var(--pitch);color:#fff;border:0;border-radius:8px;padding:0 14px;font-weight:700;cursor:pointer}
+.chat .ch-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--mute);margin-top:5px}
+.chat .ch-lock{text-align:center;font-size:13px;color:var(--mute);line-height:1.5}
+.chat .ch-join{margin-top:7px;font:inherit;background:var(--pitch);color:#fff;border:0;border-radius:999px;padding:8px 18px;font-weight:700;cursor:pointer}
+.chat-fab{position:fixed;right:14px;bottom:20px;z-index:11;font:inherit;font-weight:700;font-size:15px;background:var(--pitch);color:#fff;border:0;border-radius:999px;padding:11px 16px;box-shadow:0 4px 14px rgba(0,0,0,.25);cursor:pointer}
+@media(max-width:600px){.chat-fab{bottom:calc(80px + env(safe-area-inset-bottom,0px))}}
+.chat-fab i,.chat-tab i{font-style:normal;background:#e11d48;color:#fff;border-radius:999px;font-size:11px;padding:1px 6px;margin-left:6px}
+.chat-tab{position:fixed;left:0;top:calc(var(--toph) + 40px);z-index:7;display:flex;flex-direction:column;align-items:center;gap:4px;font:inherit;font-weight:700;font-size:13px;background:var(--pitch);color:#fff;border:0;border-radius:0 12px 12px 0;padding:12px 8px;cursor:pointer;box-shadow:2px 2px 10px rgba(0,0,0,.2)}
+.chat-tab span{writing-mode:vertical-rl;letter-spacing:2px}.chat-tab i{margin:0}
+/* PC 에서 채팅방이 펼쳐져 있으면 본문을 오른쪽으로 민다 (넓은 화면 1900px+ 는 자리가 남아서 그대로) */
+@media(min-width:1100px) and (max-width:1899px){
+  body.chat-dock main,body.chat-dock .foot{margin-left:300px}
+  body.chat-dock .wrap{margin-left:auto;margin-right:max(0px,calc(193px - 5vw))}
+  body.chat-dock .fad,body.chat-dock .cp-side{left:auto!important;right:12px!important}
+}
+@media print{.chat,.chat-fab,.chat-tab{display:none!important}}
