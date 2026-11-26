@@ -69,6 +69,49 @@ def export_lotto(out: Path, src: Path = ROOT / "data" / "lotto") -> None:
             shutil.copy(src / name, out / "lotto" / "data" / name)
 
 
+def build_picks(matches: list, details: dict) -> dict:
+    """회원용 '분석가 픽': 분석가마다 한 경기씩 채점한 적중률(승무패·언오버·고른 결과별)과
+    시장 1순위(배당이 가장 낮은 쪽)를 고른 비율, 그리고 다가오는 경기의 분석가별 최종 선택. 돈·배당 숫자는 넣지 않는다."""
+    stats, names, upcoming = {}, {}, []
+    for m in matches:
+        d = details.get(m["id"])
+        if not d:
+            continue
+        res = m.get("result") or {}
+        out = None
+        try:
+            hs, aw = (int(x) for x in str(res.get("score", "")).split("-"))
+            out = "home" if hs > aw else "away" if aw > hs else "draw"
+        except ValueError:
+            pass
+        o = m.get("odds") or {}
+        fav = min(("home", "draw", "away"), key=lambda k: o.get(k) or 99) if o.get("home") else None
+        for x in d.get("final") or []:
+            mid = x["member_id"]
+            names[mid] = x.get("member_name", mid)
+            s = stats.setdefault(mid, {"n": 0, "hit": 0, "ou": 0, "fav": 0, "fav_n": 0,
+                                       "pick": {"home": 0, "draw": 0, "away": 0}, "pick_hit": {"home": 0, "draw": 0, "away": 0}})
+            p1 = x.get("pick_1x2")
+            if fav and p1:
+                s["fav_n"] += 1
+                s["fav"] += p1 == fav
+            if out and p1 in s["pick"]:
+                s["n"] += 1
+                s["hit"] += p1 == out
+                s["pick"][p1] += 1
+                s["pick_hit"][p1] += p1 == out
+                try:
+                    s["ou"] += (x.get("pick_ou") == "over") == (hs + aw > float(m.get("line") or 2.5))
+                except (TypeError, ValueError):
+                    pass
+        if not res:
+            upcoming.append({"id": m["id"], "home": m["home"], "away": m["away"], "league": m["league"],
+                             "kickoff": m["kickoff"], "kickoff_iso": m.get("kickoff_iso"), "line": m.get("line"),
+                             "picks": {x["member_id"]: {"p": x.get("pick_1x2"), "ou": x.get("pick_ou")} for x in d.get("final") or []}})
+    upcoming.sort(key=lambda u: u.get("kickoff_iso") or u["kickoff"])
+    return {"members": [{"id": k, "name": names[k], **v} for k, v in stats.items()], "upcoming": upcoming}
+
+
 def export(out: Path, company_path: Path = ROOT / "company.yaml") -> Path:
     company = load_company(company_path)
     c = create_app(company).test_client()
@@ -80,9 +123,12 @@ def export(out: Path, company_path: Path = ROOT / "company.yaml") -> Path:
 
     matches = c.get("/api/matches").get_json()
     _write(out / "api" / "matches.json", matches)
+    details = {}
     for m in matches["matches"]:
         if m["status"] == "analyzed":
-            _write(out / "api" / "matches" / f"{m['id']}.json", c.get(f"/api/matches/{m['id']}").get_json())
+            details[m["id"]] = c.get(f"/api/matches/{m['id']}").get_json()
+            _write(out / "api" / "matches" / f"{m['id']}.json", details[m["id"]])
+    _write(out / "api" / "picks.json", build_picks(matches["matches"], details))
     _write(out / "api" / "company.json", c.get("/api/company").get_json())
     _write(out / "api" / "record.json", c.get("/api/record").get_json())
     _write(out / "api" / "leagues.json", c.get("/api/leagues").get_json())

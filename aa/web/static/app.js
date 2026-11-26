@@ -70,7 +70,7 @@ async function api(path, opts) {
       : path.startsWith('/api/matches/') ? 'api/matches/' + path.split('/').pop() + '.json'
       : path === '/api/company' ? 'api/company.json' : path === '/api/record' ? 'api/record.json'
       : path === '/api/leagues' ? 'api/leagues.json' : path === '/api/bets' ? 'api/bets.json'
-      : path === '/api/credit' ? 'api/credit.json' : path === '/api/news' ? 'api/news.json' : null;
+      : path === '/api/picks' ? 'api/picks.json' : path === '/api/credit' ? 'api/credit.json' : path === '/api/news' ? 'api/news.json' : null;
     if (!file) throw new Error('이 사이트에서는 쓸 수 없는 기능입니다.');
     const r = await fetch(file, {cache: 'no-cache'});
     if (!r.ok) throw new Error(r.status === 404 ? '아직 분석하지 않은 경기입니다.' : '불러오기 실패 ' + r.status);
@@ -796,6 +796,45 @@ async function renderRecord() {
   </div></section>`;
 }
 
+/* ---------- 분석가 픽 (회원용): 한 경기씩 채점한 적중률 + 다가오는 경기의 분석가별 선택. 돈·배당·묶음 없음 ---------- */
+const PERSONA = {
+  kim_data: ['강팀 신뢰형', '시장과 통계가 가리키는 강팀을 믿는 편'],
+  park_field: ['라인업 중시형', '선발·결장·전술 상성을 가장 무겁게 보는 편'],
+  lee_contra: ['변수 추구형', '날씨·일정·동기 같은 변수를 먼저 찾아보는 편'],
+  hogu: ['상식형', '일반 팬의 눈으로 보는 비교용 분석가 (투표 안 함)'],
+};
+async function renderPicks() {
+  const [d, co] = await Promise.all([api('/api/picks'), api('/api/company').catch(() => null)]);
+  const ppl = Object.fromEntries(((co && co.departments) || []).flatMap(x => x.members).map(p => [p.id || p.member_id, p]));
+  const order = Object.keys(PERSONA);
+  const mem = [...d.members].sort((a, b) => (order.indexOf(a.id) + 1 || 99) - (order.indexOf(b.id) + 1 || 99));
+  const col = (m, i) => (ppl[m.id] && ppl[m.id].color) || PAL[i % PAL.length];
+  const pc = (a, b) => b ? Math.round(a * 100 / b) + '%' : '-';
+  const LAB = {home: '홈 승', draw: '무', away: '원정 승'};
+  const oc = (m, k) => m.pick[k] ? `<div class="ap-oc"><span>${LAB[k]} 픽</span><b class="num">${pc(m.pick_hit[k], m.pick[k])}</b><small class="num">${m.pick_hit[k]}/${m.pick[k]}</small></div>`
+    : `<div class="ap-oc mute"><span>${LAB[k]} 픽</span><b>-</b><small>고른 적 없음</small></div>`;
+  const cards = mem.map((m, i) => { const [ty, ds] = PERSONA[m.id] || ['', '']; return `<article class="ap-card" style="--c:${esc(col(m, i))}">
+    <div class="ap-h"><span class="avatar">${esc(m.name.slice(0, 1))}</span><div><h3>${esc(m.name)}</h3><span class="ap-ty">${esc(ty)}</span></div></div>
+    <p class="ap-ds">${esc(ds)}</p>
+    <div class="ap-big"><div><span>승무패 적중률</span><b class="num">${pc(m.hit, m.n)}</b><small class="num">${m.hit} / ${m.n}경기</small></div>
+      <div><span>언더·오버 적중률</span><b class="num">${pc(m.ou, m.n)}</b><small class="num">${m.ou} / ${m.n}경기</small></div></div>
+    <div class="ap-ocs">${oc(m, 'home')}${oc(m, 'draw')}${oc(m, 'away')}</div>
+    <div class="ap-fav"><span>강팀(시장 1순위) 고른 비율</span><div class="ap-fb"><i style="width:${pc(m.fav, m.fav_n)}"></i></div><b class="num">${pc(m.fav, m.fav_n)}</b></div></article>`; }).join('');
+  const now = Date.now();
+  const up = d.upcoming.filter(u => !(Date.parse(u.kickoff_iso) <= now)).slice(0, 12);
+  const cell = (u, m) => { const x = u.picks[m.id]; return x ? `<span class="ap-pk ${esc(x.p)}">${LAB[x.p] || '-'}</span> <span class="ap-ou">${x.ou === 'over' ? '오버' : '언더'} ${esc(u.line)}</span>` : '<span class="mute">-</span>'; };
+  const rows = up.map(u => `<tr><td data-l="경기" class="ap-mt"><a href="#m-${encodeURIComponent(u.id)}"><b>${esc(u.home)} vs ${esc(u.away)}</b></a><small>${esc(u.league)} · ${esc(String(u.kickoff).slice(5, 16))}</small></td>
+    ${mem.map(m => `<td data-l="${esc(m.name)}">${cell(u, m)}</td>`).join('')}</tr>`).join('');
+  view.innerHTML = `<section class="band"><div class="wrap"><h1>분석가 픽</h1>
+    <p class="lead mute">분석가 넷이 경기마다 각자 고른 결과와, 지금까지 얼마나 맞혔는지입니다. 묶음이 아니라 한 경기씩 채점합니다.</p>
+    <div class="ap-grid">${cards}</div>
+    <h2 class="sec">다가오는 경기 · 분석가별 선택</h2><p class="small mute" style="margin:0 0 8px">토론을 마친 최종 선택입니다.</p>
+    ${up.length ? `<div class="scroll"><table class="stack ap-tb"><thead><tr><th>경기</th>${mem.map((m, i) => `<th><span class="dot" style="background:${esc(col(m, i))}"></span>${esc(m.name)}<small>${esc((PERSONA[m.id] || [''])[0])}</small></th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div>`
+      : '<p class="empty">분석이 끝난 다가오는 경기가 아직 없습니다.</p>'}
+    <p class="small mute" style="margin-top:14px">적중률은 결과가 나온 경기만 셉니다. 강팀(시장 1순위)은 여러 해외 업체가 가장 유력하게 본 결과입니다. 분석 참고용이며 결과를 보장하지 않습니다.</p>
+  </div></section>`;
+}
+
 /* ---------- 배팅 게임: 분석가들이 가상 100만원으로 3·5·7폴더 ---------- */
 async function renderBets() {
   const b = await api('/api/bets');
@@ -1123,6 +1162,11 @@ async function route() {
   if (MEMBER) {   /* 회원 화면: 경기·분석팀·뉴스만. 배팅 게임·인사평가·관리·분석 요청은 운영자 주소에서만 */
     document.querySelectorAll('[data-nav="bets"],[data-nav="record"],[data-nav="admin"],[data-nav="run"]').forEach(a => a.remove());
     if (['bets', 'record', 'admin', 'run'].includes(h)) { location.replace('#'); return; }
+    if (!document.querySelector('[data-nav="picks"]')) {
+      const a = document.createElement('a'); a.href = '#picks'; a.dataset.nav = 'picks'; a.textContent = '분석가 픽';
+      const first = document.querySelector('[data-nav="list"]'); first.after(a);
+      a.classList.toggle('on', navKey === 'picks');
+    }
   }
   document.querySelectorAll('.run-link').forEach(a => a.hidden = !STATIC);
   if (h !== 'run') clearInterval(runPoll);
@@ -1131,6 +1175,7 @@ async function route() {
     else if (h === 'team') await renderTeam();
     else if (h === 'record') await renderRecord();
     else if (h === 'bets') await renderBets();
+    else if (h === 'picks') await renderPicks();
     else if (h === 'news') await renderNews();
     else if (h === 'admin') await renderAdmin();
     else if (h === 'run' && STATIC) await renderRun();
