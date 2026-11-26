@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+<script>if (/(^|\.)raise-lotto\.com$/.test(location.hostname)) document.documentElement.classList.add("cp-on");</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>오늘의 로또 운세 · 행운 번호</title>
@@ -172,6 +173,11 @@ footer{margin:26px 0 30px;text-align:center}
 footer p{font-size:12px;color:var(--ink3);line-height:1.7}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:99px;font-size:14px;font-weight:700;opacity:0;transition:.2s;z-index:30;pointer-events:none}
 .toast.on{opacity:1;transform:translateX(-50%)}
+.cp-sec{display:flex;justify-content:center;margin:8px 0 18px}
+.cp-ad{display:flex;flex-direction:column;align-items:center;gap:4px}
+.cp-ad .cp-in{width:300px;max-width:100%;min-height:250px}
+.cp-ad .cp-note{margin:0;max-width:300px;font-size:11px;line-height:1.4;text-align:center;color:#888}
+html:not(.cp-on) .cp-sec{display:none}
 </style>
 </head>
 <body>
@@ -258,6 +264,11 @@ footer p{font-size:12px;color:var(--ink3);line-height:1.7}
       <p class="disc">무작위로 뽑습니다 · <span class="disclaimer-text">재미용 · 통계 참고, 당첨 확률을 높이지 않습니다</span></p>
     </div>
   </section>
+
+  <!-- 광고: 쿠팡 파트너스 (raise-lotto.com 에서만 불러옴) -->
+  <section class="cp-sec"><div id="cp-ad" class="cp-ad"><div class="cp-in"><script>
+if (/(^|\.)raise-lotto\.com$/.test(location.hostname)) document.write('<script src="https://ads-partners.coupang.com/g.js"><\/script><script>new PartnersCoupang.G({"id":1059781,"template":"carousel","trackingCode":"AF1769498","width":"300","height":"250","tsource":""});<\/script>');
+</script></div><p class="cp-note">이 광고는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p></div></section>
 
   <!-- 4. 통계 -->
   <section id="stats">
