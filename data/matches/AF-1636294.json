@@ -45,15 +45,14 @@
   },
   "lineup": {
     "home_absent": [
+      "M. Bidstrup (Foot Injury)",
       "L. Diarra (Injury)",
       "C. Mata (Muscle Injury)",
       "T. Morton (Groin Injury)",
       "M. Ouedraogo (Knee Injury)",
       "P. Sulc (Knee Injury)"
     ],
-    "home_doubtful": [
-      "M. Bidstrup (Foot Injury)"
-    ],
+    "home_doubtful": [],
     "away_absent": [
       "D. Bassi (Injury)",
       "E. B. Garnas (Knee Injury)"
@@ -85,5 +84,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 14:04 KST"
+  "collected_at": "2026-11-26 23:09 KST"
 }

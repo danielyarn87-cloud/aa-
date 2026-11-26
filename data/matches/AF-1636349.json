@@ -45,10 +45,14 @@
   },
   "lineup": {
     "home_absent": [
+      "M. Abubakari (Inactive)",
       "J. Aguirre (Red Card)",
+      "N. Jatta (Inactive)",
+      "L. Paes Souza (Inactive)"
+    ],
+    "home_doubtful": [
       "A. Baradji (Injury)"
     ],
-    "home_doubtful": [],
     "away_absent": [
       "M. Baur (Ankle Injury)",
       "L. Emenalo (Off the roster)",
@@ -82,5 +86,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 14:04 KST"
+  "collected_at": "2026-11-26 23:09 KST"
 }

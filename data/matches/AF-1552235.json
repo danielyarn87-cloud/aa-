@@ -44,13 +44,22 @@
     }
   },
   "lineup": {
-    "home_absent": [],
+    "home_absent": [
+      "L. Reischl (Groin Injury)",
+      "M. Waem (Red Card)"
+    ],
     "home_doubtful": [],
-    "away_absent": [],
+    "away_absent": [
+      "A. Engwanda (Hamstring Injury)",
+      "V. Jensen (Knee Injury)",
+      "M. Jonathans (Knee Injury)",
+      "N. Ohio (Knee Injury)",
+      "K. Paredes (Knee Injury)"
+    ],
     "away_doubtful": [],
     "confirmed": false,
-    "status": "none",
-    "설명": "API-Football 부상자 목록 기준 보고된 결장자 없음, 라인업 미발표"
+    "status": "listed",
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
   "collected_detail": "full",
   "venue": "WerkTalent Stadion",
@@ -78,5 +87,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 14:04 KST"
+  "collected_at": "2026-11-26 23:09 KST"
 }

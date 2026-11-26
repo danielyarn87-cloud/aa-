@@ -45,10 +45,11 @@
   },
   "lineup": {
     "home_absent": [
+      "L. Bailey (Inactive)",
       "Chiquinho (Foot Injury)",
       "C. Fernandes Silva (Off the roster)",
       "A. El Kaabi (Broken Leg)",
-      "S. Hezze (Inactive)",
+      "S. Hezze (Knee Injury)",
       "M. Mouandilmadji (Off the roster)",
       "B. Popovic (Off the roster)",
       "G. Puerta (Injury)",
@@ -97,5 +98,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 14:04 KST"
+  "collected_at": "2026-11-26 23:09 KST"
 }

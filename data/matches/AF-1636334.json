@@ -53,10 +53,13 @@
       "J. Moser (Off the roster)",
       "J. Omoregie (Achilles Tendon Injury)",
       "D. Schmid (Knee Injury)",
-      "H. Tabakovic (Knee Injury)",
+      "H. Tabakovic (Knee Injury)"
+    ],
+    "home_doubtful": [
+      "L. Morgalla (Inactive)",
+      "D. Redzic (Injury)",
       "N. Veratschnig (Knee Injury)"
     ],
-    "home_doubtful": [],
     "away_absent": [
       "P. Ayongo (Off the roster)",
       "J. Bravim (Red Card)"
@@ -86,5 +89,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 14:04 KST"
+  "collected_at": "2026-11-26 23:09 KST"
 }

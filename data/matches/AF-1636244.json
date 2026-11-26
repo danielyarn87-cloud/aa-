@@ -45,6 +45,7 @@
   },
   "lineup": {
     "home_absent": [
+      "H. Gonzalez (Inactive)",
       "B. Iglesias (Calf Injury)",
       "M. Roman (Knee Injury)",
       "C. Starfelt (Muscle Injury)"
@@ -54,8 +55,8 @@
       "M. Aarons (Off the roster)",
       "J. Araujo (Thigh Injury)",
       "F. Forster (Off the roster)",
+      "B. Gannon-Doak (Off the roster)",
       "D. Jebbison (Off the roster)",
-      "E. J. Kroupi (Off the roster)",
       "V. Milosavljevic (Off the roster)",
       "J. Sanchez (Ankle Injury)",
       "A. Toth (Muscle Injury)"
@@ -85,5 +86,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 14:04 KST"
+  "collected_at": "2026-11-26 23:09 KST"
 }

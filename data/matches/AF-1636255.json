@@ -45,7 +45,6 @@
   },
   "lineup": {
     "home_absent": [
-      "S. McKenna (Inactive)",
       "R. Mudrazija (Inactive)",
       "I. Nevistic (Off the roster)",
       "N. Nsoki (Off the roster)",
@@ -53,7 +52,9 @@
       "P. Tabinas (Off the roster)",
       "F. Topic (Off the roster)"
     ],
-    "home_doubtful": [],
+    "home_doubtful": [
+      "S. McKenna (Inactive)"
+    ],
     "away_absent": [
       "V. Boniface (Off the roster)",
       "K. Eichhorn (Illness)",
@@ -85,5 +86,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 14:04 KST"
+  "collected_at": "2026-11-26 23:09 KST"
 }

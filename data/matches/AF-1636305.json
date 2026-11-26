@@ -46,19 +46,19 @@
   "lineup": {
     "home_absent": [
       "A. Chatzigiovanis (Off the roster)",
+      "B. Gonzalez (Inactive)",
       "K. Kodro (Injury)",
-      "K. Krizmanic (Injury)",
       "A. Leya Iseka (Inactive)",
-      "N. Marinakis (Off the roster)"
+      "N. Marinakis (Off the roster)",
+      "A. Poungouras (Inactive)"
     ],
     "home_doubtful": [],
     "away_absent": [
+      "I. Camara (Foot Injury)",
       "L. Hey (Broken Leg)",
       "I. Koutsoupias (Off the roster)"
     ],
-    "away_doubtful": [
-      "I. Camara (Foot Injury)"
-    ],
+    "away_doubtful": [],
     "confirmed": false,
     "status": "listed",
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
@@ -86,5 +86,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 14:04 KST"
+  "collected_at": "2026-11-26 23:09 KST"
 }

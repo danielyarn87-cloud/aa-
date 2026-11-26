@@ -53,7 +53,10 @@
       "P. Hristov (Off the roster)",
       "O. Kamdem (Off the roster)",
       "R. Kirilov (Knee Injury)",
-      "M. Sangare (Off the roster)"
+      "A. Mitkov (Inactive)",
+      "A. Raychev (Inactive)",
+      "M. Sangare (Off the roster)",
+      "S. Araujo (Inactive)"
     ],
     "away_doubtful": [],
     "confirmed": false,
@@ -80,5 +83,5 @@
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-26 14:04 KST"
+  "collected_at": "2026-11-26 23:09 KST"
 }
