@@ -23,6 +23,7 @@ dist/site/
 from __future__ import annotations
 
 import json
+import re
 import shutil
 import sys
 from pathlib import Path
@@ -69,6 +70,12 @@ def export_lotto(out: Path, src: Path = ROOT / "data" / "lotto") -> None:
             shutil.copy(src / name, out / "lotto" / "data" / name)
 
 
+def match_slug(home: str, away: str, kickoff: str) -> str:
+    """주소용 이름: 팀 이름(한글 그대로) + 날짜. 공백·기호는 '-' 로."""
+    raw = f"{home}-vs-{away}-{str(kickoff)[:10]}"
+    return re.sub(r"[^0-9A-Za-z가-힣]+", "-", raw).strip("-")
+
+
 def build_picks(matches: list, details: dict) -> dict:
     """회원용 '분석가 픽': 분석가마다 한 경기씩 채점한 적중률(승무패·언오버·고른 결과별)과
     시장 1순위(배당이 가장 낮은 쪽)를 고른 비율, 그리고 다가오는 경기의 분석가별 최종 선택. 돈·배당 숫자는 넣지 않는다."""
@@ -105,7 +112,7 @@ def build_picks(matches: list, details: dict) -> dict:
                 except (TypeError, ValueError):
                     pass
         if not res:
-            upcoming.append({"id": m["id"], "home": m["home"], "away": m["away"], "league": m["league"],
+            upcoming.append({"id": m["id"], "slug": m.get("slug"), "home": m["home"], "away": m["away"], "league": m["league"],
                              "kickoff": m["kickoff"], "kickoff_iso": m.get("kickoff_iso"), "line": m.get("line"),
                              "picks": {x["member_id"]: {"p": x.get("pick_1x2"), "ou": x.get("pick_ou")} for x in d.get("final") or []}})
     upcoming.sort(key=lambda u: u.get("kickoff_iso") or u["kickoff"])
@@ -122,12 +129,26 @@ def export(out: Path, company_path: Path = ROOT / "company.yaml") -> Path:
     shutil.copy(static / "manifest.webmanifest", out / "manifest.webmanifest")
 
     matches = c.get("/api/matches").get_json()
-    _write(out / "api" / "matches.json", matches)
     details = {}
     for m in matches["matches"]:
         if m["status"] == "analyzed":
             details[m["id"]] = c.get(f"/api/matches/{m['id']}").get_json()
-            _write(out / "api" / "matches" / f"{m['id']}.json", details[m["id"]])
+    # 경기별 진짜 주소 (/match/노팅엄-포리스트-vs-첼시-2026-11-28) — 검색엔진용. functions/match/[[path]].js 가 읽는다
+    slugs = {}
+    for m in sorted(matches["matches"], key=lambda x: (x["kickoff"], x["id"])):
+        if m["id"] not in details:
+            continue
+        base_slug = match_slug(m["home"], m["away"], m["kickoff"])
+        slug, n = base_slug, 2
+        while slug in slugs:
+            slug, n = f"{base_slug}-{n}", n + 1
+        slugs[slug] = {"id": m["id"], "kickoff": m.get("kickoff_iso") or m["kickoff"]}
+        m["slug"] = slug
+        details[m["id"]]["summary"]["slug"] = slug
+    _write(out / "api" / "matches.json", matches)
+    for mid, d in details.items():
+        _write(out / "api" / "matches" / f"{mid}.json", d)
+    _write(out / "api" / "slugs.json", slugs)
     _write(out / "api" / "picks.json", build_picks(matches["matches"], details))
     _write(out / "api" / "company.json", c.get("/api/company").get_json())
     _write(out / "api" / "record.json", c.get("/api/record").get_json())

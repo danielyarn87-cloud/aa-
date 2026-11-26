@@ -76,7 +76,7 @@ async function api(path, opts) {
       : path === '/api/leagues' ? 'api/leagues.json' : path === '/api/bets' ? 'api/bets.json'
       : path === '/api/picks' ? 'api/picks.json' : path === '/api/credit' ? 'api/credit.json' : path === '/api/news' ? 'api/news.json' : null;
     if (!file) throw new Error('이 사이트에서는 쓸 수 없는 기능입니다.');
-    const r = await fetch(file, {cache: 'no-cache'});
+    const r = await fetch('/' + file, {cache: 'no-cache'});   // 절대 주소: /match/… 에서도 같은 파일
     if (!r.ok) throw new Error(r.status === 404 ? '아직 분석하지 않은 경기입니다.' : '불러오기 실패 ' + r.status);
     return r.json();
   }
@@ -154,7 +154,7 @@ async function renderNews() {
     && (!newsOnlyMatch || (x.match_ids || []).some(id => byId[id] && byId[id].status === 'analyzed')));
   const label = x => {
     const ms = (x.match_ids || []).map(id => byId[id]).filter(m => m && !m.result).sort((a, b) => (a.kickoff > b.kickoff ? 1 : -1));
-    return ms.length ? '관련 경기: ' + ms.slice(0, 2).map(m => `<a href="#m-${encodeURIComponent(m.id)}">${esc(m.kickoff.slice(5, 16).replace('-', '/'))} ${esc(m.home)} vs ${esc(m.away)} →</a>`).join(' · ') : '';
+    return ms.length ? '관련 경기: ' + ms.slice(0, 2).map(m => `<a href="${matchHref(m.id, m.slug)}">${esc(m.kickoff.slice(5, 16).replace('-', '/'))} ${esc(m.home)} vs ${esc(m.away)} →</a>`).join(' · ') : '';
   };
   view.innerHTML = `<section class="band"><div class="wrap">
     <h1>경기에 영향 줄 소식</h1>
@@ -465,7 +465,7 @@ function rowHtml(m) {
   if (m.mock) tags.push('<span class="tag wait">모의</span>');
   const hot = both(m.pick_1x2) || both(m.pick_ou);   /* 예측+이득(★) 경기는 줄 전체를 진한 회색으로 */
   const val = !hot && (m.value_alerts || []).length > 0;   /* 이득만 있는 경기는 연분홍 */
-  return `<a class="row${hot ? ' hot' : val ? ' val' : ''}" href="#m-${encodeURIComponent(m.id)}">${head}<span class="mid">${m.result ? finalSlot(m) : liveSlot(m)}${tri(m.probs, m.pick_1x2)}</span><span class="tags">${tags.join('')}</span></a>`;
+  return `<a class="row${hot ? ' hot' : val ? ' val' : ''}" href="${matchHref(m.id, m.slug)}">${head}<span class="mid">${m.result ? finalSlot(m) : liveSlot(m)}${tri(m.probs, m.pick_1x2)}</span><span class="tags">${tags.join('')}</span></a>`;
 }
 
 /* ---------- 실시간 스코어 ----------
@@ -606,6 +606,12 @@ async function renderMatch(id) {
   await loadNews();
   ODDS_H = await api('/api/odds').catch(() => null);
   const m = r.match, d = r.decision, one = d.one_x_two, ou = d.over_under, s = r.summary;
+  if (MEMBER && s.slug) {   // 회원 주소: #m- 로 들어와도 주소창은 진짜 경기 주소로
+    const want = '/match/' + encodeURIComponent(s.slug);
+    if (location.pathname !== want && decodeURIComponent(location.pathname) !== '/match/' + s.slug) history.replaceState(null, '', want);
+    document.title = `${m.home} vs ${m.away} 분석 · RAISE`;
+    const c = document.querySelector('link[rel=canonical]'); if (c) c.href = location.origin + want;
+  }
   const N = names(m.home, m.away, d.line);
   const color = (mid, i) => (r.members[mid] && r.members[mid].color) || PAL[i % PAL.length];
   const first = Object.fromEntries(r.initial.map(o => [o.member_id, o]));
@@ -862,7 +868,7 @@ async function renderPicks() {
   const now = Date.now();
   const up = d.upcoming.filter(u => !(Date.parse(u.kickoff_iso) <= now)).slice(0, 12);
   const cell = (u, m) => { const x = u.picks[m.id]; return x ? `<span class="ap-pk ${esc(x.p)}">${LAB[x.p] || '-'}</span> <span class="ap-ou">${x.ou === 'over' ? '오버' : '언더'} ${esc(u.line)}</span>` : '<span class="mute">-</span>'; };
-  const rows = up.map(u => `<tr><td data-l="경기" class="ap-mt"><a href="#m-${encodeURIComponent(u.id)}"><b>${esc(u.home)} vs ${esc(u.away)}</b></a><small>${esc(u.league)} · ${esc(String(u.kickoff).slice(5, 16))}</small></td>
+  const rows = up.map(u => `<tr><td data-l="경기" class="ap-mt"><a href="${matchHref(u.id, u.slug)}"><b>${esc(u.home)} vs ${esc(u.away)}</b></a><small>${esc(u.league)} · ${esc(String(u.kickoff).slice(5, 16))}</small></td>
     ${mem.map(m => `<td data-l="${esc(m.name)}">${cell(u, m)}</td>`).join('')}</tr>`).join('');
   parkAd();
   view.innerHTML = `<section class="band"><div class="wrap"><h1>분석가 픽</h1>
@@ -1196,12 +1202,17 @@ async function renderAdmin() {
 }
 
 /* ---------- 길찾기 ---------- */
-const PAGES = ['about', 'terms', 'privacy'];   // 진짜 주소(/about 등)로도 열리는 안내 페이지 (미들웨어가 index.html 을 돌려줌)
+const PAGES = ['about', 'terms', 'privacy'];
+const subPath = () => location.pathname.replace(/^\/+|\/+$/g, '');
+const onSubPage = () => { const p = subPath(); return PAGES.includes(p) || p.startsWith('match/'); };   // 첫 주소(/)가 아닌 화면
+/* 회원 주소: 경기 링크는 검색엔진용 진짜 주소(/match/…), 운영자 주소는 지금처럼 #m- */
+const matchHref = (id, slug) => MEMBER && slug ? '/match/' + encodeURIComponent(slug) : '#m-' + encodeURIComponent(id);   // 진짜 주소(/about 등)로도 열리는 안내 페이지 (미들웨어가 index.html 을 돌려줌)
 async function route() {
-  const pk = location.pathname.replace(/^\/+|\/+$/g, '');
-  if (PAGES.includes(pk) && location.hash.length > 1) { location.replace('/' + location.hash); return; }   // 안내 페이지에서 다른 화면으로 → 첫 주소로
+  const pk = subPath();
+  if (onSubPage() && location.hash.length > 1) { location.replace('/' + location.hash); return; }   // 안내·경기 주소에서 다른 화면으로 → 첫 주소로
   let h = location.hash.replace(/^#\/?/, '');
   if (!h && PAGES.includes(pk)) h = pk;
+  if (!h && pk.startsWith('match/') && window.AA_MATCH) h = 'm-' + window.AA_MATCH;
   const navKey = !h || h.startsWith('m-') ? 'list' : h;
   document.querySelectorAll('[data-nav]').forEach(a => a.classList.toggle('on', a.dataset.nav === navKey));
   if (READONLY) document.querySelectorAll('.admin-link').forEach(a => a.hidden = true);
@@ -1422,7 +1433,7 @@ function renderPolicy(k) {
 // 안내 페이지 주소에서 # 링크(메뉴·로고)를 누르면 첫 주소로 가서 그 화면을 연다
 document.addEventListener('click', e => {
   const a = e.target.closest && e.target.closest('a[href^="#"]');
-  if (!a || !PAGES.includes(location.pathname.replace(/^\/+|\/+$/g, ''))) return;
+  if (!a || !onSubPage()) return;
   e.preventDefault(); location.href = '/' + a.getAttribute('href');
 });
 
@@ -1638,7 +1649,7 @@ const Chat = {
   }
   drawAccount();
   const h = location.hash.replace(/^#\/?/, '');
-  const onPage = PAGES.includes(location.pathname.replace(/^\/+|\/+$/g, ''));   // 소개·약관 주소면 목록으로 덮지 않음
+  const onPage = onSubPage();   // 소개·약관·경기 주소면 목록으로 덮지 않음
   if ((!h || h === 'list') && !onPage) renderList().catch(() => {});
   Chat.build();
 })();

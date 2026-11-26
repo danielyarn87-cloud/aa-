@@ -28,8 +28,16 @@ async function raise(ctx, url) {
     if (host.startsWith("www.")) return Response.redirect(MEMBER_ORIGIN + url.pathname + url.search, 301);
     if (url.pathname === "/robots.txt")
       return new Response(`User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: ${MEMBER_ORIGIN}/sitemap.xml\n`, {headers: {"content-type": "text/plain; charset=utf-8"}});
-    if (url.pathname === "/sitemap.xml")
-      return new Response(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${MEMBER_ORIGIN}/</loc><changefreq>hourly</changefreq></url><url><loc>${MEMBER_ORIGIN}/about</loc></url><url><loc>${MEMBER_ORIGIN}/terms</loc></url><url><loc>${MEMBER_ORIGIN}/privacy</loc></url></urlset>\n`, {headers: {"content-type": "application/xml; charset=utf-8"}});
+    if (url.pathname === "/sitemap.xml") {
+      // 분석이 끝난 경기마다 진짜 주소 (/match/…). 목록은 tools/export_static.py 가 만든 /api/slugs.json
+      let matches = "";
+      try {
+        const r = await ctx.env.ASSETS.fetch(new Request(new URL("/api/slugs.json", url).toString()));
+        if (r.ok) matches = Object.entries(await r.json())
+          .map(([slug, v]) => `<url><loc>${MEMBER_ORIGIN}/match/${encodeURIComponent(slug)}</loc><lastmod>${String(v.kickoff).slice(0, 10)}</lastmod></url>`).join("");
+      } catch (e) {}
+      return new Response(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${MEMBER_ORIGIN}/</loc><changefreq>hourly</changefreq></url><url><loc>${MEMBER_ORIGIN}/about</loc></url><url><loc>${MEMBER_ORIGIN}/terms</loc></url><url><loc>${MEMBER_ORIGIN}/privacy</loc></url>${matches}</urlset>\n`, {headers: {"content-type": "application/xml; charset=utf-8"}});
+    }
     // 배당 갱신(POST /api/odds/refresh)은 예외: 시계(raise-clock)가 여기로 부른다. 운영자 주소는 잠겨 있어서.
     //   갱신은 몇 번 불러도 정해진 간격을 넘는 호출을 하지 않게 만들어져 있다.
     const oddsRefresh = url.pathname === "/api/odds/refresh" && ctx.request.method === "POST";
