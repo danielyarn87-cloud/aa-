@@ -190,8 +190,8 @@ async function renderList() {
   const done = ms.filter(m => m.status === 'analyzed');
   const vals = done.filter(m => m.value_alerts && m.value_alerts.length).length;
   const isRes = listFilter === 'results';
-  /* 끝난 지 12시간 안 된 경기는 최종 점수와 함께 목록에 남긴다 (회원도 결과를 볼 수 있게) */
-  const recent = inLg.filter(m => m.result && m.status === 'analyzed' && Date.now() - kickMs(m) < 12 * 3600e3);
+  /* 끝난 경기는 최종 점수와 함께 끝나고 약 3시간 동안만 목록에 남긴다 (킥오프 기준 5시간 = 경기 2시간 + 3시간) */
+  const recent = inLg.filter(m => m.result && m.status === 'analyzed' && Date.now() - kickMs(m) < 5 * 3600e3);
   const shown = isRes ? [] : [...ms, ...recent].sort((a, b) => kickMs(a) - kickMs(b)).filter(m => listFilter === 'all' || (listFilter === 'analyzed' ? m.status === 'analyzed' : listFilter === 'pending' ? m.status === 'pending' : (m.value_alerts || []).length));
   const days = [...new Set(shown.map(m => dayOf(m.kickoff)))];
   const chip = (k, t, cls = '') => `<button class="seg ${cls}" data-f="${k}" aria-pressed="${listFilter === k}">${t}</button>`;
