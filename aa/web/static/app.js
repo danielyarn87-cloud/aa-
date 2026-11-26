@@ -267,7 +267,62 @@ async function renderList() {
   liveTick();
   wireCredit();
   wireApiCard();
+  wireKpi();
 }
+
+/* ---------- 누적 적중률 카드 → 자세히 보기 (운영자 화면) ---------- */
+let KPI_DONE = [], kpiOpen = null, kpiAll = false;
+const PK = {home: '홈 승', draw: '무', away: '원정 승', over: '오버', under: '언더'};
+const goalsOf = m => { const g = String((m.result || {}).score || '').match(/(\d+)\s*[-:]\s*(\d+)/); return g ? [+g[1], +g[2]] : null; };
+const wonTxt = v => (v >= 0 ? '+' : '−') + Math.abs(Math.round(v)).toLocaleString('ko-KR') + '원';
+function kpiDetail() {
+  if (!kpiOpen) return '';
+  const byNew = [...KPI_DONE].sort((a, b) => kickMs(b) - kickMs(a));
+  const pct = (h, n) => n ? Math.round(h / n * 100) + '%' : '-';
+  const group = (arr, key, hit) => { const g = {}; arr.forEach(x => { const k = key(x); (g[k] = g[k] || [0, 0])[1]++; if (hit(x)) g[k][0]++; }); return Object.entries(g).sort((a, b) => b[1][1] - a[1][1]); };
+  const bars = (rows, lab = k => k) => `<div class="kd-bars">${rows.map(([k, [h, n]]) => `<div class="kd-bar"><span class="kd-k">${esc(lab(k))}</span><span class="kd-t"><i style="width:${n ? h / n * 100 : 0}%"></i></span><span class="kd-v num">${h}/${n} · ${pct(h, n)}</span></div>`).join('')}</div>`;
+  const N = 8;
+  const rows = (items, f) => `<div class="kd-rows">${(kpiAll ? items : items.slice(0, N)).map(f).join('')}</div>${items.length > N ? `<button type="button" class="btn ghost sm kd-more">${kpiAll ? '접기' : `전부 보기 (${items.length})`}</button>` : ''}`;
+  const head = m => `<a class="kd-m" href="${matchHref(m.id, m.slug)}"><b>${esc(m.home)} <span class="mute">vs</span> ${esc(m.away)}</b><small>${esc(m.kickoff.slice(5, 16).replace('-', '/'))} · ${esc(lgName(m))}`;
+  const ok = b => `<span class="${b ? 'kd-ok' : 'kd-no'}">${b ? '✓' : '✗'}</span>`;
+  let body = '';
+  if (kpiOpen === '1x2') {
+    const p = byNew.filter(m => m.result.hit_1x2 != null);
+    body = `<h3>리그별</h3>${bars(group(p, lgName, m => m.result.hit_1x2))}
+      <h3>예측별</h3>${bars(group(p, m => m.pick_1x2 || '-', m => m.result.hit_1x2), k => PK[k] || k)}
+      <h3>경기 (최근 순)</h3>${rows(p, m => `<div class="kd-row">${head(m)} · 예측 ${esc(PK[m.pick_1x2] || '-')}</small></a><span class="kd-r num">${esc(m.result.score)} ${ok(m.result.hit_1x2)}</span></div>`)}`;
+  } else if (kpiOpen === 'ou') {
+    const p = byNew.filter(m => m.result.hit_ou != null);
+    body = `<h3>예측별</h3>${bars(group(p, m => m.pick_ou || '-', m => m.result.hit_ou), k => PK[k] || k)}
+      <h3>경기 (최근 순)</h3>${rows(p, m => { const g = goalsOf(m); return `<div class="kd-row">${head(m)} · ${esc(PK[m.pick_ou] || '-')} ${esc(m.line ?? 2.5)} · 실제 ${g ? g[0] + g[1] : '-'}골</small></a><span class="kd-r">${ok(m.result.hit_ou)}</span></div>`; })}`;
+  } else if (kpiOpen === 'value') {
+    const V = [];
+    byNew.forEach(m => { const g = goalsOf(m); if (!g) return; const line = parseFloat(m.line) || 2.5;
+      (m.value_alerts || []).forEach(k => { const w = {home: g[0] > g[1], draw: g[0] === g[1], away: g[0] < g[1], over: g[0] + g[1] > line, under: g[0] + g[1] < line}[k];
+        if (w === undefined) return; const o = parseFloat((m.odds || {})[k]) || 0; V.push({m, k, o, w, pl: w ? (o - 1) * UNIT : -UNIT}); }); });
+    /* 누적 손익 흐름 (오래된 것 → 최근) */
+    let acc = 0; const pts = [...V].reverse().map(v => (acc += v.pl));
+    const lo = Math.min(0, ...pts), hi = Math.max(0, ...pts), W = 600, H = 120, sx = i => pts.length > 1 ? i / (pts.length - 1) * W : W / 2, sy = y => H - 8 - (y - lo) / ((hi - lo) || 1) * (H - 16);
+    const chart = pts.length ? `<svg class="kd-chart" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="누적 손익 흐름, 마지막 ${wonTxt(acc)}"><line x1="0" x2="${W}" y1="${sy(0)}" y2="${sy(0)}" class="z"/><polyline points="${pts.map((y, i) => `${sx(i).toFixed(1)},${sy(y).toFixed(1)}`).join(' ')}" class="${acc >= 0 ? 'up' : 'dn'}"/></svg><p class="kd-note">누적 손익 흐름 (5,000원씩, 왼쪽이 오래된 것) · 지금 <b class="${acc >= 0 ? 'kd-ok' : 'kd-no'}">${wonTxt(acc)}</b></p>` : '';
+    const byK = group(V, v => v.k, v => v.w).map(([k, hn]) => [k, hn, V.filter(v => v.k === k).reduce((a, v) => a + v.pl, 0)]);
+    body = `${chart}<h3>종류별</h3><div class="kd-bars">${byK.map(([k, [h, n], pl]) => `<div class="kd-bar"><span class="kd-k">${esc(PK[k] || k)}</span><span class="kd-t"><i style="width:${n ? h / n * 100 : 0}%"></i></span><span class="kd-v num">${h}/${n} · <b class="${pl >= 0 ? 'kd-ok' : 'kd-no'}">${wonTxt(pl)}</b></span></div>`).join('')}</div>
+      <h3>한 장씩 (최근 순)</h3>${rows(V, v => `<div class="kd-row">${head(v.m)} · ${esc(PK[v.k])} @ ${esc(v.o)} · 결과 ${esc(v.m.result.score)}</small></a><span class="kd-r num ${v.w ? 'kd-ok' : 'kd-no'}">${wonTxt(v.pl)}</span></div>`)}`;
+  } else {
+    body = `<h3>리그별 경기 수 · 승무패 적중</h3>${bars(group(byNew, lgName, m => m.result.hit_1x2))}
+      <h3>경기 (최근 순 · 누르면 분석 페이지)</h3>${rows(byNew, m => `<div class="kd-row">${head(m)} · ${esc(m.result.score)}</small></a><span class="kd-r">승무패 ${ok(m.result.hit_1x2)} · U/O ${ok(m.result.hit_ou)}</span></div>`)}`;
+  }
+  return `<section class="kd" aria-label="자세한 기록">${body}</section>`;
+}
+function wireKpi() {
+  const box = document.getElementById('kpiDetail'); if (!box) return;
+  view.querySelectorAll('.kpi-btn').forEach(b => b.onclick = () => {
+    kpiOpen = kpiOpen === b.dataset.kd ? null : b.dataset.kd; kpiAll = false;
+    view.querySelectorAll('.kpi-btn').forEach(x => { const on = x.dataset.kd === kpiOpen; x.setAttribute('aria-expanded', on); x.querySelector('.kl i').textContent = on ? '▴' : '▾'; });
+    box.innerHTML = kpiDetail();
+  });
+  box.onclick = e => { if (e.target.closest('.kd-more')) { kpiAll = !kpiAll; box.innerHTML = kpiDetail(); } };
+}
+
 function kpiCards(all, waiting, analyzed, vals, credit, lgInfo) {
   const done = all.filter(m => m.result);
   const p1 = done.filter(m => m.result.hit_1x2 != null), po = done.filter(m => m.result.hit_ou != null);
@@ -287,7 +342,12 @@ function kpiCards(all, waiting, analyzed, vals, credit, lgInfo) {
       vpl += win ? (o - 1) * UNIT : -UNIT;
     });
   });
-  const card = (cls, label, num, sub) => `<div class="kpi ${cls}"><span class="kl">${label}</span><span class="kn">${num}</span><span class="ks">${sub}</span></div>`;
+  KPI_DONE = done;   // 카드를 눌렀을 때 자세히 보기용
+  const card = (cls, label, num, sub) => {
+    const k = {k1: '1x2', k5: 'value', k2: 'ou', k3: 'all'}[cls];   // 누르면 아래에 자세한 기록
+    return k ? `<button type="button" class="kpi ${cls} kpi-btn" data-kd="${k}" aria-expanded="${kpiOpen === k}"><span class="kl">${label}<i aria-hidden="true">${kpiOpen === k ? '▴' : '▾'}</i></span><span class="kn">${num}</span><span class="ks">${sub}</span></button>`
+      : `<div class="kpi ${cls}"><span class="kl">${label}</span><span class="kn">${num}</span><span class="ks">${sub}</span></div>`;
+  };
   return `<div class="kpis">
     ${card('k1', '승무패 적중', pc(h1, p1.length), p1.length ? `${h1} / ${p1.length}경기` : '결과 대기')}
     ${card('k5', '이득 적중', pc(vh, vn), vn ? `${vh} / ${vn}개 · 5,000원씩 <b class="${vpl >= 0 ? 'plus' : ''}">${(vpl >= 0 ? '+' : '−') + Math.abs(Math.round(vpl)).toLocaleString('ko-KR')}원</b>` : '결과 대기')}
@@ -296,6 +356,7 @@ function kpiCards(all, waiting, analyzed, vals, credit, lgInfo) {
     ${card('k4', '분석 대기', waiting, `분석 완료 ${analyzed} · 이득 ${vals}`)}
     ${creditCard(credit)}
     ${apiCard(lgInfo)}
+    <div id="kpiDetail">${kpiDetail()}</div>
   </div>`;
 }
 /* Claude 크레딧: Console 잔액은 밖에서 못 읽어서, 입력한 잔액에서 분석할 때 쓴 만큼(실제 토큰 수 × 가격)을 뺀 추정값 */

@@ -736,3 +736,32 @@ a.btn-line{text-align:center;text-decoration:none;box-sizing:border-box}
 .run-ms li{display:flex;flex-wrap:wrap;gap:2px 6px;align-items:baseline;overflow-wrap:anywhere}
 .run-ms .lg{color:var(--mute);font-size:12px}
 .run .small{margin:0 0 10px}
+/* 누적 적중률 카드 → 자세히 보기 */
+button.kpi-btn{font:inherit;text-align:left;border:2px solid transparent;cursor:pointer}
+button.kpi-btn[aria-expanded="true"]{border-color:currentColor}
+.kpi-btn .kl{display:flex;justify-content:space-between;gap:6px}.kpi-btn .kl i{font-style:normal;opacity:.6}
+.kd{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:-2px 0 14px;background:var(--bg)}
+.kd h3{font-size:15px;margin:12px 0 8px}.kd h3:first-child{margin-top:2px}
+.kd-bars{display:grid;gap:7px}
+.kd-bar{display:grid;grid-template-columns:minmax(5.5em,9em) minmax(40px,1fr) auto;gap:10px;align-items:center;font-size:13px}
+.kd-k{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.kd-t{height:10px;background:var(--panel);border-radius:5px;overflow:hidden}.kd-t i{display:block;height:100%;background:var(--pitch)}
+.kd-v{white-space:nowrap;text-align:right}   /* "12/18 · 67%" 한 줄 */
+.kd-rows{display:grid;font-size:13.5px}
+.kd-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
+.kd-m{color:var(--ink);text-decoration:none;min-width:0}.kd-m b{display:block;font-weight:600;overflow-wrap:anywhere}.kd-m small{color:var(--mute);font-size:12px}
+.kd-r{white-space:nowrap;text-align:right}
+.kd-ok{color:#047857;font-weight:700}.kd-no{color:#b91c1c;font-weight:700}
+.kd-more{margin-top:8px}
+.kd-chart{width:100%;height:120px;display:block;background:var(--panel);border-radius:8px}
+.kd-chart .z{stroke:#9ca3af;stroke-dasharray:4 4;stroke-width:1;vector-effect:non-scaling-stroke}
+.kd-chart polyline{fill:none;stroke-width:2.5;vector-effect:non-scaling-stroke}.kd-chart .up{stroke:#047857}.kd-chart .dn{stroke:#b91c1c}
+.kd-note{font-size:12.5px;color:var(--mute);margin:6px 0 0}
+@media(max-width:400px){.kd-bar{grid-template-columns:5.5em minmax(30px,1fr) auto;gap:6px;font-size:12.5px}}
+/* 운영자 목록: 배당 변화가 붙은 긴 태그가 칸을 넘지 않게 (폴드 펼친 화면 884px) — 태그 안에서 단어 단위로 줄바꿈 */
+.tags .tag{max-width:100%;white-space:normal;word-break:keep-all;overflow-wrap:anywhere}
+.tag .oc,.tag b.num{white-space:nowrap}
+/* 자세히 칸은 카드 칸 안 한 줄 전체: PC 는 카드들 아래, 폰(2칸)은 적중률 카드 4개 바로 아래 */
+#kpiDetail{grid-column:1/-1;order:9;min-width:0}#kpiDetail:empty{display:none}
+#kpiDetail .kd{margin:0}
+@media(max-width:720px){.kpis>.kpi{order:3}.kpis>.k1,.kpis>.k5,.kpis>.k2,.kpis>.k3{order:1}#kpiDetail{order:2}}
