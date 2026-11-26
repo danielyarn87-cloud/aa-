@@ -161,8 +161,12 @@ def export(out: Path, company_path: Path = ROOT / "company.yaml") -> Path:
     # 화면 파일이 바뀌면 주소도 바뀌게 해서 브라우저가 옛 화면을 쓰지 않게 함
     import hashlib
     ver = hashlib.sha1((static / "app.js").read_bytes() + (static / "style.css").read_bytes()).hexdigest()[:10]
-    html = html.replace('/static/style.css"', f'/static/style.css?v={ver}"')
-    html = html.replace('<script src="/static/app.js"></script>', f'<script>window.AA_STATIC=true;</script>\n<script src="/static/app.js?v={ver}"></script>')
+    # 주소 뒤 ?v= 만 바꾸면 배포 도중 옛 파일이 새 주소로 캐시되는 일이 있어(11/26 폰에서 스타일 빠짐),
+    # 파일 이름 자체에 버전을 넣은 복사본을 만든다: 새 이름엔 옛 내용이 있을 수 없다.
+    (out / "static" / f"style.{ver}.css").write_bytes((static / "style.css").read_bytes())
+    (out / "static" / f"app.{ver}.js").write_bytes((static / "app.js").read_bytes())
+    html = html.replace('/static/style.css"', f'/static/style.{ver}.css"')
+    html = html.replace('<script src="/static/app.js"></script>', f'<script>window.AA_STATIC=true;</script>\n<script src="/static/app.{ver}.js"></script>')
     (out / "index.html").write_text(html, encoding="utf-8")
     export_fortune(out)
     export_lotto(out)
