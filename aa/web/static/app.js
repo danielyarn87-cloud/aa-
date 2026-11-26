@@ -165,7 +165,8 @@ async function renderNews() {
 
 /* 관리자 화면: 이 기기에 분석 요청 비밀번호를 기억시켰거나 한 번이라도 요청에 성공했으면 관리자로 본다.
    회원(그 밖의 방문자)에게는 누적 적중률·크레딧·API 사용량 칸을 숨기고 리그 고르기부터 보여 준다 (화면만 숨김). */
-const isBoss = () => !!store.get('aa_run_pw') || store.get('aa_boss') === '1';
+/* 운영자: 운영자 주소(raise-bet.com·pages.dev — Cloudflare Access 로 잠김)면 항상, 그 밖엔 이 브라우저에 관리자 표시가 있을 때 */
+const isBoss = () => !MEMBER || !!store.get('aa_run_pw') || store.get('aa_boss') === '1';
 /* 회원 모드: 회원용 주소(raise-fulltime.com)로 들어오면 돈·배당 숫자·배팅 표현을 빼고 관리 메뉴를 숨긴다.
    운영자 주소(raise-bet.com, aa-2kp.pages.dev)는 지금 그대로. */
 const MEMBER = /(^|\.)raise-fulltime\.com$/.test(location.hostname);
