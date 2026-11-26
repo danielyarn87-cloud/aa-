@@ -25,7 +25,10 @@ async function raise(ctx, url) {
       return new Response(`User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: ${MEMBER_ORIGIN}/sitemap.xml\n`, {headers: {"content-type": "text/plain; charset=utf-8"}});
     if (url.pathname === "/sitemap.xml")
       return new Response(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${MEMBER_ORIGIN}/</loc><changefreq>hourly</changefreq></url></urlset>\n`, {headers: {"content-type": "application/xml; charset=utf-8"}});
-    if (MEMBER_BLOCK.test(url.pathname) || (url.pathname.startsWith("/api/") && !["GET", "HEAD"].includes(ctx.request.method)))
+    // 배당 갱신(POST /api/odds/refresh)은 예외: 시계(raise-clock)가 여기로 부른다. 운영자 주소는 잠겨 있어서.
+    //   갱신은 몇 번 불러도 정해진 간격을 넘는 호출을 하지 않게 만들어져 있다.
+    const oddsRefresh = url.pathname === "/api/odds/refresh" && ctx.request.method === "POST";
+    if (MEMBER_BLOCK.test(url.pathname) || (!oddsRefresh && url.pathname.startsWith("/api/") && !["GET", "HEAD"].includes(ctx.request.method)))
       return new Response("Not Found", {status: 404});
     return ctx.next();
   }

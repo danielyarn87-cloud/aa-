@@ -16,6 +16,6 @@ jobs:
     steps:
       - name: 배당 갱신 요청
         env:
-          SITE: ${{ vars.SITE_URL || 'https://aa-2kp.pages.dev' }}
+          SITE: ${{ vars.SITE_URL || 'https://raise-fulltime.com' }}
         run: |
           curl -fsS -X POST "$SITE/api/odds/refresh" -H "Content-Type: application/json" --max-time 120 || echo "갱신 실패 (다음 번에 다시 시도)"

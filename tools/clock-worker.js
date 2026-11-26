@@ -15,7 +15,7 @@
 //   "37 * * * *"          로또 당첨번호
 
 const REPO = "danielyarn87-cloud/aa-";
-const SITE = "https://aa-2kp.pages.dev";
+const SITE = "https://raise-fulltime.com";   // 운영자 주소(aa-2kp.pages.dev)는 Cloudflare Access 로 잠겨 있다
 
 // 실행 시각(UTC)의 분·시로 할 일을 고른다 (예약 문자열 표기가 달라도 안전하게)
 export function planFor(date) {
