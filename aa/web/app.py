@@ -56,11 +56,15 @@ def renamed(obj, company: Company):
     return fix(obj)
 
 
+RULE_START = "2026-11-27 09:45"   # 이득 거르기 규칙 시작 (킥오프 문자열 'YYYY-MM-DD HH:MM KST' 와 비교)
+
+
 def _alerts(run: dict, one: dict, ou: dict, result, policy) -> list:
-    """이득 표시. 채점 끝난 경기는 그때 기록 그대로(성적 기록을 바꾸지 않음),
-    아직 안 끝난 경기는 지금 규칙(기대값 5%~40%, 배당 3.5 이하)으로 다시 거른다."""
+    """이득 표시. 규칙 전에 끝난 경기는 그때 기록 그대로(성적 기록을 바꾸지 않음),
+    그 밖의 경기는 지금 규칙(기대값 5%~40%, 배당 3.5 이하)으로 다시 거른다."""
     saved = one["value_alerts"] + ou["value_alerts"]
-    if result or policy is None:
+    # 새 규칙(11/27 09:45) 전에 시작한 경기는 그때 기록 그대로. 그 뒤 경기는 화면에 보인 그대로 채점되게 새 규칙 적용
+    if policy is None or (result and str(run["match"].get("kickoff", "")) < RULE_START):
         return saved
     odds = run["match"].get("odds") or {}
     edges = {**(one.get("edges") or {}), **(ou.get("edges") or {})}
