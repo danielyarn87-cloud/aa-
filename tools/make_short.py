@@ -279,7 +279,7 @@ def scene_probs(img, D, t):
     a = prog(t, 0.0)
     text(img, "승무패 예측", "Black", 76, CHALK, LEFT, 330 + 30 * (1 - a), a)
     text(img, "분석팀 평균 확률", "Medium", 34, MUTED, LEFT, 438, a)
-    y0, bh, gap = 560, 150, 60
+    y0, bh, gap = 520, 150, 40   # 맨 아래 위험성 안내(1522~)와 겹치지 않게
     maxw = RIGHT - LEFT
     top = max(p for _, p, _ in D["probs"])
     for i, (label, p, key) in enumerate(D["probs"]):
@@ -297,13 +297,13 @@ def scene_probs(img, D, t):
         text(img, pct, "Black", 64, INK if w > 260 else CHALK, LEFT + max(w, 0) - 24 if w > 260 else LEFT + w + 20, y + 78, e, "r" if w > 260 else "l")
     v = prog(t, 1.9, 0.5)
     yb = y0 + 3 * (bh + gap + 50) + 10
-    rrect(img, (LEFT, yb, RIGHT, yb + 210), 30, GOLD, v)
+    rrect(img, (LEFT, yb, RIGHT, yb + 190), 30, GOLD, v)
     text(img, "분석팀 결론", "Bold", 34, INK, LEFT + 40, yb + 26, v)
     vs = fit_size(D["verdict"], "Black", 70, RIGHT - LEFT - 80)
     text(img, D["verdict"], "Black", vs, INK, LEFT + 40, yb + 76, v)
     text(img, D["sub"], "Medium", 32, INK, LEFT + 40, yb + 76 + vs + 14, v) if vs < 70 else None
     s = prog(t, 2.3)
-    text(img, D["sub"], "Bold", 38, CHALK, LEFT, yb + 240, s)
+    text(img, D["sub"], "Bold", fit_size(D["sub"], "Bold", 36, RIGHT - LEFT), CHALK, LEFT, yb + 204, s)
 
 
 def pill(img, label, x, y, size, bg, fg, alpha):
@@ -320,7 +320,7 @@ def scene_analysts(img, D, t):
     a = prog(t, 0.0)
     text(img, f"분석가 {len(D['analysts'][:4])}명의 선택", "Black", 72, CHALK, LEFT, 330 + 30 * (1 - a), a)
     text(img, "처음 → 토론 뒤 최종", "Medium", 30, MUTED, LEFT, 420 + 30 * (1 - a), a)
-    y, ch, gap = 480, 252, 16
+    y, ch, gap = 476, 244, 12
     cw = RIGHT - LEFT
     for i, an in enumerate(D["analysts"][:4]):
         e = prog(t, 0.25 + i * 0.32, 0.45)
@@ -393,9 +393,7 @@ def scene_end(img, D, t):
     d = prog(t, 0.7)
     text(img, "경기 끝나면 적중 결과도 올려요", "Bold", 44, CHALK, W // 2, 900, d, "c")
     e = prog(t, 1.0)
-    rrect(img, (LEFT, 1080, W - LEFT, 1260), 28, (0, 0, 0, 100), e)
-    text(img, "예측은 참고용이에요. 맹신하지 마세요.", "Bold", 38, CHALK, W // 2, 1110, e, "c")
-    text(img, "도박 문제 상담 국번 없이 1336", "Medium", 32, MUTED, W // 2, 1180, e, "c")
+    text(img, "▶ 구독하고 다음 경기 예측도 받아보세요", "Bold", 40, GOLD, W // 2, 1040, e, "c")
 
 
 SCENES = [
@@ -408,9 +406,23 @@ SCENES = [
 FADE = 0.2  # 장면 끝 0.2초 어둡게(다음 장면으로 자연스럽게)
 
 
+RISK = ("예측은 참고용 정보예요 · 결과를 보장하지 않으며 베팅을 권하지 않아요",
+        "불법 스포츠도박은 처벌 대상이에요 · 도박 문제 상담 국번 없이 1336")
+
+
+def risk_bar(img) -> None:
+    """모든 장면 맨 아래에 늘 보이는 위험성 안내 (유튜브 제목·설명 글자가 덮는 곳보다 위)."""
+    y0 = 1522
+    rrect(img, (40, y0, W - 40, y0 + 104), 22, (0, 0, 0, 150))
+    for i, ln in enumerate(RISK):
+        sz = fit_size(ln, "Bold", 30, W - 130)
+        text(img, ln, "Bold", sz, CHALK if i == 0 else GOLD, W // 2, y0 + 14 + i * 44, 1, "c")
+
+
 def frame(fn, D, t, dur) -> Image.Image:
     img = background().copy()
     fn(img, D, t)
+    risk_bar(img)
     if t > dur - FADE:
         k = (t - (dur - FADE)) / FADE
         img.alpha_composite(Image.new("RGBA", (W, H), PITCH_D + (int(255 * k * 0.85),)))
@@ -438,6 +450,7 @@ def thumbnail(D) -> Image.Image:
     """유튜브·인스타에 올릴 썸네일(1080x1920) = 쇼츠 첫 화면(리그·팀·킥오프 시각). 예측 결과는 넣지 않는다."""
     img = background().copy()
     scene_title(img, D, 2.4)   # 첫 장면이 다 나타난 순간 (어둡게 바뀌기 전)
+    risk_bar(img)
     return img.convert("RGB")
 
 
