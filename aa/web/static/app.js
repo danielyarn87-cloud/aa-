@@ -1153,23 +1153,35 @@ async function renderBets() {
         <td><span class="leg-no">${i + 1}</span> <span class="small mute">${esc(sz)}폴더 조합</span><br><b>${game}</b> ${kindOf(l)}</td>
         <td><div class="tk-opts n${order.length}">${btns}</div></td><td class="tk-res">${mark(l)}</td></tr>`;
   };
-  const slip = (s, brief) => `<div class="panel slip ticket" style="--mc:${esc(col(s.member_id))}">
+  /* 배팅표: 경기 한 줄씩 간단히 (예전 표는 7폴더면 폰에서 2,000px 넘게 길어졌음). 설명은 접어 둔다 */
+  const legLine = (l, i) => {
+    const mk = l.hit === true ? '<span class="tkc-ox o" title="적중">○</span>' : l.hit === false ? '<span class="tkc-ox x" title="미적중">✕</span>' : '<span class="tkc-ox w" title="결과 대기">·</span>';
+    const k = String(l.kickoff || '');
+    return `<li class="tkc-row${l.hit === true ? ' hit' : l.hit === false ? ' miss' : ''}">
+      <span class="tkc-no">${i + 1}</span>
+      <span class="tkc-main"><span class="tkc-meta"><span class="num">${esc(k.slice(5, 10).replace('-', '.'))} ${esc(k.slice(11, 16))}</span>${l.league ? ` · ${esc(l.league)}` : ''}</span>
+        <a class="tkc-teams" href="#m-${encodeURIComponent(l.match_id)}"><span>${esc(l.home || l.title)}</span> <span class="mute">vs</span> <span>${esc(l.away || '')}</span></a></span>
+      <span class="tkc-pick"><b>${esc(l.label)}</b><span class="num">@${esc(l.odds)}</span></span>
+      ${mk}</li>`;
+  };
+  const slip = (s, brief) => `<div class="panel slip ticket tkc" style="--mc:${esc(col(s.member_id))}">
     <div class="slip-head">
       <span class="who-badge">${esc(s.member_name)}</span>
       <span class="slip-size">${esc(s.size)}폴더</span>
-      <span class="small mute">${esc(s.placed_at)} 배팅</span>
+      <span class="small mute">${esc(s.placed_at)}</span>
       <span style="margin-left:auto">${st(s)}</span></div>
-    <div class="tk-scroll"><table class="tk">
-      <thead><tr><th>개최일시</th><th>종목 · 대회</th><th>대상경기(홈 vs 원정) · 게임주제</th><th>결과</th></tr></thead>
-      <tbody>${s.legs.map(legRows(s.size)).join('')}</tbody></table></div>
-    <table class="tk-sum"><thead><tr><th>선택경기수</th><th>예상배당률</th><th>개별투표금액</th><th>예상적중금액</th></tr></thead>
-      <tbody><tr><td>${esc(s.legs.length)}경기</td><td class="num">${esc(s.combined_odds)}배</td><td class="num">${W(s.stake)}</td><td class="num">${W(Math.floor(s.stake * s.combined_odds))}</td></tr>
-      <tr class="tk-total"><td colspan="4">총투표금액 <b class="num">${W(s.stake)}</b>${s.status === 'won' ? ` · 받은 돈 <b class="num">${W(s.payout)}</b>` : ''}</td></tr></tbody></table>
-    ${brief ? '' : `<div class="tk-explain"><h3>설명</h3>
+    <div class="tkc-sum">
+      <span><small>배당</small><b class="num">${esc(s.combined_odds)}배</b></span>
+      <span><small>건 돈</small><b class="num">${W(s.stake)}</b></span>
+      <span><small>${s.status === 'won' ? '받은 돈' : '맞으면'}</small><b class="num">${W(s.status === 'won' ? s.payout : Math.floor(s.stake * s.combined_odds))}</b></span>
+      <span><small>맞을 가능성</small><b class="num">${pctx(s.prob ?? s.legs.reduce((a, l) => a * l.prob, 1))}</b></span>
+    </div>
+    <ol class="tkc-list">${s.legs.map(legLine).join('')}</ol>
+    ${brief ? '' : `<details class="tk-explain"><summary>왜 이렇게 골랐나 · 경기별 설명 보기</summary>
       <p class="small">${howText(s)}</p>
       <ol class="small">${s.legs.map(l => `<li><b>${esc(l.title)} → ${esc(l.label)} @${esc(l.odds)}</b><br>
         AI 가능성 <b>${pctx(l.prob)}</b> · 본전 가능성(1÷배당) ${pctx(l.breakeven ?? 1 / l.odds)} · 5,000원당 <b class="${(l.ev ?? 0) >= 0 ? 'plus' : ''}">${won100((l.ev ?? (l.prob * l.odds - 1)) * 100)}</b>
-        ${l.reason ? `<br><span class="mute">“${esc(l.reason)}”</span>` : ''}</li>`).join('')}</ol></div>`}</div>`;
+        ${l.reason ? `<br><span class="mute">“${esc(l.reason)}”</span>` : ''}</li>`).join('')}</ol></details>`}</div>`;
   const pick = store.get('aa_bet_who') || 'all';
   const shown = pick === 'all' ? b.accounts : b.accounts.filter(a => a.member_id === pick);
   /* 모두 보기 = 결과가 아직 안 나온 배팅표, 배팅 결과 = 끝난 배팅표 (적중·미적중으로 걸르기) */
