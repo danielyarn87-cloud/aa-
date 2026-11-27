@@ -1377,6 +1377,7 @@ async function renderAdmin() {
    여기서는 리그를 고르고, 영상을 미리 보고 내려받고, 유튜브 제목·설명을 복사한다. */
 const shortTitle = it => `${it.home} vs ${it.away} 승부 예측 | RAISE 분석팀 #shorts`;
 const shortDesc = it => `${it.league} ${it.home} vs ${it.away} (${(it.kickoff || '').slice(5, 16).replace('-', '/')} KST)\nRAISE 분석가 4명의 예측과 확률을 정리했어요.\n\n전체 분석: https://raise-fulltime.com\n\n※ 예측은 참고용이에요. 맹신하지 마세요. 도박 문제 상담 국번 없이 1336\n\n#축구 #${(it.league || '').replace(/\s/g, '')} #축구분석 #shorts`;
+const instaCap = it => `${it.home} vs ${it.away} 승부 예측 ⚽\n${it.league} · ${(it.kickoff || '').slice(5, 16).replace('-', '/')} KST\n\nRAISE 분석가 4명의 예측과 확률이에요. 여러분 예측은? 댓글로 남겨주세요 👇\n전체 분석은 프로필 링크(raise-fulltime.com)에서 볼 수 있어요.\n\n※ 예측은 참고용이에요. 맹신하지 마세요. 도박 문제 상담 1336\n\n#축구 #해외축구 #${(it.league || '').replace(/\s/g, '')} #축구분석 #승부예측 #릴스`;
 async function renderShorts() {
   const [L, S] = await Promise.all([api('/api/leagues'), fetch('/api/shorts', {cache: 'no-store'}).then(r => r.ok ? r.json() : Promise.reject(new Error('쇼츠 목록을 불러오지 못했어요 (' + r.status + ')')))]);
   const items = (S.index && S.index.items) || [];
@@ -1391,7 +1392,8 @@ async function renderShorts() {
       <div class="sh-act">
         <button type="button" class="btn ghost" data-play="${i}">미리보기</button>
         <a class="btn" href="/api/shorts/file/${encodeURIComponent(it.file)}" download="raise-${esc(it.file)}">내려받기 <span class="num small">${(it.bytes / 1048576).toFixed(1)}MB</span></a>
-        <button type="button" class="btn ghost" data-copy="${i}">제목·설명 복사</button>
+        <button type="button" class="btn ghost" data-copy="${i}">유튜브 글 복사</button>
+        <button type="button" class="btn ghost" data-insta="${i}">인스타 글 복사</button>
       </div>
       <div class="sh-video" id="shv${i}" hidden></div></li>`;
   let idx = 0;
@@ -1408,7 +1410,7 @@ async function renderShorts() {
       </div></fieldset>`).join('')}
       <p class="inline"><button class="btn" id="shSave" type="button">리그 저장</button><span id="shMsg" class="small mute" role="status"></span></p>
     </details>
-    <div class="panel small mute"><b>올리는 방법</b><br>1. 내려받기 → 2. 유튜브 앱에서 쇼츠 올리기 → 3. 음악은 유튜브 안의 무료 음악으로 → 4. '제목·설명 복사'한 글 붙여넣기<br>같은 모양 영상을 하루에 너무 많이 올리면 유튜브가 자동 생성 영상으로 보고 수익 창출을 막을 수 있어요. 큰 경기 위주로 골라 올리세요.</div>
+    <div class="panel small mute"><b>올리는 방법</b><br>1. 내려받기 → 2. 유튜브 앱에서 쇼츠 올리기 → 3. 음악은 유튜브 안의 무료 음악으로 → 4. '유튜브 글 복사'한 글 붙여넣기 (인스타 릴스는 '인스타 글 복사')<br>같은 모양 영상을 하루에 너무 많이 올리면 유튜브가 자동 생성 영상으로 보고 수익 창출을 막을 수 있어요. 큰 경기 위주로 골라 올리세요.</div>
   </div></section>`;
   view.querySelectorAll('[data-sl]').forEach(b => b.onclick = () => {
     const id = +b.dataset.sl; picked.has(id) ? picked.delete(id) : picked.add(id); b.setAttribute('aria-pressed', picked.has(id));
@@ -1428,9 +1430,13 @@ async function renderShorts() {
     if (box.hidden) { box.innerHTML = `<video controls playsinline preload="metadata" src="/api/shorts/file/${encodeURIComponent(it.file)}"></video>`; box.hidden = false; b.textContent = '닫기'; }
     else { box.innerHTML = ''; box.hidden = true; b.textContent = '미리보기'; }
   });
+  view.querySelectorAll('[data-insta]').forEach(b => b.onclick = async () => {
+    try { await navigator.clipboard.writeText(instaCap(items[+b.dataset.insta])); toast('인스타 릴스 글을 복사했어요.'); }
+    catch { toast('복사하지 못했어요. 브라우저가 막았을 수 있어요.'); }
+  });
   view.querySelectorAll('[data-copy]').forEach(b => b.onclick = async () => {
     const it = items[+b.dataset.copy];
-    try { await navigator.clipboard.writeText(shortTitle(it) + '\n\n' + shortDesc(it)); toast('제목과 설명을 복사했어요. 첫 줄이 제목이에요.'); }
+    try { await navigator.clipboard.writeText(shortTitle(it) + '\n\n' + shortDesc(it)); toast('유튜브 제목과 설명을 복사했어요. 첫 줄이 제목이에요.'); }
     catch { toast('복사하지 못했어요. 브라우저가 막았을 수 있어요.'); }
   });
 }
