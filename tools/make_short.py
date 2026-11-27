@@ -204,9 +204,13 @@ def load(path: str) -> dict:
         verdict = names[one["pick"]]
         sub = "우세로 봐요"
     analysts = []
+    first = {x.get("member_name"): x.get("pick_1x2") for x in d.get("initial", [])}
     for s in d["final"]:
         nm = s["member_name"]
+        fk = first.get(nm) or s["pick_1x2"]
         analysts.append({
+            "first": names.get(fk, names[s["pick_1x2"]]),
+            "first_key": fk,
             "name": nm.replace("호구형", "호구"),
             "style": ANALYST_STYLE.get(nm, ""),
             "pick": names[s["pick_1x2"]],
@@ -302,29 +306,49 @@ def scene_probs(img, D, t):
     text(img, D["sub"], "Bold", 38, CHALK, LEFT, yb + 240, s)
 
 
+def pill(img, label, x, y, size, bg, fg, alpha):
+    """글자 들어간 둥근 칸. 오른쪽 끝 x 좌표를 돌려줌."""
+    w = font("Black", size).getlength(label) + 36
+    h = size + 26
+    rrect(img, (x, y, x + w, y + h), h // 2, bg, alpha)
+    text(img, label, "Black", size, fg, x + w / 2, y + 7, alpha, "c")
+    return x + w
+
+
 def scene_analysts(img, D, t):
     header(img, D, t)
     a = prog(t, 0.0)
     text(img, f"분석가 {len(D['analysts'][:4])}명의 선택", "Black", 72, CHALK, LEFT, 330 + 30 * (1 - a), a)
-    y, ch, gap = 470, 238, 22
+    text(img, "처음 → 토론 뒤 최종", "Medium", 30, MUTED, LEFT, 420 + 30 * (1 - a), a)
+    y, ch, gap = 480, 252, 16
     cw = RIGHT - LEFT
     for i, an in enumerate(D["analysts"][:4]):
         e = prog(t, 0.25 + i * 0.32, 0.45)
         yy = y + i * (ch + gap)
         dx = 80 * (1 - e)
         rrect(img, (LEFT + dx, yy, RIGHT + dx, yy + ch), 28, (0, 0, 0, 95), e)
-        text(img, an["name"], "Black", 46, CHALK, LEFT + 36 + dx, yy + 26, e)
-        nw = font("Black", 46).getlength(an["name"])
-        text(img, an["style"], "Medium", 28, MUTED, LEFT + 36 + nw + 18 + dx, yy + 42, e)
-        pk = an["pick"]
-        psz = fit_size(pk, "Black", 36, 360)
-        pw = font("Black", psz).getlength(pk) + 44
-        col = GOLD if an["pick_key"] == D["pick"] else CHALK
-        rrect(img, (RIGHT - 28 - pw + dx, yy + 26, RIGHT - 28 + dx, yy + 26 + 62), 31, col, e)
-        text(img, pk, "Black", psz, INK, RIGHT - 28 - pw / 2 + dx, yy + 34, e, "c")
-        lines = wrap(an["line"], "Medium", 32, cw - 72, 2)
+        text(img, an["name"], "Black", 44, CHALK, LEFT + 32 + dx, yy + 20, e)
+        nw = font("Black", 44).getlength(an["name"])
+        text(img, an["style"], "Medium", 26, MUTED, LEFT + 32 + nw + 16 + dx, yy + 36, e)
+        # 처음 → 최종 (바뀌었으면 최종 칸을 형광펜처럼 노란색)
+        changed = an["first_key"] != an["pick_key"]
+        avail = cw - 64 - 150
+        sz = 32
+        while sz > 20 and (font("Black", sz).getlength(an["first"]) + font("Black", sz).getlength(an["pick"]) + 72 + 56) > avail:
+            sz -= 2
+        x = LEFT + 32 + dx
+        py = yy + 88
+        text(img, "처음", "Medium", 24, MUTED, x, py + 12, e)
+        x = pill(img, an["first"], x + 58, py, sz, (255, 255, 255, 40), CHALK, e)
+        text(img, "→", "Black", 34, GOLD if changed else MUTED, x + 14, py + 8, e)
+        x += 56
+        text(img, "최종", "Medium", 24, MUTED, x, py + 12, e)
+        x = pill(img, an["pick"], x + 58, py, sz, GOLD if changed else CHALK, INK, e)
+        if changed:
+            text(img, "바뀜", "Black", 24, GOLD, x + 12, py + 14, e)
+        lines = wrap(an["line"], "Medium", 29, cw - 64, 2)
         for j, ln in enumerate(lines):
-            text(img, ln, "Medium", 32, CHALK, LEFT + 36 + dx, yy + 112 + j * 48, e)
+            text(img, ln, "Medium", 29, CHALK, LEFT + 32 + dx, yy + 162 + j * 42, e)
 
 
 def scene_goals(img, D, t):
