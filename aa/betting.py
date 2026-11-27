@@ -81,10 +81,25 @@ def _kickoff(run: dict) -> datetime | None:
         return None
 
 
-def _legs_for(run: dict, member_id: str) -> list[dict]:
+def _odds_for(run: dict, now_odds: dict | None) -> dict:
+    """분석 때 저장된 배당. 없으면(2026-11-26 배당 키 장애 때 분석된 경기 등) 지금 배당을 쓴다.
+    언더/오버는 분석 때 기준선과 지금 기준선이 같을 때만 (기준이 다르면 확률이 맞지 않음)."""
+    odds = dict(run["match"].get("odds") or {})
+    if odds.get("home") or not now_odds:
+        return odds
+    line = odds.get("line") or (run.get("decision") or {}).get("line")
+    out = {k: now_odds.get(k) for k in ("home", "draw", "away")}
+    if line is not None and now_odds.get("line") is not None and float(now_odds["line"]) == float(line):
+        out.update(over=now_odds.get("over"), under=now_odds.get("under"))
+    out["line"] = line
+    out["source"] = "지금 배당 (분석 때 배당 없음)"
+    return out
+
+
+def _legs_for(run: dict, member_id: str, now_odds: dict | None = None) -> list[dict]:
     """그 분석가의 최종 의견으로 이 경기에서 고를 수 있는 선택들 (배당이 있는 것만)."""
     op = next((o for o in run.get("final", []) if o["member_id"] == member_id), None)
-    odds = run["match"].get("odds") or {}
+    odds = _odds_for(run, now_odds)
     if not op:
         return []
     from .teams_ko import ko
@@ -164,22 +179,39 @@ def settle(book: dict, results: dict, now: datetime, log=print) -> int:
     return n
 
 
+AHEAD = timedelta(hours=48)   # 앞으로 48시간 안 경기만 (예전: 오늘·내일 날짜 → 밤에 돌면 모레 새벽 경기가 빠졌음)
+
+
+def _now_odds(company: Company, match_id: str) -> dict | None:
+    """매일 목록 수집 때 저장한 지금 배당 (data/matches/<id>.json)."""
+    import json
+    p = company.base_dir / "data" / "matches" / f"{match_id}.json"
+    try:
+        return json.loads(p.read_text(encoding="utf-8")).get("odds") or None
+    except (OSError, ValueError):
+        return None
+
+
 def place(company: Company, book: dict, runs: list[dict], now: datetime, log=print) -> int:
-    today = now.astimezone(KST).date()
-    window = {today, today + timedelta(days=1)}          # 이틀 안 경기만
     upcoming = []
     for r in runs:
         if "모의" in r.get("engine", ""):
             continue
         ko_ = _kickoff(r)
-        if ko_ and ko_ > now and ko_.astimezone(KST).date() in window:
+        if ko_ and now < ko_ <= now + AHEAD:
             upcoming.append(r)
+    now_odds = {r["match"]["id"]: _now_odds(company, r["match"]["id"]) for r in upcoming}
+    pol = getattr(company, "policy", None)
+    max_edge = float(getattr(pol, "value_max_edge", 0.40) or 0.40)
+    max_odds = float(getattr(pol, "value_max_odds", 3.5) or 3.5)
     placed = 0
     for m in company.analysts("soccer"):
         acc = book["accounts"].setdefault(m.id, {"name": m.name, "bankroll": book.get("start_bankroll", START_BANKROLL)})
         best = []
         for r in upcoming:
-            legs = [l for l in _legs_for(r, m.id) if l["prob"] >= MIN_LEG_PROB]
+            # 이득 규칙과 같은 기준(11/27): 기대값 40% 넘게 크거나 배당 3.5 넘는 선택은 분석 착오일 때가 많아 뺀다
+            legs = [l for l in _legs_for(r, m.id, now_odds.get(r["match"]["id"]))
+                    if l["prob"] >= MIN_LEG_PROB and l["ev"] <= max_edge and l["odds"] <= max_odds]
             if legs:
                 best.append(max(legs, key=lambda l: (l["ev"], l["prob"])))
         best.sort(key=lambda l: (l["ev"], l["prob"]), reverse=True)
