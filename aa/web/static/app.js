@@ -502,23 +502,33 @@ function oddsTable(r) {
   h.forEach(x => rows.push({w: lab[x.k] || '갱신', at: t(x.t), o: x}));
   if (!h.length && r.odds_now && r.odds_now.home) rows.push({w: '최근 수집', at: r.odds_now_at || '', o: r.odds_now});
   if (!rows.length) return '';
-  if (MEMBER) {   /* 회원 화면: 배당 숫자 없이 '시장 예상' %가 어떻게 바뀌었는지만 */
+  /* 폰에서도 칸이 무너지지 않는 작은 표: 시점(시각은 아랫줄) | 승 | 무 | 패 | 언더 | 오버.
+     회원 화면은 배당 숫자 대신 '시장 예상' %(승·무·패, 오버)로 */
+  const line = rows[0].o.line ?? 2.5;
+  const shortT = v => { const x = String(v || '').replace(/<[^>]+>/g, ''), a = x.match(/\d{4}-(\d{2})-(\d{2})\D+(\d{1,2}:\d{2})/), b = x.match(/(\d{1,2})\.\s*(\d{1,2})\.\s*(\d{1,2}:\d{2})/);
+    const m = a || b; return m ? `${+m[1]}/${+m[2]} ${m[3]}` : x; };   // 시각은 모두 '11/26 23:18' 모양으로
+  const when = row => `<td class="oc-w"><b>${esc(row.w)}</b><small>${esc(shortT(row.at))}</small></td>`;
+  let head, body, note, title;
+  if (MEMBER) {
     const P = o => ({...mkt(o, ['home', 'draw', 'away']), ...mkt(o, ['over', 'under'])});
     const ps = rows.map(row => P(row.o));
-    const c = (i, k) => { const v = ps[i][k]; if (v == null) return '<td class="r num">-</td>';
+    const c = (i, k) => { const v = ps[i][k]; if (v == null) return '<td>-</td>';
       const pv = i ? ps[i - 1][k] : null, d = pv != null ? Math.round((v - pv) * 100) : 0;
-      return `<td class="r num">${Math.round(v * 100)}%${i && d ? `<span class="${d > 0 ? 'mk-up' : 'mk-dn'}"> ${d > 0 ? '▲' : '▼'}${Math.abs(d)}</span>` : ''}</td>`; };
-    const line = rows[0].o.line ?? 2.5;
-    return `<div class="sec"><h2>시장 예상 변화 <span class="small mute">여러 곳의 평균 · 화살표는 바로 위 줄 대비</span></h2><div class="scroll"><table class="stack oddsh">
-      <thead><tr><th>시점</th><th>시각</th><th class="r">홈 승</th><th class="r">무</th><th class="r">원정 승</th><th class="r">${esc(line)}골 오버</th></tr></thead><tbody>
-      ${rows.map((row, i) => `<tr${row.base ? ' class="obase"' : ''}><td data-l="시점"><b>${esc(row.w)}</b></td><td data-l="시각" class="small">${row.at}</td><td data-l="홈 승" ${c(i, 'home').slice(4)}<td data-l="무" ${c(i, 'draw').slice(4)}<td data-l="원정 승" ${c(i, 'away').slice(4)}<td data-l="${esc(line)}골 오버" ${c(i, 'over').slice(4)}</tr>`).join('')}
-      </tbody></table></div><p class="small mute">시장이 각 결과를 얼마나 유력하게 보는지예요. ▲ 더 유력하게 봄 · ▼ 덜 유력하게 봄. 분석한 경기는 1시간마다, 시작 30분 전쯤 마지막으로 다시 받아요.</p></div>`;
+      return `<td><span class="oc-v">${Math.round(v * 100)}%</span>${i && d ? `<span class="oc-d ${d > 0 ? 'up' : 'dn'}">${d > 0 ? '▲' : '▼'}${Math.abs(d)}</span>` : ''}</td>`; };
+    title = '시장 예상 변화';
+    head = `<th>시점</th><th>홈 승</th><th>무</th><th>원정 승</th><th>오버 ${esc(line)}</th>`;
+    body = rows.map((row, i) => `<tr${row.base ? ' class="obase"' : ''}>${when(row)}${c(i, 'home')}${c(i, 'draw')}${c(i, 'away')}${c(i, 'over')}</tr>`).join('');
+    note = '시장이 각 결과를 얼마나 유력하게 보는지예요. ▲ 더 유력하게 봄 · ▼ 덜 유력하게 봄. 1시간마다, 시작 30분 전쯤 마지막으로 다시 받아요.';
+  } else {
+    const c = (row, i, k) => { const v = row.o[k], pv = i ? rows[i - 1].o[k] : null;
+      const d = v != null && pv != null ? +(v - pv).toFixed(2) : 0;
+      return `<td><span class="oc-v">${v != null ? esc(v) : '-'}</span>${i && d ? `<span class="oc-d ${d > 0 ? 'dn' : 'up'}">${d > 0 ? '▲' : '▼'}${Math.abs(d).toFixed(2).replace(/^0/, '')}</span>` : ''}</td>`; };
+    title = '배당 변화';
+    head = `<th>시점</th><th>승</th><th>무</th><th>패</th><th>언더</th><th>오버</th>`;
+    body = rows.map((row, i) => `<tr${row.base ? ' class="obase"' : ''}>${when(row)}${c(row, i, 'home')}${c(row, i, 'draw')}${c(row, i, 'away')}${c(row, i, 'under')}${c(row, i, 'over')}</tr>`).join('');
+    note = `기준점 ${esc(line)}골 · 여러 북메이커 평균 · ▲ 배당 오름(시장이 덜 유력하게 봄) · ▼ 내림(더 유력하게 봄). 1시간마다, 시작 30분 전쯤 마지막으로 다시 받아요.`;
   }
-  const cell = (row, i, k) => `<td class="r num">${row.o[k] != null ? esc(row.o[k]) : '-'}${i ? arrow(row.o[k], rows[i - 1].o[k]) : ''}</td>`;
-  return `<div class="sec"><h2>배당 변화 <span class="small mute">여러 북메이커 평균 · 화살표는 바로 위 줄 대비</span></h2><div class="scroll"><table class="stack oddsh">
-    <thead><tr><th>시점</th><th>시각</th><th class="r">승</th><th class="r">무</th><th class="r">패</th><th class="r">언더</th><th class="r">오버</th><th class="r">기준점</th></tr></thead><tbody>
-    ${rows.map((row, i) => `<tr${row.base ? ' class="obase"' : ''}><td data-l="시점"><b>${esc(row.w)}</b></td><td data-l="시각" class="small">${row.at}</td>${cell(row, i, 'home')}${cell(row, i, 'draw')}${cell(row, i, 'away')}${cell(row, i, 'under')}${cell(row, i, 'over')}<td data-l="기준점" class="r num">${esc(row.o.line ?? '-')}</td></tr>`).join('')}
-    </tbody></table></div><p class="small mute">분석한 경기는 1시간마다, 그리고 시작 30분 전쯤 마지막으로 배당을 다시 받습니다. ▲ 배당이 올라감(시장이 덜 유력하게 봄) · ▼ 내려감(더 유력하게 봄).</p></div>`;
+  return `<div class="sec"><h2>${title} <span class="small mute">바로 위 줄 대비</span></h2><div class="oc-wrap"><table class="oddsc"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div><p class="small mute">${note}</p></div>`;
 }
 /* 배당 API 사용량 카드 (정확한 값: 배당 API 가 알려 주는 이번 달 사용량) */
 function apiCard(lg) {
@@ -1015,14 +1025,20 @@ async function renderPicks() {
     <div class="ap-fav"><span>강팀(시장 1순위) 고른 비율</span><div class="ap-fb"><i style="width:${pc(m.fav, m.fav_n)}"></i></div><b class="num">${pc(m.fav, m.fav_n)}</b></div></article>`; }).join('');
   const now = Date.now();
   const up = d.upcoming.filter(u => !(Date.parse(u.kickoff_iso) <= now)).slice(0, 12);
-  const cell = (u, m) => { const x = u.picks[m.id]; return x ? `<span class="ap-pk ${esc(x.p)}">${LAB[x.p] || '-'}</span> <span class="ap-ou">${x.ou === 'over' ? '오버' : '언더'} ${esc(u.line)}</span>` : '<span class="mute">-</span>'; };
+  /* 처음 선택 → 최종 선택 (토론 전 → 토론 뒤). 바뀐 쪽은 '바뀜' 표시 */
+  const ouL = v => v === 'over' ? '오버' : v === 'under' ? '언더' : '-';
+  const cell = (u, m) => { const x = u.picks[m.id]; if (!x) return '<span class="mute">-</span>';
+    const fp = x.fp || x.p, fou = x.fou || x.ou, c1 = fp !== x.p, c2 = fou !== x.ou;
+    return `<span class="ap-flow${c1 ? ' chg' : ''}"><span class="ap-pk first ${esc(fp)}">${LAB[fp] || '-'}</span><i aria-label="에서">→</i><span class="ap-pk ${esc(x.p)}">${LAB[x.p] || '-'}</span></span>`
+      + `<span class="ap-flow ou${c2 ? ' chg' : ''}"><span class="ap-ou first">${ouL(fou)}</span><i aria-label="에서">→</i><span class="ap-ou">${ouL(x.ou)} ${esc(u.line)}</span></span>`
+      + (c1 || c2 ? '<span class="ap-chg">바뀜</span>' : ''); };
   const rows = up.map(u => `<tr><td data-l="경기" class="ap-mt"><a href="${matchHref(u.id, u.slug)}"><b>${esc(u.home)} vs ${esc(u.away)}</b></a><small>${esc(u.league)} · ${esc(String(u.kickoff).slice(5, 16))}</small></td>
     ${mem.map(m => `<td data-l="${esc(m.name)}">${cell(u, m)}</td>`).join('')}</tr>`).join('');
   parkAd();
   view.innerHTML = `<section class="band"><div class="wrap"><h1>분석가 픽</h1>${MEMBER ? '<p class="risk-line static"><span>적중 기록은 지난 결과일 뿐, 앞으로도 맞는다는 뜻이 아니에요.</span></p>' : ''}
     <p class="lead mute">분석가 넷이 경기마다 각자 고른 결과와, 지금까지 얼마나 맞혔는지입니다. 묶음이 아니라 한 경기씩 채점합니다.</p>
     <div class="ap-grid">${cards}</div>
-    <h2 class="sec">다가오는 경기 · 분석가별 선택</h2><p class="small mute" style="margin:0 0 8px">토론을 마친 최종 선택입니다.</p>
+    <h2 class="sec">다가오는 경기 · 분석가별 선택</h2><p class="small mute" style="margin:0 0 8px">처음 선택 → 토론을 마친 최종 선택입니다. 토론에서 생각을 바꾼 분석가는 <b>바뀜</b>으로 표시돼요.</p>
     ${up.length ? `<div class="scroll"><table class="stack ap-tb"><thead><tr><th>경기</th>${mem.map((m, i) => `<th><span class="dot" style="background:${esc(col(m, i))}"></span>${esc(m.name)}<small>${esc((PERSONA[m.id] || [''])[0])}</small></th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div>`
       : '<p class="empty">분석이 끝난 다가오는 경기가 아직 없습니다.</p>'}
     <div id="ap-adslot"></div>

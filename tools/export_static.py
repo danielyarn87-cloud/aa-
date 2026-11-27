@@ -112,9 +112,13 @@ def build_picks(matches: list, details: dict) -> dict:
                 except (TypeError, ValueError):
                     pass
         if not res:
+            first = {x.get("member_id"): x for x in (d.get("initial") or []) if isinstance(x, dict)}
             upcoming.append({"id": m["id"], "slug": m.get("slug"), "home": m["home"], "away": m["away"], "league": m["league"],
                              "kickoff": m["kickoff"], "kickoff_iso": m.get("kickoff_iso"), "line": m.get("line"),
-                             "picks": {x["member_id"]: {"p": x.get("pick_1x2"), "ou": x.get("pick_ou")} for x in d.get("final") or []}})
+                             # p/ou = 토론 뒤 최종 선택, fp/fou = 토론 전 처음 선택 (회원 '분석가 픽'에서 처음 → 최종으로 보여 줌)
+                             "picks": {x["member_id"]: {"p": x.get("pick_1x2"), "ou": x.get("pick_ou"),
+                                                        "fp": first.get(x["member_id"], {}).get("pick_1x2"), "fou": first.get(x["member_id"], {}).get("pick_ou")}
+                                       for x in d.get("final") or []}})
     upcoming.sort(key=lambda u: u.get("kickoff_iso") or u["kickoff"])
     return {"members": [{"id": k, "name": names[k], **v} for k, v in stats.items()], "upcoming": upcoming}
 
