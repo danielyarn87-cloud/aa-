@@ -584,9 +584,15 @@ function pickHist(s) {
   const rows = [...h, {at: '지금', pick_1x2: s.pick_1x2, pick_ou: s.pick_ou, line: s.line}];
   return `<p class="pickhist"><b>${chg}</b><br><span class="small">${rows.map(x => `${esc(x.at || '-')} ${x.pick_1x2 ? SHORT[x.pick_1x2] : '보류'} · ${x.pick_ou ? SHORT[x.pick_ou] + ' ' + esc(x.line) : '보류'}`).join('  →  ')}</span></p>`;
 }
+/* 한국 선수 팀: 시작 시각 아래 태극기 + 선수 이름 (회원·운영자 목록, 분석 요청 목록) */
+const KR_STARS = {'아틀레티코 마드리드': '이강인', '바이에른 뮌헨': '김민재', 'LAFC': '손흥민'};
+const KR_TEAM_TAG = {'아틀레티코 마드리드': '아틀레티코', '바이에른 뮌헨': '바이에른뮌헨', 'LAFC': 'LAFC'};
+const krOf = m => [m.home, m.away].filter(t => KR_STARS[t]).map(t => ({team: t, name: KR_STARS[t]}));
+const TAEGUK = '<svg class="tg" viewBox="0 0 36 24" aria-hidden="true"><rect x=".5" y=".5" width="35" height="23" rx="2" fill="#fff" stroke="#c9c9c9"/><g transform="translate(18 12) rotate(-33.7)"><path d="M-6 0a6 6 0 0 1 12 0a3 3 0 0 1-6 0a3 3 0 0 0-6 0z" fill="#cd2e3a"/><path d="M-6 0a6 6 0 0 0 12 0a3 3 0 0 0-6 0a3 3 0 0 1-6 0z" fill="#0047a0"/></g><g fill="#000"><g transform="translate(6.2 5.2) rotate(56.3)"><rect x="-3" y="-2.4" width="6" height="1.1"/><rect x="-3" y="-.55" width="6" height="1.1"/><rect x="-3" y="1.3" width="6" height="1.1"/></g><g transform="translate(29.8 18.8) rotate(56.3)"><rect x="-3" y="-2.4" width="2.6" height="1.1"/><rect x=".4" y="-2.4" width="2.6" height="1.1"/><rect x="-3" y="-.55" width="2.6" height="1.1"/><rect x=".4" y="-.55" width="2.6" height="1.1"/><rect x="-3" y="1.3" width="2.6" height="1.1"/><rect x=".4" y="1.3" width="2.6" height="1.1"/></g><g transform="translate(29.8 5.2) rotate(-56.3)"><rect x="-3" y="-2.4" width="6" height="1.1"/><rect x="-3" y="-.55" width="2.6" height="1.1"/><rect x=".4" y="-.55" width="2.6" height="1.1"/><rect x="-3" y="1.3" width="6" height="1.1"/></g><g transform="translate(6.2 18.8) rotate(-56.3)"><rect x="-3" y="-2.4" width="2.6" height="1.1"/><rect x=".4" y="-2.4" width="2.6" height="1.1"/><rect x="-3" y="-.55" width="6" height="1.1"/><rect x="-3" y="1.3" width="2.6" height="1.1"/><rect x=".4" y="1.3" width="2.6" height="1.1"/></g></g></svg>';
+const krBadge = m => krOf(m).map(k => `<span class="krb" title="${esc(k.team)} · 한국 선수 ${esc(k.name)}">${TAEGUK}<b>${esc(k.name)}</b></span>`).join('');
 function rowHtml(m) {
   const N = names(m.home, m.away, m.line);
-  const head = `<span class="time">${favStar(m.id)}${esc(timeOf(m.kickoff))}</span><span class="teams">${esc(m.home)} <span class="mute">vs</span> ${esc(m.away)}${newsBadge(m)}${oddsLine(m)}<span class="lg">${esc(m.league)}</span></span>`;
+  const head = `<span class="time">${favStar(m.id)}${esc(timeOf(m.kickoff))}${krBadge(m)}</span><span class="teams">${esc(m.home)} <span class="mute">vs</span> ${esc(m.away)}${newsBadge(m)}${oddsLine(m)}<span class="lg">${esc(m.league)}</span></span>`;
   if (m.status !== 'analyzed') {
     return `<div class="row">${head}<span class="mid"></span><span class="tags">${m.picked && !MEMBER ? '<span class="tag value">분석 요청함</span>' : STATIC && !MEMBER ? `<button type="button" class="pk-toggle" data-pick="${esc(m.id)}" aria-pressed="${pickSet().has(m.id)}">${pickSet().has(m.id) ? '✓ 분석에 담음' : '＋ 분석하기'}</button>` : '<span class="tag wait">분석 대기</span>'}</span></div>`;
   }
@@ -1305,7 +1311,7 @@ async function renderRun() {
     document.getElementById('pkList').innerHTML = ms.length ? days.map(d => `<h3 class="day">${esc(dayLabel(d))}</h3>${ms.filter(m => dayOf(m.kickoff) === d).map(m => {
       const o = m.odds || {};
       return `<label class="pk-row${chosen.has(m.id) ? ' on' : ''}"><input type="checkbox" data-pk="${esc(m.id)}" ${chosen.has(m.id) ? 'checked' : ''}>
-        <span class="time">${esc(timeOf(m.kickoff))}</span>
+        <span class="time">${esc(timeOf(m.kickoff))}${krBadge(m)}</span>
         <span class="teams">${esc(m.home)} <span class="mute">vs</span> ${esc(m.away)}<br><span class="lg">${esc(lgName(m))}</span></span>
         <span class="small mute num">${o.home ? `${esc(o.home)} / ${esc(o.draw)} / ${esc(o.away)}` : '배당 없음'}</span></label>`;
     }).join('')}`).join('') : '<p class="empty">분석을 기다리는 경기가 없습니다. 오른쪽 아래 "경기 목록 새로 가져오기"를 써 보세요.</p>';
@@ -1315,7 +1321,7 @@ async function renderRun() {
     store.set('aa_pick_ids', [...chosen].join(','));
     document.getElementById('pkCount').textContent = chosen.size;
     const list = [...chosen].map(id => byId[id]).filter(Boolean).sort((x, y) => (x.kickoff > y.kickoff ? 1 : -1));
-    document.getElementById('pkChosen').innerHTML = list.length ? list.map(m => `<li>${esc(m.kickoff.slice(5, 16))} ${esc(m.home)} vs ${esc(m.away)}</li>`).join('') : '<li class="mute">왼쪽에서 경기를 체크하세요.</li>';
+    document.getElementById('pkChosen').innerHTML = list.length ? list.map(m => `<li>${esc(m.kickoff.slice(5, 16))} ${esc(m.home)} vs ${esc(m.away)}${krBadge(m)}</li>`).join('') : '<li class="mute">왼쪽에서 경기를 체크하세요.</li>';
   };
   view.querySelectorAll('[data-plg]').forEach(b => b.onclick = () => {
     lgF = b.dataset.plg; store.set('aa_pick_lg', lgF);
@@ -1428,12 +1434,28 @@ async function renderAdmin() {
 /* ---------- 쇼츠 (운영자 주소만) ----------
    고른 리그의 분석 끝난 경기 쇼츠(세로 영상)를 GitHub Actions 가 만들어 둔다 (tools/make_shorts_batch.py).
    여기서는 리그를 고르고, 영상을 미리 보고 내려받고, 유튜브 제목·설명을 복사한다. */
-const shortTitle = it => `${it.home} vs ${it.away} 승부 예측 | RAISE #shorts`;
-/* 경기 분석 페이지 주소 (tools/export_static.py match_slug 와 같은 규칙) */
-const shortUrl = it => 'https://raise-fulltime.com/match/' + `${it.home}-vs-${it.away}-${(it.kickoff || '').slice(0, 10)}`.replace(/[^0-9A-Za-z가-힣]+/g, '-').replace(/^-+|-+$/g, '');
-const shortTags = it => `#축구 #해외축구 #${(it.league || '').replace(/\s/g, '')} #축구분석 #승부예측`;
-const shortDesc = it => `${it.league} · ${(it.kickoff || '').slice(5, 16).replace('-', '/')} KST\n${shortUrl(it)}\n\n※ 예측은 참고용이에요. 도박 문제 상담 1336\n\n${shortTags(it)} #shorts`;
-const instaCap = it => `${it.home} vs ${it.away} 승부 예측\n${it.league} · ${(it.kickoff || '').slice(5, 16).replace('-', '/')} KST\n${shortUrl(it)}\n\n※ 예측은 참고용이에요. 도박 문제 상담 1336\n\n${shortTags(it)} #릴스`;
+const krNames = it => krOf(it).map(k => k.name);
+/* 제목: '홈 vs 원정'은 그대로 둔다 (회원 사이트가 이 부분으로 경기를 찾음). 한국 선수 팀이면 앞에 이름 */
+const shortTitle = it => { const k = krNames(it); return `${k.length ? '🇰🇷 ' + k.join('·') + ' 소속팀 | ' : ''}${it.home} vs ${it.away} 승부 예측 | RAISE #shorts`; };
+/* 경기 분석 페이지 주소 (tools/export_static.py match_slug 와 같은 규칙, 한글은 %인코딩 → 설명란에서 끊기지 않게) */
+const shortUrl = it => 'https://raise-fulltime.com/match/' + encodeURIComponent(`${it.home}-vs-${it.away}-${(it.kickoff || '').slice(0, 10)}`.replace(/[^0-9A-Za-z가-힣]+/g, '-').replace(/^-+|-+$/g, ''));
+const DOMESTIC = /K리그|J1|J2|A리그|AFC/;
+const hTag = t => '#' + String(t || '').replace(/[^0-9A-Za-z가-힣]/g, '');
+const shortTags = it => {
+  const k = krOf(it);
+  const lg = String(it.league || '');
+  const base = [...k.map(x => hTag(x.name)), ...k.map(x => hTag(KR_TEAM_TAG[x.team])), hTag(lg), DOMESTIC.test(lg) ? '#국내축구' : '#해외축구', '#축구', '#승부예측', '#축구분석'];
+  if (k.length) base.push('#코리안리거');
+  return [...new Set(base)].join(' ');
+};
+/* 유튜브 '태그' 칸용 (쉼표로 구분, # 없이) */
+const ytTagList = it => {
+  const k = krOf(it);
+  const lg = String(it.league || '');
+  return [...new Set([...k.map(x => x.name), ...k.map(x => x.name + ' 경기'), ...k.map(x => x.team), it.home, it.away, `${it.home} ${it.away}`, lg, DOMESTIC.test(lg) ? '국내축구' : '해외축구', '축구 예측', '승부 예측', 'RAISE'].filter(Boolean))].join(', ');
+};
+const shortDesc = it => `${krNames(it).length ? '🇰🇷 ' + krOf(it).map(k => `${k.name}(${k.team})`).join(' · ') + '\n' : ''}${it.league} · ${(it.kickoff || '').slice(5, 16).replace('-', '/')} KST\n${shortUrl(it)}\n\n※ 예측은 참고용이에요. 도박 문제 상담 1336\n\n${shortTags(it)} #shorts`;
+const instaCap = it => `${krNames(it).length ? '🇰🇷 ' + krNames(it).join('·') + ' 소속팀 경기\n' : ''}${it.home} vs ${it.away} 승부 예측\n${it.league} · ${(it.kickoff || '').slice(5, 16).replace('-', '/')} KST\n\n※ 예측은 참고용이에요. 도박 문제 상담 1336\n\n${shortTags(it)} #릴스`;
 async function renderShorts() {
   const [L, S] = await Promise.all([api('/api/leagues'), fetch('/api/shorts', {cache: 'no-store'}).then(r => r.ok ? r.json() : Promise.reject(new Error('쇼츠 목록을 불러오지 못했어요 (' + r.status + ')')))]);
   const items = (S.index && S.index.items) || [];
@@ -1443,7 +1465,7 @@ async function renderShorts() {
   items.forEach(it => { const d = (it.kickoff || '').slice(0, 10); (byDay[d] = byDay[d] || []).push(it); });
   const wd = d => '일월화수목금토'[new Date(d + 'T00:00:00+09:00').getDay()];
   const row = (it, i) => `<li class="sh-row">
-      <div class="sh-info"><span class="sh-meta"><span class="num">${esc((it.kickoff || '').slice(11, 16))}</span><span>${esc(it.league)}</span></span>
+      <div class="sh-info"><span class="sh-meta"><span class="num">${esc((it.kickoff || '').slice(11, 16))}</span><span>${esc(it.league)}</span>${krBadge(it)}</span>
         <b class="sh-teams"><span>${esc(it.home)}</span> <span class="mute">vs</span> <span>${esc(it.away)}</span></b></div>
       <div class="sh-act">
         <button type="button" class="btn ghost" data-play="${i}">미리보기</button>
@@ -1451,6 +1473,7 @@ async function renderShorts() {
         ${it.thumb ? `<a class="btn ghost" href="/api/shorts/file/${encodeURIComponent(it.thumb)}" download="raise-${esc(it.thumb)}">썸네일 받기</a>` : ''}
         <button type="button" class="btn ghost" data-copy="${i}">유튜브 글 복사</button>
         <button type="button" class="btn ghost" data-insta="${i}">인스타 글 복사</button>
+        <button type="button" class="btn ghost" data-tags="${i}">태그 복사</button>
       </div>
       <div class="sh-video" id="shv${i}" hidden></div></li>`;
   let idx = 0;
@@ -1486,6 +1509,10 @@ async function renderShorts() {
     const i = +b.dataset.play, box = document.getElementById('shv' + i), it = items[i];
     if (box.hidden) { box.innerHTML = `<video controls playsinline preload="metadata" src="/api/shorts/file/${encodeURIComponent(it.file)}"></video>`; box.hidden = false; b.textContent = '닫기'; }
     else { box.innerHTML = ''; box.hidden = true; b.textContent = '미리보기'; }
+  });
+  view.querySelectorAll('[data-tags]').forEach(b => b.onclick = async () => {
+    try { await navigator.clipboard.writeText(ytTagList(items[+b.dataset.tags])); toast('유튜브 태그를 복사했어요. 업로드 화면 "태그" 칸에 붙여넣으세요.'); }
+    catch { toast('복사하지 못했어요. 브라우저가 막았을 수 있어요.'); }
   });
   view.querySelectorAll('[data-insta]').forEach(b => b.onclick = async () => {
     try { await navigator.clipboard.writeText(instaCap(items[+b.dataset.insta])); toast('인스타 릴스 글을 복사했어요.'); }
