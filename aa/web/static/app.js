@@ -220,7 +220,7 @@ async function renderList() {
       <button class="chip" data-lg="all" aria-pressed="${leagueFilter === 'all'}">모든 리그 <span class="num">${all.length}</span></button>
       ${Object.entries(lgCount).sort((a, b) => b[1] - a[1]).map(([n, c]) => `<button class="chip" data-lg="${esc(n)}" aria-pressed="${leagueFilter === n}">${esc(n)} <span class="num">${c}</span></button>`).join('')}</div>` : ''}
     ${MEMBER ? favBarHtml() : ''}
-    ${legendHtml()}
+    ${riskLine()}${legendHtml()}
     ${isRes ? `<div class="ressearch">
         <input type="search" id="rq" placeholder="팀 이름·리그로 검색 (예: 대전, 챔피언스리그)" value="${esc(resQuery)}">
         <input type="date" id="rd" value="${esc(resDate)}" title="날짜">
@@ -493,7 +493,6 @@ function oddsLine(m) {
   return `<span class="oddsline">${c('승', 'home')} · ${c('무', 'draw')} · ${c('패', 'away')}</span>`;
 }
 function oddsTable(r) {
-  if (MEMBER) return '';   /* 회원 화면: 배당 변화 표는 운영자만 */
   const rows = [];
   const lab = {hour: '1시간 갱신', final: '마감 30분 전'};
   const t = iso => { const d = new Date(iso); return isNaN(d) ? esc(iso || '') : esc(kst(iso)); };
@@ -503,6 +502,18 @@ function oddsTable(r) {
   h.forEach(x => rows.push({w: lab[x.k] || '갱신', at: t(x.t), o: x}));
   if (!h.length && r.odds_now && r.odds_now.home) rows.push({w: '최근 수집', at: r.odds_now_at || '', o: r.odds_now});
   if (!rows.length) return '';
+  if (MEMBER) {   /* 회원 화면: 배당 숫자 없이 '시장 예상' %가 어떻게 바뀌었는지만 */
+    const P = o => ({...mkt(o, ['home', 'draw', 'away']), ...mkt(o, ['over', 'under'])});
+    const ps = rows.map(row => P(row.o));
+    const c = (i, k) => { const v = ps[i][k]; if (v == null) return '<td class="r num">-</td>';
+      const pv = i ? ps[i - 1][k] : null, d = pv != null ? Math.round((v - pv) * 100) : 0;
+      return `<td class="r num">${Math.round(v * 100)}%${i && d ? `<span class="${d > 0 ? 'mk-up' : 'mk-dn'}"> ${d > 0 ? '▲' : '▼'}${Math.abs(d)}</span>` : ''}</td>`; };
+    const line = rows[0].o.line ?? 2.5;
+    return `<div class="sec"><h2>시장 예상 변화 <span class="small mute">여러 곳의 평균 · 화살표는 바로 위 줄 대비</span></h2><div class="scroll"><table class="stack oddsh">
+      <thead><tr><th>시점</th><th>시각</th><th class="r">홈 승</th><th class="r">무</th><th class="r">원정 승</th><th class="r">${esc(line)}골 오버</th></tr></thead><tbody>
+      ${rows.map((row, i) => `<tr${row.base ? ' class="obase"' : ''}><td data-l="시점"><b>${esc(row.w)}</b></td><td data-l="시각" class="small">${row.at}</td><td data-l="홈 승" ${c(i, 'home').slice(4)}<td data-l="무" ${c(i, 'draw').slice(4)}<td data-l="원정 승" ${c(i, 'away').slice(4)}<td data-l="${esc(line)}골 오버" ${c(i, 'over').slice(4)}</tr>`).join('')}
+      </tbody></table></div><p class="small mute">시장이 각 결과를 얼마나 유력하게 보는지예요. ▲ 더 유력하게 봄 · ▼ 덜 유력하게 봄. 분석한 경기는 1시간마다, 시작 30분 전쯤 마지막으로 다시 받아요.</p></div>`;
+  }
   const cell = (row, i, k) => `<td class="r num">${row.o[k] != null ? esc(row.o[k]) : '-'}${i ? arrow(row.o[k], rows[i - 1].o[k]) : ''}</td>`;
   return `<div class="sec"><h2>배당 변화 <span class="small mute">여러 북메이커 평균 · 화살표는 바로 위 줄 대비</span></h2><div class="scroll"><table class="stack oddsh">
     <thead><tr><th>시점</th><th>시각</th><th class="r">승</th><th class="r">무</th><th class="r">패</th><th class="r">언더</th><th class="r">오버</th><th class="r">기준점</th></tr></thead><tbody>
@@ -659,6 +670,12 @@ function liveText(x, ended, wait) {
   return t(x.m != null ? esc(x.m) + "'" : 'LIVE', true, ' num') + sc;
 }
 /* ---------- 경기 목록 위 표시 설명 (한 항목씩 끊어서, 좁은 폰·폴드 커버에선 한 줄에 하나) ---------- */
+/* 위험성 안내 (회원 주소) */
+const RISK_MATCH = `<aside class="risk" role="note"><b>⚠ 예측일 뿐이에요</b> 이 분석은 AI가 데이터로 낸 <b>예측</b>이며 결과를 보장하지 않아요. 축구는 변수가 많아 가능성이 높아도 틀릴 수 있어요. 분석을 근거로 돈을 거는 일은 권하지 않아요.</aside>`;
+function riskLine() {   // 경기 목록 맨 위 한 줄 (닫으면 다시 안 보임)
+  if (!MEMBER || store.get('aa_risk') === '1') return '';
+  return `<div class="risk-line" id="riskLine"><span>RAISE의 예측은 참고용이에요. 맹신하지 말고 경기 자체를 즐겨 주세요.</span><button type="button" aria-label="안내 닫기" onclick="this.parentNode.remove();try{localStorage.setItem('aa_risk','1')}catch(e){}">×</button></div>`;
+}
 function legendHtml() {
   const G = MEMBER ? '숨은 기회' : '이득', S = MEMBER ? '★ 예측+기회' : '★ 예측+이득';
   const it = (k, t) => `<span class="lgd-i">${k}<span>${t}</span></span>`;
@@ -843,6 +860,7 @@ ${MEMBER ? `        <div class="panel"><h2>숨은 기회</h2><p class="lead">${e
             <p><b>5,000원당 평균 손익</b>은 같은 판단을 아주 여러 번 했을 때 5,000원마다 평균으로 남거나 잃는 돈입니다. <span class="ev plus">+250원</span> 이상일 때만 노란 <b>이득 신호</b>를 켭니다. 우리 계산에도 오차가 있어서, 작은 차이는 믿지 않습니다.</p>
             <p><b>이득 신호가 이번 경기에서 맞는다는 뜻은 아닙니다.</b> 가능성 31%라면 10번 중 7번은 빗나갑니다. 또 배당이 바뀌면 이득도 바뀝니다.</p>
           </div></details></div>`}
+        ${MEMBER ? RISK_MATCH : ''}
         <div class="panel small">${MEMBER ? '' : `<b>분석 방식</b><br><span class="mute">${esc(r.engine)}</span><br>`}<b>분석 시각</b> <span class="mute">${esc(r.analyzed_at || '-')}</span><br><b>투표 비중</b> <span class="mute">${r.final.map(o => esc(o.member_name) + ' ' + (d.weights[o.member_id] != null ? d.weights[o.member_id].toFixed(2) : '투표 안 함')).join(', ')}</span></div>
       </div>
     </div>
@@ -1001,7 +1019,7 @@ async function renderPicks() {
   const rows = up.map(u => `<tr><td data-l="경기" class="ap-mt"><a href="${matchHref(u.id, u.slug)}"><b>${esc(u.home)} vs ${esc(u.away)}</b></a><small>${esc(u.league)} · ${esc(String(u.kickoff).slice(5, 16))}</small></td>
     ${mem.map(m => `<td data-l="${esc(m.name)}">${cell(u, m)}</td>`).join('')}</tr>`).join('');
   parkAd();
-  view.innerHTML = `<section class="band"><div class="wrap"><h1>분석가 픽</h1>
+  view.innerHTML = `<section class="band"><div class="wrap"><h1>분석가 픽</h1>${MEMBER ? '<p class="risk-line static"><span>적중 기록은 지난 결과일 뿐, 앞으로도 맞는다는 뜻이 아니에요.</span></p>' : ''}
     <p class="lead mute">분석가 넷이 경기마다 각자 고른 결과와, 지금까지 얼마나 맞혔는지입니다. 묶음이 아니라 한 경기씩 채점합니다.</p>
     <div class="ap-grid">${cards}</div>
     <h2 class="sec">다가오는 경기 · 분석가별 선택</h2><p class="small mute" style="margin:0 0 8px">토론을 마친 최종 선택입니다.</p>
@@ -1828,7 +1846,7 @@ const Chat = {
     el.id = 'chat'; el.className = 'chat'; el.setAttribute('aria-label', '실시간 채팅');
     el.innerHTML = `<div class="ch-h"><div><span class="live" aria-hidden="true"></span><b>실시간 채팅</b> <small class="ch-on"></small></div>
       <div class="ch-hb"><button type="button" class="ch-min" aria-label="채팅 접기" title="접기">◀</button><button type="button" class="ch-x" aria-label="채팅 닫기">×</button></div></div>
-      <div class="ch-n">링크·홍보 금지 · 불법 도박 홍보는 즉시 차단돼요</div>
+      <div class="ch-n">분석은 예측일 뿐이에요 · 돈 거는 이야기·링크·홍보는 제재돼요 · 불법 도박 홍보는 즉시 차단</div>
       <div class="ch-l" aria-live="polite"><p class="ch-sys">채팅방에 연결하는 중…</p></div>
       <p class="ch-flash" role="status"></p>
       <div class="ch-f"></div>`;
