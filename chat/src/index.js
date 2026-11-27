@@ -13,7 +13,7 @@
 // 비용: 대기 모드 WebSocket(Hibernation API) — 말이 없을 때는 사용 시간 요금이 붙지 않는다.
 
 const KEEP_MS = 60 * 60e3;          // 1시간
-const KEEP_MIN = 100;               // 최근 100개는 남김
+const KEEP_MIN = 100;               // 처음 들어올 때 보여 주는 최대 개수 (1시간 안 대화 중). 11/27: 1시간 지나면 무조건 삭제로 바뀜
 const LOG_MS = 30 * 24 * 3600e3;    // 신고·차단 기록 30일
 const SWEEP_MS = 10 * 60e3;         // 10분마다 정리
 const GAP_MS = 3000;                // 3초에 1번
@@ -57,7 +57,7 @@ export class ChatRoom {
   }
 
   history(admin) {
-    return this.rows(`SELECT * FROM msgs ORDER BY id DESC LIMIT ${KEEP_MIN}`).reverse().map((m) => this.view(m, admin));
+    return this.rows(`SELECT * FROM msgs WHERE ts >= ? ORDER BY id DESC LIMIT ${KEEP_MIN}`, Date.now() - KEEP_MS).reverse().map((m) => this.view(m, admin));
   }
 
   send(ws, obj) { try { ws.send(JSON.stringify(obj)); } catch (e) {} }
@@ -218,7 +218,7 @@ export class ChatRoom {
   // 10분마다: 1시간 지난 대화 삭제(최근 100개는 남김), 30일 지난 신고·차단 기록 삭제
   async alarm() {
     const now = Date.now();
-    this.sql.exec(`DELETE FROM msgs WHERE ts < ? AND id NOT IN (SELECT id FROM msgs ORDER BY id DESC LIMIT ${KEEP_MIN})`, now - KEEP_MS);
+    this.sql.exec(`DELETE FROM msgs WHERE ts < ?`, now - KEEP_MS);   // 1시간 지난 대화는 개수와 상관없이 삭제
     this.sql.exec(`DELETE FROM reports WHERE ts < ?`, now - LOG_MS);
     this.sql.exec(`DELETE FROM bans WHERE ts < ? AND until < ?`, now - LOG_MS, now);
     this.sql.exec(`DELETE FROM daily WHERE day < ?`, kday(now - 60 * 86400e3));

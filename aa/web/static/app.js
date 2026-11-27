@@ -1544,14 +1544,14 @@ const POLICY = {
 <h2>2. 회원</h2><p>만 19세 이상만 가입할 수 있습니다. 카카오 또는 구글 계정으로 가입하며, 한 사람이 여러 계정을 만들어 운영을 방해해서는 안 됩니다. 회원은 언제든 '내 계정 → 회원 탈퇴'로 탈퇴할 수 있습니다.</p>
 <h2>3. 채팅방 이용 규칙</h2><ul><li>불법 도박·사설 토토 사이트 홍보, 링크·연락처·메신저 아이디 공유 금지</li><li>욕설·비방·차별·음란한 내용, 다른 사람의 개인정보 공개 금지</li><li>같은 글 반복(도배) 금지 · 3초에 한 번만 보낼 수 있습니다</li></ul>
 <p>규칙을 어기면 운영자가 글을 가리거나 채팅을 제한할 수 있습니다. 불법 도박 홍보는 경고 없이 제한합니다.</p>
-<h2>4. 대화 보관</h2><p>채팅 대화는 1시간이 지나면 자동으로 지워집니다(최근 100개는 남김). 신고된 글과 제재 기록은 운영을 위해 30일 동안 보관합니다.</p>
+<h2>4. 대화 보관</h2><p>채팅 대화는 1시간이 지나면 자동으로 지워집니다. 신고된 글과 제재 기록은 운영을 위해 30일 동안 보관합니다.</p>
 <h2>5. 책임</h2><p>서비스의 분석·통계·점수는 참고용이며, 이를 근거로 한 이용자의 판단과 결과에 대해 RAISE는 책임지지 않습니다. 서비스 내용은 사전 안내 후 바뀔 수 있습니다.</p>
 <p class="small mute">시행일: 2026년 11월 26일</p>`],
   privacy: ['개인정보 처리방침', `
 <h2>1. 모으는 정보</h2><ul><li>카카오 로그인: 카카오 회원번호, 카카오 닉네임(가입 때 닉네임 추천에만 사용)</li><li>구글 로그인: 구글 회원번호, 이메일, 이름(가입 때 닉네임 추천에만 사용)</li><li>가입 때 직접 입력: RAISE 닉네임, 만 19세 이상 확인, 약관 동의 시각</li><li>이용 중 생기는 정보: 관심 경기 목록, 채팅 내용, 로그인 유지용 정보(쿠키)</li></ul>
 <p>비밀번호와 주민등록번호, 휴대폰 번호는 모으지 않습니다.</p>
 <h2>2. 쓰는 목적</h2><p>회원 확인과 로그인 유지, 채팅방 운영(닉네임 표시, 규칙 위반 대응), 관심 경기 저장에만 씁니다. 광고 목적으로 쓰거나 다른 곳에 팔지 않습니다.</p>
-<h2>3. 보관 기간</h2><ul><li>회원 정보·관심 경기: 탈퇴하면 바로 지웁니다</li><li>채팅 대화: 1시간 뒤 자동 삭제(최근 100개는 남김)</li><li>신고된 글·제재 기록: 30일 뒤 자동 삭제</li><li>로그인 유지 정보: 30일</li></ul>
+<h2>3. 보관 기간</h2><ul><li>회원 정보·관심 경기: 탈퇴하면 바로 지웁니다</li><li>채팅 대화: 1시간 뒤 자동 삭제</li><li>신고된 글·제재 기록: 30일 뒤 자동 삭제</li><li>로그인 유지 정보: 30일</li></ul>
 <h2>4. 맡기는 곳(처리 위탁)</h2><p>Cloudflare(사이트 운영·정보 저장), 카카오·구글(로그인 확인). 법에 따른 요청이 아니면 다른 곳에 주지 않습니다.</p>
 <h2>5. 이용자의 권리</h2><p>언제든 '내 계정 → 회원 탈퇴'로 모든 정보를 지울 수 있습니다. 카카오·구글 쪽 연결은 각 서비스의 '연결된 앱'에서 끊을 수 있습니다.</p>
 <h2>6. 광고와 쿠키</h2><p>사이트에는 쿠팡 파트너스 배너가 있으며, 앞으로 Google 애드센스 광고가 실릴 수 있습니다. 광고는 각 광고 회사가 직접 보여 줍니다.</p>
@@ -1879,7 +1879,10 @@ const Chat = {
   status(t) { const l = document.querySelector('#chat .ch-l'); if (l && !this.list.length) l.innerHTML = `<p class="ch-sys">${esc(t)}</p>`; },
   flash(t, bad) { const f = document.querySelector('#chat .ch-flash'); if (!f) return; f.textContent = t; f.className = 'ch-flash on' + (bad ? ' bad' : ''); clearTimeout(f._h); f._h = setTimeout(() => f.className = 'ch-flash', 2800); },
   on(d) {
-    if (d.t === 'hello') { this.me = d.me || {role: 'guest'}; this.list = d.msgs || []; this.drawList(); this.drawFoot(); }
+    if (d.t === 'hello') {
+      this.me = d.me || {role: 'guest'}; this.list = d.msgs || []; this.drawList(); this.drawFoot();
+      clearInterval(this.ageT); this.ageT = setInterval(() => this.prune(), 60e3);   // 열어 둔 화면에서도 1시간 지난 대화는 1분 안에 사라짐
+    }
     else if (d.t === 'msg') {
       this.list.push(d.m); if (this.list.length > 300) this.list.shift();
       const l = document.querySelector('#chat .ch-l'); const atEnd = l && l.scrollHeight - l.scrollTop - l.clientHeight < 60;
@@ -1897,6 +1900,13 @@ const Chat = {
     else if (d.t === 'err') this.flash(d.msg, true);
     else if (d.t === 'ok') this.flash(d.msg);
   },
+  prune() {
+    const cut = Date.now() - 3600e3, old = this.list.filter(m => m.ts && m.ts < cut);
+    if (!old.length) return;
+    this.list = this.list.filter(m => !(m.ts && m.ts < cut));
+    old.forEach(m => { const n = document.querySelector(`#chat [data-mid="${m.id}"]`); if (n) n.remove(); });
+    if (!this.list.length) this.drawList();
+  },
   item(m) {
     const admin = this.me.role === 'admin';
     if (m.hidden && !admin) return `<div class="m hid" data-mid="${m.id}"><div class="txt">관리자가 가린 메시지예요</div></div>`;
@@ -1911,7 +1921,7 @@ const Chat = {
   },
   drawList() {
     const l = document.querySelector('#chat .ch-l'); if (!l) return;
-    l.innerHTML = `<p class="ch-sys">1시간 지난 대화는 자동으로 지워져요 (최근 100개는 남김)</p>`
+    l.innerHTML = `<p class="ch-sys">1시간 지난 대화는 자동으로 지워져요</p>`
       + (this.list.length ? this.list.map(m => this.item(m)).join('') : '<p class="ch-sys wait">아직 대화가 없어요. 첫 마디를 남겨 보세요!</p>');
     this.scroll(true);
   },
