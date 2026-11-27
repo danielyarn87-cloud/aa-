@@ -1375,9 +1375,12 @@ async function renderAdmin() {
 /* ---------- 쇼츠 (운영자 주소만) ----------
    고른 리그의 분석 끝난 경기 쇼츠(세로 영상)를 GitHub Actions 가 만들어 둔다 (tools/make_shorts_batch.py).
    여기서는 리그를 고르고, 영상을 미리 보고 내려받고, 유튜브 제목·설명을 복사한다. */
-const shortTitle = it => `${it.home} vs ${it.away} 승부 예측 | RAISE 분석팀 #shorts`;
-const shortDesc = it => `${it.league} ${it.home} vs ${it.away} (${(it.kickoff || '').slice(5, 16).replace('-', '/')} KST)\nRAISE 분석가 4명의 예측과 확률을 정리했어요.\n\n전체 분석: https://raise-fulltime.com\n\n※ 예측은 참고용이에요. 맹신하지 마세요. 도박 문제 상담 국번 없이 1336\n\n#축구 #${(it.league || '').replace(/\s/g, '')} #축구분석 #shorts`;
-const instaCap = it => `${it.home} vs ${it.away} 승부 예측 ⚽\n${it.league} · ${(it.kickoff || '').slice(5, 16).replace('-', '/')} KST\n\nRAISE 분석가 4명의 예측과 확률이에요. 여러분 예측은? 댓글로 남겨주세요 👇\n전체 분석은 프로필 링크(raise-fulltime.com)에서 볼 수 있어요.\n\n※ 예측은 참고용이에요. 맹신하지 마세요. 도박 문제 상담 1336\n\n#축구 #해외축구 #${(it.league || '').replace(/\s/g, '')} #축구분석 #승부예측 #릴스`;
+const shortTitle = it => `${it.home} vs ${it.away} 승부 예측 | RAISE #shorts`;
+/* 경기 분석 페이지 주소 (tools/export_static.py match_slug 와 같은 규칙) */
+const shortUrl = it => 'https://raise-fulltime.com/match/' + `${it.home}-vs-${it.away}-${(it.kickoff || '').slice(0, 10)}`.replace(/[^0-9A-Za-z가-힣]+/g, '-').replace(/^-+|-+$/g, '');
+const shortTags = it => `#축구 #해외축구 #${(it.league || '').replace(/\s/g, '')} #축구분석 #승부예측`;
+const shortDesc = it => `${it.league} · ${(it.kickoff || '').slice(5, 16).replace('-', '/')} KST\n${shortUrl(it)}\n\n※ 예측은 참고용이에요. 도박 문제 상담 1336\n\n${shortTags(it)} #shorts`;
+const instaCap = it => `${it.home} vs ${it.away} 승부 예측\n${it.league} · ${(it.kickoff || '').slice(5, 16).replace('-', '/')} KST\n${shortUrl(it)}\n\n※ 예측은 참고용이에요. 도박 문제 상담 1336\n\n${shortTags(it)} #릴스`;
 async function renderShorts() {
   const [L, S] = await Promise.all([api('/api/leagues'), fetch('/api/shorts', {cache: 'no-store'}).then(r => r.ok ? r.json() : Promise.reject(new Error('쇼츠 목록을 불러오지 못했어요 (' + r.status + ')')))]);
   const items = (S.index && S.index.items) || [];
