@@ -121,14 +121,23 @@ def main() -> None:
         for (src, dst, label), err in zip(new, ex.map(_make, new)):
             print(("실패 " + err if err else "완료") + " · " + label, flush=True)
     ok = []
-    for it in items:   # 만들기에 실패한 경기는 목록에서 뺀다
+    for (src, dst, label), it in zip(todo, items):   # 만들기에 실패한 경기는 목록에서 뺀다
         p = out / it["file"]
-        if p.exists():
-            it["bytes"] = p.stat().st_size
-            ok.append(it)
+        if not p.exists():
+            continue
+        th = p.with_suffix(".jpg")
+        if not th.exists():   # 예전에 만든 영상: 썸네일만 새로 (몇십 ms)
+            try:
+                make_short.thumbnail(make_short.load(src)).save(th, quality=90)
+            except Exception as e:
+                print("썸네일 실패", label, e, flush=True)
+        it["bytes"] = p.stat().st_size
+        if th.exists():
+            it["thumb"] = th.name
+        ok.append(it)
     items = ok
-    keep = {it["file"] for it in items}
-    for p in out.glob("*.mp4"):
+    keep = {it["file"] for it in items} | {it["thumb"] for it in items if it.get("thumb")}
+    for p in list(out.glob("*.mp4")) + list(out.glob("*.jpg")):
         if p.name not in keep:
             p.unlink()
     items.sort(key=lambda x: x["kickoff"])

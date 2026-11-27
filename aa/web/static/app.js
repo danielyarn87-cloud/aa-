@@ -1447,7 +1447,8 @@ async function renderShorts() {
         <b class="sh-teams"><span>${esc(it.home)}</span> <span class="mute">vs</span> <span>${esc(it.away)}</span></b></div>
       <div class="sh-act">
         <button type="button" class="btn ghost" data-play="${i}">미리보기</button>
-        <a class="btn" href="/api/shorts/file/${encodeURIComponent(it.file)}" download="raise-${esc(it.file)}">내려받기 <span class="num small">${(it.bytes / 1048576).toFixed(1)}MB</span></a>
+        <a class="btn" href="/api/shorts/file/${encodeURIComponent(it.file)}" download="raise-${esc(it.file)}">영상 받기 <span class="num small">${(it.bytes / 1048576).toFixed(1)}MB</span></a>
+        ${it.thumb ? `<a class="btn ghost" href="/api/shorts/file/${encodeURIComponent(it.thumb)}" download="raise-${esc(it.thumb)}">썸네일 받기</a>` : ''}
         <button type="button" class="btn ghost" data-copy="${i}">유튜브 글 복사</button>
         <button type="button" class="btn ghost" data-insta="${i}">인스타 글 복사</button>
       </div>
@@ -1466,7 +1467,7 @@ async function renderShorts() {
       </div></fieldset>`).join('')}
       <p class="inline"><button class="btn" id="shSave" type="button">리그 저장</button><span id="shMsg" class="small mute" role="status"></span></p>
     </details>
-    <div class="panel small mute"><b>올리는 방법</b><br>1. 내려받기 → 2. 유튜브 앱에서 쇼츠 올리기 → 3. 음악은 유튜브 안의 무료 음악으로 → 4. '유튜브 글 복사'한 글 붙여넣기 (인스타 릴스는 '인스타 글 복사')<br>같은 모양 영상을 하루에 너무 많이 올리면 유튜브가 자동 생성 영상으로 보고 수익 창출을 막을 수 있어요. 큰 경기 위주로 골라 올리세요.</div>
+    <div class="panel small mute"><b>올리는 방법</b><br>1. 영상 받기 (+ 썸네일 받기) → 2. 유튜브 앱에서 쇼츠 올리기 (썸네일은 '썸네일 수정 → 갤러리'에서 받은 그림 고르기) → 3. 음악은 유튜브 안의 무료 음악으로 → 4. '유튜브 글 복사'한 글 붙여넣기 (인스타 릴스는 '인스타 글 복사')<br>같은 모양 영상을 하루에 너무 많이 올리면 유튜브가 자동 생성 영상으로 보고 수익 창출을 막을 수 있어요. 큰 경기 위주로 골라 올리세요.</div>
   </div></section>`;
   view.querySelectorAll('[data-sl]').forEach(b => b.onclick = () => {
     const id = +b.dataset.sl; picked.has(id) ? picked.delete(id) : picked.add(id); b.setAttribute('aria-pressed', picked.has(id));

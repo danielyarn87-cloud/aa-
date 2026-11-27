@@ -434,6 +434,35 @@ def render_scene(fn, D, dur, out):
     os.replace(tmp, out)
 
 
+def thumbnail(D) -> Image.Image:
+    """유튜브·인스타에 올릴 썸네일(1080x1920). 영상에서 고르기 어려울 때 이 그림을 쓴다."""
+    img = background().copy()
+    put(img, logo(170), W // 2, 170, 1, "c")
+    text(img, "RAISE 승부 예측", "Black", 76, GOLD, W // 2, 380, 1, "c")
+    text(img, f"{D['league']} · {D['kickoff']}", "Bold", 40, MUTED, W // 2, 490, 1, "c")
+    maxw = W - 120
+    for nm, y in ((D["home"], 600), (D["away"], 900)):
+        text(img, nm, "Black", fit_size(nm, "Black", 140, maxw), CHALK, W // 2, y, 1, "c")
+    rrect(img, (W // 2 - 90, 775, W // 2 + 90, 875), 50, GOLD)
+    text(img, "VS", "Black", 66, INK, W // 2, 784, 1, "c")
+    # 분석팀 결론
+    p = {k: v for _, v, k in D["probs"]}
+    pk = D["pick"]
+    big = "초박빙" if D["verdict"] == "초박빙" else D["verdict"]
+    sub = (f"{D['verdict']}" if False else (f"확률 {p[pk] * 100:.0f}%" if pk in p else ""))
+    rrect(img, (90, 1140, W - 90, 1420), 40, GOLD)
+    text(img, "분석팀 결론", "Bold", 42, INK, W // 2, 1170, 1, "c")
+    text(img, big, "Black", fit_size(big, "Black", 96, W - 260), INK, W // 2, 1230, 1, "c")
+    if sub and big != "초박빙":
+        text(img, sub, "Bold", 44, INK, W // 2, 1350, 1, "c")
+    elif big == "초박빙":
+        text(img, D["sub"], "Bold", fit_size(D["sub"], "Bold", 40, W - 260), INK, W // 2, 1352, 1, "c")
+    ou = f"{D['ou_label']} {D['ou_prob'] * 100:.0f}%"
+    rrect(img, (W // 2 - 300, 1460, W // 2 + 300, 1560), 50, (0, 0, 0, 110))
+    text(img, ou, "Black", 52, CHALK, W // 2, 1478, 1, "c")
+    return img.convert("RGB")
+
+
 def stills(D, outdir):
     """가장 꽉 찬 순간을 그림으로 확인용."""
     os.makedirs(outdir, exist_ok=True)
@@ -443,6 +472,7 @@ def stills(D, outdir):
 
 def make(src: str, out: str) -> None:
     D = load(src)
+    thumbnail(D).save(re.sub(r"\.mp4$", "", out) + ".jpg", quality=90)
     with tempfile.TemporaryDirectory() as td:
         parts = []
         for name, fn, dur in SCENES:
@@ -464,6 +494,7 @@ def main():
     src, out = sys.argv[1], sys.argv[2]
     if "--stills" in sys.argv:
         stills(load(src), out)
+        thumbnail(load(src)).save(os.path.join(out, "thumbnail.jpg"), quality=90)
         return
     make(src, out)
 

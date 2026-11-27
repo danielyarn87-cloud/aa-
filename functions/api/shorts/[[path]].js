@@ -1,7 +1,7 @@
 // 운영자 '쇼츠' 화면용 (회원 주소에서는 미들웨어가 막음, 운영자 주소는 Cloudflare Access 잠금)
 //
 // GET  /api/shorts              쇼츠 목록 (shorts 브랜치의 index.json) + 고른 리그(data/shorts.json)
-// GET  /api/shorts/file/<이름>  영상 내려받기 (내려받기 창이 뜨게 이름을 붙여 보냄)
+// GET  /api/shorts/file/<이름>  영상(.mp4)·썸네일(.jpg) 내려받기 (내려받기 창이 뜨게 이름을 붙여 보냄)
 // POST /api/shorts/leagues      {"leagues": [39, 140]} 쇼츠 만들 리그 저장 → 다음 분석 실행부터 적용
 //
 // 영상은 GitHub Actions(daily.yml)가 tools/make_shorts_batch.py 로 만들어 'shorts' 브랜치에 올린다.
@@ -44,13 +44,14 @@ export async function onRequestGet({ env, params }) {
   const parts = params.path || [];
   if (parts[0] === "file" && parts[1]) {
     const name = String(parts[1]);
-    if (!/^[A-Z]{1,5}-\d{1,12}-[0-9a-f]{6,40}\.mp4$/.test(name)) return new Response("Not Found", { status: 404 });
+    if (!/^[A-Z]{1,5}-\d{1,12}-[0-9a-f]{6,40}\.(mp4|jpg)$/.test(name)) return new Response("Not Found", { status: 404 });
+    const jpg = name.endsWith(".jpg");
     const r = await fetch(raw(env, "shorts", name), { cf: { cacheTtl: 3600 } });
     if (!r.ok) return new Response("영상이 없어요. 경기가 이미 시작됐거나 다시 만들어졌을 수 있어요.", { status: 404 });
     return new Response(r.body, {
       headers: {
-        "Content-Type": "video/mp4",
-        "Content-Disposition": `attachment; filename="raise-${name}"`,
+        "Content-Type": jpg ? "image/jpeg" : "video/mp4",
+        "Content-Disposition": `attachment; filename="raise-${jpg ? name.replace(".jpg", "-thumbnail.jpg") : name}"`,
         "Cache-Control": "private, max-age=300",
       },
     });
