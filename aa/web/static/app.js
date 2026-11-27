@@ -769,7 +769,7 @@ const ytItems = () => {   /* 채널 최근 영상 목록 (5분 동안 다시 받
   return YT_P;
 };
 const ytFor = (items, m) => { const k = ytNorm(m.home + 'vs' + m.away); return items.find(x => ytNorm(x.title).includes(k)); };
-const ytThumb = id => `https://i.ytimg.com/vi/${encodeURIComponent(id)}/oardefault.jpg`;
+const ytThumb = id => `https://i.ytimg.com/vi/${encodeURIComponent(id)}/hqdefault.jpg`;
 const ytAuto = id => { try { sessionStorage.setItem('aa_autoplay', id); } catch (e) {} };
 /* 경기 목록: 맨 위 '오늘의 쇼츠' 줄 + 쇼츠 있는 경기 줄에 '▶ 쇼츠' 꼬리표 (누르면 경기 화면에서 바로 재생) */
 async function mountShortsList(matches) {
@@ -798,7 +798,7 @@ async function mountShort(m) {
   const v = ytFor(await ytItems(), m);
   if (!v || !document.body.contains(box)) return;
   box.innerHTML = `<button type="button" class="ytcard" aria-label="이 경기 쇼츠 재생">
-      <span class="ytthumb"><img src="https://i.ytimg.com/vi/${esc(v.id)}/oardefault.jpg" alt="" loading="lazy" onerror="this.remove()"><b class="ytplay" aria-hidden="true">▶</b></span>
+      <span class="ytthumb"><img src="https://i.ytimg.com/vi/${esc(v.id)}/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><b class="ytplay" aria-hidden="true">▶</b></span>
       <span class="yttext"><b>이 경기 쇼츠로 보기</b><small>약 20초 · 분석 요약</small><small class="ytch">▶ RAISE Fulltime 유튜브</small></span>
     </button>`;
   const card = box.querySelector('.ytcard');
