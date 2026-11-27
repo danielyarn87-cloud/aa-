@@ -1,11 +1,5 @@
 {
- "pending": {
-  "msgbatch_01R5tTkbCxYZg8quavDVTpAT": {
-   "date": "2026-11-29",
-   "count": 13,
-   "submitted_at": "2026-11-27T03:12:03.955933+00:00"
-  }
- },
+ "pending": {},
  "attempts": {
   "2026-11-25": 2,
   "2026-11-26": 3,
