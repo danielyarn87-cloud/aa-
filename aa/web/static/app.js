@@ -8,6 +8,9 @@ const view = document.getElementById('view');
 const CONF = {high: '확신 높음', medium: '확신 보통', low: '확신 낮음'};
 const PAL = ['#2563eb', '#15803d', '#ea580c', '#7c3aed', '#0891b2', '#be123c'];
 const TH = 0.05;
+/* 이득(숨은 기회) 조건: 기대값 5%~40% 이고 배당 3.5 이하 (company.yaml policy 와 같게, 11/27 성적 분석) */
+const MAX_EDGE = 0.40, MAX_ODDS = 3.5;
+const isGood = (e, o) => e != null && e >= TH && e <= MAX_EDGE && o != null && +o <= MAX_ODDS;
 
 /* 회원 주소에서는 분석 글의 배당 표현을 '시장 예상'으로 바꿔 보여 준다 (저장된 글은 그대로, 화면에서만) */
 const SOFTEN = /(^|\.)raise-fulltime\.com$/.test(location.hostname);
@@ -768,10 +771,10 @@ async function renderMatch(id) {
     ...['home', 'draw', 'away'].map(k => ({k, label: N[k], p: one.probs[k], e: one.edges[k], pick: one.pick === k})),
     ...['over', 'under'].map(k => ({k, label: N[k], p: ou.probs[k], e: ou.edges[k], pick: ou.pick === k})),
   ].map(c => ({...c, o: odds[c.k], be: odds[c.k] ? 1 / odds[c.k] : null}));
-  const good = choices.filter(c => c.e != null && c.e >= TH);
+  const good = choices.filter(c => isGood(c.e, c.o));
   const vRow = c => `<tr class="${c.pick ? 'pk' : ''}"><td data-l="선택">${esc(c.label)}${c.pick ? ' <span class="small mute" style="white-space:nowrap">예측</span>' : ''}</td>
     <td data-l="우리가 본 가능성" class="r num">${pct(c.p)}</td><td data-l="본전 가능성" class="r num">${pct(c.be)}</td>
-    <td data-l="배당" class="r num">${esc(c.o ?? '-')}</td><td data-l="5,000원당 평균 손익" class="r"><span class="ev ${c.e != null && c.e >= TH ? 'plus' : ''}">${won(c.e)}</span></td></tr>`;
+    <td data-l="배당" class="r num">${esc(c.o ?? '-')}</td><td data-l="5,000원당 평균 손익" class="r"><span class="ev ${isGood(c.e, c.o) ? 'plus' : ''}">${won(c.e)}</span></td></tr>`;
   const pickName = one.pick ? N[one.pick] : null;
   let lead;
   if (pickName && good.length && !good.some(c => c.k === one.pick)) lead = `가장 일어날 것 같은 결과는 ${pickName}이지만, 배당이 후하게 나온 쪽은 ${good.map(c => c.label).join(', ')}입니다.`;
@@ -781,7 +784,7 @@ async function renderMatch(id) {
   const why = good.map(c => `<li><b>${esc(c.label)}</b>: 우리는 ${pct(c.p)}로 보는데, 이 배당은 ${pct(c.be)}만 돼도 본전입니다. 5,000원을 걸면 평균 <b>${won(c.e)}</b>.</li>`).join('');
   /* 회원 화면용: 돈·배당 숫자 없이 우리 예상 vs 시장 예상 */
   const mq = {...mkt(odds, ['home', 'draw', 'away']), ...mkt(odds, ['over', 'under'])};
-  const mRow = c => { const q = mq[c.k], g = c.e != null && c.e >= TH, df = q != null && c.p != null ? Math.round((c.p - q) * 100) : null;
+  const mRow = c => { const q = mq[c.k], g = isGood(c.e, c.o), df = q != null && c.p != null ? Math.round((c.p - q) * 100) : null;
     return `<tr class="${c.pick ? 'pk' : ''}"><td data-l="선택">${esc(c.label)}${c.pick ? ' <span class="small mute" style="white-space:nowrap">예측</span>' : ''}${g ? ' <span class="tag value">숨은 기회</span>' : ''}</td>
     <td data-l="우리 예상" class="r num">${pct(c.p)}</td><td data-l="시장 예상" class="r num">${pct(q)}</td><td data-l="차이" class="r num">${df == null ? '-' : (df > 0 ? '+' : df < 0 ? '−' : '±') + Math.abs(df) + '%p'}</td></tr>`; };
   const gl = good.map(c => c.label).join(', ');
@@ -906,7 +909,7 @@ async function renderTeam() {
     <div class="rules sec">
       <div class="stat"><span class="num">과반</span><span>같은 결과를 고른 사람이 절반을 넘으면 예측, 갈리면 판단 보류</span></div>
       ${MEMBER ? '<div class="stat"><span class="num">숨은 기회</span><span>우리가 본 가능성이 시장 예상보다 충분히 높으면 표시</span></div>'
-        : `<div class="stat"><span class="num">+${Math.round(c.policy.value_threshold * UNIT).toLocaleString('ko-KR')}원</span><span>5,000원당 평균 손익이 이 이상이면 이득 신호</span></div>`}
+        : `<div class="stat"><span class="num">+${Math.round(c.policy.value_threshold * UNIT).toLocaleString('ko-KR')}원</span><span>5,000원당 평균 손익이 이 이상(단 +2,000원 이하, 배당 3.5 이하)이면 이득 신호</span></div>`}
       <div class="stat"><span class="num">${esc(c.policy.min_samples_for_weight)}경기</span><span>채점이 쌓이면 잘 맞힌 사람의 투표 비중을 올림</span></div>
     </div>
     ${c.departments.map(d => `<div class="dept sec"><h2>${esc(d.name)} <span class="tag ${d.active ? 'pick' : 'wait'}">${d.active ? '운영 중' : '준비 중'}</span></h2>

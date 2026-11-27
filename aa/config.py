@@ -14,6 +14,9 @@ import yaml
 class Policy:
     consensus_share: float = 0.5
     value_threshold: float = 0.05
+    value_max_odds: float = 3.5    # 이 배당보다 높은(언더독) 쪽은 이득으로 안 봄 (11/27 분석: 배당 5+ 는 5/40)
+    value_max_edge: float = 0.40   # 우리가 시장보다 40% 넘게 높게 본 건 '착각'으로 보고 뺌 (차이 50%+ 는 2/23)
+    ou_shrink: float = 0.8         # 회사 결론의 오버 가능성을 0.5 쪽으로 당기는 비율 (강한 언더/오버 판단 적중률 42%)
     min_samples_for_weight: int = 30
     weight_bounds: tuple[float, float] = (0.5, 2.0)
 
@@ -97,6 +100,9 @@ def load_company(path: str | Path) -> Company:
     policy = Policy(
         consensus_share=float(pol.get("consensus_share", 0.5)),
         value_threshold=float(pol.get("value_threshold", 0.05)),
+        value_max_odds=float(pol.get("value_max_odds", 3.5)),
+        value_max_edge=float(pol.get("value_max_edge", 0.40)),
+        ou_shrink=float(pol.get("ou_shrink", 0.8)),
         min_samples_for_weight=int(pol.get("min_samples_for_weight", 30)),
         weight_bounds=tuple(pol.get("weight_bounds", [0.5, 2.0])),
     )

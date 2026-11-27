@@ -56,7 +56,23 @@ def renamed(obj, company: Company):
     return fix(obj)
 
 
-def _summary(run: dict, result: dict | None) -> dict:
+def _alerts(run: dict, one: dict, ou: dict, result, policy) -> list:
+    """이득 표시. 채점 끝난 경기는 그때 기록 그대로(성적 기록을 바꾸지 않음),
+    아직 안 끝난 경기는 지금 규칙(기대값 5%~40%, 배당 3.5 이하)으로 다시 거른다."""
+    saved = one["value_alerts"] + ou["value_alerts"]
+    if result or policy is None:
+        return saved
+    odds = run["match"].get("odds") or {}
+    edges = {**(one.get("edges") or {}), **(ou.get("edges") or {})}
+    out = []
+    for k in saved:
+        e, o = edges.get(k), odds.get(k)
+        if e is not None and o and policy.value_threshold <= e <= policy.value_max_edge and float(o) <= policy.value_max_odds:
+            out.append(k)
+    return out
+
+
+def _summary(run: dict, result: dict | None, policy=None) -> dict:
     d = run["decision"]
     one, ou = d["one_x_two"], d["over_under"]
     out = {
@@ -70,7 +86,7 @@ def _summary(run: dict, result: dict | None) -> dict:
         "tally_1x2": one["tally"],
         "probs": one["probs"],
         "market_probs": one["market_probs"],
-        "value_alerts": one["value_alerts"] + ou["value_alerts"],
+        "value_alerts": _alerts(run, one, ou, result, policy),
         "pick_ou": ou["pick"],
         "line": d["line"],
         "odds": run["match"].get("odds") or {},
@@ -179,7 +195,7 @@ def create_app(company: Company) -> Flask:
         analyzed = {r["match"]["id"] for r in runs}
         items = []
         for r in runs:
-            s = _summary(r, res.get(r["match"]["id"]))
+            s = _summary(r, res.get(r["match"]["id"]), company.policy)
             s["league_id"], s["league_name"] = league_of(company, r["match"])
             mp = pending_dir / f"{s['id']}.json"
             if mp.exists():  # 분석 뒤에 다시 모은 배당(지금 배당)과 처음 등록 때 배당
@@ -215,7 +231,7 @@ def create_app(company: Company) -> Flask:
         for side in ("home", "away"):  # 예전 분석은 영어 이름으로 저장돼 있어 화면에서만 바꾼다
             run["match"][side] = ko_name(run["match"][side])
         r = results().get(mid)
-        run["summary"] = _summary(run, r)
+        run["summary"] = _summary(run, r, company.policy)
         mp = pending_dir / f"{mid}.json"
         if mp.exists():  # 배당 변화 표: 처음 등록 때 배당과 지금(마지막 수집) 배당
             mm = json.loads(mp.read_text(encoding="utf-8"))

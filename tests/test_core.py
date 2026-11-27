@@ -52,9 +52,25 @@ def test_weights_can_break_tie():
 
 def test_value_flags():
     ops = [op("a", "draw", (0.4, 0.35, 0.25))]
-    one, _ = decide(ops, {}, Policy(value_threshold=0.05), ODDS, {}, {})
+    one, _ = decide(ops, {}, Policy(value_threshold=0.05, value_max_odds=4.0), ODDS, {}, {})
     assert one.edges["draw"] == pytest.approx(0.35 * 3.6 - 1)
     assert one.value_pick and "draw" in one.value_alerts
+
+
+def test_value_filters_longshots_and_big_edges():
+    ops = [op("a", "draw", (0.4, 0.35, 0.25))]
+    # 무 배당 3.6 > 3.5 → 이득 아님 (11/27 규칙)
+    one, _ = decide(ops, {}, Policy(), ODDS, {}, {})
+    assert "draw" not in one.value_alerts and not one.value_pick
+    # 기대값 26% 지만 상한 20% 로 두면 착각으로 보고 뺀다
+    one, _ = decide(ops, {}, Policy(value_max_odds=4.0, value_max_edge=0.20), ODDS, {}, {})
+    assert "draw" not in one.value_alerts
+
+
+def test_over_prob_pulled_to_middle():
+    o = op("a", "home"); o.over_prob = 0.80
+    _, ou = decide([o], {}, Policy(ou_shrink=0.8), ODDS, {}, {})
+    assert ou.probs["over"] == pytest.approx(0.5 + 0.3 * 0.8)
 
 
 def test_opinion_normalizes_and_fixes_bad_picks():
