@@ -16,7 +16,7 @@
     "best_home": 2.07,
     "draw": 3.72,
     "best_draw": 3.96,
-    "away": 3.61,
+    "away": 3.62,
     "best_away": 3.9,
     "over": 1.72,
     "best_over": 1.82,
@@ -57,7 +57,11 @@
     }
   },
   "lineup": {
-    "home_absent": [],
+    "home_absent": [
+      "D. Raya (Shoulder Injury)",
+      "B. Saka (Thigh Injury)",
+      "M. Zubimendi (Muscle Injury)"
+    ],
     "home_doubtful": [],
     "away_absent": [
       "A. Semenyo (Knee Injury)"
@@ -94,7 +98,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 06:04 KST",
+  "collected_at": "2026-11-27 14:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 1.95,

@@ -94,14 +94,14 @@
   "schedule": {
     "home_prev": "2026-11-25 UEFA Champions League",
     "home_days_rest": 4,
-    "away_prev": "2026-11-21 Bundesliga",
-    "away_days_rest": 8
+    "away_prev": "2026-11-27 UEFA Europa League",
+    "away_days_rest": 3
   },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 06:04 KST",
+  "collected_at": "2026-11-27 14:04 KST",
   "odds_first": {
     "line": 3.5,
     "home": 2.09,

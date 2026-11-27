@@ -13,11 +13,11 @@
   "odds": {
     "line": 2.5,
     "home": 2.19,
-    "best_home": 2.34,
-    "draw": 3.31,
+    "best_home": 2.32,
+    "draw": 3.3,
     "best_draw": 3.55,
-    "away": 3.15,
-    "best_away": 3.4,
+    "away": 3.14,
+    "best_away": 3.35,
     "over": 1.9,
     "best_over": 1.99,
     "under": 1.84,
@@ -53,7 +53,7 @@
       "raw_goals_against": 2.3,
       "played": 8,
       "record": "0승 1무 7패",
-      "form": "LLWDL"
+      "form": "LWDLL"
     }
   },
   "lineup": {
@@ -111,7 +111,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 06:04 KST",
+  "collected_at": "2026-11-27 14:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 2.19,

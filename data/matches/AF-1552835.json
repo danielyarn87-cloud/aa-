@@ -14,7 +14,7 @@
     "line": 3.5,
     "home": 1.2,
     "best_home": 1.25,
-    "draw": 7.12,
+    "draw": 7.08,
     "best_draw": 7.95,
     "away": 12.11,
     "best_away": 15.0,
@@ -64,9 +64,9 @@
     ],
     "home_doubtful": [],
     "away_absent": [
+      "M. Bamba (Injury)",
       "B. Fadiga (Muscle Injury)",
-      "P. Katseris (Muscle Injury)",
-      "I. Toure (Groin Injury)"
+      "P. Katseris (Muscle Injury)"
     ],
     "away_doubtful": [],
     "confirmed": false,
@@ -100,7 +100,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 06:04 KST",
+  "collected_at": "2026-11-27 14:04 KST",
   "odds_first": {
     "line": 3.5,
     "home": 1.2,

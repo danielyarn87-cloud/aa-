@@ -12,11 +12,11 @@
   "away_en": "RB Leipzig",
   "odds": {
     "line": 3.5,
-    "home": 2.69,
-    "best_home": 2.9,
-    "draw": 3.78,
+    "home": 2.67,
+    "best_home": 2.79,
+    "draw": 3.79,
     "best_draw": 4.05,
-    "away": 2.34,
+    "away": 2.35,
     "best_away": 2.48,
     "over": 2.14,
     "best_over": 2.27,
@@ -72,7 +72,7 @@
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
   "collected_detail": "full",
-  "venue": "Europa-Park Stadion",
+  "venue": "Europa-Park-Stadion",
   "source_ids": {
     "api_football_fixture": 1575233,
     "home_team": 160,
@@ -89,8 +89,8 @@
     "2024-04-06 프라이부르크 1-4 라이프치히"
   ],
   "schedule": {
-    "home_prev": "2026-11-21 Bundesliga",
-    "home_days_rest": 8,
+    "home_prev": "2026-11-27 UEFA Europa Conference League",
+    "home_days_rest": 2,
     "away_prev": "2026-11-25 UEFA Champions League",
     "away_days_rest": 4
   },
@@ -98,7 +98,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 06:04 KST",
+  "collected_at": "2026-11-27 14:04 KST",
   "odds_first": {
     "line": 3.5,
     "home": 2.69,

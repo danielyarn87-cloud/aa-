@@ -12,9 +12,9 @@
   "away_en": "AC Milan",
   "odds": {
     "line": 2.5,
-    "home": 4.87,
+    "home": 4.85,
     "best_home": 5.4,
-    "draw": 3.77,
+    "draw": 3.78,
     "best_draw": 4.03,
     "away": 1.69,
     "best_away": 1.77,
@@ -87,14 +87,14 @@
   "schedule": {
     "home_prev": "2026-11-21 Serie A",
     "home_days_rest": 9,
-    "away_prev": "2026-11-23 Serie A",
-    "away_days_rest": 8
+    "away_prev": "2026-11-27 UEFA Europa League",
+    "away_days_rest": 4
   },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 06:04 KST",
+  "collected_at": "2026-11-27 14:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 4.8,

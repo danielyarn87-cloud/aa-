@@ -18,9 +18,9 @@
     "best_draw": 3.67,
     "away": 2.04,
     "best_away": 2.15,
-    "over": 1.95,
+    "over": 1.96,
     "best_over": 2.08,
-    "under": 1.85,
+    "under": 1.84,
     "best_under": 1.91,
     "source": "The Odds API 평균 배당 (승무패 25곳, 언더/오버 18곳 북메이커)",
     "event_id": "09bb0ba9a9025d64fed410375c0c8f80",
@@ -65,7 +65,10 @@
       "R. Mundle (Knee Injury)",
       "G. Xhaka (Calf Injury)"
     ],
-    "home_doubtful": [],
+    "home_doubtful": [
+      "O. Alderete (Injury)",
+      "D. Methalie (Illness)"
+    ],
     "away_absent": [
       "T. Adarabioyo (Calf Injury)",
       "M. Mudryk (Ankle Injury)",
@@ -106,7 +109,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 06:04 KST",
+  "collected_at": "2026-11-27 14:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 3.65,

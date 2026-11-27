@@ -14,7 +14,7 @@
     "line": 3.5,
     "home": 1.89,
     "best_home": 2.0,
-    "draw": 3.81,
+    "draw": 3.8,
     "best_draw": 4.1,
     "away": 3.32,
     "best_away": 3.65,
@@ -66,7 +66,7 @@
     "설명": "API-Football 이 이 리그의 결장자 자료를 제공하지 않음 (결장자가 없다는 뜻이 아님), 라인업 미발표"
   },
   "collected_detail": "full",
-  "venue": "Kawasaki Todoroki Stadium",
+  "venue": "Uvance Todoroki Stadium by Fujitsu",
   "source_ids": {
     "api_football_fixture": 1556163,
     "home_team": 294,
@@ -92,7 +92,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 06:04 KST",
+  "collected_at": "2026-11-27 14:05 KST",
   "odds_first": {
     "line": 3.5,
     "home": 1.89,

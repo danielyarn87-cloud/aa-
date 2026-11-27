@@ -12,11 +12,11 @@
   "away_en": "Real Madrid",
   "odds": {
     "line": 3.5,
-    "home": 6.06,
+    "home": 6.21,
     "best_home": 7.0,
-    "draw": 5.25,
+    "draw": 5.27,
     "best_draw": 5.8,
-    "away": 1.41,
+    "away": 1.39,
     "best_away": 1.5,
     "over": 1.75,
     "best_over": 1.87,
@@ -83,8 +83,8 @@
     "2025-04-01 레알 마드리드 4-4 레알 소시에다드"
   ],
   "schedule": {
-    "home_prev": "2026-11-23 La Liga",
-    "home_days_rest": 10,
+    "home_prev": "2026-11-27 UEFA Europa League",
+    "home_days_rest": 5,
     "away_prev": "2026-11-25 UEFA Champions League",
     "away_days_rest": 7
   },
@@ -92,7 +92,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 06:04 KST",
+  "collected_at": "2026-11-27 14:04 KST",
   "odds_first": {
     "line": 3.5,
     "home": 5.97,

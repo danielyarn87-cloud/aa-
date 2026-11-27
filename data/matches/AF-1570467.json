@@ -16,11 +16,11 @@
     "best_home": 2.1,
     "draw": 3.16,
     "best_draw": 3.37,
-    "away": 4.0,
+    "away": 3.99,
     "best_away": 4.4,
-    "over": 2.4,
-    "best_over": 2.56,
-    "under": 1.56,
+    "over": 2.39,
+    "best_over": 2.54,
+    "under": 1.55,
     "best_under": 1.61,
     "source": "The Odds API 평균 배당 (승무패 21곳, 언더/오버 12곳 북메이커)",
     "event_id": "b648a7246af1d3a839b0fcd212849a7c",
@@ -85,14 +85,14 @@
   "schedule": {
     "home_prev": "2026-11-21 La Liga",
     "home_days_rest": 10,
-    "away_prev": "2026-11-23 La Liga",
-    "away_days_rest": 8
+    "away_prev": "2026-11-27 UEFA Europa Conference League",
+    "away_days_rest": 4
   },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 06:04 KST",
+  "collected_at": "2026-11-27 14:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 2.02,

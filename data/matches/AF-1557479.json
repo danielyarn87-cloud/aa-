@@ -12,8 +12,8 @@
   "away_en": "Hull City",
   "odds": {
     "line": 2.5,
-    "home": 1.88,
-    "best_home": 2.0,
+    "home": 1.87,
+    "best_home": 1.98,
     "draw": 3.76,
     "best_draw": 4.0,
     "away": 3.88,
@@ -64,9 +64,7 @@
       "I. Sarr (Groin Injury)",
       "T. Tomiyasu (Calf Injury)"
     ],
-    "home_doubtful": [
-      "O. Mingueza (Muscle Injury)"
-    ],
+    "home_doubtful": [],
     "away_absent": [
       "I. Ansah (Back Injury)",
       "J. Gelhardt (Muscle Injury)",
@@ -108,7 +106,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 06:04 KST",
+  "collected_at": "2026-11-27 14:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 1.86,

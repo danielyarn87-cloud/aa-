@@ -12,7 +12,7 @@
   "away_en": "Utrecht",
   "odds": {
     "line": 2.5,
-    "home": 2.64,
+    "home": 2.65,
     "best_home": 2.88,
     "draw": 3.56,
     "best_draw": 3.85,
@@ -75,7 +75,7 @@
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
   "collected_detail": "full",
-  "venue": "WerkTalent Stadion",
+  "venue": "Bingoal Stadion",
   "source_ids": {
     "api_football_fixture": 1552235,
     "home_team": 198,
@@ -101,7 +101,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 06:04 KST",
+  "collected_at": "2026-11-27 14:05 KST",
   "odds_first": {
     "line": 2.5,
     "home": 2.65,

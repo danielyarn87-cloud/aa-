@@ -12,14 +12,14 @@
   "away_en": "Twente",
   "odds": {
     "line": 3.5,
-    "home": 3.64,
+    "home": 3.66,
     "best_home": 3.9,
-    "draw": 3.94,
+    "draw": 3.96,
     "best_draw": 4.4,
     "away": 1.8,
-    "best_away": 1.91,
+    "best_away": 1.89,
     "over": 1.96,
-    "best_over": 2.06,
+    "best_over": 2.07,
     "under": 1.79,
     "best_under": 1.88,
     "source": "The Odds API 평균 배당 (승무패 21곳, 언더/오버 12곳 북메이커)",
@@ -57,8 +57,13 @@
     }
   },
   "lineup": {
-    "home_absent": [],
-    "home_doubtful": [],
+    "home_absent": [
+      "B. Nuytinck (Ankle Injury)",
+      "P. Sandler (Inactive)"
+    ],
+    "home_doubtful": [
+      "P. Schuurs (Injury)"
+    ],
     "away_absent": [
       "M. Bruns (Injury)",
       "K. Kurowski (Injury)",
@@ -72,7 +77,7 @@
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
   "collected_detail": "full",
-  "venue": "Goffertstadion",
+  "venue": "Stadion de Goffert",
   "source_ids": {
     "api_football_fixture": 1552239,
     "home_team": 413,
@@ -89,16 +94,16 @@
     "2024-08-10 NEC 네이메헌 1-2 트벤테"
   ],
   "schedule": {
-    "home_prev": "2026-11-22 Eredivisie",
-    "home_days_rest": 8,
-    "away_prev": "2026-11-22 Eredivisie",
-    "away_days_rest": 7
+    "home_prev": "2026-11-27 UEFA Europa League",
+    "home_days_rest": 2,
+    "away_prev": "2026-11-27 UEFA Europa Conference League",
+    "away_days_rest": 2
   },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 06:04 KST",
+  "collected_at": "2026-11-27 14:05 KST",
   "odds_first": {
     "line": 3.5,
     "home": 3.66,

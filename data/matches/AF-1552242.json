@@ -12,10 +12,10 @@
   "away_en": "AZ Alkmaar",
   "odds": {
     "line": 3.5,
-    "home": 5.16,
+    "home": 5.18,
     "best_home": 6.1,
-    "draw": 4.38,
-    "best_draw": 4.8,
+    "draw": 4.39,
+    "best_draw": 4.7,
     "away": 1.51,
     "best_away": 1.57,
     "over": 2.11,
@@ -78,7 +78,7 @@
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
   "collected_detail": "full",
-  "venue": null,
+  "venue": "MAC³PARK Stadion",
   "source_ids": {
     "api_football_fixture": 1552242,
     "home_team": 193,
@@ -97,14 +97,14 @@
   "schedule": {
     "home_prev": "2026-11-22 Eredivisie",
     "home_days_rest": 7,
-    "away_prev": "2026-11-22 Eredivisie",
-    "away_days_rest": 7
+    "away_prev": "2026-11-27 UEFA Europa League",
+    "away_days_rest": 2
   },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 06:04 KST",
+  "collected_at": "2026-11-27 14:05 KST",
   "odds_first": {
     "line": 3.5,
     "home": 5.19,

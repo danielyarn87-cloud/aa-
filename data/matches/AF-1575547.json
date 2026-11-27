@@ -14,9 +14,9 @@
     "line": 3.5,
     "home": 1.15,
     "best_home": 1.18,
-    "draw": 7.16,
-    "best_draw": 7.8,
-    "away": 13.4,
+    "draw": 7.18,
+    "best_draw": 8.0,
+    "away": 13.46,
     "best_away": 17.0,
     "over": 1.98,
     "best_over": 2.11,
@@ -83,8 +83,8 @@
     "2024-05-05 파말리캉 2-0 벤피카"
   ],
   "schedule": {
-    "home_prev": "2026-11-23 Taça de Portugal",
-    "home_days_rest": 7,
+    "home_prev": "2026-11-27 UEFA Europa League",
+    "home_days_rest": 4,
     "away_prev": "2026-11-07 Primeira Liga",
     "away_days_rest": 23
   },
@@ -92,7 +92,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 06:04 KST",
+  "collected_at": "2026-11-27 14:05 KST",
   "odds_first": {
     "line": 3.5,
     "home": 1.15,

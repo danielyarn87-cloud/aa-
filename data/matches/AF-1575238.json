@@ -12,16 +12,16 @@
   "away_en": "FC Schalke 04",
   "odds": {
     "line": 2.5,
-    "home": 2.42,
-    "best_home": 2.56,
-    "draw": 3.44,
-    "best_draw": 3.73,
-    "away": 2.79,
-    "best_away": 3.0,
+    "home": 2.5,
+    "best_home": 2.66,
+    "draw": 3.43,
+    "best_draw": 3.7,
+    "away": 2.7,
+    "best_away": 2.95,
     "over": 1.75,
-    "best_over": 1.85,
-    "under": 2.05,
-    "best_under": 2.12,
+    "best_over": 1.84,
+    "under": 2.06,
+    "best_under": 2.14,
     "source": "The Odds API 평균 배당 (승무패 23곳, 언더/오버 15곳 북메이커)",
     "event_id": "f84a9da7eedd0ca11a28a1a7a8edddc7",
     "sport": "soccer_germany_bundesliga"
@@ -61,9 +61,7 @@
       "T. Gayret (Knee Injury)",
       "M. Hoffmeier (Muscle Injury)"
     ],
-    "home_doubtful": [
-      "L. Ulrich (Illness)"
-    ],
+    "home_doubtful": [],
     "away_absent": [
       "T. Becker (Foot Injury)",
       "B. Lasme (Thigh Injury)",
@@ -103,7 +101,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 06:04 KST",
+  "collected_at": "2026-11-27 14:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 2.42,

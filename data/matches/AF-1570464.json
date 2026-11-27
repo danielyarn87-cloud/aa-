@@ -12,7 +12,7 @@
   "away_en": "Villarreal",
   "odds": {
     "line": 2.5,
-    "home": 2.72,
+    "home": 2.71,
     "best_home": 2.84,
     "draw": 3.45,
     "best_draw": 3.65,
@@ -20,8 +20,8 @@
     "best_away": 2.63,
     "over": 1.77,
     "best_over": 1.84,
-    "under": 2.05,
-    "best_under": 2.18,
+    "under": 2.04,
+    "best_under": 2.17,
     "source": "The Odds API 평균 배당 (승무패 21곳, 언더/오버 15곳 북메이커)",
     "event_id": "20c78c2ef75c4a6d7f4af81dd32e97cd",
     "sport": "soccer_spain_la_liga"
@@ -80,7 +80,7 @@
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
   "collected_detail": "full",
-  "venue": null,
+  "venue": "Municipal de Balaídos",
   "source_ids": {
     "api_football_fixture": 1570464,
     "home_team": 538,
@@ -97,8 +97,8 @@
     "2024-05-05 셀타 비고 3-2 비야레알"
   ],
   "schedule": {
-    "home_prev": "2026-11-22 La Liga",
-    "home_days_rest": 7,
+    "home_prev": "2026-11-27 UEFA Europa League",
+    "home_days_rest": 2,
     "away_prev": "2026-11-26 UEFA Champions League",
     "away_days_rest": 3
   },
@@ -106,7 +106,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 06:04 KST",
+  "collected_at": "2026-11-27 14:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 2.71,

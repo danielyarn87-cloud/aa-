@@ -71,8 +71,8 @@
     "2025-04-19 하츠 1-2 애버딘"
   ],
   "schedule": {
-    "home_prev": "2026-11-22 Premiership",
-    "home_days_rest": 11,
+    "home_prev": "2026-11-27 UEFA Europa Conference League",
+    "home_days_rest": 6,
     "away_prev": "2026-11-25 Premiership",
     "away_days_rest": 7
   },
@@ -80,5 +80,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 06:04 KST"
+  "collected_at": "2026-11-27 14:05 KST"
 }

@@ -14,7 +14,7 @@
     "line": 2.5,
     "home": 2.43,
     "best_home": 2.55,
-    "draw": 2.96,
+    "draw": 2.97,
     "best_draw": 3.13,
     "away": 2.8,
     "best_away": 3.05,
@@ -66,7 +66,7 @@
     "설명": "API-Football 이 이 리그의 결장자 자료를 제공하지 않음 (결장자가 없다는 뜻이 아님), 라인업 미발표"
   },
   "collected_detail": "full",
-  "venue": "Sungui Arena Park",
+  "venue": "Incheon Football Stadium",
   "source_ids": {
     "api_football_fixture": 1647386,
     "home_team": 2763,
@@ -92,7 +92,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 06:04 KST",
+  "collected_at": "2026-11-27 14:05 KST",
   "odds_first": {
     "line": 2.5,
     "home": 2.43,

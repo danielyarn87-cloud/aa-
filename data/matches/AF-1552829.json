@@ -14,7 +14,7 @@
     "line": 2.5,
     "home": 3.77,
     "best_home": 4.0,
-    "draw": 3.89,
+    "draw": 3.9,
     "best_draw": 4.2,
     "away": 1.85,
     "best_away": 1.95,
@@ -96,14 +96,14 @@
   "schedule": {
     "home_prev": "2026-11-22 Ligue 1",
     "home_days_rest": 7,
-    "away_prev": "2026-11-23 Ligue 1",
-    "away_days_rest": 6
+    "away_prev": "2026-11-27 UEFA Europa League",
+    "away_days_rest": 2
   },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 06:04 KST",
+  "collected_at": "2026-11-27 14:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 3.77,

@@ -12,15 +12,15 @@
   "away_en": "Atalanta",
   "odds": {
     "line": 2.5,
-    "home": 3.72,
-    "best_home": 4.0,
-    "draw": 3.77,
+    "home": 3.86,
+    "best_home": 4.2,
+    "draw": 3.79,
     "best_draw": 4.04,
-    "away": 1.89,
+    "away": 1.85,
     "best_away": 1.96,
-    "over": 1.61,
+    "over": 1.6,
     "best_over": 1.68,
-    "under": 2.28,
+    "under": 2.29,
     "best_under": 2.39,
     "source": "The Odds API 평균 배당 (승무패 25곳, 언더/오버 14곳 북메이커)",
     "event_id": "f1d2a6064d1452074570bbc656d36a20",
@@ -85,14 +85,14 @@
   "schedule": {
     "home_prev": "2026-11-21 Serie A",
     "home_days_rest": 9,
-    "away_prev": "2026-11-23 Serie A",
-    "away_days_rest": 7
+    "away_prev": "2026-11-27 UEFA Europa Conference League",
+    "away_days_rest": 3
   },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 06:04 KST",
+  "collected_at": "2026-11-27 14:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 3.72,

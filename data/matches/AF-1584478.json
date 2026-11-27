@@ -12,9 +12,9 @@
   "away_en": "Başakşehir",
   "odds": {
     "line": 2.5,
-    "home": 6.16,
-    "best_home": 6.88,
-    "draw": 4.5,
+    "home": 6.21,
+    "best_home": 7.0,
+    "draw": 4.52,
     "best_draw": 4.95,
     "away": 1.43,
     "best_away": 1.53,
@@ -76,7 +76,7 @@
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
   "collected_detail": "full",
-  "venue": null,
+  "venue": "Recep Tayyip Erdoğan Stadı",
   "source_ids": {
     "api_football_fixture": 1584478,
     "home_team": 3588,
@@ -102,7 +102,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 06:04 KST",
+  "collected_at": "2026-11-27 14:05 KST",
   "odds_first": {
     "line": 2.5,
     "home": 5.89,

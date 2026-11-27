@@ -83,8 +83,8 @@
     "2024-08-03 갈라타사라이 0-5 베식타스"
   ],
   "schedule": {
-    "home_prev": "2026-11-22 Süper Lig",
-    "home_days_rest": 8,
+    "home_prev": "2026-11-27 UEFA Europa League",
+    "home_days_rest": 4,
     "away_prev": "2026-11-25 UEFA Champions League",
     "away_days_rest": 6
   },
@@ -92,7 +92,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 06:04 KST",
+  "collected_at": "2026-11-27 14:05 KST",
   "odds_first": {
     "line": 3.5,
     "home": 1.97,

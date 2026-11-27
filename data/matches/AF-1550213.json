@@ -12,7 +12,7 @@
   "away_en": "Napoli",
   "odds": {
     "line": 2.5,
-    "home": 4.6,
+    "home": 4.61,
     "best_home": 5.1,
     "draw": 4.19,
     "best_draw": 4.5,
@@ -82,7 +82,7 @@
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
   "collected_detail": "full",
-  "venue": null,
+  "venue": "Mapei Stadium – Città del Tricolore",
   "source_ids": {
     "api_football_fixture": 1550213,
     "home_team": 488,
@@ -108,7 +108,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 06:04 KST",
+  "collected_at": "2026-11-27 14:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 4.6,

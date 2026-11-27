@@ -13,10 +13,10 @@
   "odds": {
     "line": 3.5,
     "home": 1.73,
-    "best_home": 1.83,
+    "best_home": 1.84,
     "draw": 4.46,
     "best_draw": 4.76,
-    "away": 3.85,
+    "away": 3.83,
     "best_away": 4.16,
     "over": 1.68,
     "best_over": 1.77,
@@ -62,7 +62,9 @@
     "away_absent": [
       "J. Ngankam (Groin Injury)"
     ],
-    "away_doubtful": [],
+    "away_doubtful": [
+      "C. Uzun (Illness)"
+    ],
     "confirmed": false,
     "status": "listed",
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
@@ -94,7 +96,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 06:04 KST",
+  "collected_at": "2026-11-27 14:04 KST",
   "odds_first": {
     "line": 3.5,
     "home": 1.72,

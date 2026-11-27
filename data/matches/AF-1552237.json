@@ -12,11 +12,11 @@
   "away_en": "Ajax",
   "odds": {
     "line": 3.5,
-    "home": 2.12,
+    "home": 2.14,
     "best_home": 2.28,
     "draw": 3.83,
     "best_draw": 4.1,
-    "away": 2.83,
+    "away": 2.81,
     "best_away": 3.02,
     "over": 1.94,
     "best_over": 2.02,
@@ -80,7 +80,7 @@
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
   "collected_detail": "full",
-  "venue": "De Kuip",
+  "venue": "Stadion Feijenoord",
   "source_ids": {
     "api_football_fixture": 1552237,
     "home_team": 209,
@@ -99,14 +99,14 @@
   "schedule": {
     "home_prev": "2026-11-25 UEFA Champions League",
     "home_days_rest": 4,
-    "away_prev": "2026-11-22 Eredivisie",
-    "away_days_rest": 7
+    "away_prev": "2026-11-27 UEFA Europa Conference League",
+    "away_days_rest": 2
   },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 06:04 KST",
+  "collected_at": "2026-11-27 14:05 KST",
   "odds_first": {
     "line": 3.5,
     "home": 2.11,

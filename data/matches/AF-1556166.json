@@ -12,12 +12,12 @@
   "away_en": "V-varen Nagasaki",
   "odds": {
     "line": 2.5,
-    "home": 2.66,
+    "home": 2.67,
     "best_home": 2.8,
     "draw": 3.16,
     "best_draw": 3.33,
     "away": 2.48,
-    "best_away": 2.62,
+    "best_away": 2.66,
     "over": 2.0,
     "best_over": 2.08,
     "under": 1.72,
@@ -66,7 +66,7 @@
     "설명": "API-Football 이 이 리그의 결장자 자료를 제공하지 않음 (결장자가 없다는 뜻이 아님), 라인업 미발표"
   },
   "collected_detail": "full",
-  "venue": "Best Denki Stadium",
+  "venue": "K's Denki Stadium Mito",
   "source_ids": {
     "api_football_fixture": 1556166,
     "home_team": 305,
@@ -92,7 +92,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 06:04 KST",
+  "collected_at": "2026-11-27 14:05 KST",
   "odds_first": {
     "line": 2.5,
     "home": 2.67,

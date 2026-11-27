@@ -54,7 +54,7 @@
     "설명": "API-Football 이 이 리그의 결장자 자료를 제공하지 않음 (결장자가 없다는 뜻이 아님), 라인업 미발표"
   },
   "collected_detail": "full",
-  "venue": "Daio Wasabi Stayen",
+  "venue": "Stayen",
   "source_ids": {
     "api_football_fixture": 1558696,
     "home_team": 735,
@@ -71,8 +71,8 @@
     "2024-10-20 헹크 3-2 신트트라위던"
   ],
   "schedule": {
-    "home_prev": "2026-11-22 Jupiler Pro League",
-    "home_days_rest": 7,
+    "home_prev": "2026-11-27 UEFA Europa Conference League",
+    "home_days_rest": 2,
     "away_prev": "2026-11-22 Jupiler Pro League",
     "away_days_rest": 7
   },
@@ -80,5 +80,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 06:04 KST"
+  "collected_at": "2026-11-27 14:05 KST"
 }
