@@ -6,7 +6,8 @@
 //
 // 영상은 GitHub Actions(daily.yml)가 tools/make_shorts_batch.py 로 만들어 'shorts' 브랜치에 올린다.
 const REPO = (env) => env.GH_REPO || "danielyarn87-cloud/aa-";
-const raw = (env, ref, path) => `https://raw.githubusercontent.com/${REPO(env)}/${ref}/${path}`;
+// raw.githubusercontent.com 은 몇 분씩 옛 파일을 줄 수 있어 1분 단위 꼬리표를 붙인다 (새로 만든 쇼츠·썸네일이 바로 보이게)
+const raw = (env, ref, path) => `https://raw.githubusercontent.com/${REPO(env)}/${ref}/${path}?m=${Math.floor(Date.now() / 60000)}`;
 
 const json = (data, status = 200) =>
   new Response(JSON.stringify(data), {
@@ -46,8 +47,15 @@ export async function onRequestGet({ env, params }) {
     const name = String(parts[1]);
     if (!/^[A-Z]{1,5}-\d{1,12}-[0-9a-f]{6,40}(-t\d{1,3})?\.(mp4|jpg)$/.test(name)) return new Response("Not Found", { status: 404 });
     const jpg = name.endsWith(".jpg");
-    const r = await fetch(raw(env, "shorts", name), { cf: { cacheTtl: 3600 } });
-    if (!r.ok) return new Response("영상이 없어요. 경기가 이미 시작됐거나 다시 만들어졌을 수 있어요.", { status: 404 });
+    let r = await fetch(raw(env, "shorts", name), { cf: { cacheTtl: 300 } });
+    if (!r.ok) {   // 그사이 다시 만들어져 이름이 바뀐 경우: 같은 경기의 지금 파일로
+      const idx = await readJson(raw(env, "shorts", "index.json"));
+      const id = name.replace(/-[0-9a-f]{6,40}(-t\d+)?\.(mp4|jpg)$/, "");
+      const it = idx && (idx.items || []).find((x) => x.id === id);
+      const now = it && (jpg ? it.thumb : it.file);
+      if (now && now !== name) r = await fetch(raw(env, "shorts", now), { cf: { cacheTtl: 300 } });
+    }
+    if (!r.ok) return new Response(jpg ? "썸네일이 아직 없어요. 쇼츠 화면을 새로고침해 주세요." : "영상이 없어요. 경기가 이미 시작됐거나 다시 만들어졌을 수 있어요.", { status: 404, headers: { "Content-Type": "text/plain; charset=utf-8" } });
     return new Response(r.body, {
       headers: {
         "Content-Type": jpg ? "image/jpeg" : "video/mp4",
