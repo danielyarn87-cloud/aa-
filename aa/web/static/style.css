@@ -842,3 +842,31 @@ mark.ap-hl{background:#fde047;color:inherit;padding:0 3px;border-radius:3px}
 .sh-video{flex:1 1 100%}
 .sh-video video{display:block;width:min(100%,300px);aspect-ratio:9/16;background:#000;border-radius:10px}
 @media (max-width:400px){.sh-act{width:100%}.sh-act .btn{flex:1 1 auto;justify-content:center;padding:7px 10px}}
+
+/* 이 경기 쇼츠 (경기 화면 위쪽, 초록 판 위) */
+#ytShort{margin-top:18px}
+.ytcard{display:flex;align-items:center;gap:16px;width:100%;max-width:520px;padding:12px;border:1px solid rgba(255,255,255,.28);border-radius:16px;background:rgba(0,0,0,.28);color:var(--chalk);text-align:left;cursor:pointer;font:inherit}
+.ytcard:hover{background:rgba(0,0,0,.4)}
+.ytthumb{position:relative;flex:none;width:72px;aspect-ratio:9/16;border-radius:10px;overflow:hidden;background:var(--pitch) url(/static/logo.svg) center/70% no-repeat}
+.ytthumb img{width:100%;height:100%;object-fit:cover;display:block}
+.ytplay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,.6);color:#fff;display:grid;place-items:center;font-size:14px}
+.yttext{display:flex;flex-direction:column;gap:4px;min-width:0}
+.yttext b{font-size:17px;word-break:keep-all}
+.yttext small{font-size:13px;opacity:.8;word-break:keep-all}
+.yttext .ytch{color:var(--card,#f5c518);opacity:1}
+.ytplayer{width:min(100%,340px);aspect-ratio:9/16;border-radius:14px;overflow:hidden;background:#000}
+.ytplayer iframe{width:100%;height:100%;border:0;display:block}
+.ytlink{display:inline-block;margin-top:8px;color:var(--chalk);font-size:14px}
+
+/* 경기 목록: 오늘의 쇼츠 줄 + ▶ 쇼츠 꼬리표 */
+.tag.yt{background:#dc2626;color:#fff;border-color:#dc2626;font-weight:700;white-space:nowrap}
+.ytstrip{margin:14px 0 6px}
+.ytshead{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.ytshead h2{font-size:20px;margin:0}
+.ytsrow{display:flex;gap:12px;overflow-x:auto;padding:10px 2px 8px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.ytsc{flex:0 0 120px;display:flex;flex-direction:column;gap:5px;text-decoration:none;color:var(--ink);scroll-snap-align:start}
+.ytsc .ytthumb{width:120px}
+.ytst{font-size:13px;font-weight:700;line-height:1.3;word-break:keep-all;display:flex;flex-wrap:wrap;gap:0 4px}
+.ytst>span{white-space:nowrap}
+.ytsc small{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (min-width:880px){.ytsc{flex-basis:132px}.ytsc .ytthumb{width:132px}}

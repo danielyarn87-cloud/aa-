@@ -221,6 +221,7 @@ async function renderList() {
       ${Object.entries(lgCount).sort((a, b) => b[1] - a[1]).map(([n, c]) => `<button class="chip" data-lg="${esc(n)}" aria-pressed="${leagueFilter === n}">${esc(n)} <span class="num">${c}</span></button>`).join('')}</div>` : ''}
     ${MEMBER ? favBarHtml() : ''}
     ${riskLine()}${legendHtml()}
+    ${isRes ? '' : '<div id="ytStrip" class="ytstrip" hidden></div>'}
     ${isRes ? `<div class="ressearch">
         <input type="search" id="rq" placeholder="팀 이름·리그로 검색 (예: 대전, 챔피언스리그)" value="${esc(resQuery)}">
         <input type="date" id="rd" value="${esc(resDate)}" title="날짜">
@@ -253,6 +254,7 @@ async function renderList() {
     draw();
   }
   noticeBar();   // 목록을 다시 그려도 공지 띠 유지
+  if (STATIC && !isRes) mountShortsList(shown);
   view.querySelectorAll('[data-f]').forEach(b => b.onclick = () => { listFilter = b.dataset.f; renderList(); });
   view.querySelectorAll('[data-lg]').forEach(b => b.onclick = () => { leagueFilter = b.dataset.lg; store.set('aa_league', leagueFilter); renderList(); });
   const lt = document.getElementById('lgtoggle');
@@ -616,7 +618,7 @@ function rowHtml(m) {
   if (m.mock) tags.push('<span class="tag wait">모의</span>');
   const hot = both(m.pick_1x2) || both(m.pick_ou);   /* 예측+이득(★) 경기는 줄 전체를 진한 회색으로 */
   const val = !hot && (m.value_alerts || []).length > 0;   /* 이득만 있는 경기는 연분홍 */
-  return `<a class="row${hot ? ' hot' : val ? ' val' : ''}" href="${matchHref(m.id, m.slug)}">${head}<span class="mid">${m.result ? finalSlot(m) : liveSlot(m)}${tri(m.probs, m.pick_1x2)}</span><span class="tags">${tags.join('')}</span></a>`;
+  return `<a class="row${hot ? ' hot' : val ? ' val' : ''}" data-mid="${esc(m.id)}" href="${matchHref(m.id, m.slug)}">${head}<span class="mid">${m.result ? finalSlot(m) : liveSlot(m)}${tri(m.probs, m.pick_1x2)}</span><span class="tags">${tags.join('')}</span></a>`;
 }
 
 /* ---------- 실시간 스코어 ----------
@@ -758,6 +760,55 @@ async function liveTick() {
 }
 
 /* ---------- 경기 상세 ---------- */
+/* 이 경기 쇼츠: RAISE Fulltime 채널 영상 중 제목에 '홈 vs 원정'이 들어간 것 (functions/api/yt.js)
+   처음엔 썸네일만, 누르면 그 자리에서 재생 (유튜브 쿠키는 누르기 전에는 안 생기게 youtube-nocookie) */
+const ytNorm = t => String(t || '').replace(/[\s·.\-_|]/g, '').toLowerCase();
+let YT_P = null, YT_T = 0;
+const ytItems = () => {   /* 채널 최근 영상 목록 (5분 동안 다시 받지 않음) */
+  if (!YT_P || Date.now() - YT_T > 300e3) { YT_T = Date.now(); YT_P = fetch('/api/yt').then(r => r.ok ? r.json() : {items: []}).then(j => j.items || []).catch(() => []); }
+  return YT_P;
+};
+const ytFor = (items, m) => { const k = ytNorm(m.home + 'vs' + m.away); return items.find(x => ytNorm(x.title).includes(k)); };
+const ytThumb = id => `https://i.ytimg.com/vi/${encodeURIComponent(id)}/oardefault.jpg`;
+const ytAuto = id => { try { sessionStorage.setItem('aa_autoplay', id); } catch (e) {} };
+/* 경기 목록: 맨 위 '오늘의 쇼츠' 줄 + 쇼츠 있는 경기 줄에 '▶ 쇼츠' 꼬리표 (누르면 경기 화면에서 바로 재생) */
+async function mountShortsList(matches) {
+  const items = await ytItems(); if (!items.length) return;
+  const found = [];
+  matches.forEach(m => { const v = ytFor(items, m); if (v) found.push({m, v}); });
+  if (!found.length) return;
+  found.forEach(({m}) => {
+    const row = view.querySelector(`a.row[data-mid="${CSS.escape(m.id)}"] .tags`);
+    if (row && !row.querySelector('.tag.yt')) row.insertAdjacentHTML('afterbegin', `<span class="tag yt" data-auto="${esc(m.id)}">▶ 쇼츠</span>`);
+  });
+  const strip = document.getElementById('ytStrip');
+  if (strip) {
+    const list = found.sort((a, b) => (a.v.published < b.v.published ? 1 : -1)).slice(0, 8);
+    strip.innerHTML = `<div class="ytshead"><h2>📺 오늘의 쇼츠</h2><a class="small" href="https://www.youtube.com/@raise-fulltime/shorts" target="_blank" rel="noopener">유튜브 채널 ↗</a></div>
+      <div class="ytsrow">${list.map(({m, v}) => `<a class="ytsc" href="${matchHref(m.id, m.slug)}" data-auto="${esc(m.id)}">
+        <span class="ytthumb"><img src="${ytThumb(v.id)}" alt="" loading="lazy" onerror="this.remove()"><b class="ytplay" aria-hidden="true">▶</b></span>
+        <span class="ytst"><span>${esc(m.home)}</span> <span class="mute">vs</span> <span>${esc(m.away)}</span></span>
+        <small class="mute">${esc(lgName(m))} · ${esc(timeOf(m.kickoff))}</small></a>`).join('')}</div>`;
+    strip.hidden = false;
+  }
+  view.querySelectorAll('[data-auto]').forEach(el => el.addEventListener('click', () => ytAuto(el.dataset.auto)));
+}
+async function mountShort(m) {
+  const box = document.getElementById('ytShort'); if (!box) return;
+  const v = ytFor(await ytItems(), m);
+  if (!v || !document.body.contains(box)) return;
+  box.innerHTML = `<button type="button" class="ytcard" aria-label="이 경기 쇼츠 재생">
+      <span class="ytthumb"><img src="https://i.ytimg.com/vi/${esc(v.id)}/oardefault.jpg" alt="" loading="lazy" onerror="this.remove()"><b class="ytplay" aria-hidden="true">▶</b></span>
+      <span class="yttext"><b>이 경기 쇼츠로 보기</b><small>약 20초 · 분석 요약</small><small class="ytch">▶ RAISE Fulltime 유튜브</small></span>
+    </button>`;
+  const card = box.querySelector('.ytcard');
+  card.onclick = () => {
+    box.innerHTML = `<div class="ytplayer"><iframe src="https://www.youtube-nocookie.com/embed/${esc(v.id)}?autoplay=1&playsinline=1&rel=0" title="${esc(v.title)}" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>
+      <a class="ytlink" href="https://www.youtube.com/shorts/${esc(v.id)}" target="_blank" rel="noopener">유튜브에서 보기 · 구독하기 ↗</a>`;
+  };
+  let auto = ''; try { auto = sessionStorage.getItem('aa_autoplay') || ''; sessionStorage.removeItem('aa_autoplay'); } catch (e) {}
+  if (auto === m.id) { box.scrollIntoView({block: 'center'}); card.click(); }
+}
 async function renderMatch(id) {
   const r = await api('/api/matches/' + encodeURIComponent(id));
   await loadNews();
@@ -838,6 +889,7 @@ async function renderMatch(id) {
       <div class="verdict"><div class="vh"><span>골 수</span><span class="small">${esc(voteText(ou.tally))}</span></div><b class="vb">${ou.pick ? esc(N[ou.pick]) : '판단 보류'}</b></div>
     </div>
     ${pickHist(s)}
+    <div id="ytShort"></div>
   </div></section>
   <section class="band"><div class="wrap">
     ${mock ? '<p class="notice">모의 실행 결과입니다. 실제 AI 분석이 아니라 화면 확인용입니다.</p>' : ''}
@@ -913,6 +965,7 @@ ${MEMBER ? `        <div class="panel"><h2>숨은 기회</h2><p class="lead">${e
     try { await adminPost('/api/admin/settle/' + encodeURIComponent(id), {score: document.getElementById('score').value.trim()}); route(); }
     catch (e) { msg.textContent = e.message; }
   };
+  if (STATIC) mountShort(m);
 }
 
 /* 경기 상세 위쪽 예측 칸: 한 줄에 안 들어가면 글자를 조금씩 줄여 한 줄로 맞춘다 */
