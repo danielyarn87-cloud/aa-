@@ -827,3 +827,18 @@ mark.ap-hl{background:#fde047;color:inherit;padding:0 3px;border-radius:3px}
   .ap-flow .ap-ou{font-size:12px}
   .ap-flow.chg{padding:2px 4px;margin-left:-4px;margin-right:2px}
 }
+
+/* 쇼츠 (운영자) */
+.sh-day{font-size:15px;margin:18px 0 6px;color:var(--mute)}
+.sh-list{list-style:none;margin:0;padding:0}
+.sh-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding:12px 0;border-top:1px solid var(--line)}
+.sh-info{flex:1 1 260px;min-width:0}
+.sh-meta{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:13px;color:var(--mute)}
+.sh-meta>*{white-space:nowrap}
+.sh-teams{display:flex;flex-wrap:wrap;gap:0 6px;font-size:16px;word-break:keep-all}
+.sh-teams>span{white-space:nowrap}
+.sh-act{display:flex;flex-wrap:wrap;gap:8px}
+.sh-act .btn{white-space:nowrap;min-height:38px;padding:7px 14px;font-size:14px;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.sh-video{flex:1 1 100%}
+.sh-video video{display:block;width:min(100%,300px);aspect-ratio:9/16;background:#000;border-radius:10px}
+@media (max-width:400px){.sh-act{width:100%}.sh-act .btn{flex:1 1 auto;justify-content:center;padding:7px 10px}}

@@ -1372,6 +1372,69 @@ async function renderAdmin() {
   if (store.get('aa_admin')) usage();
 }
 
+/* ---------- 쇼츠 (운영자 주소만) ----------
+   고른 리그의 분석 끝난 경기 쇼츠(세로 영상)를 GitHub Actions 가 만들어 둔다 (tools/make_shorts_batch.py).
+   여기서는 리그를 고르고, 영상을 미리 보고 내려받고, 유튜브 제목·설명을 복사한다. */
+const shortTitle = it => `${it.home} vs ${it.away} 승부 예측 | RAISE 분석팀 #shorts`;
+const shortDesc = it => `${it.league} ${it.home} vs ${it.away} (${(it.kickoff || '').slice(5, 16).replace('-', '/')} KST)\nRAISE 분석가 4명의 예측과 확률을 정리했어요.\n\n전체 분석: https://raise-fulltime.com\n\n※ 예측은 참고용이에요. 맹신하지 마세요. 도박 문제 상담 국번 없이 1336\n\n#축구 #${(it.league || '').replace(/\s/g, '')} #축구분석 #shorts`;
+async function renderShorts() {
+  const [L, S] = await Promise.all([api('/api/leagues'), fetch('/api/shorts', {cache: 'no-store'}).then(r => r.ok ? r.json() : Promise.reject(new Error('쇼츠 목록을 불러오지 못했어요 (' + r.status + ')')))]);
+  const items = (S.index && S.index.items) || [];
+  let picked = new Set((S.leagues || []).map(Number));
+  const groups = [...new Set(L.leagues.map(l => l.group))];
+  const byDay = {};
+  items.forEach(it => { const d = (it.kickoff || '').slice(0, 10); (byDay[d] = byDay[d] || []).push(it); });
+  const wd = d => '일월화수목금토'[new Date(d + 'T00:00:00+09:00').getDay()];
+  const row = (it, i) => `<li class="sh-row">
+      <div class="sh-info"><span class="sh-meta"><span class="num">${esc((it.kickoff || '').slice(11, 16))}</span><span>${esc(it.league)}</span></span>
+        <b class="sh-teams"><span>${esc(it.home)}</span> <span class="mute">vs</span> <span>${esc(it.away)}</span></b></div>
+      <div class="sh-act">
+        <button type="button" class="btn ghost" data-play="${i}">미리보기</button>
+        <a class="btn" href="/api/shorts/file/${encodeURIComponent(it.file)}" download="raise-${esc(it.file)}">내려받기 <span class="num small">${(it.bytes / 1048576).toFixed(1)}MB</span></a>
+        <button type="button" class="btn ghost" data-copy="${i}">제목·설명 복사</button>
+      </div>
+      <div class="sh-video" id="shv${i}" hidden></div></li>`;
+  let idx = 0;
+  view.innerHTML = `<section class="band"><div class="wrap"><h1>쇼츠</h1>
+    <p class="lead mute">고른 리그의 분석 끝난 경기(킥오프 3일 안)를 세로 영상으로 자동으로 만들어요. 분석이 실행될 때마다 새로 만들어지고, 킥오프가 지나면 목록에서 빠져요.</p>
+    <div class="panel"><h2>영상 <span class="small mute">${items.length}개 · 만든 시각 ${esc((S.index && S.index.made_at) || '-')}</span></h2>
+      ${items.length ? Object.keys(byDay).sort().map(d => `<h3 class="sh-day">${esc(d.slice(5).replace('-', '/'))} (${wd(d)})</h3><ul class="sh-list">${byDay[d].map(it => row(it, idx++)).join('')}</ul>`).join('')
+        : '<p class="mute">아직 만든 영상이 없어요. 다음 분석이 끝나면 여기에 올라와요.</p>'}
+    </div>
+    <details class="panel"><summary><b>쇼츠 만들 리그</b> <span class="small mute">${picked.size}개 선택</span></summary>
+      <p class="small mute">저장하면 다음 분석 실행부터 적용돼요.</p>
+      ${groups.map(g => `<fieldset class="lgroup"><legend>${esc(g)}</legend><div class="chips">
+        ${L.leagues.filter(l => l.group === g).map(l => `<button type="button" class="chip pickchip" data-sl="${l.id}" aria-pressed="${picked.has(l.id)}">${esc(l.name)}</button>`).join('')}
+      </div></fieldset>`).join('')}
+      <p class="inline"><button class="btn" id="shSave" type="button">리그 저장</button><span id="shMsg" class="small mute" role="status"></span></p>
+    </details>
+    <div class="panel small mute"><b>올리는 방법</b><br>1. 내려받기 → 2. 유튜브 앱에서 쇼츠 올리기 → 3. 음악은 유튜브 안의 무료 음악으로 → 4. '제목·설명 복사'한 글 붙여넣기<br>같은 모양 영상을 하루에 너무 많이 올리면 유튜브가 자동 생성 영상으로 보고 수익 창출을 막을 수 있어요. 큰 경기 위주로 골라 올리세요.</div>
+  </div></section>`;
+  view.querySelectorAll('[data-sl]').forEach(b => b.onclick = () => {
+    const id = +b.dataset.sl; picked.has(id) ? picked.delete(id) : picked.add(id); b.setAttribute('aria-pressed', picked.has(id));
+  });
+  document.getElementById('shSave').onclick = async e => {
+    const msg = document.getElementById('shMsg'); e.target.disabled = true; msg.textContent = '저장 중…';
+    try {
+      const r = await fetch('/api/shorts/leagues', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({leagues: [...picked]})});
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(j.error || '저장 실패 ' + r.status);
+      msg.textContent = `${j.leagues.length}개 리그를 저장했어요. 다음 분석부터 적용돼요.`;
+    } catch (err) { msg.textContent = err.message; }
+    e.target.disabled = false;
+  };
+  view.querySelectorAll('[data-play]').forEach(b => b.onclick = () => {
+    const i = +b.dataset.play, box = document.getElementById('shv' + i), it = items[i];
+    if (box.hidden) { box.innerHTML = `<video controls playsinline preload="metadata" src="/api/shorts/file/${encodeURIComponent(it.file)}"></video>`; box.hidden = false; b.textContent = '닫기'; }
+    else { box.innerHTML = ''; box.hidden = true; b.textContent = '미리보기'; }
+  });
+  view.querySelectorAll('[data-copy]').forEach(b => b.onclick = async () => {
+    const it = items[+b.dataset.copy];
+    try { await navigator.clipboard.writeText(shortTitle(it) + '\n\n' + shortDesc(it)); toast('제목과 설명을 복사했어요. 첫 줄이 제목이에요.'); }
+    catch { toast('복사하지 못했어요. 브라우저가 막았을 수 있어요.'); }
+  });
+}
+
 /* ---------- 길찾기 ---------- */
 const PAGES = ['about', 'terms', 'privacy'];
 const SUBS = /^(about|terms|privacy|help|notice(\/\d+)?)$/;   // 진짜 주소로 열리는 화면 (help 고객센터, notice 공지)
@@ -1391,8 +1454,8 @@ async function route() {
   document.querySelectorAll('[data-nav]').forEach(a => a.classList.toggle('on', a.dataset.nav === navKey));
   if (READONLY) document.querySelectorAll('.admin-link').forEach(a => a.hidden = true);
   if (MEMBER) {   /* 회원 화면: 경기·분석팀·뉴스만. 배팅 게임·인사평가·관리·분석 요청은 운영자 주소에서만 */
-    document.querySelectorAll('[data-nav="bets"],[data-nav="record"],[data-nav="admin"],[data-nav="run"]').forEach(a => a.remove());
-    if (['bets', 'record', 'admin', 'run'].includes(h)) { location.replace('#'); return; }
+    document.querySelectorAll('[data-nav="bets"],[data-nav="record"],[data-nav="admin"],[data-nav="run"],[data-nav="shorts"]').forEach(a => a.remove());
+    if (['bets', 'record', 'admin', 'run', 'shorts'].includes(h)) { location.replace('#'); return; }
     if (!document.querySelector('[data-nav="picks"]')) {
       const a = document.createElement('a'); a.href = '#picks'; a.dataset.nav = 'picks'; a.textContent = '분석가 픽';
       const first = document.querySelector('[data-nav="list"]'); first.after(a);
@@ -1416,6 +1479,7 @@ async function route() {
     else if (/^notice\/\d+$/.test(h)) await renderNotice(+h.split('/')[1]);
     else if (h === 'login-fail') { toast('로그인하지 못했어요. 다시 시도해 주세요.'); location.replace('#'); return; }
     else if (h === 'members') await renderMembers();
+    else if (h === 'shorts' && OPERATOR) await renderShorts();
     else if (h === 'news') await renderNews();
     else if (h === 'admin') await renderAdmin();
     else if (h === 'run' && STATIC) await renderRun();

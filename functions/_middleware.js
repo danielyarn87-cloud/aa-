@@ -15,7 +15,7 @@ const SITES = {
 const MEMBER_HOSTS = new Set(["raise-fulltime.com", "www.raise-fulltime.com"]);
 const MEMBER_ORIGIN = "https://raise-fulltime.com";
 // 회원 주소에서 막는 API: 분석 요청·관리·충전 (화면에서도 숨기지만 주소를 직접 쳐도 안 되게)
-const MEMBER_BLOCK = /^\/api\/(run|admin|topup|members)(\/|$)/;   // members = 회원 관리 (운영자 주소에서만)
+const MEMBER_BLOCK = /^\/api\/(run|admin|topup|members|shorts)(\/|$)/;   // members = 회원 관리 (운영자 주소에서만)
 
 // 안내 페이지(소개·약관·개인정보)는 진짜 주소로도 열린다: 화면은 index.html 하나, app.js 가 주소를 보고 그린다
 const PAGE = /^\/(about|terms|privacy|help|notice(\/\d+)?)\/?$/;   // help = 고객센터, notice = 공지사항
