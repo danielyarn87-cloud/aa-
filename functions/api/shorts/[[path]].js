@@ -44,14 +44,14 @@ export async function onRequestGet({ env, params }) {
   const parts = params.path || [];
   if (parts[0] === "file" && parts[1]) {
     const name = String(parts[1]);
-    if (!/^[A-Z]{1,5}-\d{1,12}-[0-9a-f]{6,40}\.(mp4|jpg)$/.test(name)) return new Response("Not Found", { status: 404 });
+    if (!/^[A-Z]{1,5}-\d{1,12}-[0-9a-f]{6,40}(-t\d{1,3})?\.(mp4|jpg)$/.test(name)) return new Response("Not Found", { status: 404 });
     const jpg = name.endsWith(".jpg");
     const r = await fetch(raw(env, "shorts", name), { cf: { cacheTtl: 3600 } });
     if (!r.ok) return new Response("영상이 없어요. 경기가 이미 시작됐거나 다시 만들어졌을 수 있어요.", { status: 404 });
     return new Response(r.body, {
       headers: {
         "Content-Type": jpg ? "image/jpeg" : "video/mp4",
-        "Content-Disposition": `attachment; filename="raise-${jpg ? name.replace(".jpg", "-thumbnail.jpg") : name}"`,
+        "Content-Disposition": `attachment; filename="raise-${jpg ? name.replace(/(-t\d+)?\.jpg$/, "-thumbnail.jpg") : name}"`,
         "Cache-Control": "private, max-age=300",
       },
     });
