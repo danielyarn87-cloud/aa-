@@ -22,7 +22,7 @@ const esc = v => (SOFTEN ? soften(String(v ?? '')) : String(v ?? '')).replace(/[
 const pct = (x, d = 0) => x == null ? '-' : (x * 100).toFixed(d) + '%';
 /* 기대값을 5,000원당 평균 손익으로: 0.097 → +485원 */
 const OX = h => h === true ? '<span class="ox o">○</span>' : h === false ? '<span class="ox x">✕</span>' : '';
-const rate = (h, n) => n ? `${h}/${n} <b>${Math.round(h / n * 100)}%</b>` : '-';
+const rate = (h, n) => n ? `${h}/${n} <b>${(h / n * 100).toFixed(1)}%</b>` : '-';
 const UNIT = 5000;  /* 우리 배팅 최소 금액: 손익은 5,000원 걸었을 때 기준으로 보여 준다 */
 const won = x => x == null ? '-' : (x >= 0 ? '+' : '−') + Math.abs(Math.round(x * UNIT)).toLocaleString('ko-KR') + '원';
 /* 결과 이름: 팀 이름을 쓴다 */
@@ -353,7 +353,7 @@ function nineChart(kind) {
 function kpiDetail() {
   if (!kpiOpen) return '';
   const byNew = [...KPI_DONE].sort((a, b) => kickMs(b) - kickMs(a));
-  const pct = (h, n) => n ? Math.round(h / n * 100) + '%' : '-';
+  const pct = (h, n) => n ? (h / n * 100).toFixed(1) + '%' : '-';
   const group = (arr, key, hit) => { const g = {}; arr.forEach(x => { const k = key(x); (g[k] = g[k] || [0, 0])[1]++; if (hit(x)) g[k][0]++; }); return Object.entries(g).sort((a, b) => b[1][1] - a[1][1]); };
   const bars = (rows, lab = k => k) => `<div class="kd-bars">${rows.map(([k, [h, n]]) => `<div class="kd-bar"><span class="kd-k">${esc(lab(k))}</span><span class="kd-t"><i style="width:${n ? h / n * 100 : 0}%"></i></span><span class="kd-v num">${h}/${n} · ${pct(h, n)}</span></div>`).join('')}</div>`;
   const N = 8;
@@ -395,7 +395,7 @@ function kpiCards(all, waiting, analyzed, vals, credit, lgInfo) {
   const done = all.filter(m => m.result);
   const p1 = done.filter(m => m.result.hit_1x2 != null), po = done.filter(m => m.result.hit_ou != null);
   const h1 = p1.filter(m => m.result.hit_1x2).length, ho = po.filter(m => m.result.hit_ou).length;
-  const pc = (h, n) => n ? `${Math.round(h / n * 100)}%` : '-';
+  const pc = (h, n) => n ? `${(h / n * 100).toFixed(1)}%` : '-';   /* 적중률은 소수점 첫째 자리까지 */
   /* 이득 적중: 결과가 나온 경기에서 이득 표시(하늘색·★)가 붙었던 선택 하나하나가 맞았는지, 5,000원씩 걸었다면 손익 */
   let vn = 0, vh = 0, vpl = 0;
   done.forEach(m => {
@@ -1071,7 +1071,7 @@ async function renderPicks() {
   const order = Object.keys(PERSONA);
   const mem = [...d.members].sort((a, b) => (order.indexOf(a.id) + 1 || 99) - (order.indexOf(b.id) + 1 || 99));
   const col = (m, i) => (ppl[m.id] && ppl[m.id].color) || PAL[i % PAL.length];
-  const pc = (a, b) => b ? Math.round(a * 100 / b) + '%' : '-';
+  const pc = (a, b) => b ? (a * 100 / b).toFixed(1) + '%' : '-';
   const LAB = {home: '홈 승', draw: '무', away: '원정 승'};
   const oc = (m, k) => m.pick[k] ? `<div class="ap-oc"><span>${LAB[k]} 픽</span><b class="num">${pc(m.pick_hit[k], m.pick[k])}</b><small class="num">${m.pick_hit[k]}/${m.pick[k]}</small></div>`
     : `<div class="ap-oc mute"><span>${LAB[k]} 픽</span><b>-</b><small>고른 적 없음</small></div>`;
