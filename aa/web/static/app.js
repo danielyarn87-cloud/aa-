@@ -1469,8 +1469,8 @@ async function renderShorts() {
         <b class="sh-teams"><span>${esc(it.home)}</span> <span class="mute">vs</span> <span>${esc(it.away)}</span></b></div>
       <div class="sh-act">
         <button type="button" class="btn ghost" data-play="${i}">미리보기</button>
-        <a class="btn" href="/api/shorts/file/${encodeURIComponent(it.file)}" download="raise-${esc(it.file)}">영상 받기 <span class="num small">${(it.bytes / 1048576).toFixed(1)}MB</span></a>
-        ${it.thumb ? `<a class="btn ghost" href="/api/shorts/file/${encodeURIComponent(it.thumb)}" download="raise-${esc(it.thumb)}">썸네일 받기</a>` : ''}
+        <a class="btn" href="/api/shorts/file/${encodeURIComponent(it.file)}" download>🎬 영상 받기 <span class="num small">${(it.bytes / 1048576).toFixed(1)}MB</span></a>
+        ${it.thumb ? `<a class="btn ghost" href="/api/shorts/file/${encodeURIComponent(it.thumb)}" download>🖼 썸네일 받기</a>` : ''}
         <button type="button" class="btn ghost" data-copy="${i}">유튜브 글 복사</button>
         <button type="button" class="btn ghost" data-insta="${i}">인스타 글 복사</button>
         <button type="button" class="btn ghost" data-tags="${i}">태그 복사</button>
