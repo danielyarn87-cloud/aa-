@@ -1,6 +1,22 @@
 {
- "updated": "2026-11-27T09:41:48+09:00",
+ "updated": "2026-11-27T15:41:48+09:00",
  "items": [
+  {
+   "id": "96d98c1b01bd",
+   "category": "injury",
+   "impact": "high",
+   "summary": "라치오의 핵심 미드필더가 부상 우려로 토리노 원정 명단에서 제외됐다.",
+   "title": "Vital Lazio Midfielder Ruled Out of Torino Trip Amid Injury Fears",
+   "source": "Yahoo",
+   "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxQT0JXREprb0g2SmloLU5zNE9RTGNDTG1VX3NfSnpSRVJqcGhwLWI5QWh6VkxfUE9RZ2Y1ZkRyeFZ0TUxrcElhbWxmaXQ1YjJvS3ktMEZJbXlNek9TT2V1cVhUVndFUTl1bFpJYTF5ZVZwM1NjdFl4QURVaTkwSWlxelRQUmdQQS11cmFF?oc=5",
+   "published": "2026-11-27T10:53:00+09:00",
+   "found": "2026-11-27T15:41:48+09:00",
+   "team": "라치오",
+   "team_en": "Lazio",
+   "match_ids": [
+    "AF-1550214"
+   ]
+  },
   {
    "id": "c22fe5ec6927",
    "category": "injury",
@@ -497,6 +513,22 @@
    "team_en": "Melbourne City",
    "match_ids": [
     "AF-1593709"
+   ]
+  },
+  {
+   "id": "93d4fc5e4393",
+   "category": "injury",
+   "impact": "mid",
+   "summary": "이라올라 감독이 브뤼허전 승리 후 리버풀 선수의 부상 우려 상황을 밝혔다.",
+   "title": "Iraola gives update on Liverpool injury worry after beating Brugge",
+   "source": "Yahoo Sports",
+   "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQN2M0NEd4WVkyZ0lOZy00RzlFUWV5c3oxUjZRU3Q5WHBKcXBSazJfczM4YW01NlZMZXNELTN5R3lGcks3dWVtVTF3dE1WZVpXQjZhQWg2bXZianBWVE5BeFd1U1Q1dXhkMlg2Z191UmxSbzA5cXlaUm15MmxKRTNRclAxS2pEODY4ZnN2Z05sOFI0amlnOUE?oc=5",
+   "published": "2026-11-26T08:38:00+09:00",
+   "found": "2026-11-27T15:41:48+09:00",
+   "team": "리버풀",
+   "team_en": "Liverpool",
+   "match_ids": [
+    "AF-1557480"
    ]
   },
   {
@@ -1924,6 +1956,22 @@
    ]
   },
   {
+   "id": "247fe3972bfc",
+   "category": "injury",
+   "impact": "high",
+   "summary": "바르셀로나가 라민 야말이 사바와의 챔피언스리그 경기에 결장한다고 확인했다.",
+   "title": "Barcelona confirm Lamine Yamal out of Champions League tie with Sabah and share injury update",
+   "source": "Yahoo Sports",
+   "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPZ1J2VHZCSG1iQWpZaV81R242RzY4RDR3YThQcWJvS0Y3UXRSb2hVcFo5WmlucE54X2tUcF8yR3lsNFRYQ3FocURrS0FKRXNtODZuLTdrSW1ZcVpsX0g0Nl83MTRrVnRrTy1qSUZ3QmZVMW1kRk5yN0pHUlNpd25VdWI1c000bTVJcjVGVHotd3pvREk?oc=5",
+   "published": "2026-11-23T18:27:49+09:00",
+   "found": "2026-11-27T15:41:48+09:00",
+   "team": "바르셀로나",
+   "team_en": "Barcelona",
+   "match_ids": [
+    "AF-1570465"
+   ]
+  },
+  {
    "id": "bd0bee052f76",
    "category": "injury",
    "impact": "high",
@@ -1953,6 +2001,22 @@
    "team_en": "Aston Villa",
    "match_ids": [
     "AF-1557482"
+   ]
+  },
+  {
+   "id": "4cc52716595b",
+   "category": "injury",
+   "impact": "mid",
+   "summary": "마이클 산체스 감독이 아약스 미드필더 요르티 모키오의 우려되는 부상 상태를 전했다.",
+   "title": "Michel Sanchez Provides Concerning Injury Update On Ajax Midfielder Jorthy Mokio",
+   "source": "roundtable.io",
+   "link": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxQSGp2X2NlSEZWR1M4RDB2TkdhSm1sMndKdVFyY1Z3MFAyTjFXSXFlQmtHY2tRQ21Zc3hORzVWOWY2OHlXS0lnX2FOOEtfcWY2dzYzeWFnQi0wTWFIS0VHZUpwSTVxMzl4SVlWa2VvZThwSUJzNUJKWnh1UE5QM0E1ckdicnFzbE10MTVKV0lUVFJzM2owWU05V3gwUXJkYjQwTmNtMWM1enRCaVJTZFRFZnd0TUxFc0NVeXdSYkRlc3ZiN2xCTjY0VGJHOU14V1drcHFKTEpLakY?oc=5",
+   "published": "2026-11-23T15:32:10+09:00",
+   "found": "2026-11-27T15:41:48+09:00",
+   "team": "아약스",
+   "team_en": "Ajax",
+   "match_ids": [
+    "AF-1552237"
    ]
   },
   {
@@ -2776,6 +2840,22 @@
    "team_en": "Leeds",
    "match_ids": [
     "AF-1557483"
+   ]
+  },
+  {
+   "id": "85cb2ca170a1",
+   "category": "injury",
+   "impact": "high",
+   "summary": "아르테타 감독이 아스널의 부상 악재를 확인했고 살리바와 사카의 상태도 발표됐다.",
+   "title": "Arteta confirms Arsenal injury blow as Saliba and Saka updates issued",
+   "source": "London Evening Standard",
+   "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxPVTM5emZ0dU9EVXQ1OS1NUzdydExmM0JyUG1lRVJwYS0ycHhlSXRkNks3T0taUDFYaHAzUDdiSGtoNU9BaV96a21KNmtNcGZqdVNTR0c4c3lKMXBsNkRzQzRNdXRDb3RnOHUtMnFSSFFqckhvUG1oWnFpNEh6YUZhOWFqTGZYYjZtS0JlaXI5d2tuX1BJa2ZjUnVUWXZHdw?oc=5",
+   "published": "2026-11-20T20:12:57+09:00",
+   "found": "2026-11-27T15:41:48+09:00",
+   "team": "아스널",
+   "team_en": "Arsenal",
+   "match_ids": [
+    "AF-1557477"
    ]
   },
   {
@@ -10047,6 +10127,40 @@
   "https://news.google.com/rss/articles/CBMidEFVX3lxTE1STlBvWWU2NXZJTUh2RnlzUXIyQVpzY0g5emFvWlJDRk1mcnJNWks0eGlvSGxBdnJZSzRnaEtoWUtlQ0ZZS1g3Y3JlVWVXZW9uWUF3RWVqMnlWT2xaUEVTczRkdml6aDlIc09tZXE4UW5fWG9R0gF0QVVfeXFMTVJOUG9ZZTY1dklNSHZGeXNRcjJBWnNjSDl6YW9aUkNGTWZyck1aSzR4aW9IbEF2cllLNGdoS2hZS2VDRllLWDdjcmVVZVdlb25ZQXdFZWoyeVZPbFpQRVNzNGR2aXpoOUhzT21lcThRbl9Yb1E?oc=5": "2026-11-27T12:41:49+09:00",
   "https://news.google.com/rss/articles/CBMibEFVX3lxTE1iRXZLYWpVYmx4QjNESjhZdkRnTjk3N1UzNnYwSUloYkp1dmt4ZWhXVy1mcTI2Y1RWRVJvVWRXQm9sdnhzZHg1QWFUWmdJcjBUR1lHUjg2b1lfVl82N3NjS1UzUlc4MXhobFBaZA?oc=5": "2026-11-27T12:41:49+09:00",
   "https://news.google.com/rss/articles/CBMiUEFVX3lxTE5KaXNHNnNVb25Td1hRSE9MaTdiS1pTWDlDckZoX2pXZktNMmVlX3JOSmNiODdVWVRINnJCOUg3RHdENzd6RlJxX3JwMnJkdjhw?oc=5": "2026-11-27T12:41:49+09:00",
-  "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1rVUZZV0xScnlCdzZvbXpla1daT2UtYXlCakJGMUtpVW1Ec1VLdWphb2pJRHItc3JISks1TFBUMTV4NERsSlNMcGFsNHp5Uml5REpnZHg4UkNMMUZYTUdWag?oc=5": "2026-11-27T12:41:49+09:00"
+  "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1rVUZZV0xScnlCdzZvbXpla1daT2UtYXlCakJGMUtpVW1Ec1VLdWphb2pJRHItc3JISks1TFBUMTV4NERsSlNMcGFsNHp5Uml5REpnZHg4UkNMMUZYTUdWag?oc=5": "2026-11-27T12:41:49+09:00",
+  "https://news.google.com/rss/articles/CBMiggJBVV95cUxPNFhWd0hQazdtTVlWOFNENnhNcWpUclk1bmJmSHpUbXpFeW50dzJtUEVSdkFsUGRGSUJaUGNnUnpPN1lIcHc3YW1lVVF2aXhOdENZU3I2SzlaRE1tT3pPNVpQSU1JTjBuVzVBQmVObm85MVNuTWtpTEFNcVRDUzZTNEF3TklpREh6V3dsVW4wb1JIQzNoRlUxSHpPSzNnRy00Qng1UFhfWlBoRlBQWldxYVBrWnF1MHBGTHEwSlhjZVNkNHZzRG9KY1VJYXZJWUhQT09CdnpZVHRvWTl1NC02T0ktT042Zm02ZVU4bkpBZV91WExtYkFTeWxHTHVSSUY5UlE?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNLXFTckNTX2V6X21vTnFfLVBtOFRybW5hSlZMNllabnVFbjRTZVB1QTd2TkRuaTFZOWFONHhod09ENkM3czljbHFPLWFIdS1pT1k5WktUV1F0LXNZV0xHOWN2RkdCck9KUExreXU2WUluTWtUVVFuckpOaW5oak9SNHpYN1dlS3R2T3ctQmNYUlBsQ1V3eXBwazFvMm1vSHhQcUliazVnUU5lWVhmTkpwMXh1VnBrM1Jx?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMiiwFBVV95cUxQT0JXREprb0g2SmloLU5zNE9RTGNDTG1VX3NfSnpSRVJqcGhwLWI5QWh6VkxfUE9RZ2Y1ZkRyeFZ0TUxrcElhbWxmaXQ1YjJvS3ktMEZJbXlNek9TT2V1cVhUVndFUTl1bFpJYTF5ZVZwM1NjdFl4QURVaTkwSWlxelRQUmdQQS11cmFF?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMi9wFBVV95cUxObW0xUzYyM2x6SEVoY09PdDlYa1RfY3k5TGtjLXplQ0NQVjRhOVhJR2xHc3phdlJhRFJraGJhdE1LMXNqT3NNVXR5MmJUT1NlaU16eGhmY3U4Ql91dUJQSm9aUDJEZnFJd2R3S2Jva3Y3elZvZWRpVFFGNzlCQTVELWljZmRsbVlMcGljR1d4RkJPcXBWcDZPRkx0N1g4dTYycGlEUDdjZmxuUFVTM0h6WDhBZTloWlFjQnExcjVzTVg1UDBSSEN4bDE1Q2JRMi12ZE5JZjd3UTVpTnUwTHRnYzJkSUdaRGl3RnR1WVBXckFsUXBkLXFR?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMi2AFBVV95cUxQSGp2X2NlSEZWR1M4RDB2TkdhSm1sMndKdVFyY1Z3MFAyTjFXSXFlQmtHY2tRQ21Zc3hORzVWOWY2OHlXS0lnX2FOOEtfcWY2dzYzeWFnQi0wTWFIS0VHZUpwSTVxMzl4SVlWa2VvZThwSUJzNUJKWnh1UE5QM0E1ckdicnFzbE10MTVKV0lUVFJzM2owWU05V3gwUXJkYjQwTmNtMWM1enRCaVJTZFRFZnd0TUxFc0NVeXdSYkRlc3ZiN2xCTjY0VGJHOU14V1drcHFKTEpLakY?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMiVkFVX3lxTE5GS3dtOG5CNWlyYTljVmNnRVJGR3FiZm4xakZZTFpjM2E1Y0R5M2hCQU5Jc0JNLTREMjF1b2hrT0otdm9LX3hLWXViWE5hX0JLdTl5RXpR?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMiZkFVX3lxTE9URjRIMWhPOExfMW5wd3QzQzRqTk1JeXBnejFKengzOWZ0NUo2dkxTMXp3VFFpU3l1RXM5bTVsbVVjVkVnS3RjdDkwMXFrSXR0MjdDdDlPVjhqbHlIZU9fZVdMaVp4UQ?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMiakFVX3lxTFBEQS1tNTNHay1LdkZEd2lwY1JRS3VzSjFGRzdPNFpQY01FYlJZcHB3WHBNa0h4bDVlRllmTWJ1OTFsV2dXTHpDMlpCVElpNWJKRTQ4dE1YMjFqTGdFRUNUb0pRU0U4ZV9VVUE?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMinwFBVV95cUxQb0todlBBLXJBYjh3UzhSYmV1SjV5ZXVmRXBJeUtnNTRvb2RPVkRBQ0lESWZ4SVplbTdIdEN4clJ6d0h3X3A5UlJDNlFGRmNlOUZWbzRwRDhrYmxWZEdTdTJ3Skg4ZURta00yX2t0cnpWb2lFcExEY1JyblNoZTBUN2pJNU5zczZpMmpMbXNnQWRxcFlrSUF6VVVUeTZtVzA?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMijwFBVV95cUxQMVdGWVdPQjlnSlVtQTM3eUZ2cVlIZVdYZVdyRUNtZExEV3NWSVQ4RDVNcnloMHhCYVJpeWtkS2JxSzdpN0ZWaEVkYjE3VlNJdE5VeXFxYTV2YW9xWUdWeDZqV1l3enFsNUlYVDVvM0Qza2hicDVhX3JjTXFPRndDc1NGcE1JaklCNGVLcFl0RQ?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBmUUhqYzNhd01ySU84TnlDM28xbC1qLVI2d3QyTVZZREhHV1BaSVpWcEVqNkt2NFNHQ0lKV0JOZXJYSHdPVTlPWk04Q2p3TDNLWVlWeDhaQlVqbjhLd1Rxdw?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMikAFBVV95cUxNM1pZVTR2YXVjWmxvcDFsQXNrbi0yXzhTM0FHT1Y0d3F5Y3R6aU5pUVFDbFdXa3JGYUJfMl9zaUs2dFFTTEhuNFRkb0J1Q25UckVCTmtad2s1dXkxT3U1WXNYYWpKbmxqRVVkTU9BVjF5YWZFel9oQldQQXc0VldjekExWk5hR2R4eENTRXVEWHg?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMingFBVV95cUxPVTM5emZ0dU9EVXQ1OS1NUzdydExmM0JyUG1lRVJwYS0ycHhlSXRkNks3T0taUDFYaHAzUDdiSGtoNU9BaV96a21KNmtNcGZqdVNTR0c4c3lKMXBsNkRzQzRNdXRDb3RnOHUtMnFSSFFqckhvUG1oWnFpNEh6YUZhOWFqTGZYYjZtS0JlaXI5d2tuX1BJa2ZjUnVUWXZHdw?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMilgFBVV95cUxQN2M0NEd4WVkyZ0lOZy00RzlFUWV5c3oxUjZRU3Q5WHBKcXBSazJfczM4YW01NlZMZXNELTN5R3lGcks3dWVtVTF3dE1WZVpXQjZhQWg2bXZianBWVE5BeFd1U1Q1dXhkMlg2Z191UmxSbzA5cXlaUm15MmxKRTNRclAxS2pEODY4ZnN2Z05sOFI0amlnOUE?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMi7gFBVV95cUxPWmdrODRpdmo1bF9Zdm9DQkVrazc3MnA3dk9QdTZoYjJQc1lUWDI5bE9VQ2xTWjZPcTFHYURJaHZvdmMzZ0lyeEdOakJITHRoUms4SzFBSnBpMHlGbk1HbmphUmNiTUh4bmtRek5EZTNEaldYS1lycEVvSE1WcUkxRWpTQVNzdExXcnFrdllXVWpVUXlXbkY1aVBzSl9BMUZJdUR4TlcwTTFGMzJXV2JEZlduYU5qY2tBcU5XV3ZVdFNGX2t4LXhEbTBpVWgtRjhjZEg4aWs0NjZqVy1OelhXLXdoTTY4OHhZVnQwWXZB?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMiekFVX3lxTE5pVVo1ZW9DaXBZYmpyN3dKeVdiMjBvZDFrU21zbDNSd21yZU9FQ1o0dG93cm1JbkJlQTIta1JQSy1FNEN1OFFGcEh1MHViOThxVUhFOW1oU2Fpa1F5Ymp0aXlMMld6WmxXYzlzVWZxazg5a1gyWGhTRjhn?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMif0FVX3lxTFBsRnh4ai1Vby14ZzBDQ2U0X3ZlNDhqOHVWUlZ6Q1A4cGVEd0hJY2xxWmNYRG9wUFh0dEQ3X2lsbjRXVWVpNEczZ2J2UE5NTlRFQmdYNTl1b1lVMldZQmVBQzVROHg1cjB5UUxiSGIwQ2RYbmUwc0U3cEpGREdOQU0?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMipwFBVV95cUxQVHEzcDhUWUg2bk1nZ1U1b25aYkpwV3JlTzFqMnl3RXZOWVZMaG5Rc0poM21GNTJ1V1ZBSnh1M1J0VEN0RkFnTHhYV29KUS00VER6dVpKRkhCR0JvMFUweEJPT3V4S3o4VmVKMjY2QUd1TG5CQ3VBOEl4VzZDZ182UWhVaU9rZzljd21JODhQODdWZkVOdXdSYWk5dHhDLXdpVWhzdFhEMA?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMi5gFBVV95cUxNd0pLZFo5MEtlWW1OMlQ5bHJwNDFTUUJNdzA0eGZldXRvZTJRV2pMSDdyMFFtVVc0MmkxMFNZYlRfMzFIWlEtUjRSdUVoWWk2VUZ4cldRa0FESjg4alMyaGxxZmNZa1RhWjBfTnp6bUtnN1picUpXcXU2YUJyOFY4RGpndnNOZE13RkpoQkU1ekxFbC1Sd0ItcmlNaVUwMnlncVMyaUZ0NUhua3N4ZUdyZ3R5d0NZZXNoUDBjZGZiSnA5c0lIcmIxVHQxd2pLTHVaTC1PckgyeUNSRkRLZVFhVzZ1OENlUQ?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE9POGtKU3RkbnZUN2UtbnVrOFQtMVBCLTRQS0lzVlNiMUhZenJha0s0d2cyYkxUbTNaeHdLY2tEQW9WT3dnMDN1aEY0a3JEWlk3LU5qdEVLNHRpTVBHRXFFUU1CdFp2TkU?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMi7AFBVV95cUxOa3RBYlBMRkx3R2VzY2NlT3ZxRlNYQlRZOWNCQVJqaE13STBvejlVTnU0ZkZSblBmSUlSQ2F5dmROWFZ0REZ1cG9tcnRGaEJUNnlwWWNnbm0wZ3gtSk9pLVRYeW5oWGMwb2VlM0drVEtsYzkyMXlmZFBJMlFacGlTZXZPVG5yN2ZjU1hpWldOSEw0NlRyc0xWUHhnN2tlVFZZQ240YnQyY2IzaW41RVN2RW9lVDc5SDBQcFQ2ajE1Nl9kQmVfQmlnOEVwcUo3Q0J2MWNXNEJRMEdqSEc3UWc3NWdZSGJjZWR2WnFlMQ?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMi4wFBVV95cUxOSmZMc05BMGlpcEF6bHZKRFliYWxEelZHdmZwaGxWYVJiN2FyTnJJU1RHRE5qbm9OLTA5LUZfRHlzYmp5TVNSNkJpQ0k1aS1hTTRNNDliaVZmZW5nOU82RGcxWHcwOExLWUdiZ0J3THZocl81d09uRHMzemU0aGxLLVptSl9hZkVQRnpGNDM3cW1GSmpuZjdDVjJTSXV1dDBOMTBkdlQxZG1ESjJieF92NmlHYXdxT2k3Rmk0YURRclBxYXZ6aTYtdnZpUFpTNi16WEN3N1luajJsZzZtb0phcDBXaw?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMiiAJBVV95cUxNQWN3UDZEMnRIRWVQVmswblhhUVJTc012TkdNUDBrUWltYnNkV1dpU3hnRTVXYXJ4V3YzTkpEM3NUbnhMdEN1cU56WDdrdERKU3RXMzFVWG1ySHdlVVoyYmUwMFp5RExkUXVENXVBSEVRUGRVaUVtcVYwT0NBNEZQakdnQTN4dVdNTDVZWTRhSGR2MkgtemkzSlp4eV9LSnJ4UE1CZC05WG01Nk1fYkdRbGtfUFZ2cWJJeEotWV9CQ1hRZUdjalYtX0dJbC1nbkFQSG9rVU56SHZ4RU5oZlJZVXNLYTQ0a0YtVmtUOHdBMnVTTWtiU1h3dFVubXcyUTRkQXRaLVBHTjk?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMikwFBVV95cUxPZ1J2VHZCSG1iQWpZaV81R242RzY4RDR3YThQcWJvS0Y3UXRSb2hVcFo5WmlucE54X2tUcF8yR3lsNFRYQ3FocURrS0FKRXNtODZuLTdrSW1ZcVpsX0g0Nl83MTRrVnRrTy1qSUZ3QmZVMW1kRk5yN0pHUlNpd25VdWI1c000bTVJcjVGVHotd3pvREk?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPRzBSSUlqcnNfak1QeVRiSm5iUy1WTTRlWERyQmN1SURLaGVUZlN3ajlKN3l4LS03Y1JWYXhheHU4a0RMaURBakpZbVBSZ2RUWGRHRl9oX2NQdmFmY3RMVXAzd1g5eDZVY3lJZGgxRFFBamREVkpxTldqY2hfWlY5VjkxVjFidHhu?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMiswFBVV95cUxOTFRURnRVd0NEWDB4MWdlZVFkZlhaejRMSG13dGtDRTU5RUZWeDdKanE5b0tkQnJRUXlIM25FT01yR3J1Q2lJM0dTSExNS1BVZi05Y2dQR1E0YUFZdm5ucGhTdG5DU2xIaUk0cGZyQzdNMUVVWEN5STFQRjZUbldsMUZYSnljZXBQMnpTLXlpazk5R1E2dkFfd0FvQVRhT0hhTHJ6eUcwU2llaDZuWXczaGw1Yw?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMi4gFBVV95cUxNbmRnT0lkQVFkZVhTQ20zVmd6TUNycFItMFZPRzlyWHFDWE8zSWwycVhhS2pRV3NJUjJWaGdONVdPam05V1lXYW5xN2lSaG5IcGx5YkRpQ2Y1MmgxM3ZlZ2FjRkVqU19oNW5WeGNBRjVWWFQxMUVxZUZhdEVLLWdaS0tqd0plTlF3YU9zUC1qMlFsWGJOVDRFYjFZRERXMkdON0Jud3V4N3hxZXdqb1hCc0VDZ1k2dG9keE1zMXhEd1M4MEI2TDlQRkVDNmI3QjNoSnhONTRwT2ZpQWtJcTlMLV9B?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBsbktzTjRhZF9KVXRicl9DSDZpTkh2U2Z5MThXWThTZDFCa0hmbS1sM2dBNVJnazh4R283Y1BNVEF2MlhyR3VYbHBBcEZCY0NvWmhiUm9SaTNYeXo0RkxXSnN2X0VFeU1f?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMijwFBVV95cUxOSm9OY2NzN2hfdGxmeDUtekNKMTBpb0pqQWpGcktKLXE2SFhfanJBS0ZTWDhjcmVBbURsbnNnV3VpT0pvTFZGMS1uVWNOS3owQXVDYjZSYmphWFRBU0w5YVF0X3FvQWNROUhkal9IazM2eHpGMVR1dC1Dd19VN1E5ZEpIeFEwcVZTSTFwYkhEYw?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMifEFVX3lxTE5pOWlITExwcU5KbUZhMjJfR0tUeVd4aThSdVBFXzhHanFvdnF6enZ0QVRvZ2pESEE4T0lFMHhaekNEY0pXMlFSeDVFU1I5MjNUUzh5ZXQtT1k3SGVlRFlvbEdUVEdvUW81SWJ0YlF3bVB2RUZicUg4ZmVfbHQ?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMigAFBVV95cUxNVS1vc2o3ZnVrSGpWb21RRkc2azdaSGZtNUdFeGRCQkl2OXZ0aDBVSEtVV1dyWHhFSkVUWko1M0pUaE9Jcnd3ZHB1ekNNejVEckh5bU5mSTc0eUEyZWpMMkVGYjdhNUJsZWRTQTNnV2ZyakltdEdJMVVrSmpUellkcA?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNUjZFLTFqRm5CMFpIamQ5RWpjdlQ5ZVNTeS1vTnZKZVZhQ1RiaVpxOFdDWjFXN0NuUklneVlZTEZEcGRyQWZrdy1ncWk2SDB6Q1poY0pPakQtN0NrRmtwdUZIakk0YmVwbFFWeWZ2bFVFVW9fNDVTT0hsY21aS0o0MnFjcnFaT1hVaGZxRUtRblU3dEw4TWRHVkRjOXZKT0FXbC0tei1RSTlwUnNqYmdKZWdCcFhMZ2JuRXlNWVdLa1Y3MmkxamhDRw?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMia0FVX3lxTFBBc1VCWTBSNDBYbkI2bEphNktFNlRJajJiazFrVzdnTGV2SVg3c0s1aC1GZllDVGQ3ajNhMTQ4akc1SVZBMWV0WlkwLUtucEhkbEd3d2dZR1FFQkc3ZkYwYnpENHc5QVdZWm0w?oc=5": "2026-11-27T15:41:48+09:00",
+  "https://news.google.com/rss/articles/CBMiY0FVX3lxTE5NNXJ5SEE5OHRvbkRuZWQ3Ums1YXYtSnplWDVCblBzN1dnS3RRR01qcjFOc1FlNVRnT2VJUlUwN2RHakFmOFZxRzlqem55alBOSUlhTVNVSmtMNVU0QWJKV2F2aw?oc=5": "2026-11-27T15:41:48+09:00"
  }
 }
