@@ -813,3 +813,17 @@ button.kpi-btn[aria-expanded="true"]{border-color:currentColor}
 @media(max-width:400px){.oddsc{font-size:13px}.oddsc th,.oddsc td{padding:6px 3px}.oddsc td.oc-w b{font-size:12px}}
 .oddsc{min-width:0;table-layout:fixed}.oddsc th:first-child{width:28%}
 @media(max-width:400px){.oddsc th:first-child{width:30%}.oddsc{font-size:12.5px}.oddsc th{font-size:11px}}
+/* 바뀐 선택: '바뀜' 글자 대신 형광펜 (칸이 좁아도 줄어들거나 겹치지 않게) */
+.ap-flow{flex:none}
+.ap-flow.chg{background:#fde047;border-radius:6px;padding:3px 6px;margin-left:-6px;margin-right:4px;box-shadow:0 0 0 1px #facc15 inset}
+.ap-flow.chg i{color:#9a3412}
+.ap-flow.chg .ap-pk.first,.ap-flow.chg .ap-ou.first{color:#713f12;border-color:#ca8a04}
+mark.ap-hl{background:#fde047;color:inherit;padding:0 3px;border-radius:3px}
+@media(max-width:600px){.ap-tb td{flex-wrap:wrap;row-gap:4px}}
+@media(max-width:400px){
+  .ap-tb td::before{min-width:3.6em!important}
+  .ap-flow{gap:3px;margin-right:6px}
+  .ap-flow .ap-pk{font-size:12px;padding:2px 6px}
+  .ap-flow .ap-ou{font-size:12px}
+  .ap-flow.chg{padding:2px 4px;margin-left:-4px;margin-right:2px}
+}

@@ -1031,14 +1031,14 @@ async function renderPicks() {
     const fp = x.fp || x.p, fou = x.fou || x.ou, c1 = fp !== x.p, c2 = fou !== x.ou;
     return `<span class="ap-flow${c1 ? ' chg' : ''}"><span class="ap-pk first ${esc(fp)}">${LAB[fp] || '-'}</span><i aria-label="에서">→</i><span class="ap-pk ${esc(x.p)}">${LAB[x.p] || '-'}</span></span>`
       + `<span class="ap-flow ou${c2 ? ' chg' : ''}"><span class="ap-ou first">${ouL(fou)}</span><i aria-label="에서">→</i><span class="ap-ou">${ouL(x.ou)} ${esc(u.line)}</span></span>`
-      + (c1 || c2 ? '<span class="ap-chg">바뀜</span>' : ''); };
+; };
   const rows = up.map(u => `<tr><td data-l="경기" class="ap-mt"><a href="${matchHref(u.id, u.slug)}"><b>${esc(u.home)} vs ${esc(u.away)}</b></a><small>${esc(u.league)} · ${esc(String(u.kickoff).slice(5, 16))}</small></td>
     ${mem.map(m => `<td data-l="${esc(m.name)}">${cell(u, m)}</td>`).join('')}</tr>`).join('');
   parkAd();
   view.innerHTML = `<section class="band"><div class="wrap"><h1>분석가 픽</h1>${MEMBER ? '<p class="risk-line static"><span>적중 기록은 지난 결과일 뿐, 앞으로도 맞는다는 뜻이 아니에요.</span></p>' : ''}
     <p class="lead mute">분석가 넷이 경기마다 각자 고른 결과와, 지금까지 얼마나 맞혔는지입니다. 묶음이 아니라 한 경기씩 채점합니다.</p>
     <div class="ap-grid">${cards}</div>
-    <h2 class="sec">다가오는 경기 · 분석가별 선택</h2><p class="small mute" style="margin:0 0 8px">처음 선택 → 토론을 마친 최종 선택입니다. 토론에서 생각을 바꾼 분석가는 <b>바뀜</b>으로 표시돼요.</p>
+    <h2 class="sec">다가오는 경기 · 분석가별 선택</h2><p class="small mute" style="margin:0 0 8px">처음 선택 → 토론을 마친 최종 선택입니다. 토론에서 바뀐 선택은 <mark class="ap-hl">노란 형광펜</mark>으로 칠해져 있어요.</p>
     ${up.length ? `<div class="scroll"><table class="stack ap-tb"><thead><tr><th>경기</th>${mem.map((m, i) => `<th><span class="dot" style="background:${esc(col(m, i))}"></span>${esc(m.name)}<small>${esc((PERSONA[m.id] || [''])[0])}</small></th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div>`
       : '<p class="empty">분석이 끝난 다가오는 경기가 아직 없습니다.</p>'}
     <div id="ap-adslot"></div>
