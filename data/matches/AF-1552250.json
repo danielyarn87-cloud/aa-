@@ -1,0 +1,106 @@
+{
+  "id": "AF-1552250",
+  "sport": "soccer",
+  "league": "에레디비시 Regular Season - 15",
+  "league_id": 88,
+  "league_name": "에레디비시",
+  "kickoff": "2026-12-05 04:00 KST",
+  "kickoff_iso": "2026-12-05T04:00:00+09:00",
+  "home": "텔스타르",
+  "away": "흐로닝언",
+  "home_en": "Telstar",
+  "away_en": "Groningen",
+  "odds": {
+    "line": 3.5,
+    "home": 2.83,
+    "best_home": 3.25,
+    "draw": 3.62,
+    "best_draw": 3.95,
+    "away": 2.15,
+    "best_away": 2.29,
+    "over": 2.11,
+    "best_over": 2.2,
+    "under": 1.67,
+    "best_under": 1.76,
+    "source": "The Odds API 평균 배당 (승무패 15곳, 언더/오버 7곳 북메이커)",
+    "event_id": "992217cc628328f9d2cd16b8e670ddb1",
+    "sport": "soccer_netherlands_eredivisie"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.821,
+    "away_goals": 2.077
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (7경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.876,
+      "xg_against": 2.653,
+      "raw_goals_for": 1.9,
+      "raw_goals_against": 2.9,
+      "played": 7,
+      "record": "1승 2무 4패",
+      "form": "LLWDL"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 2.492,
+      "xg_against": 2.14,
+      "raw_goals_for": 2.7,
+      "raw_goals_against": 2.3,
+      "played": 6,
+      "record": "2승 2무 2패",
+      "form": "LDLLL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "status": "none",
+    "설명": "API-Football 부상자 목록 기준 보고된 결장자 없음, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "BUKO Stadion",
+  "source_ids": {
+    "api_football_fixture": 1552250,
+    "home_team": 427,
+    "away_team": 202,
+    "league": 88,
+    "season": 2026
+  },
+  "table": "텔스타르 16위 10점 (2승4무7패, 득실 -9) / 흐로닝언 10위 15점 (4승3무6패, 득실 -1)",
+  "head_to_head": [
+    "2026-04-04 텔스타르 0-2 흐로닝언",
+    "2025-09-20 흐로닝언 2-0 텔스타르",
+    "2024-05-03 텔스타르 1-1 흐로닝언",
+    "2023-12-08 흐로닝언 2-0 텔스타르"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-22 Eredivisie",
+    "home_days_rest": 12,
+    "away_prev": "2026-11-22 Eredivisie",
+    "away_days_rest": 12
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-28 06:04 KST",
+  "odds_first": {
+    "line": 3.5,
+    "home": 2.83,
+    "draw": 3.62,
+    "away": 2.15,
+    "over": 2.11,
+    "under": 1.67,
+    "event_id": "992217cc628328f9d2cd16b8e670ddb1",
+    "sport": "soccer_netherlands_eredivisie",
+    "at": "2026-11-28 06:04 KST"
+  }
+}

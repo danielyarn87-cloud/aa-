@@ -46,15 +46,14 @@
   },
   "lineup": {
     "home_absent": [
+      "W. Burger (Rib Injury)",
       "N. De Cat (Knee Injury)",
       "V. Gendrey (Ankle Injury)",
       "A. Hajdari (Foot Injury)",
       "R. Hranac (Knee Injury)",
       "O. Kabak (Red Card)"
     ],
-    "home_doubtful": [
-      "W. Burger (Ribs Injury)"
-    ],
+    "home_doubtful": [],
     "away_absent": [
       "N. Banks (Knee Injury)",
       "J. Gouweleeuw (Thigh Injury)",
@@ -94,5 +93,5 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 22:08 KST"
+  "collected_at": "2026-11-28 06:04 KST"
 }

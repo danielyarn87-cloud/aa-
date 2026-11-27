@@ -12,15 +12,15 @@
   "away_en": "Rennes",
   "odds": {
     "line": 2.5,
-    "home": 2.51,
-    "best_home": 2.67,
-    "draw": 3.56,
+    "home": 2.42,
+    "best_home": 2.6,
+    "draw": 3.6,
     "best_draw": 3.8,
-    "away": 2.6,
-    "best_away": 2.78,
+    "away": 2.7,
+    "best_away": 2.88,
     "over": 1.63,
     "best_over": 1.7,
-    "under": 2.21,
+    "under": 2.22,
     "best_under": 2.33,
     "source": "The Odds API 평균 배당 (승무패 22곳, 언더/오버 11곳 북메이커)",
     "event_id": "71c08940a73e9f42d503449f052a1bdf",
@@ -60,11 +60,10 @@
     "home_absent": [
       "R. Messali (Thigh Injury)"
     ],
-    "home_doubtful": [
-      "M. McKenzie (Hamstring Injury)"
-    ],
+    "home_doubtful": [],
     "away_absent": [
       "M. Camara (Injury)",
+      "C. Cresswell (Loan Agreement)",
       "V. Rongier (Thigh Injury)",
       "A. Thomasson (Red Card)"
     ],
@@ -100,7 +99,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 22:08 KST",
+  "collected_at": "2026-11-28 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 2.51,

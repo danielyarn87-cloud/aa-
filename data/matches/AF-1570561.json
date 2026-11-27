@@ -12,9 +12,9 @@
   "away_en": "Real Madrid",
   "odds": {
     "line": 3.5,
-    "home": 6.3,
+    "home": 6.35,
     "best_home": 7.0,
-    "draw": 5.38,
+    "draw": 5.37,
     "best_draw": 5.9,
     "away": 1.39,
     "best_away": 1.47,
@@ -92,7 +92,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 22:07 KST",
+  "collected_at": "2026-11-28 06:04 KST",
   "odds_first": {
     "line": 3.5,
     "home": 5.97,

@@ -1,0 +1,67 @@
+{
+  "id": "AF-1606800",
+  "sport": "soccer",
+  "league": "J2리그 Regular Season - 21",
+  "league_id": 99,
+  "league_name": "J2리그",
+  "kickoff": "2026-12-05 14:00 KST",
+  "kickoff_iso": "2026-12-05T14:00:00+09:00",
+  "home": "도쿠시마 보르티스",
+  "away": "주빌로 이와타",
+  "home_en": "Tokushima Vortis",
+  "away_en": "Jubilo Iwata",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.384,
+    "away_goals": 1.168
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (9경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.013,
+      "xg_against": 0.959,
+      "raw_goals_for": 0.889,
+      "raw_goals_against": 0.889,
+      "played": 9,
+      "record": "3승 1무 5패"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (10경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.27,
+      "xg_against": 1.242,
+      "raw_goals_for": 1.3,
+      "raw_goals_against": 1.2,
+      "played": 10,
+      "record": "4승 2무 4패"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "status": "skipped",
+    "설명": "호출 절약 수집이라 부상자 목록을 받지 않음"
+  },
+  "collected_detail": "light",
+  "venue": "Pocarisweat Stadium",
+  "source_ids": {
+    "api_football_fixture": 1606800,
+    "home_team": 299,
+    "away_team": 280,
+    "league": 99,
+    "season": 2026
+  },
+  "table": "도쿠시마 보르티스 14위 23점 (7승2무10패, 득실 -4) / 주빌로 이와타 9위 29점 (8승5무6패, 득실 +5)",
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-28 06:04 KST"
+}

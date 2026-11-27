@@ -1,0 +1,69 @@
+{
+  "id": "AF-1647402",
+  "sport": "soccer",
+  "league": "K리그1 Relegation Group - 38",
+  "league_id": 292,
+  "league_name": "K리그1",
+  "kickoff": "2026-12-05 14:00 KST",
+  "kickoff_iso": "2026-12-05T14:00:00+09:00",
+  "home": "FC 안양",
+  "away": "광주 FC",
+  "home_en": "FC Anyang",
+  "away_en": "Gwangju FC",
+  "odds": {
+    "line": 2.5,
+    "note": "The Odds API 에서 이 경기를 찾지 못함 (팀 이름 별칭을 확인하세요)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.227,
+    "away_goals": 1.278
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (17경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.184,
+      "xg_against": 1.642,
+      "raw_goals_for": 1.176,
+      "raw_goals_against": 1.706,
+      "played": 17,
+      "record": "5승 6무 6패"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (17경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.941,
+      "xg_against": 1.984,
+      "raw_goals_for": 0.882,
+      "raw_goals_against": 2.118,
+      "played": 17,
+      "record": "1승 8무 8패"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "status": "skipped",
+    "설명": "호출 절약 수집이라 부상자 목록을 받지 않음"
+  },
+  "collected_detail": "light",
+  "venue": "Anyang Stadium",
+  "source_ids": {
+    "api_football_fixture": 1647402,
+    "home_team": 2748,
+    "away_team": 2759,
+    "league": 292,
+    "season": 2026
+  },
+  "table": "FC 안양 파이널B 8위 47점 (11승14무11패, 득실 -8) / 광주 FC 파이널B 12위 26점 (4승14무18패, 득실 -37)",
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-28 06:04 KST"
+}

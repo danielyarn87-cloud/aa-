@@ -12,12 +12,12 @@
   "away_en": "Cardiff",
   "odds": {
     "line": 3.5,
-    "home": 2.01,
-    "best_home": 2.14,
-    "draw": 3.72,
-    "best_draw": 4.1,
-    "away": 3.22,
-    "best_away": 3.55,
+    "home": 2.08,
+    "best_home": 2.26,
+    "draw": 3.7,
+    "best_draw": 3.97,
+    "away": 3.08,
+    "best_away": 3.45,
     "over": 2.17,
     "best_over": 2.23,
     "under": 1.61,
@@ -105,7 +105,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 22:08 KST",
+  "collected_at": "2026-11-28 06:04 KST",
   "odds_first": {
     "line": 3.5,
     "home": 2.02,

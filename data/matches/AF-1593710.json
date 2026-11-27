@@ -12,11 +12,11 @@
   "away_en": "Auckland",
   "odds": {
     "line": 2.5,
-    "home": 3.58,
+    "home": 3.61,
     "best_home": 3.9,
-    "draw": 3.62,
+    "draw": 3.63,
     "best_draw": 3.81,
-    "away": 1.9,
+    "away": 1.89,
     "best_away": 2.06,
     "over": 1.66,
     "best_over": 1.68,
@@ -28,8 +28,8 @@
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
-    "home_goals": 1.679,
-    "away_goals": 1.036
+    "home_goals": 1.69,
+    "away_goals": 1.0
   },
   "stats": {
     "basis": "venue",
@@ -37,8 +37,8 @@
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
       "설명": "홈 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.407,
-      "xg_against": 1.022,
+      "xg_for": 1.414,
+      "xg_against": 1.0,
       "raw_goals_for": 1.0,
       "raw_goals_against": 1.0,
       "played": 2,
@@ -47,8 +47,8 @@
     },
     "away": {
       "설명": "원정 경기 경기당 득실 (2경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.222,
-      "xg_against": 2.207,
+      "xg_for": 1.2,
+      "xg_against": 2.214,
       "raw_goals_for": 1.5,
       "raw_goals_against": 3.0,
       "played": 2,
@@ -58,10 +58,10 @@
   },
   "lineup": {
     "home_absent": [
-      "L. Becvinovski (International duty)",
+      "L. Becvinovski (International Duty)",
       "N. McCann (Concussion)",
-      "C. McCaskey (International duty)",
-      "O. O'Carroll (International duty)",
+      "C. McCaskey (International Duty)",
+      "O. O'Carroll (International Duty)",
       "T. Sainsbury (Achilles Tendon Injury)"
     ],
     "home_doubtful": [],
@@ -103,7 +103,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 22:09 KST",
+  "collected_at": "2026-11-28 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 3.57,

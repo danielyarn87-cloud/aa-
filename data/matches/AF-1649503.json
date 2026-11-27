@@ -13,16 +13,16 @@
   "odds": {
     "line": 3.5,
     "home": 1.51,
-    "best_home": 1.59,
-    "draw": 4.54,
-    "best_draw": 4.8,
+    "best_home": 1.6,
+    "draw": 4.55,
+    "best_draw": 4.9,
     "away": 5.18,
     "best_away": 6.0,
     "over": 2.06,
     "best_over": 2.2,
     "under": 1.73,
     "best_under": 1.82,
-    "source": "The Odds API 평균 배당 (승무패 22곳, 언더/오버 12곳 북메이커)",
+    "source": "The Odds API 평균 배당 (승무패 23곳, 언더/오버 13곳 북메이커)",
     "event_id": "43752672d246f58267557ef751013fc3",
     "sport": "soccer_usa_mls"
   },
@@ -58,7 +58,7 @@
   },
   "lineup": {
     "home_absent": [
-      "A. Bedoya (Eye injury)",
+      "A. Bedoya (Eye Injury)",
       "A. Blake (Groin Injury)"
     ],
     "home_doubtful": [
@@ -101,7 +101,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 22:09 KST",
+  "collected_at": "2026-11-28 06:04 KST",
   "odds_first": {
     "line": 3.5,
     "home": 1.5,

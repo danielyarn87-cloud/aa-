@@ -12,15 +12,15 @@
   "away_en": "Athletic Club",
   "odds": {
     "line": 2.5,
-    "home": 4.76,
-    "best_home": 5.3,
-    "draw": 3.79,
+    "home": 4.74,
+    "best_home": 5.2,
+    "draw": 3.8,
     "best_draw": 4.0,
     "away": 1.71,
     "best_away": 1.77,
-    "over": 1.84,
+    "over": 1.83,
     "best_over": 1.92,
-    "under": 1.96,
+    "under": 1.97,
     "best_under": 2.1,
     "source": "The Odds API 평균 배당 (승무패 21곳, 언더/오버 15곳 북메이커)",
     "event_id": "33d92dabbd2606dfe9d31058f7b20cc8",
@@ -58,8 +58,7 @@
   },
   "lineup": {
     "home_absent": [
-      "H. Abaida (Personal reasons)",
-      "F. Calero (Muscle Injury)",
+      "H. Abaida (Personal Reasons)",
       "R. Garrido Hierro (Hamstring Injury)",
       "Juani (Inactive)",
       "J. Lobete (Knee Injury)",
@@ -72,10 +71,7 @@
       "M. Sannadi (Muscle Injury)",
       "D. Vivian (Muscle Injury)"
     ],
-    "away_doubtful": [
-      "Y. Berchiche (Injury)",
-      "A. Paredes (Injury)"
-    ],
+    "away_doubtful": [],
     "confirmed": false,
     "status": "listed",
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
@@ -107,7 +103,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 22:07 KST",
+  "collected_at": "2026-11-28 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 4.8,

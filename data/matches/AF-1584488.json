@@ -1,0 +1,107 @@
+{
+  "id": "AF-1584488",
+  "sport": "soccer",
+  "league": "쉬페르리그 Regular Season - 14",
+  "league_id": 203,
+  "league_name": "쉬페르리그",
+  "kickoff": "2026-12-05 02:00 KST",
+  "kickoff_iso": "2026-12-05T02:00:00+09:00",
+  "home": "갈라타사라이",
+  "away": "리제스포르",
+  "home_en": "Galatasaray",
+  "away_en": "Rizespor",
+  "odds": {
+    "line": 3.5,
+    "home": 1.21,
+    "best_home": 1.27,
+    "draw": 6.12,
+    "best_draw": 7.7,
+    "away": 9.49,
+    "best_away": 12.5,
+    "over": 1.75,
+    "best_over": 1.86,
+    "under": 1.97,
+    "best_under": 2.03,
+    "source": "The Odds API 평균 배당 (승무패 13곳, 언더/오버 7곳 북메이커)",
+    "event_id": "1a0b104e0d1de4302de2ed3be2e8f9af",
+    "sport": "soccer_turkey_super_league"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.676,
+    "away_goals": 1.333
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (7경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 2.183,
+      "xg_against": 1.38,
+      "raw_goals_for": 2.4,
+      "raw_goals_against": 1.4,
+      "played": 7,
+      "record": "6승 1무 0패",
+      "form": "WWWWW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (7경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.38,
+      "xg_against": 0.993,
+      "raw_goals_for": 1.4,
+      "raw_goals_against": 0.7,
+      "played": 7,
+      "record": "4승 2무 1패",
+      "form": "LLDWW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "status": "none",
+    "설명": "API-Football 부상자 목록 기준 보고된 결장자 없음, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Rams Park",
+  "source_ids": {
+    "api_football_fixture": 1584488,
+    "home_team": 645,
+    "away_team": 1007,
+    "league": 203,
+    "season": 2026
+  },
+  "table": "갈라타사라이 1위 31점 (10승1무1패, 득실 +13) / 리제스포르 10위 17점 (5승2무5패, 득실 -1)",
+  "head_to_head": [
+    "2026-02-08 리제스포르 0-3 갈라타사라이",
+    "2025-08-30 갈라타사라이 3-1 리제스포르",
+    "2025-02-17 리제스포르 1-2 갈라타사라이",
+    "2024-09-14 갈라타사라이 5-0 리제스포르",
+    "2024-03-08 갈라타사라이 6-2 리제스포르"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-25 UEFA Champions League",
+    "home_days_rest": 9,
+    "away_prev": "2026-11-21 Süper Lig",
+    "away_days_rest": 13
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-28 06:04 KST",
+  "odds_first": {
+    "line": 3.5,
+    "home": 1.21,
+    "draw": 6.12,
+    "away": 9.49,
+    "over": 1.75,
+    "under": 1.97,
+    "event_id": "1a0b104e0d1de4302de2ed3be2e8f9af",
+    "sport": "soccer_turkey_super_league",
+    "at": "2026-11-28 06:04 KST"
+  }
+}

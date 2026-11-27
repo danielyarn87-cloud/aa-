@@ -12,14 +12,14 @@
   "away_en": "Union Berlin",
   "odds": {
     "line": 3.5,
-    "home": 1.46,
-    "best_home": 1.54,
-    "draw": 4.67,
-    "best_draw": 5.0,
-    "away": 6.09,
-    "best_away": 6.8,
+    "home": 1.47,
+    "best_home": 1.52,
+    "draw": 4.65,
+    "best_draw": 4.98,
+    "away": 6.12,
+    "best_away": 7.0,
     "over": 2.32,
-    "best_over": 2.5,
+    "best_over": 2.52,
     "under": 1.59,
     "best_under": 1.66,
     "source": "The Odds API 평균 배당 (승무패 23곳, 언더/오버 10곳 북메이커)",
@@ -59,7 +59,8 @@
   "lineup": {
     "home_absent": [
       "D. Kohr (Foot Injury)",
-      "Silas (Broken shinbone)"
+      "P. Mwene (Injury)",
+      "Silas (Broken Shinbone)"
     ],
     "home_doubtful": [],
     "away_absent": [
@@ -104,7 +105,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 22:08 KST",
+  "collected_at": "2026-11-28 06:04 KST",
   "odds_first": {
     "line": 3.5,
     "home": 1.48,

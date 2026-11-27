@@ -12,16 +12,16 @@
   "away_en": "Daejeon Citizen",
   "odds": {
     "line": 2.5,
-    "home": 2.39,
-    "best_home": 2.66,
+    "home": 2.38,
+    "best_home": 2.6,
     "draw": 3.4,
-    "best_draw": 3.67,
-    "away": 2.6,
-    "best_away": 2.75,
+    "best_draw": 3.68,
+    "away": 2.61,
+    "best_away": 2.76,
     "over": 1.67,
-    "best_over": 1.73,
-    "under": 2.09,
-    "best_under": 2.24,
+    "best_over": 1.74,
+    "under": 2.08,
+    "best_under": 2.2,
     "source": "The Odds API 평균 배당 (승무패 19곳, 언더/오버 12곳 북메이커)",
     "event_id": "457a2a9c7ea2501d26eeecd467e7c5c7",
     "sport": "soccer_korea_kleague1"
@@ -92,7 +92,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 22:08 KST",
+  "collected_at": "2026-11-28 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 2.37,

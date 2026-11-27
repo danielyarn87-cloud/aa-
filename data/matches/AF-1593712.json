@@ -1,0 +1,92 @@
+{
+  "id": "AF-1593712",
+  "sport": "soccer",
+  "league": "A리그 Regular Season - 7",
+  "league_id": 188,
+  "league_name": "A리그",
+  "kickoff": "2026-12-05 17:40 KST",
+  "kickoff_iso": "2026-12-05T17:40:00+09:00",
+  "home": "웨스턴 시드니 원더러스",
+  "away": "퍼스 글로리",
+  "home_en": "Western Sydney Wanderers",
+  "away_en": "Perth Glory",
+  "odds": {
+    "line": 3.5,
+    "home": 1.55,
+    "best_home": 1.6,
+    "draw": 4.2,
+    "best_draw": 4.58,
+    "away": 4.65,
+    "best_away": 5.25,
+    "over": 2.09,
+    "best_over": 2.12,
+    "under": 1.69,
+    "best_under": 1.73,
+    "source": "The Odds API 평균 배당 (승무패 11곳, 언더/오버 3곳 북메이커)",
+    "event_id": "ceb0a94664f262f7ced8bac36a0c1dd2",
+    "sport": "soccer_australia_aleague"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.69,
+    "away_goals": 1.0
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (2경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 2.814,
+      "xg_against": 1.4,
+      "raw_goals_for": 4.5,
+      "raw_goals_against": 2.0,
+      "played": 2,
+      "record": "2승 0무 0패"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (3경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.834,
+      "xg_against": 1.511,
+      "raw_goals_for": 0.667,
+      "raw_goals_against": 1.333,
+      "played": 3,
+      "record": "0승 1무 2패"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "status": "skipped",
+    "설명": "호출 절약 수집이라 부상자 목록을 받지 않음"
+  },
+  "collected_detail": "light",
+  "venue": "CommBank Stadium",
+  "source_ids": {
+    "api_football_fixture": 1593712,
+    "home_team": 939,
+    "away_team": 940,
+    "league": 188,
+    "season": 2026
+  },
+  "table": "웨스턴 시드니 원더러스 3위 8점 (2승2무1패, 득실 +4) / 퍼스 글로리 6위 7점 (2승1무2패, 득실 +3)",
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-28 06:04 KST",
+  "odds_first": {
+    "line": 3.5,
+    "home": 1.55,
+    "draw": 4.2,
+    "away": 4.65,
+    "over": 2.09,
+    "under": 1.69,
+    "event_id": "ceb0a94664f262f7ced8bac36a0c1dd2",
+    "sport": "soccer_australia_aleague",
+    "at": "2026-11-28 06:04 KST"
+  }
+}

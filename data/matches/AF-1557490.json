@@ -86,8 +86,8 @@
     "2024-02-12 크리스털 팰리스 1-3 첼시"
   ],
   "schedule": {
-    "home_prev": "2026-11-22 Premier League",
-    "home_days_rest": 11,
+    "home_prev": "2026-11-28 Premier League",
+    "home_days_rest": 4,
     "away_prev": "2026-11-27 UEFA Europa League",
     "away_days_rest": 5
   },
@@ -95,7 +95,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 22:07 KST",
+  "collected_at": "2026-11-28 06:04 KST",
   "odds_first": {
     "line": 3.5,
     "home": 1.62,

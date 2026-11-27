@@ -1,0 +1,84 @@
+{
+  "id": "AF-1575562",
+  "sport": "soccer",
+  "league": "프리메이라리가 Regular Season - 13",
+  "league_id": 94,
+  "league_name": "프리메이라리가",
+  "kickoff": "2026-12-05 05:15 KST",
+  "kickoff_iso": "2026-12-05T05:15:00+09:00",
+  "home": "스포르팅 CP",
+  "away": "마리티모",
+  "home_en": "Sporting CP",
+  "away_en": "Maritimo",
+  "odds": {
+    "line": 2.5,
+    "note": "The Odds API 에서 이 경기를 찾지 못함 (팀 이름 별칭을 확인하세요)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.265,
+    "away_goals": 1.367
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (6경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.755,
+      "xg_against": 1.256,
+      "raw_goals_for": 2.0,
+      "raw_goals_against": 1.2,
+      "played": 6,
+      "record": "4승 1무 1패",
+      "form": "DWLWW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.138,
+      "xg_against": 1.974,
+      "raw_goals_for": 1.0,
+      "raw_goals_against": 2.4,
+      "played": 5,
+      "record": "1승 1무 3패",
+      "form": "LDLLL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "status": "unsupported",
+    "설명": "API-Football 이 이 리그의 결장자 자료를 제공하지 않음 (결장자가 없다는 뜻이 아님), 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": null,
+  "source_ids": {
+    "api_football_fixture": 1575562,
+    "home_team": 228,
+    "away_team": 214,
+    "league": 94,
+    "season": 2026
+  },
+  "table": "스포르팅 CP 3위 24점 (7승3무1패, 득실 +13) / 마리티모 15위 8점 (2승2무6패, 득실 -12)",
+  "head_to_head": [
+    "2026-10-27 스포르팅 CP 2-1 마리티모",
+    "2023-05-13 스포르팅 CP 2-1 마리티모",
+    "2023-01-08 마리티모 1-0 스포르팅 CP",
+    "2022-12-13 스포르팅 CP 5-0 마리티모",
+    "2022-02-26 마리티모 1-1 스포르팅 CP"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-26 UEFA Champions League",
+    "home_days_rest": 9,
+    "away_prev": "2026-11-22 Taça de Portugal",
+    "away_days_rest": 13
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-28 06:04 KST"
+}

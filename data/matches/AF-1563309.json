@@ -1,0 +1,69 @@
+{
+  "id": "AF-1563309",
+  "sport": "soccer",
+  "league": "챔피언십 Regular Season - 19",
+  "league_id": 40,
+  "league_name": "챔피언십",
+  "kickoff": "2026-12-05 21:30 KST",
+  "kickoff_iso": "2026-12-05T21:30:00+09:00",
+  "home": "왓퍼드",
+  "away": "밀월",
+  "home_en": "Watford",
+  "away_en": "Millwall",
+  "odds": {
+    "line": 2.5,
+    "note": "The Odds API 에서 이 경기를 찾지 못함 (팀 이름 별칭을 확인하세요)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.632,
+    "away_goals": 1.27
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (9경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.158,
+      "xg_against": 1.151,
+      "raw_goals_for": 1.0,
+      "raw_goals_against": 1.111,
+      "played": 9,
+      "record": "4승 2무 3패"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (9경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.068,
+      "xg_against": 2.075,
+      "raw_goals_for": 1.0,
+      "raw_goals_against": 2.222,
+      "played": 9,
+      "record": "2승 1무 6패"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "status": "skipped",
+    "설명": "호출 절약 수집이라 부상자 목록을 받지 않음"
+  },
+  "collected_detail": "light",
+  "venue": "Vicarage Road",
+  "source_ids": {
+    "api_football_fixture": 1563309,
+    "home_team": 38,
+    "away_team": 58,
+    "league": 40,
+    "season": 2026
+  },
+  "table": "왓퍼드 20위 15점 (4승3무10패, 득실 -15) / 밀월 18위 18점 (5승3무9패, 득실 -6)",
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-28 06:04 KST"
+}

@@ -12,13 +12,13 @@
   "away_en": "Tottenham",
   "odds": {
     "line": 2.5,
-    "home": 3.71,
-    "best_home": 3.95,
-    "draw": 3.4,
+    "home": 3.85,
+    "best_home": 4.3,
+    "draw": 3.41,
     "best_draw": 3.7,
-    "away": 2.02,
-    "best_away": 2.12,
-    "over": 1.97,
+    "away": 1.99,
+    "best_away": 2.1,
+    "over": 1.98,
     "best_over": 2.1,
     "under": 1.83,
     "best_under": 1.91,
@@ -60,7 +60,7 @@
     "home_absent": [
       "D. Ballard (Muscle Injury)",
       "B. Brobbey (Muscle Injury)",
-      "K. Danso (Loan agreement)",
+      "K. Danso (Loan Agreement)",
       "H. Diarra (Muscle Injury)",
       "R. Mundle (Knee Injury)",
       "G. Xhaka (Calf Injury)"
@@ -109,7 +109,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 22:07 KST",
+  "collected_at": "2026-11-28 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 3.65,

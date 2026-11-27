@@ -12,17 +12,17 @@
   "away_en": "Galatasaray",
   "odds": {
     "line": 3.5,
-    "home": 1.98,
-    "best_home": 2.18,
-    "draw": 3.71,
+    "home": 2.03,
+    "best_home": 2.22,
+    "draw": 3.67,
     "best_draw": 3.91,
-    "away": 3.19,
-    "best_away": 3.45,
-    "over": 2.11,
-    "best_over": 2.23,
-    "under": 1.65,
-    "best_under": 1.71,
-    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 9곳 북메이커)",
+    "away": 3.11,
+    "best_away": 3.35,
+    "over": 2.12,
+    "best_over": 2.25,
+    "under": 1.64,
+    "best_under": 1.7,
+    "source": "The Odds API 평균 배당 (승무패 19곳, 언더/오버 9곳 북메이커)",
     "event_id": "4106cffbfdc215fb99e5a2e60a1f9f80",
     "sport": "soccer_turkey_super_league"
   },
@@ -58,12 +58,23 @@
   },
   "lineup": {
     "home_absent": [],
-    "home_doubtful": [],
-    "away_absent": [],
-    "away_doubtful": [],
+    "home_doubtful": [
+      "E. Agbadou (Inactive)",
+      "E. Topcu (Injury)"
+    ],
+    "away_absent": [
+      "R. Leao (Muscle Injury)",
+      "V. Osimhen (Knee Injury)",
+      "R. Sallai (Hamstring Injury)"
+    ],
+    "away_doubtful": [
+      "D. Gul (Broken Nose)",
+      "M. Lemina (Injury)",
+      "L. Torreira (Injury)"
+    ],
     "confirmed": false,
-    "status": "none",
-    "설명": "API-Football 부상자 목록 기준 보고된 결장자 없음, 라인업 미발표"
+    "status": "listed",
+    "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
   "collected_detail": "full",
   "venue": "Tupras Stadium",
@@ -92,7 +103,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 22:08 KST",
+  "collected_at": "2026-11-28 06:04 KST",
   "odds_first": {
     "line": 3.5,
     "home": 1.97,

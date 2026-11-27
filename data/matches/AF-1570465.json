@@ -12,17 +12,17 @@
   "away_en": "Barcelona",
   "odds": {
     "line": 3.5,
-    "home": 10.48,
+    "home": 10.37,
     "best_home": 12.5,
-    "draw": 7.08,
-    "best_draw": 8.4,
+    "draw": 7.07,
+    "best_draw": 8.2,
     "away": 1.22,
     "best_away": 1.27,
-    "over": 1.64,
+    "over": 1.63,
     "best_over": 1.74,
-    "under": 2.24,
-    "best_under": 2.4,
-    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 8곳 북메이커)",
+    "under": 2.27,
+    "best_under": 2.42,
+    "source": "The Odds API 평균 배당 (승무패 21곳, 언더/오버 8곳 북메이커)",
     "event_id": "69fc06d019491be2aa1bf69b8f8041e3",
     "sport": "soccer_spain_la_liga"
   },
@@ -62,15 +62,15 @@
     ],
     "home_doubtful": [],
     "away_absent": [
-      "H. Abdelkarim (Muscle Injury)",
       "R. Bardghji (Knee Injury)",
       "A. Christensen (Muscle Injury)",
       "X. Espart (Ankle Injury)",
-      "Lamine Yamal (Ankle Injury)",
-      "F. Lopez (Red Card)",
+      "F. Lopez (Red Card)"
+    ],
+    "away_doubtful": [
+      "M. Bernal (Injury)",
       "Rodri (Calf Injury)"
     ],
-    "away_doubtful": [],
     "confirmed": false,
     "status": "listed",
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
@@ -102,7 +102,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 22:07 KST",
+  "collected_at": "2026-11-28 06:04 KST",
   "odds_first": {
     "line": 3.5,
     "home": 10.25,

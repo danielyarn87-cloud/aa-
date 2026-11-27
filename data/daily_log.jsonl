@@ -31,3 +31,4 @@
 {"at": "2026-11-27 06:03 KST", "settled": 0, "collected": 181, "analyzed": [], "errors": [], "joined": 0, "betting": {"settled": 0, "placed": 0}}
 {"at": "2026-11-27 14:04 KST", "settled": 0, "collected": 181, "analyzed": [], "errors": [], "joined": 0, "betting": {"settled": 0, "placed": 0}}
 {"at": "2026-11-27 22:07 KST", "settled": 0, "collected": 180, "analyzed": ["AF-1649502"], "errors": [], "joined": 0, "betting": {"settled": 0, "placed": 0}}
+{"at": "2026-11-28 06:03 KST", "settled": 1, "collected": 206, "analyzed": [], "errors": [], "joined": 1, "betting": {"settled": 0, "placed": 0}}

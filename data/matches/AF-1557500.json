@@ -1,0 +1,69 @@
+{
+  "id": "AF-1557500",
+  "sport": "soccer",
+  "league": "프리미어리그 Regular Season - 14",
+  "league_id": 39,
+  "league_name": "프리미어리그",
+  "kickoff": "2026-12-05 21:30 KST",
+  "kickoff_iso": "2026-12-05T21:30:00+09:00",
+  "home": "첼시",
+  "away": "리버풀",
+  "home_en": "Chelsea",
+  "away_en": "Liverpool",
+  "odds": {
+    "line": 2.5,
+    "note": "The Odds API 에서 이 경기를 찾지 못함 (팀 이름 별칭을 확인하세요)"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.582,
+    "away_goals": 1.173
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (6경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 2.083,
+      "xg_against": 1.724,
+      "raw_goals_for": 2.333,
+      "raw_goals_against": 2.0,
+      "played": 6,
+      "record": "3승 1무 2패"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (5경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.69,
+      "xg_against": 1.093,
+      "raw_goals_for": 2.0,
+      "raw_goals_against": 0.8,
+      "played": 5,
+      "record": "4승 1무 0패"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "status": "skipped",
+    "설명": "호출 절약 수집이라 부상자 목록을 받지 않음"
+  },
+  "collected_detail": "light",
+  "venue": "Stamford Bridge",
+  "source_ids": {
+    "api_football_fixture": 1557500,
+    "home_team": 49,
+    "away_team": 40,
+    "league": 39,
+    "season": 2026
+  },
+  "table": "첼시 8위 16점 (5승1무5패, 득실 +0) / 리버풀 4위 21점 (6승3무2패, 득실 +8)",
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-28 06:04 KST"
+}

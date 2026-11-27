@@ -1,0 +1,107 @@
+{
+  "id": "AF-1570473",
+  "sport": "soccer",
+  "league": "라리가 Regular Season - 15",
+  "league_id": 140,
+  "league_name": "라리가",
+  "kickoff": "2026-12-05 05:00 KST",
+  "kickoff_iso": "2026-12-05T05:00:00+09:00",
+  "home": "알라베스",
+  "away": "에스파뇰",
+  "home_en": "Alaves",
+  "away_en": "Espanyol",
+  "odds": {
+    "line": 2.5,
+    "home": 1.9,
+    "best_home": 1.98,
+    "draw": 3.42,
+    "best_draw": 3.67,
+    "away": 3.98,
+    "best_away": 4.3,
+    "over": 2.01,
+    "best_over": 2.12,
+    "under": 1.78,
+    "best_under": 1.91,
+    "source": "The Odds API 평균 배당 (승무패 18곳, 언더/오버 12곳 북메이커)",
+    "event_id": "ae879dadcd548f1a496b6751b4d85bff",
+    "sport": "soccer_spain_la_liga"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.597,
+    "away_goals": 1.279
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (7경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.879,
+      "xg_against": 1.084,
+      "raw_goals_for": 2.0,
+      "raw_goals_against": 1.0,
+      "played": 7,
+      "record": "4승 1무 2패",
+      "form": "LDLDW"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (7경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.154,
+      "xg_against": 1.179,
+      "raw_goals_for": 1.1,
+      "raw_goals_against": 1.0,
+      "played": 7,
+      "record": "3승 1무 3패",
+      "form": "LLWDW"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "status": "none",
+    "설명": "API-Football 부상자 목록 기준 보고된 결장자 없음, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Estadio Mendizorrotza",
+  "source_ids": {
+    "api_football_fixture": 1570473,
+    "home_team": 542,
+    "away_team": 540,
+    "league": 140,
+    "season": 2026
+  },
+  "table": "알라베스 9위 16점 (4승4무5패, 득실 +0) / 에스파뇰 11위 15점 (4승3무6패, 득실 +0)",
+  "head_to_head": [
+    "2026-01-30 에스파뇰 1-2 알라베스",
+    "2025-11-02 알라베스 2-1 에스파뇰",
+    "2025-02-22 알라베스 0-1 에스파뇰",
+    "2024-09-14 에스파뇰 3-2 알라베스",
+    "2022-05-11 알라베스 2-1 에스파뇰"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 La Liga",
+    "home_days_rest": 13,
+    "away_prev": "2026-11-21 La Liga",
+    "away_days_rest": 14
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-28 06:04 KST",
+  "odds_first": {
+    "line": 2.5,
+    "home": 1.9,
+    "draw": 3.42,
+    "away": 3.98,
+    "over": 2.01,
+    "under": 1.78,
+    "event_id": "ae879dadcd548f1a496b6751b4d85bff",
+    "sport": "soccer_spain_la_liga",
+    "at": "2026-11-28 06:04 KST"
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "id": "AF-1575239",
+  "sport": "soccer",
+  "league": "분데스리가 Regular Season - 12",
+  "league_id": 78,
+  "league_name": "분데스리가",
+  "kickoff": "2026-12-05 04:30 KST",
+  "kickoff_iso": "2026-12-05T04:30:00+09:00",
+  "home": "바이에른 뮌헨",
+  "away": "파더보른",
+  "home_en": "Bayern München",
+  "away_en": "SC Paderborn 07",
+  "odds": {
+    "line": 4.5,
+    "home": 1.07,
+    "best_home": 1.09,
+    "draw": 12.84,
+    "best_draw": 18.0,
+    "away": 22.33,
+    "best_away": 31.0,
+    "over": 1.99,
+    "best_over": 2.1,
+    "under": 1.78,
+    "best_under": 1.86,
+    "source": "The Odds API 평균 배당 (승무패 17곳, 언더/오버 9곳 북메이커)",
+    "event_id": "4535d59d6670cc8342d5e6b40ce76fb4",
+    "sport": "soccer_germany_bundesliga"
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 2.067,
+    "away_goals": 1.322
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 3.4,
+      "xg_against": 1.121,
+      "raw_goals_for": 4.2,
+      "raw_goals_against": 1.0,
+      "played": 5,
+      "record": "3승 2무 0패",
+      "form": "WWDWD"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (5경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.746,
+      "xg_against": 1.9,
+      "raw_goals_for": 0.4,
+      "raw_goals_against": 1.8,
+      "played": 5,
+      "record": "0승 3무 2패",
+      "form": "DWDDL"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "status": "none",
+    "설명": "API-Football 부상자 목록 기준 보고된 결장자 없음, 라인업 미발표"
+  },
+  "collected_detail": "full",
+  "venue": "Allianz Arena",
+  "source_ids": {
+    "api_football_fixture": 1575239,
+    "home_team": 157,
+    "away_team": 185,
+    "league": 78,
+    "season": 2026
+  },
+  "table": "바이에른 뮌헨 2위 22점 (6승4무0패, 득실 +20) / 파더보른 15위 10점 (2승4무4패, 득실 -7)",
+  "head_to_head": [
+    "2020-02-21 바이에른 뮌헨 3-2 파더보른",
+    "2019-09-28 파더보른 2-3 바이에른 뮌헨",
+    "2018-02-06 파더보른 0-6 바이에른 뮌헨",
+    "2015-02-21 파더보른 0-6 바이에른 뮌헨",
+    "2014-09-23 바이에른 뮌헨 4-0 파더보른"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-26 UEFA Champions League",
+    "home_days_rest": 8,
+    "away_prev": "2026-11-21 Bundesliga",
+    "away_days_rest": 13
+  },
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
+    "The Odds API (배당)"
+  ],
+  "collected_at": "2026-11-28 06:04 KST",
+  "odds_first": {
+    "line": 4.5,
+    "home": 1.07,
+    "draw": 12.84,
+    "away": 22.33,
+    "over": 1.99,
+    "under": 1.78,
+    "event_id": "4535d59d6670cc8342d5e6b40ce76fb4",
+    "sport": "soccer_germany_bundesliga",
+    "at": "2026-11-28 06:04 KST"
+  }
+}

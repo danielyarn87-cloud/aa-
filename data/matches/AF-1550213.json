@@ -12,15 +12,15 @@
   "away_en": "Napoli",
   "odds": {
     "line": 3.5,
-    "home": 4.61,
+    "home": 4.65,
     "best_home": 5.1,
     "draw": 4.2,
     "best_draw": 4.5,
-    "away": 1.65,
+    "away": 1.64,
     "best_away": 1.71,
-    "over": 2.34,
+    "over": 2.33,
     "best_over": 2.43,
-    "under": 1.58,
+    "under": 1.59,
     "best_under": 1.66,
     "source": "The Odds API 평균 배당 (승무패 25곳, 언더/오버 7곳 북메이커)",
     "event_id": "dc63586a1b1d938a461d71bf5b36d982",
@@ -76,7 +76,9 @@
       "A. Meret (Back Injury)",
       "A. Vergara (Injury)"
     ],
-    "away_doubtful": [],
+    "away_doubtful": [
+      "K. De Bruyne (Muscle Injury)"
+    ],
     "confirmed": false,
     "status": "listed",
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
@@ -108,7 +110,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 22:07 KST",
+  "collected_at": "2026-11-28 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 4.6,

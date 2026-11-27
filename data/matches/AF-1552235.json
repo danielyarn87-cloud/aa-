@@ -13,16 +13,16 @@
   "odds": {
     "line": 2.5,
     "home": 2.65,
-    "best_home": 2.88,
-    "draw": 3.57,
+    "best_home": 2.9,
+    "draw": 3.55,
     "best_draw": 3.8,
-    "away": 2.36,
-    "best_away": 2.52,
-    "over": 1.57,
-    "best_over": 1.62,
-    "under": 2.28,
+    "away": 2.37,
+    "best_away": 2.56,
+    "over": 1.59,
+    "best_over": 1.63,
+    "under": 2.25,
     "best_under": 2.35,
-    "source": "The Odds API 평균 배당 (승무패 21곳, 언더/오버 11곳 북메이커)",
+    "source": "The Odds API 평균 배당 (승무패 21곳, 언더/오버 10곳 북메이커)",
     "event_id": "d77c244bd9dd91534c40b863e44cf905",
     "sport": "soccer_netherlands_eredivisie"
   },
@@ -101,7 +101,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 22:08 KST",
+  "collected_at": "2026-11-28 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 2.65,

@@ -12,10 +12,10 @@
   "away_en": "Bayer Leverkusen",
   "odds": {
     "line": 3.5,
-    "home": 2.09,
-    "best_home": 2.19,
+    "home": 2.1,
+    "best_home": 2.2,
     "draw": 3.88,
-    "best_draw": 4.14,
+    "best_draw": 4.12,
     "away": 3.08,
     "best_away": 3.3,
     "over": 2.18,
@@ -101,7 +101,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 22:08 KST",
+  "collected_at": "2026-11-28 06:04 KST",
   "odds_first": {
     "line": 3.5,
     "home": 2.09,

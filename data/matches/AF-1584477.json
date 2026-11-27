@@ -65,7 +65,7 @@
     ],
     "away_absent": [
       "M. Haidara (Muscle Injury)",
-      "A. Jovanovic (Coach's decision)",
+      "A. Jovanovic (Coach's Decision)",
       "B. Petkovic (Hamstring Injury)",
       "Show (Injury)"
     ],
@@ -103,7 +103,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 22:08 KST",
+  "collected_at": "2026-11-28 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 1.85,

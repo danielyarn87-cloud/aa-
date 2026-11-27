@@ -12,12 +12,12 @@
   "away_en": "Newcastle",
   "odds": {
     "line": 3.5,
-    "home": 1.55,
+    "home": 1.54,
     "best_home": 1.61,
-    "draw": 4.44,
-    "best_draw": 4.72,
+    "draw": 4.47,
+    "best_draw": 4.8,
     "away": 5.34,
-    "best_away": 5.8,
+    "best_away": 5.9,
     "over": 2.33,
     "best_over": 2.44,
     "under": 1.59,
@@ -108,7 +108,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 22:07 KST",
+  "collected_at": "2026-11-28 06:04 KST",
   "odds_first": {
     "line": 3.5,
     "home": 1.54,

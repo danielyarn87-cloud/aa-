@@ -12,14 +12,14 @@
   "away_en": "Nashville SC",
   "odds": {
     "line": 3.5,
-    "home": 3.15,
-    "best_home": 3.42,
+    "home": 3.17,
+    "best_home": 3.5,
     "draw": 3.7,
-    "best_draw": 4.0,
+    "best_draw": 4.1,
     "away": 2.05,
     "best_away": 2.2,
     "over": 2.14,
-    "best_over": 2.24,
+    "best_over": 2.26,
     "under": 1.67,
     "best_under": 1.76,
     "source": "The Odds API 평균 배당 (승무패 23곳, 언더/오버 11곳 북메이커)",
@@ -98,7 +98,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 22:09 KST",
+  "collected_at": "2026-11-28 06:04 KST",
   "odds_first": {
     "line": 3.5,
     "home": 3.09,

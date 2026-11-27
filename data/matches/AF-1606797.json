@@ -1,0 +1,67 @@
+{
+  "id": "AF-1606797",
+  "sport": "soccer",
+  "league": "J2리그 Regular Season - 21",
+  "league_id": 99,
+  "league_name": "J2리그",
+  "kickoff": "2026-12-05 14:00 KST",
+  "kickoff_iso": "2026-12-05T14:00:00+09:00",
+  "home": "도치기 시티",
+  "away": "테게바자로 미야자키",
+  "home_en": "Tochigi City",
+  "away_en": "Tegevajaro Miyazaki",
+  "odds": {
+    "line": 2.5
+  },
+  "league_avg": {
+    "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
+    "home_goals": 1.384,
+    "away_goals": 1.168
+  },
+  "stats": {
+    "basis": "venue",
+    "metric": "goals",
+    "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
+    "home": {
+      "설명": "홈 경기 경기당 득실 (10경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.242,
+      "xg_against": 1.808,
+      "raw_goals_for": 1.2,
+      "raw_goals_against": 2.0,
+      "played": 10,
+      "record": "1승 3무 6패"
+    },
+    "away": {
+      "설명": "원정 경기 경기당 득실 (9경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.542,
+      "xg_against": 1.346,
+      "raw_goals_for": 1.667,
+      "raw_goals_against": 1.333,
+      "played": 9,
+      "record": "4승 2무 3패"
+    }
+  },
+  "lineup": {
+    "home_absent": [],
+    "home_doubtful": [],
+    "away_absent": [],
+    "away_doubtful": [],
+    "confirmed": false,
+    "status": "skipped",
+    "설명": "호출 절약 수집이라 부상자 목록을 받지 않음"
+  },
+  "collected_detail": "light",
+  "venue": "City Football Station",
+  "source_ids": {
+    "api_football_fixture": 1606797,
+    "home_team": 7145,
+    "away_team": 10409,
+    "league": 99,
+    "season": 2026
+  },
+  "table": "도치기 시티 19위 16점 (4승4무11패, 득실 -8) / 테게바자로 미야자키 6위 33점 (9승6무4패, 득실 +10)",
+  "sources": [
+    "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
+  ],
+  "collected_at": "2026-11-28 06:04 KST"
+}

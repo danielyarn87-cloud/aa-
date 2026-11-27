@@ -12,8 +12,8 @@
   "away_en": "Monaco",
   "odds": {
     "line": 2.5,
-    "home": 2.33,
-    "best_home": 2.46,
+    "home": 2.34,
+    "best_home": 2.48,
     "draw": 3.34,
     "best_draw": 3.6,
     "away": 2.99,
@@ -64,7 +64,6 @@
       "P. Sulc (Knee Injury)"
     ],
     "home_doubtful": [
-      "M. Bidstrup (Foot Injury)",
       "C. Mata (Muscle Injury)"
     ],
     "away_absent": [
@@ -110,7 +109,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 22:08 KST",
+  "collected_at": "2026-11-28 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 2.33,

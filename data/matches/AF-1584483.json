@@ -12,17 +12,17 @@
   "away_en": "Gençlerbirliği S.K.",
   "odds": {
     "line": 2.5,
-    "home": 1.83,
+    "home": 1.84,
     "best_home": 1.93,
-    "draw": 3.53,
+    "draw": 3.54,
     "best_draw": 3.77,
-    "away": 3.92,
-    "best_away": 4.6,
-    "over": 1.8,
-    "best_over": 1.89,
+    "away": 3.94,
+    "best_away": 4.5,
+    "over": 1.81,
+    "best_over": 1.93,
     "under": 1.93,
     "best_under": 1.99,
-    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 14곳 북메이커)",
+    "source": "The Odds API 평균 배당 (승무패 21곳, 언더/오버 15곳 북메이커)",
     "event_id": "f0f0492939c4f06ff9a4f1b9334d510f",
     "sport": "soccer_turkey_super_league"
   },
@@ -105,7 +105,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 22:08 KST",
+  "collected_at": "2026-11-28 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 1.83,

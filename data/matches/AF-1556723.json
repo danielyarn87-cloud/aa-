@@ -12,11 +12,11 @@
   "away_en": "ST Mirren",
   "odds": {
     "line": 2.5,
-    "home": 2.01,
+    "home": 2.02,
     "best_home": 2.12,
     "draw": 3.28,
     "best_draw": 3.62,
-    "away": 2.92,
+    "away": 2.93,
     "best_away": 3.25,
     "over": 1.69,
     "best_over": 1.72,
@@ -92,7 +92,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 22:08 KST",
+  "collected_at": "2026-11-28 06:04 KST",
   "odds_first": {
     "line": 2.5,
     "home": 2.0,
