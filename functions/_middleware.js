@@ -5,6 +5,8 @@
 //   raise-bet.com, aa-2kp.pages.dev → RAISE 운영자 화면 (검색엔진에 안 뜨게 noindex)
 // 운세·로또 주소로 들어온 요청은 무엇을 치든 그 폴더 안의 파일만 돌려준다.
 // 그래서 RAISE 관리 화면·분석 요청·/api/* 는 두 도메인에서 절대 보이지 않는다.
+import { onRequestGet as matchPage } from "./match/[[path]].js";
+
 const SITES = {
   "raise-lucky.com": "/fortune",
   "www.raise-lucky.com": "/fortune",
@@ -19,6 +21,8 @@ const MEMBER_BLOCK = /^\/api\/(run|admin|topup|members|shorts)(\/|$)/;   // memb
 
 // 안내 페이지(소개·약관·개인정보)는 진짜 주소로도 열린다: 화면은 index.html 하나, app.js 가 주소를 보고 그린다
 const PAGE = /^\/(about|terms|privacy|help|notice(\/\d+)?)\/?$/;   // help = 고객센터, notice = 공지사항
+// 유입 표시 주소 (/yt 쇼츠 · /ig 인스타 · /tt 틱톡): 주소는 그대로 두고 첫 화면 또는 경기 화면을 보여 준다
+const SRC = /^\/(yt|ig|tt)(?:\/(.+?))?\/?$/;
 const page = (ctx, url) => ctx.env.ASSETS.fetch(new Request(new URL("/", url).toString(), {headers: ctx.request.headers}));
 
 async function raise(ctx, url) {
@@ -46,6 +50,12 @@ async function raise(ctx, url) {
     if (MEMBER_BLOCK.test(url.pathname) || (!oddsRefresh && !memberPost && url.pathname.startsWith("/api/") && !["GET", "HEAD"].includes(ctx.request.method)))
       return new Response("Not Found", {status: 404});
     if (isPage) return page(ctx, url);
+    const src = ["GET", "HEAD"].includes(ctx.request.method) && url.pathname.match(SRC);
+    if (src && !src[2]) return page(ctx, url);
+    if (src) {   // /yt/<경기주소> → 경기 화면 (검색엔진에는 canonical 로 /match/ 주소만 알림)
+      const to = new URL("/match/" + src[2], url);
+      return matchPage({...ctx, request: new Request(to.toString(), ctx.request)});
+    }
     return ctx.next();
   }
   // 운영자 주소: 검색엔진에 올리지 않는다

@@ -822,7 +822,7 @@ async function renderMatch(id) {
   const m = r.match, d = r.decision, one = d.one_x_two, ou = d.over_under, s = r.summary;
   if (MEMBER && s.slug) {   // 회원 주소: #m- 로 들어와도 주소창은 진짜 경기 주소로
     const want = '/match/' + encodeURIComponent(s.slug);
-    if (location.pathname !== want && decodeURIComponent(location.pathname) !== '/match/' + s.slug) history.replaceState(null, '', want);
+    if (!SRC_PATH.test(location.pathname) && location.pathname !== want && decodeURIComponent(location.pathname) !== '/match/' + s.slug) history.replaceState(null, '', want);
     document.title = `${m.home} vs ${m.away} 분석 · RAISE`;
     const c = document.querySelector('link[rel=canonical]'); if (c) c.href = location.origin + want;
   }
@@ -1450,7 +1450,7 @@ const krNames = it => krOf(it).map(k => k.name);
 /* 제목: '홈 vs 원정'은 그대로 둔다 (회원 사이트가 이 부분으로 경기를 찾음). 한국 선수 팀이면 앞에 이름 */
 const shortTitle = it => { const k = krNames(it); return `${k.length ? '🇰🇷 ' + k.join('·') + ' 소속팀 | ' : ''}${it.home} vs ${it.away} 승부 예측 | RAISE #shorts`; };
 /* 경기 분석 페이지 주소 (tools/export_static.py match_slug 와 같은 규칙, 한글은 %인코딩 → 설명란에서 끊기지 않게) */
-const shortUrl = it => 'https://raise-fulltime.com/match/' + encodeURIComponent(`${it.home}-vs-${it.away}-${(it.kickoff || '').slice(0, 10)}`.replace(/[^0-9A-Za-z가-힣]+/g, '-').replace(/^-+|-+$/g, ''));
+const shortUrl = it => 'https://raise-fulltime.com/yt/' + encodeURIComponent(`${it.home}-vs-${it.away}-${(it.kickoff || '').slice(0, 10)}`.replace(/[^0-9A-Za-z가-힣]+/g, '-').replace(/^-+|-+$/g, ''));
 const DOMESTIC = /K리그|J1|J2|A리그|AFC/;
 const hTag = t => '#' + String(t || '').replace(/[^0-9A-Za-z가-힣]/g, '');
 const shortTags = it => {
@@ -1467,7 +1467,7 @@ const ytTagList = it => {
   return [...new Set([...k.map(x => x.name), ...k.map(x => x.name + ' 경기'), ...k.map(x => x.team), it.home, it.away, `${it.home} ${it.away}`, lg, DOMESTIC.test(lg) ? '국내축구' : '해외축구', '축구 예측', '승부 예측', 'RAISE'].filter(Boolean))].join(', ');
 };
 const shortDesc = it => `${krNames(it).length ? '🇰🇷 ' + krOf(it).map(k => `${k.name}(${k.team})`).join(' · ') + '\n' : ''}${it.league} · ${(it.kickoff || '').slice(5, 16).replace('-', '/')} KST\n${shortUrl(it)}\n\n※ 예측은 참고용이에요. 도박 문제 상담 1336\n\n${shortTags(it)} #shorts`;
-const instaCap = it => `${krNames(it).length ? '🇰🇷 ' + krNames(it).join('·') + ' 소속팀 경기\n' : ''}${it.home} vs ${it.away} 승부 예측\n${it.league} · ${(it.kickoff || '').slice(5, 16).replace('-', '/')} KST\n\n※ 예측은 참고용이에요. 도박 문제 상담 1336\n\n${shortTags(it)} #릴스`;
+const instaCap = it => `${krNames(it).length ? '🇰🇷 ' + krNames(it).join('·') + ' 소속팀 경기\n' : ''}${it.home} vs ${it.away} 승부 예측\n${it.league} · ${(it.kickoff || '').slice(5, 16).replace('-', '/')} KST\n🔗 분석 전체는 프로필 링크에서\n\n※ 예측은 참고용이에요. 도박 문제 상담 1336\n\n${shortTags(it)} #릴스`;
 async function renderShorts() {
   const [L, S] = await Promise.all([api('/api/leagues'), fetch('/api/shorts', {cache: 'no-store'}).then(r => r.ok ? r.json() : Promise.reject(new Error('쇼츠 목록을 불러오지 못했어요 (' + r.status + ')')))]);
   const items = (S.index && S.index.items) || [];
@@ -1540,7 +1540,13 @@ async function renderShorts() {
 /* ---------- 길찾기 ---------- */
 const PAGES = ['about', 'terms', 'privacy'];
 const SUBS = /^(about|terms|privacy|help|notice(\/\d+)?)$/;   // 진짜 주소로 열리는 화면 (help 고객센터, notice 공지)
-const subPath = () => location.pathname.replace(/^\/+|\/+$/g, '');
+// 유입 표시 주소: /yt·/ig·/tt (쇼츠·릴스·틱톡에서 온 방문을 Web Analytics 경로로 구분). /yt/<경기주소> = 그 경기 화면
+const SRC_PATH = /^\/(yt|ig|tt)(\/|$)/;
+const subPath = () => {
+  const p = location.pathname.replace(/^\/+|\/+$/g, '');
+  const m = p.match(/^(yt|ig|tt)(?:\/(.+))?$/);
+  return m ? (m[2] ? 'match/' + m[2] : '') : p;
+};
 const onSubPage = () => { const p = subPath(); return SUBS.test(p) || p.startsWith('match/'); };   // 첫 주소(/)가 아닌 화면
 /* 회원 주소: 경기 링크는 검색엔진용 진짜 주소(/match/…), 운영자 주소는 지금처럼 #m- */
 const matchHref = (id, slug) => MEMBER && slug ? '/match/' + encodeURIComponent(slug) : '#m-' + encodeURIComponent(id);   // 진짜 주소(/about 등)로도 열리는 안내 페이지 (미들웨어가 index.html 을 돌려줌)
