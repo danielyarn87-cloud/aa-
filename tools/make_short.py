@@ -390,10 +390,8 @@ def scene_end(img, D, t):
     c = prog(t, 0.45)
     sz = fit_size(SITE, "Black", 92, RIGHT - LEFT + 40)
     text(img, SITE, "Black", sz, GOLD, W // 2, 740, c, "c")
-    d = prog(t, 0.7)
-    text(img, "경기 끝나면 적중 결과도 올려요", "Bold", 44, CHALK, W // 2, 900, d, "c")
-    e = prog(t, 1.0)
-    text(img, "▶ 구독하고 다음 경기 예측도 받아보세요", "Bold", 40, GOLD, W // 2, 1040, e, "c")
+    e = prog(t, 0.8)
+    text(img, "▶ 구독하고 다음 경기 예측도 받아보세요", "Bold", 40, GOLD, W // 2, 920, e, "c")
 
 
 SCENES = [

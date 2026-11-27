@@ -23,7 +23,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "tools"))
 import make_short  # noqa: E402
 
-DESIGN = "v3"            # 영상 모양을 바꾸면 올린다 → 전부 다시 만들어짐
+DESIGN = "v4"            # 영상 모양을 바꾸면 올린다 → 전부 다시 만들어짐
 THUMB = "t4"             # 썸네일 모양을 바꾸면 올린다 → 썸네일만 다시 (영상은 그대로)
 AHEAD_HOURS = 72         # 킥오프 3일 안의 경기만
 KST = dt.timezone(dt.timedelta(hours=9))
