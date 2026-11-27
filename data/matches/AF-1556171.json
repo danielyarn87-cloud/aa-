@@ -24,22 +24,24 @@
     "metric": "goals",
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
-      "설명": "홈 경기 경기당 득실 (9경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.717,
-      "xg_against": 1.258,
-      "raw_goals_for": 1.778,
-      "raw_goals_against": 1.222,
-      "played": 9,
-      "record": "6승 0무 3패"
+      "설명": "홈 경기 경기당 득실 (10경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.661,
+      "xg_against": 1.392,
+      "raw_goals_for": 1.7,
+      "raw_goals_against": 1.4,
+      "played": 10,
+      "record": "6승 0무 4패",
+      "form": "WWLDL"
     },
     "away": {
-      "설명": "원정 경기 경기당 득실 (9경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.092,
-      "xg_against": 1.217,
+      "설명": "원정 경기 경기당 득실 (10경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.085,
+      "xg_against": 1.277,
       "raw_goals_for": 1.0,
-      "raw_goals_against": 1.111,
-      "played": 9,
-      "record": "4승 0무 5패"
+      "raw_goals_against": 1.2,
+      "played": 10,
+      "record": "4승 0무 6패",
+      "form": "LWWLL"
     }
   },
   "lineup": {
@@ -48,10 +50,10 @@
     "away_absent": [],
     "away_doubtful": [],
     "confirmed": false,
-    "status": "skipped",
-    "설명": "호출 절약 수집이라 부상자 목록을 받지 않음"
+    "status": "unsupported",
+    "설명": "API-Football 이 이 리그의 결장자 자료를 제공하지 않음 (결장자가 없다는 뜻이 아님), 라인업 미발표"
   },
-  "collected_detail": "light",
+  "collected_detail": "full",
   "venue": "Ajinomoto Stadium",
   "source_ids": {
     "api_football_fixture": 1556171,
@@ -61,9 +63,22 @@
     "season": 2026
   },
   "table": "FC 도쿄 동부 2위 37점 (13승0무5패, 득실 +14) / 가와사키 프론탈레 동부 4위 28점 (10승0무8패, 득실 -2)",
+  "head_to_head": [
+    "2026-05-02 FC 도쿄 2-0 가와사키 프론탈레",
+    "2026-02-21 가와사키 프론탈레 1-2 FC 도쿄",
+    "2025-09-20 가와사키 프론탈레 0-1 FC 도쿄",
+    "2025-03-29 FC 도쿄 0-3 가와사키 프론탈레",
+    "2024-08-11 FC 도쿄 0-3 가와사키 프론탈레"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-25 J1 League",
+    "home_days_rest": 8,
+    "away_prev": "2026-11-25 J1 League",
+    "away_days_rest": 8
+  },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 14:05 KST"
+  "collected_at": "2026-11-27 22:08 KST"
 }

@@ -12,13 +12,13 @@
   "away_en": "Bournemouth",
   "odds": {
     "line": 2.5,
-    "home": 2.73,
+    "home": 2.74,
     "best_home": 2.94,
     "draw": 3.46,
     "best_draw": 3.69,
     "away": 2.48,
     "best_away": 2.61,
-    "over": 1.75,
+    "over": 1.76,
     "best_over": 1.84,
     "under": 2.05,
     "best_under": 2.14,
@@ -101,7 +101,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 14:04 KST",
+  "collected_at": "2026-11-27 22:07 KST",
   "odds_first": {
     "line": 2.5,
     "home": 2.64,

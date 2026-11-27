@@ -12,15 +12,15 @@
   "away_en": "Arsenal",
   "odds": {
     "line": 2.5,
-    "home": 4.23,
+    "home": 4.21,
     "best_home": 4.6,
-    "draw": 3.69,
+    "draw": 3.7,
     "best_draw": 3.94,
     "away": 1.79,
     "best_away": 1.85,
     "over": 1.78,
     "best_over": 1.84,
-    "under": 2.0,
+    "under": 2.01,
     "best_under": 2.12,
     "source": "The Odds API 평균 배당 (승무패 21곳, 언더/오버 14곳 북메이커)",
     "event_id": "5f5235df01a384e23ff224101ff175e1",
@@ -94,7 +94,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 14:04 KST",
+  "collected_at": "2026-11-27 22:07 KST",
   "odds_first": {
     "line": 2.5,
     "home": 4.21,

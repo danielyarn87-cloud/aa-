@@ -12,13 +12,13 @@
   "away_en": "SK Beveren",
   "odds": {
     "line": 2.5,
-    "home": 1.48,
-    "best_home": 1.53,
-    "draw": 4.23,
+    "home": 1.49,
+    "best_home": 1.55,
+    "draw": 4.2,
     "best_draw": 4.6,
-    "away": 5.5,
-    "best_away": 6.4,
-    "over": 1.61,
+    "away": 5.44,
+    "best_away": 6.2,
+    "over": 1.62,
     "best_over": 1.64,
     "under": 2.26,
     "best_under": 2.3,
@@ -92,7 +92,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 14:05 KST",
+  "collected_at": "2026-11-27 22:08 KST",
   "odds_first": {
     "line": 2.5,
     "home": 1.48,

@@ -16,9 +16,9 @@
     "best_home": 1.59,
     "draw": 4.54,
     "best_draw": 4.8,
-    "away": 5.19,
+    "away": 5.18,
     "best_away": 6.0,
-    "over": 2.05,
+    "over": 2.06,
     "best_over": 2.2,
     "under": 1.73,
     "best_under": 1.82,
@@ -101,7 +101,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 14:05 KST",
+  "collected_at": "2026-11-27 22:09 KST",
   "odds_first": {
     "line": 3.5,
     "home": 1.5,

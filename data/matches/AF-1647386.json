@@ -12,12 +12,12 @@
   "away_en": "Gangwon FC",
   "odds": {
     "line": 2.5,
-    "home": 2.43,
-    "best_home": 2.55,
+    "home": 2.42,
+    "best_home": 2.56,
     "draw": 2.97,
-    "best_draw": 3.13,
-    "away": 2.8,
-    "best_away": 3.05,
+    "best_draw": 3.15,
+    "away": 2.83,
+    "best_away": 3.1,
     "over": 2.31,
     "best_over": 2.35,
     "under": 1.53,
@@ -92,7 +92,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 14:05 KST",
+  "collected_at": "2026-11-27 22:08 KST",
   "odds_first": {
     "line": 2.5,
     "home": 2.43,

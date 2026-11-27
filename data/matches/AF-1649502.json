@@ -12,16 +12,16 @@
   "away_en": "St. Louis City",
   "odds": {
     "line": 3.5,
-    "home": 1.64,
-    "best_home": 1.74,
-    "draw": 4.17,
+    "home": 1.6,
+    "best_home": 1.71,
+    "draw": 4.22,
     "best_draw": 4.6,
-    "away": 4.45,
-    "best_away": 4.9,
-    "over": 2.25,
-    "best_over": 2.36,
+    "away": 4.7,
+    "best_away": 5.2,
+    "over": 2.24,
+    "best_over": 2.34,
     "under": 1.61,
-    "best_under": 1.72,
+    "best_under": 1.74,
     "source": "The Odds API 평균 배당 (승무패 23곳, 언더/오버 10곳 북메이커)",
     "event_id": "0ee85d91954383de182d8de87cd2468e",
     "sport": "soccer_usa_mls"
@@ -78,7 +78,7 @@
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
   "collected_detail": "full",
-  "venue": "BMO Stadium",
+  "venue": "Banc of California Stadium",
   "source_ids": {
     "api_football_fixture": 1649502,
     "home_team": 1616,
@@ -104,7 +104,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 14:05 KST",
+  "collected_at": "2026-11-27 22:09 KST",
   "odds_first": {
     "line": 3.5,
     "home": 1.64,

@@ -12,8 +12,8 @@
   "away_en": "AC Milan",
   "odds": {
     "line": 2.5,
-    "home": 4.85,
-    "best_home": 5.4,
+    "home": 4.86,
+    "best_home": 5.6,
     "draw": 3.78,
     "best_draw": 4.03,
     "away": 1.69,
@@ -94,7 +94,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 14:04 KST",
+  "collected_at": "2026-11-27 22:07 KST",
   "odds_first": {
     "line": 2.5,
     "home": 4.8,

@@ -12,9 +12,9 @@
   "away_en": "Celtic",
   "odds": {
     "line": 3.5,
-    "home": 7.09,
+    "home": 7.17,
     "best_home": 8.8,
-    "draw": 4.73,
+    "draw": 4.72,
     "best_draw": 5.5,
     "away": 1.29,
     "best_away": 1.36,
@@ -92,7 +92,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 14:05 KST",
+  "collected_at": "2026-11-27 22:08 KST",
   "odds_first": {
     "line": 3.5,
     "home": 6.94,

@@ -12,13 +12,13 @@
   "away_en": "Lille",
   "odds": {
     "line": 2.5,
-    "home": 3.68,
-    "best_home": 3.9,
-    "draw": 3.39,
+    "home": 3.67,
+    "best_home": 3.88,
+    "draw": 3.37,
     "best_draw": 3.65,
-    "away": 2.01,
-    "best_away": 2.1,
-    "over": 2.03,
+    "away": 2.02,
+    "best_away": 2.12,
+    "over": 2.04,
     "best_over": 2.13,
     "under": 1.76,
     "best_under": 1.84,
@@ -95,7 +95,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 14:04 KST",
+  "collected_at": "2026-11-27 22:08 KST",
   "odds_first": {
     "line": 2.5,
     "home": 3.69,

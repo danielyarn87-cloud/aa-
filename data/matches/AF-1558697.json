@@ -12,13 +12,13 @@
   "away_en": "RAAL La Louvière",
   "odds": {
     "line": 2.5,
-    "home": 1.88,
-    "best_home": 1.98,
+    "home": 1.85,
+    "best_home": 1.96,
     "draw": 3.58,
     "best_draw": 3.8,
-    "away": 3.6,
-    "best_away": 3.95,
-    "over": 1.67,
+    "away": 3.61,
+    "best_away": 3.9,
+    "over": 1.68,
     "best_over": 1.75,
     "under": 2.12,
     "best_under": 2.2,
@@ -89,7 +89,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 14:05 KST",
+  "collected_at": "2026-11-27 22:08 KST",
   "odds_first": {
     "line": 2.5,
     "home": 1.88,

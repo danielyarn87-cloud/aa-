@@ -12,11 +12,11 @@
   "away_en": "Watford",
   "odds": {
     "line": 2.5,
-    "home": 2.19,
-    "best_home": 2.32,
+    "home": 2.21,
+    "best_home": 2.38,
     "draw": 3.3,
     "best_draw": 3.55,
-    "away": 3.14,
+    "away": 3.13,
     "best_away": 3.35,
     "over": 1.9,
     "best_over": 1.99,
@@ -111,7 +111,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 14:04 KST",
+  "collected_at": "2026-11-27 22:08 KST",
   "odds_first": {
     "line": 2.5,
     "home": 2.19,

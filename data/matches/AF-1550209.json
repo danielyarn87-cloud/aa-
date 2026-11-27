@@ -12,16 +12,16 @@
   "away_en": "Juventus",
   "odds": {
     "line": 2.5,
-    "home": 1.95,
-    "best_home": 2.07,
-    "draw": 3.53,
+    "home": 1.96,
+    "best_home": 2.05,
+    "draw": 3.54,
     "best_draw": 3.85,
-    "away": 3.76,
-    "best_away": 4.1,
+    "away": 3.71,
+    "best_away": 4.05,
     "over": 1.78,
     "best_over": 1.88,
     "under": 2.01,
-    "best_under": 2.1,
+    "best_under": 2.08,
     "source": "The Odds API 평균 배당 (승무패 25곳, 언더/오버 17곳 북메이커)",
     "event_id": "3876ad367184af2f8fc04a544fc894aa",
     "sport": "soccer_italy_serie_a"
@@ -105,7 +105,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 14:04 KST",
+  "collected_at": "2026-11-27 22:07 KST",
   "odds_first": {
     "line": 2.5,
     "home": 2.05,

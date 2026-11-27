@@ -12,17 +12,17 @@
   "away_en": "Aston Villa",
   "odds": {
     "line": 3.5,
-    "home": 3.48,
+    "home": 3.49,
     "best_home": 3.75,
     "draw": 3.82,
-    "best_draw": 4.08,
-    "away": 1.97,
+    "best_draw": 4.11,
+    "away": 1.98,
     "best_away": 2.06,
-    "over": 2.34,
+    "over": 2.36,
     "best_over": 2.43,
     "under": 1.57,
     "best_under": 1.66,
-    "source": "The Odds API 평균 배당 (승무패 25곳, 언더/오버 10곳 북메이커)",
+    "source": "The Odds API 평균 배당 (승무패 25곳, 언더/오버 8곳 북메이커)",
     "event_id": "9d23f6ad21946dd258869ebc22236cf0",
     "sport": "soccer_epl"
   },
@@ -98,7 +98,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 14:04 KST",
+  "collected_at": "2026-11-27 22:07 KST",
   "odds_first": {
     "line": 3.5,
     "home": 3.57,

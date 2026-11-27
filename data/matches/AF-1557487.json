@@ -13,14 +13,14 @@
   "odds": {
     "line": 2.5,
     "home": 1.98,
-    "best_home": 2.06,
-    "draw": 3.61,
+    "best_home": 2.04,
+    "draw": 3.62,
     "best_draw": 3.87,
-    "away": 3.52,
+    "away": 3.54,
     "best_away": 3.84,
-    "over": 1.71,
+    "over": 1.7,
     "best_over": 1.78,
-    "under": 2.11,
+    "under": 2.12,
     "best_under": 2.2,
     "source": "The Odds API 평균 배당 (승무패 21곳, 언더/오버 14곳 북메이커)",
     "event_id": "2198fb9aab762e9e1c8c6af4113a1d31",
@@ -95,7 +95,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 14:04 KST",
+  "collected_at": "2026-11-27 22:07 KST",
   "odds_first": {
     "line": 2.5,
     "home": 1.98,

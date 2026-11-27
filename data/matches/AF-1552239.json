@@ -12,16 +12,16 @@
   "away_en": "Twente",
   "odds": {
     "line": 3.5,
-    "home": 3.66,
+    "home": 3.67,
     "best_home": 3.9,
-    "draw": 3.96,
-    "best_draw": 4.4,
+    "draw": 3.93,
+    "best_draw": 4.33,
     "away": 1.8,
     "best_away": 1.89,
     "over": 1.96,
     "best_over": 2.07,
     "under": 1.79,
-    "best_under": 1.88,
+    "best_under": 1.87,
     "source": "The Odds API 평균 배당 (승무패 21곳, 언더/오버 12곳 북메이커)",
     "event_id": "8b09095f4f6b0fe4d90d591fa38daa61",
     "sport": "soccer_netherlands_eredivisie"
@@ -103,7 +103,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 14:05 KST",
+  "collected_at": "2026-11-27 22:08 KST",
   "odds_first": {
     "line": 3.5,
     "home": 3.66,

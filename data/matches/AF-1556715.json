@@ -12,12 +12,12 @@
   "away_en": "Hibernian",
   "odds": {
     "line": 2.5,
-    "home": 2.54,
-    "best_home": 2.68,
-    "draw": 3.38,
+    "home": 2.53,
+    "best_home": 2.7,
+    "draw": 3.41,
     "best_draw": 3.65,
     "away": 2.51,
-    "best_away": 2.61,
+    "best_away": 2.62,
     "over": 1.65,
     "best_over": 1.72,
     "under": 2.13,
@@ -92,7 +92,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 14:05 KST",
+  "collected_at": "2026-11-27 22:08 KST",
   "odds_first": {
     "line": 2.5,
     "home": 2.52,

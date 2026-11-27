@@ -12,13 +12,13 @@
   "away_en": "Anderlecht",
   "odds": {
     "line": 2.5,
-    "home": 3.38,
+    "home": 3.44,
     "best_home": 3.8,
-    "draw": 3.7,
-    "best_draw": 4.12,
+    "draw": 3.67,
+    "best_draw": 4.0,
     "away": 1.9,
     "best_away": 2.0,
-    "over": 1.61,
+    "over": 1.62,
     "best_over": 1.65,
     "under": 2.21,
     "best_under": 2.3,
@@ -92,7 +92,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-27 14:05 KST",
+  "collected_at": "2026-11-27 22:08 KST",
   "odds_first": {
     "line": 2.5,
     "home": 3.46,
