@@ -109,6 +109,18 @@ class Ledger:
                      o.probs["away"], o.over_prob, line, o.pick_1x2, o.pick_ou, o.confidence, int(mock), _now()),
                 )
 
+    def reline(self, run: dict) -> None:
+        """운영자가 기준점을 바꾼 경기: 분석가 기록과 회사 결론의 언더/오버 부분만 새 기준점으로 고친다."""
+        mid, d = run["match"]["id"], run["decision"]
+        with self.db:
+            for o in run.get("initial", []) + run.get("final", []):
+                stage = o.get("stage") or "debate"
+                self.db.execute("UPDATE predictions SET over_prob = ?, pick_ou = ?, line = ? WHERE match_id = ? AND member_id = ? AND stage = ?",
+                                (o["over_prob"], o["pick_ou"], d["line"], mid, o["member_id"], stage))
+            ou = d["over_under"]
+            self.db.execute("UPDATE decisions SET line = ?, over_prob = ?, pick_ou = ?, odds_json = ? WHERE match_id = ?",
+                            (d["line"], ou["probs"]["over"], ou["pick"], json.dumps(run["match"].get("odds") or {}, ensure_ascii=False), mid))
+
     def backfill_from_reports(self, reports_dir: Path) -> int:
         """기록부에 없는 분석 결과(reports/*.json)를 기록부에 다시 넣는다. 기록부를 잃어버려도 복구된다."""
         from types import SimpleNamespace as NS

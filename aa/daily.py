@@ -179,6 +179,14 @@ def run_daily(company: Company, client_factory=None, now: datetime | None = None
     # 0) 기록부에 빠진 분석이 있으면 채워 넣기 (기록부를 새로 만든 경우 등)
     ledger.backfill_from_reports(company.base_dir / "reports")
 
+    # 0-1) 운영자가 바꾼 언더/오버 기준점 반영 (lines.yml 이 놓친 것까지)
+    try:
+        from .lines import reline_all
+
+        reline_all(company, log=log)
+    except Exception as e:
+        summary["errors"].append(f"기준점: {e}")
+
     # 1) 끝난 경기 채점
     try:
         summary["settled"] = sync_results(company, ledger, af_transport=af_transport, log=log)

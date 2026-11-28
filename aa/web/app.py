@@ -76,6 +76,9 @@ def _alerts(run: dict, one: dict, ou: dict, result, policy) -> list:
     return out
 
 
+from ..lines import can_reline, load as load_lines, start_line  # noqa: E402
+
+
 def _summary(run: dict, result: dict | None, policy=None) -> dict:
     d = run["decision"]
     one, ou = d["one_x_two"], d["over_under"]
@@ -98,6 +101,8 @@ def _summary(run: dict, result: dict | None, policy=None) -> dict:
         "engine": run["engine"],
         "mock": "모의" in run["engine"],
         "pick_history": run.get("pick_history", []),
+        "reline": can_reline(run),   # 운영자가 기준점(2.5·3.5·4.5)을 바꿀 수 있는 분석인지 (aa/lines.py)
+        "kickoff_iso": (run["match"].get("data") or {}).get("kickoff_iso"),
     }
     if result:
         res = outcome_of(result["home_goals"], result["away_goals"])
@@ -109,6 +114,21 @@ def _summary(run: dict, result: dict | None, policy=None) -> dict:
             "hit_ou": None if ou["pick"] is None else (ou["pick"] == "over") == (total > d["line"]),
         }
     return out
+
+
+def _suggest_line(m: dict, override) -> float:
+    """분석 전 경기의 기준점 추천: 운영자가 고른 값 → 시장 반반 → 기초 득점 모델."""
+    lam = None
+    try:
+        from ..models import Match
+        from ..sports import get_sport
+
+        mm = Match(id=m["id"], sport=m.get("sport", "soccer"), league=m.get("league", ""), kickoff=m.get("kickoff", ""),
+                   home=m["home"], away=m["away"], odds=m.get("odds") or {}, data=m)
+        lam = get_sport(mm.sport).expected_goals(mm)
+    except Exception:
+        pass
+    return start_line(m.get("odds") or {}, override, lam)
 
 
 def _plan_limit(base: Path, ds: dict):
@@ -206,6 +226,7 @@ def create_app(company: Company) -> Flask:
                 mm = json.loads(mp.read_text(encoding="utf-8"))
                 s["odds_now"], s["odds_first"], s["kickoff_iso"] = mm.get("odds", {}), mm.get("odds_first"), mm.get("kickoff_iso")
             items.append(s)
+        overrides = load_lines(company.base_dir)
         for p in sorted(pending_dir.glob("*.json")) if pending_dir.exists() else []:
             m = json.loads(p.read_text(encoding="utf-8"))
             if m["id"] in analyzed:
@@ -215,6 +236,7 @@ def create_app(company: Company) -> Flask:
                 continue  # 분석하지 못하고 지나간 경기는 숨김
             lid, lname = league_of(company, m)
             items.append({"id": m["id"], "league": m["league"], "league_id": lid, "league_name": lname,
+                          "line": _suggest_line(m, overrides.get(m["id"])),
                           "kickoff": m["kickoff"], "home": ko_name(m["home"]),
                           "away": ko_name(m["away"]), "status": "pending", "odds": m.get("odds", {}),
                           "odds_first": m.get("odds_first"), "kickoff_iso": m.get("kickoff_iso")})

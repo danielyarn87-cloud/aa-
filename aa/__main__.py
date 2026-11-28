@@ -129,6 +129,12 @@ def cmd_sync(company, args) -> None:
     print(f"결과 {n}경기 자동 기록")
 
 
+def cmd_reline(company, args) -> None:
+    from .lines import reline_all
+
+    print(f"기준점 바꾼 경기 {reline_all(company)}개")
+
+
 def cmd_daily(company, args) -> None:
     from .daily import run_daily
     from .llm import MockClient
@@ -230,6 +236,7 @@ def main(argv=None) -> None:
     sub.add_parser("worker", help="정해진 시각마다 자동 실행 (서버 상시 구동용)")
     sub.add_parser("news", help="경기에 영향 줄 뉴스 모으기 (구글 뉴스 + Claude Haiku)")
 
+    sub.add_parser("reline", help="운영자가 바꾼 언더/오버 기준점(data/lines.json)을 분석 결과에 반영")
     w = sub.add_parser("serve", help="웹사이트 실행")
     w.add_argument("--host", default="127.0.0.1")
     w.add_argument("--port", type=int, default=8000)
@@ -239,7 +246,7 @@ def main(argv=None) -> None:
     try:
         {"roster": cmd_roster, "analyze": cmd_analyze, "settle": cmd_settle, "review": cmd_review,
          "collect": cmd_collect, "sync": cmd_sync, "results": cmd_results, "serve": cmd_serve,
-         "daily": cmd_daily, "worker": cmd_worker, "news": cmd_news}[args.cmd](company, args)
+         "daily": cmd_daily, "worker": cmd_worker, "news": cmd_news, "reline": cmd_reline}[args.cmd](company, args)
     finally:  # Claude 를 부른 만큼 비용을 기록 (크레딧 추정 잔액용). 중간에 실패해도 쓴 만큼은 남긴다
         from .credit import flush
 

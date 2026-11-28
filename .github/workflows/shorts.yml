@@ -1,11 +1,11 @@
-# 쇼츠 만들기: '매일 분석'이 끝나면 자동으로 돈다 (Actions 탭에서 바로 돌릴 수도 있음).
+# 쇼츠 만들기: '매일 분석'·'기준점 적용'이 끝나면 자동으로 돈다 (Actions 탭에서 바로 돌릴 수도 있음).
 # 고른 리그(data/shorts.json)의 분석 끝난 예정 경기를 세로 영상으로 만들어 'shorts' 브랜치에 올린다.
 # 운영자 사이트 '쇼츠' 화면(functions/api/shorts)이 여기서 받아 간다. Claude 비용 없음.
 name: 쇼츠 만들기
 
 on:
   workflow_run:
-    workflows: ["매일 분석"]
+    workflows: ["매일 분석", "기준점 적용"]   # 기준점이 바뀌면 그 경기 쇼츠도 다시 (요약이 바뀌면 파일 이름이 바뀜)
     types: [completed]
   workflow_dispatch:
 

@@ -70,10 +70,11 @@ class OddsApi:
                 return e
         return None
 
+    LINES = (2.5, 3.5, 4.5)   # 사이트에서 고를 수 있는 기준점 (11/28: 1.5 는 쓰지 않음)
+
     @staticmethod
-    def main_line(event: dict, fallback: float = 2.5) -> float:
-        """언더/오버 기준점: 가장 많은 북메이커가 내놓은 기준점 (경기마다 다르다, 예: 2.5 / 3.5).
-        0.25 단위(아시안) 기준점은 빼고 x.5 만 본다. 같으면 오버·언더 배당이 가장 비슷한(반반에 가까운) 쪽."""
+    def totals_by_line(event: dict) -> dict[float, list[tuple[float, float]]]:
+        """기준점별 (오버, 언더) 배당 목록. 0.25 단위(아시안) 기준점은 빼고 x.5 만."""
         books: dict[float, list[tuple[float, float]]] = {}
         for b in event.get("bookmakers", []):
             for m in b.get("markets", []):
@@ -88,15 +89,25 @@ class OddsApi:
                 for pt, pr in by_pt.items():
                     if "over" in pr and "under" in pr:
                         books.setdefault(pt, []).append((pr["over"], pr["under"]))
+        return books
+
+    @staticmethod
+    def main_line(event: dict, fallback: float = 2.5) -> float:
+        """언더/오버 기준점: 2.5·3.5·4.5 중 오버·언더 배당이 가장 비슷한(반반에 가까운) 기준점.
+        예전(11/28 전)엔 '북메이커 수가 가장 많은 기준점'이라 거의 다 2.5 였다 (대부분 2.5 를 기본으로 냄).
+        북메이커가 너무 적은 기준점(가장 많은 곳의 절반 미만)은 빼서 한두 곳의 튀는 배당에 끌려가지 않게 한다."""
+        books = {pt: rows for pt, rows in OddsApi.totals_by_line(event).items() if pt in OddsApi.LINES}
         if not books:
             return fallback
+        most = max(len(r) for r in books.values())
+        cand = [pt for pt, r in books.items() if len(r) * 2 >= most]
 
         def score(pt):
             rows = books[pt]
             gap = abs(sum(o for o, _ in rows) / len(rows) - sum(u for _, u in rows) / len(rows))
-            return (-len(rows), gap)
+            return (gap, -len(rows))
 
-        return min(books, key=score)
+        return min(cand, key=score)
 
     @staticmethod
     def consensus(event: dict, line: float | None = None, fallback_line: float = 2.5) -> dict:
@@ -128,5 +139,11 @@ class OddsApi:
                 if rows:
                     out[k] = round(sum(r[k] for r in rows) / len(rows), 2)
                     out[f"best_{k}"] = max(r[k] for r in rows)
+        # 2.5·3.5·4.5 기준점별 평균 배당: 운영자가 기준점을 바꾸면 다시 받지 않고 이 배당을 쓴다
+        allt = OddsApi.totals_by_line(event)
+        totals = {str(pt): {"over": round(sum(o for o, _ in r) / len(r), 2), "under": round(sum(u for _, u in r) / len(r), 2)}
+                  for pt, r in allt.items() if pt in OddsApi.LINES and r}
+        if totals:
+            out["totals"] = totals
         out["source"] = f"The Odds API 평균 배당 (승무패 {len(h2h)}곳, 언더/오버 {len(tot)}곳 북메이커)"
         return out

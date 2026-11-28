@@ -911,6 +911,7 @@ async function renderMatch(id) {
         <div class="ladder">${ladder}</div>
         <h3 style="margin-top:28px">${Math.ceil(Number(d.line))}골 이상 나올 가능성 (오버)</h3>
         <div class="ou">${ouRows}<span></span><div class="axis"><span>골 적게</span><span>50%</span><span>골 많이</span></div></div>
+        ${!MEMBER && STATIC ? lineBox(m, d, s) : ''}
       </div>
       <div>
 ${MEMBER ? `        <div class="panel"><h2>숨은 기회</h2><p class="lead">${esc(mLead)}</p>
@@ -1270,12 +1271,16 @@ async function renderBets() {
 /* ---------- 분석 요청 (정적 사이트: Cloudflare 함수 /api/run → GitHub Actions) ---------- */
 const runOpen = new Set();   // 진행 상황에서 펼쳐 둔 실행
 let runPoll = null;
+const LINES = [2.5, 3.5, 4.5];   /* 언더/오버 기준점 (aa/lines.py) */
 async function renderRun() {
   const [L, M] = await Promise.all([api('/api/leagues'), api('/api/matches')]);
   const now = Date.now();
   const kickMs = k => { const t = Date.parse((k || '').slice(0, 16).replace(' ', 'T') + ':00+09:00'); return isNaN(t) ? 0 : t; };
   const open = M.matches.filter(m => m.status === 'pending' && kickMs(m.kickoff) > now);
   let chosen = new Set((store.get('aa_pick_ids') || '').split(',').filter(id => open.some(m => m.id === id)));
+  /* 언더/오버 기준점: 경기마다 2.5·3.5·4.5 중 고름 (기본은 서버 추천: 시장 반반 → 기초 모델) */
+  let pkLines = {}; try { pkLines = JSON.parse(store.get('aa_pick_lines') || '{}') || {}; } catch (e) {}
+  const lineOf = m => LINES.includes(+pkLines[m.id]) ? +pkLines[m.id] : (LINES.includes(+m.line) ? +m.line : 2.5);
   let lgF = store.get('aa_pick_lg') || 'all';
   const lgCount = {};
   open.forEach(m => { lgCount[lgName(m)] = (lgCount[lgName(m)] || 0) + 1; });
@@ -1338,7 +1343,11 @@ async function renderRun() {
     store.set('aa_pick_ids', [...chosen].join(','));
     document.getElementById('pkCount').textContent = chosen.size;
     const list = [...chosen].map(id => byId[id]).filter(Boolean).sort((x, y) => (x.kickoff > y.kickoff ? 1 : -1));
-    document.getElementById('pkChosen').innerHTML = list.length ? list.map(m => `<li>${esc(m.kickoff.slice(5, 16))} ${esc(m.home)} vs ${esc(m.away)}${krBadge(m)}</li>`).join('') : '<li class="mute">왼쪽에서 경기를 체크하세요.</li>';
+    document.getElementById('pkChosen').innerHTML = list.length ? list.map(m => `<li><span>${esc(m.kickoff.slice(5, 16))} ${esc(m.home)} vs ${esc(m.away)}${krBadge(m)}</span>
+      <span class="ln-pick" role="group" aria-label="언더/오버 기준점"><small class="mute">기준</small>${LINES.map(v => `<button type="button" class="ln-btn" data-pl="${esc(m.id)}" data-v="${v}" aria-pressed="${lineOf(m) === v}">${v}</button>`).join('')}</span></li>`).join('') : '<li class="mute">왼쪽에서 경기를 체크하세요.</li>';
+    document.querySelectorAll('[data-pl]').forEach(b => b.onclick = () => {
+      pkLines[b.dataset.pl] = +b.dataset.v; store.set('aa_pick_lines', JSON.stringify(pkLines)); drawChosen();
+    });
   };
   view.querySelectorAll('[data-plg]').forEach(b => b.onclick = () => {
     lgF = b.dataset.plg; store.set('aa_pick_lg', lgF);
@@ -1374,7 +1383,8 @@ async function renderRun() {
     if (!chosen.size) { msg('분석할 경기를 하나 이상 체크하세요.'); return; }
     if (chosen.size > 40) { msg('한 번에 40경기까지 고를 수 있습니다.'); return; }
     const n = chosen.size;
-    send(e.target, {ids: [...chosen]}, () => { const t = `${n}경기 분석을 시작했습니다. 끝나면 경기 목록에 올라옵니다.`; chosen = new Set(); drawList(); drawChosen(); return t; });
+    const lines = {}; [...chosen].forEach(id => { if (byId[id]) lines[id] = lineOf(byId[id]); });
+    send(e.target, {ids: [...chosen], lines}, () => { const t = `${n}경기 분석을 시작했습니다. 끝나면 경기 목록에 올라옵니다.`; chosen = new Set(); drawList(); drawChosen(); return t; });
   };
   document.getElementById('rcollect').onclick = e => {
     if (!picked.size) { msg('리그를 하나 이상 고르세요.'); return; }
@@ -1609,6 +1619,41 @@ async function route() {
    - 운영자 주소(raise-bet.com·pages.dev, Access 잠금): 채팅에 '운영자'로 말하기, 가리기·차단
    서버: functions/api/{me,fav,auth,chat}, chat/ (raise-chat 워커), db/members.sql
    ===================================================================== */
+/* 운영자 경기 화면: 언더/오버 기준점 바꾸기 (2.5·3.5·4.5). 저장하면 GitHub 에서 결과를 고쳐 1~3분 뒤 회원 사이트에 반영 */
+function lineBox(m, d, s) {
+  const started = !!s.result || (s.kickoff_iso ? Date.parse(s.kickoff_iso) <= Date.now() : false);
+  let wait = {}; try { wait = JSON.parse(store.get('aa_line_wait') || '{}') || {}; } catch (e) {}
+  const w = wait[m.id];
+  const pending = w && Date.now() - w.t < 15 * 60e3 && +w.line !== +d.line ? +w.line : null;
+  const btns = LINES.map(v => `<button type="button" class="ln-btn" data-ml="${esc(m.id)}" data-v="${v}" aria-pressed="${+(pending ?? d.line) === v}"${started || !s.reline ? ' disabled' : ''}>${v}</button>`).join('');
+  const note = started ? '경기가 시작돼 기준점을 바꿀 수 없어요.'
+    : !s.reline ? '예전 방식 분석이라 기준점을 바꾸려면 다시 분석해야 해요.'
+    : pending ? `${pending}(으)로 바꾸는 중이에요. 1~3분 뒤 회원 사이트에 반영돼요.`
+    : '바꾸면 다시 분석하지 않고 분석가들이 미리 낸 숫자로 결론을 고쳐요. 회원 사이트에는 1~3분 뒤 반영되고 쇼츠도 다시 만들어요.';
+  return `<div class="panel ln-box"><div class="ln-pick" role="group" aria-label="언더/오버 기준점"><b>언더/오버 기준점</b> ${btns}</div>
+    ${!started && s.reline && !store.get('aa_run_pw') ? '<input type="password" class="ln-pw" placeholder="분석 요청 비밀번호" autocomplete="current-password">' : ''}
+    <p class="small mute ln-note" role="status">${esc(note)}</p></div>`;
+}
+document.addEventListener('click', async e => {
+  const b = e.target.closest && e.target.closest('[data-ml]');
+  if (!b || b.disabled || b.getAttribute('aria-pressed') === 'true') return;
+  const box = b.closest('.ln-box'), note = box.querySelector('.ln-note'), pwEl = box.querySelector('.ln-pw');
+  const pw = store.get('aa_run_pw') || (pwEl && pwEl.value);
+  if (!pw) { note.textContent = '분석 요청 비밀번호를 넣고 다시 눌러 주세요.'; pwEl && pwEl.focus(); return; }
+  box.querySelectorAll('[data-ml]').forEach(x => x.disabled = true);
+  note.textContent = `${b.dataset.v}(으)로 바꾸는 중…`;
+  let j = {};
+  try { const r = await fetch('/api/lines', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({password: pw, id: b.dataset.ml, line: +b.dataset.v})}); j = await r.json(); }
+  catch (err) { j = {error: '연결이 끊겼어요. 다시 눌러 주세요.'}; }
+  box.querySelectorAll('[data-ml]').forEach(x => x.disabled = false);
+  if (!j.ok) { note.textContent = j.error || '저장하지 못했어요.'; return; }
+  if (pwEl) store.set('aa_run_pw', pw);
+  let wait = {}; try { wait = JSON.parse(store.get('aa_line_wait') || '{}') || {}; } catch (err) {}
+  wait[j.id] = {line: j.line, t: Date.now()}; store.set('aa_line_wait', JSON.stringify(wait));
+  box.querySelectorAll('[data-ml]').forEach(x => x.setAttribute('aria-pressed', +x.dataset.v === +j.line));
+  note.textContent = `${j.line}(으)로 저장했어요. 1~3분 뒤 회원 사이트에 반영되고 쇼츠도 다시 만들어요.`;
+  if (pwEl) pwEl.remove();
+});
 function toast(msg, ms = 2600) {
   let t = document.getElementById('aa-toast');
   if (!t) { t = document.createElement('div'); t.id = 'aa-toast'; t.setAttribute('role', 'status'); document.body.appendChild(t); }

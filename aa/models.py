@@ -53,6 +53,7 @@ class Opinion:
     rebuttal: str = ""
     concession: str = ""
     changed: str = ""
+    over_probs: dict[str, float] = field(default_factory=dict)   # 기준점 2.5·3.5·4.5 별 오버 가능성 (aa/lines.py)
 
     @classmethod
     def from_dict(cls, member_id: str, member_name: str, stage: str, d: dict) -> "Opinion":
@@ -90,6 +91,7 @@ class Opinion:
             rebuttal=str(d.get("rebuttal", "")),
             concession=str(d.get("concession", "")),
             changed=str(d.get("changed", "")),
+            over_probs=_over_probs(d, over),
         )
 
     def to_dict(self) -> dict:
@@ -102,6 +104,13 @@ class Opinion:
             f"{LABEL_1X2[self.pick_1x2]}, 오버 {self.over_prob:.0%} → {LABEL_OU[self.pick_ou]}, "
             f"신뢰도 {LABEL_CONF[self.confidence]}\n  요약: {self.summary}\n  근거: " + " / ".join(self.key_reasons)
         )
+
+
+def _over_probs(d: dict, over: float) -> dict[str, float]:
+    from .lines import tidy
+
+    line = d.get("_line")
+    return tidy(d.get("over_probs"), line if line is not None else -1, over) if d.get("over_probs") else {}
 
 
 @dataclass

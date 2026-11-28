@@ -20,13 +20,15 @@ _OPINION = {
     "probs": _PROBS,
     "pick_1x2": {"type": "string", "enum": ["home", "draw", "away"]},
     "over_prob": {"type": "number"},
+    "over_probs": {"type": "object", "properties": {k: {"type": "number"} for k in ("2.5", "3.5", "4.5")},
+                   "required": ["2.5", "3.5", "4.5"], "additionalProperties": False},
     "pick_ou": {"type": "string", "enum": ["over", "under"]},
     "confidence": {"type": "string", "enum": ["high", "medium", "low"]},
     "key_reasons": _TEXTS,
     "risks": _TEXTS,
     "summary": {"type": "string"},
 }
-_REQ = ["probs", "pick_1x2", "over_prob", "pick_ou", "confidence", "key_reasons", "risks", "summary"]
+_REQ = ["probs", "pick_1x2", "over_prob", "over_probs", "pick_ou", "confidence", "key_reasons", "risks", "summary"]
 SCHEMAS = {
     "initial": {"type": "object", "properties": _OPINION, "required": _REQ, "additionalProperties": False},
     "debate": {"type": "object",
@@ -104,7 +106,12 @@ def analyze(company: Company, match: Match, client, ledger: Ledger, dept_id: str
     if not dept.active:
         raise RuntimeError(f"{dept.name} 은 아직 비활성 부서입니다.")
     sport = get_sport(match.sport)
-    line = float(match.odds.get("line", dept.over_under_line))
+    # 기준점: 운영자가 고른 값 → 시장이 반반에 가까운 값 → 기초 모델 (aa/lines.py)
+    from . import lines as LN
+
+    pre = sport.base_model(match, float(match.odds.get("line") or dept.over_under_line))
+    line = LN.start_line(match.odds, LN.load(company.base_dir).get(match.id), pre.get("lambdas"))
+    match.odds = LN.odds_for(match.odds, line)
     voters = company.analysts(dept.id) or company.voters(dept.id)   # 분석·토론 참여자 (투표 안 하는 사람 포함)
     voting = {m.id for m in company.voters(dept.id)}
     if not voting:
@@ -141,7 +148,8 @@ def analyze(company: Company, match: Match, client, ledger: Ledger, dept_id: str
             member_name=member.name, member_title=member.title, match_brief=brief,
             base_model=base["detail"], market=market if member.sees_market else BLIND_MARKET, line=line,
         )
-        return Opinion.from_dict(member.id, member.name, "initial", _ask(client, company, member, "initial", prompt, ctx))
+        return Opinion.from_dict(member.id, member.name, "initial",
+                                 {**_ask(client, company, member, "initial", prompt, ctx), "_line": line})
 
     with ThreadPoolExecutor(max_workers=min(8, len(voters))) as ex:
         first = list(ex.map(initial, voters))
@@ -158,7 +166,7 @@ def analyze(company: Company, match: Match, client, ledger: Ledger, dept_id: str
         )
         d = _ask(client, company, member, "debate", prompt,
                  {**ctx, "own": own.to_dict(), "others": [o.to_dict() for o in others]})
-        return Opinion.from_dict(member.id, member.name, "debate", d)
+        return Opinion.from_dict(member.id, member.name, "debate", {**d, "_line": line})
 
     with ThreadPoolExecutor(max_workers=min(8, len(voters))) as ex:
         final = list(ex.map(debate, zip(voters, first)))
@@ -203,7 +211,8 @@ def join_member(company: Company, run: dict, member: Member, client) -> tuple[Op
         member_name=member.name, member_title=member.title, match_brief=brief,
         base_model=base["detail"], market=market if member.sees_market else BLIND_MARKET, line=line,
     )
-    own = Opinion.from_dict(member.id, member.name, "initial", _ask(client, company, member, "initial", prompt, ctx))
+    own = Opinion.from_dict(member.id, member.name, "initial",
+                            {**_ask(client, company, member, "initial", prompt, ctx), "_line": line})
     others = [Opinion.from_dict(o["member_id"], o["member_name"], "initial", o)
               for o in run.get("initial", []) if o["member_id"] != member.id]
     prompt = _template(company, "debate").safe_substitute(
@@ -212,4 +221,4 @@ def join_member(company: Company, run: dict, member: Member, client) -> tuple[Op
     )
     d = _ask(client, company, member, "debate", prompt,
              {**ctx, "own": own.to_dict(), "others": [o.to_dict() for o in others]})
-    return own, Opinion.from_dict(member.id, member.name, "debate", d)
+    return own, Opinion.from_dict(member.id, member.name, "debate", {**d, "_line": line})

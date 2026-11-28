@@ -190,6 +190,8 @@ def load(path: str) -> dict:
     m, dec = d["match"], d["decision"]
     one, ou = dec["one_x_two"], dec["over_under"]
     home, away = m["home"], m["away"]
+    L = float(dec.get("line") or 2.5)          # 언더/오버 기준점 (운영자가 2.5·3.5·4.5 중 고름)
+    lt = f"{L:g}골"
     names = {"home": f"{home} 승", "draw": "무승부", "away": f"{away} 승"}
     p = one["probs"]
     order = sorted(p, key=p.get, reverse=True)
@@ -215,10 +217,10 @@ def load(path: str) -> dict:
             "style": ANALYST_STYLE.get(nm, ""),
             "pick": names[s["pick_1x2"]],
             "pick_key": s["pick_1x2"],
-            "ou": "2.5골 오버" if s.get("pick_ou") == "over" else "2.5골 언더",
+            "ou": f"{lt} 오버" if s.get("pick_ou") == "over" else f"{lt} 언더",
             "line": first_sentence(s.get("summary", "")),
         })
-    ou_pick = ou["pick"]
+    ou_pick = ou["pick"] or max(("over", "under"), key=lambda k: ou["probs"][k])   # 관망이면 가능성 높은 쪽
     ou_prob = ou["probs"][ou_pick]
     agree = sum(1 for a in d["final"] if a.get("pick_ou") == ou_pick)
     # 골 이유: 같은 쪽을 고른 분석가들의 이유 문장 중 실점·골 이야기(개인 % 숫자 없는 것 먼저)
@@ -237,8 +239,8 @@ def load(path: str) -> dict:
         "probs": [(names["home"], p["home"], "home"), ("무승부", p["draw"], "draw"), (names["away"], p["away"], "away")],
         "pick": one["pick"], "verdict": verdict, "sub": sub, "tally": one.get("tally", ""),
         "analysts": analysts,
-        "ou_label": "2.5골 오버" if ou_pick == "over" else "2.5골 언더",
-        "ou_desc": "3골 이상" if ou_pick == "over" else "2골 이하",
+        "ou_label": f"{lt} 오버" if ou_pick == "over" else f"{lt} 언더",
+        "ou_desc": f"{int(L) + 1}골 이상" if ou_pick == "over" else f"{int(L)}골 이하",
         "ou_prob": ou_prob, "ou_agree": agree, "ou_total": len(d["final"]),
         "goal_reason": goal_reason,
     }

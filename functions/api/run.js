@@ -5,9 +5,11 @@
 //   RUN_PASSWORD  분석 요청 비밀번호 (아무나 눌러서 API 비용을 쓰지 못하게)
 //   GH_REPO       (선택) 기본값 danielyarn87-cloud/aa-
 //
-// POST /api/run  {"password", "ids": ["AF-1", "AF-2"]}              고른 경기만 분석 (최대 40)
+// POST /api/run  {"password", "ids": ["AF-1", "AF-2"], "lines": {"AF-1": 3.5}}  고른 경기만 분석 (최대 40, 기준점은 선택)
 //                {"password", "leagues": [39, 140], "save_default"}   경기 목록만 새로 모으기 (분석 없음)
 // GET  /api/run  최근 실행 3개의 상태 (비밀번호 필요 없음)
+
+import { cleanLines, saveLines } from "../../lib/lines.js";
 
 const WORKFLOW = "daily.yml";
 
@@ -17,7 +19,7 @@ const json = (data, status = 200) =>
     headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" },
   });
 
-function gh(env, path, init = {}) {
+export function gh(env, path, init = {}) {
   const repo = env.GH_REPO || "danielyarn87-cloud/aa-";
   return fetch(`https://api.github.com/repos/${repo}${path}`, {
     ...init,
@@ -32,7 +34,7 @@ function gh(env, path, init = {}) {
 }
 
 // 길이가 달라도 시간이 같게 비교 (비밀번호 추측 방지)
-function sameText(a, b) {
+export function sameText(a, b) {
   const x = new TextEncoder().encode(String(a));
   const y = new TextEncoder().encode(String(b));
   let diff = x.length ^ y.length;
@@ -81,6 +83,13 @@ export async function onRequestPost({ request, env }) {
   let inputs;
   if (ids.length) {
     inputs = { ids: ids.join(","), light: "false", mock: "false" };
+    // 경기별 언더/오버 기준점 (2.5·3.5·4.5): 분석 전에 저장해 두면 분석가들이 그 기준점으로 분석한다
+    const lines = cleanLines(body.lines);
+    for (const k of Object.keys(lines)) if (!ids.includes(k)) delete lines[k];
+    if (Object.keys(lines).length) {
+      try { await saveLines(gh, env, lines, `분석 요청 ${Object.keys(lines).length}경기`); }
+      catch (e) { return json({ error: e.message }, 502); }
+    }
   } else {
     const leagues = [...new Set((body.leagues || []).map(Number))].filter((n) => Number.isInteger(n) && n > 0);
     if (!leagues.length || leagues.length > 20) return json({ error: "리그를 1~20개 고르세요." }, 400);

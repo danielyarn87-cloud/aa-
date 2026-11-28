@@ -189,6 +189,7 @@ class MockClient:
             "probs": p,
             "pick_1x2": self._pick(style, p, ctx),
             "over_prob": over,
+            "over_probs": _mock_lines(over),
             "pick_ou": "over" if over >= 0.5 else "under",
             "confidence": _conf(p),
             "key_reasons": reasons,
@@ -214,8 +215,14 @@ class MockClient:
                 "probs": p,
                 "pick_1x2": self._pick(style, p, ctx),
                 "over_prob": over,
+                "over_probs": _mock_lines(over),
                 "pick_ou": "over" if over >= 0.5 else "under",
                 "confidence": _conf(p),
             }
         )
         return out
+
+
+def _mock_lines(over: float) -> dict:
+    """모의 실행: 기준점이 1골 오를 때마다 오버 가능성이 대략 0.25 줄어드는 정도로 (답한 기준점 값은 lines.tidy 가 맞춤)."""
+    return {"2.5": round(min(over + 0.2, 0.95), 3), "3.5": round(max(over - 0.25, 0.03), 3), "4.5": round(max(over - 0.42, 0.02), 3)}

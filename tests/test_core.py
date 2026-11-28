@@ -205,3 +205,29 @@ def test_late_member_joins_already_analyzed_matches(company_dir):
     saved = load_runs(company_dir / "reports")[0]
     assert "hogu" in {o["member_id"] for o in saved["final"]} and saved["decision"]["one_x_two"]["pick"] == before
     assert catch_up_members(company, ledger, ko - timedelta(hours=10), client_factory=MockClient, log=lambda *_: None) == 0
+
+
+def test_line_choice_and_reline(company_dir):
+    """운영자가 고른 기준점으로 분석 → 나중에 바꾸면 다시 분석하지 않고 미리 받은 숫자로 결론을 고친다."""
+    from aa import lines as LN
+    from aa.store import run_to_dict
+
+    company = load_company(company_dir / "company.yaml")
+    match = Match.load(company_dir / "data" / "sample_match.json")
+    match.odds["totals"] = {"2.5": {"over": 1.7, "under": 2.15}, "3.5": {"over": 2.9, "under": 1.4}}
+    (company_dir / "data" / "lines.json").write_text(json.dumps({"lines": {match.id: 3.5}}), encoding="utf-8")
+    ledger = Ledger(company_dir / "ledger.sqlite")
+    run = analyze(company, match, MockClient(), ledger)
+    assert run.decision.line == 3.5 and match.odds["over"] == 2.9          # 고른 기준점 + 그 기준점 배당
+    for o in run.initial + run.final:
+        ps = o.over_probs
+        assert set(ps) == {"2.5", "3.5", "4.5"} and ps["3.5"] == o.over_prob
+        assert ps["2.5"] >= ps["3.5"] >= ps["4.5"]
+    d = run_to_dict(run)
+    assert LN.apply_line(d, 2.5, company.policy)
+    assert d["decision"]["line"] == 2.5 and d["match"]["odds"]["over"] == 1.7
+    assert all(o["over_prob"] == o["over_probs"]["2.5"] for o in d["final"])
+    assert d["decision"]["over_under"]["probs"]["over"] > run.decision.over_under.probs["over"]   # 기준이 낮으면 오버가 쉬움
+    assert not LN.apply_line(d, 2.5, company.policy)                     # 같은 기준점이면 그대로
+    assert LN.start_line({}, None, (0.6, 0.5)) == 2.5 and LN.start_line({}, None, (2.4, 1.9)) == 4.5
+    assert LN.start_line({"totals": {"2.5": {"over": 1.4, "under": 2.9}, "3.5": {"over": 1.95, "under": 1.85}}}, None, None) == 3.5
