@@ -1493,6 +1493,9 @@ const POP_BIG = ['아스널', '첼시', '리버풀', '맨체스터 시티', '맨
   '바이에른 뮌헨', '도르트문트', '레버쿠젠', '파리 생제르맹', 'PSG', '인테르', 'AC 밀란', '유벤투스', '나폴리', 'LAFC', '인터 마이애미'];
 const POP_KR = ['FC 서울', '울산', '전북', '포항', '수원', '대전', '광주'];   /* K리그 검색 많은 팀 (이름 앞부분으로 비교) */
 const popIs = (name, list) => list.some(t => String(name || '').startsWith(t));
+let POP_YT = {};   /* 우리 채널 조회수 평균 (shorts index.json 의 yt_stats: 하루 두 번 갱신) */
+/* 평균 대비 몇 배인지로 가감점: 2배면 +20, 절반이면 −20 (리그는 영상 3개, 팀은 2개 이상일 때만) */
+const ytBonus = (pair, min) => pair && pair[1] >= min && POP_YT.overall ? Math.max(-20, Math.min(30, Math.round(20 * Math.log2(Math.max(pair[0], 0.5) / POP_YT.overall)))) : 0;
 function popScore(it) {
   const why = [];
   let s = POP_LEAGUE[+it.league_id] ?? 5;
@@ -1500,6 +1503,10 @@ function popScore(it) {
   const bh = popIs(it.home, POP_BIG) || popIs(it.home, POP_KR), ba = popIs(it.away, POP_BIG) || popIs(it.away, POP_KR);
   if (bh && ba) { s += 35; why.push('빅매치'); } else if (bh || ba) { s += 12; why.push('인기 팀'); }
   if ([1, 4, 2].includes(+it.league_id)) why.push(it.league);
+  /* 우리 채널 반응: 이 리그·두 팀의 지난 쇼츠 평균 조회수 */
+  const yl = ytBonus((POP_YT.leagues || {})[it.league], 3);
+  const yteam = Math.max(ytBonus((POP_YT.teams || {})[it.home], 2), ytBonus((POP_YT.teams || {})[it.away], 2));
+  if (yl || yteam) { s += yl + yteam; if (yl + yteam >= 10) why.push('📊 우리 채널 반응 좋음'); else if (yl + yteam <= -10) why.push('우리 채널 반응 낮음'); }
   /* 네이버 검색량 (두 팀 합, 기준 '토트넘' = 1.0): 많이 찾는 경기일수록 최대 +40 */
   if (it.search != null) { s += Math.min(40, Math.round(it.search * 25)); if (it.search >= 0.3) why.push(`🔎 검색 ${it.search >= 1 ? '아주 많음' : '많음'}`); }
   const h = (Date.parse(String(it.kickoff || '').slice(0, 16).replace(' ', 'T') + ':00+09:00') - Date.now()) / 3600e3;   /* '2026-11-28 16:30 KST' */
@@ -1510,6 +1517,7 @@ async function renderShorts() {
   const [L, S, MM] = await Promise.all([api('/api/leagues'), fetch('/api/shorts', {cache: 'no-store'}).then(r => r.ok ? r.json() : Promise.reject(new Error('쇼츠 목록을 불러오지 못했어요 (' + r.status + ')'))),
     api('/api/matches').catch(() => ({matches: []}))]);
   const items = (S.index && S.index.items) || [];
+  POP_YT = (S.index && S.index.yt_stats) || {};
   /* 쇼츠 상태: 사이트 기준점과 영상 기준점이 다르면 '새로 만드는 중', 최근 다시 만들었으면 '다시 만듦' */
   const nowLine = Object.fromEntries((MM.matches || []).map(m => [m.id, m.line]));
   let lw = {}; try { lw = JSON.parse(store.get('aa_line_wait') || '{}') || {}; } catch (e) {}
@@ -1542,7 +1550,7 @@ async function renderShorts() {
   const yt = await ytItems().catch(() => []);
   const up = it => !!ytFor(yt, it);
   const ranked = items.map((it, i) => ({it, i, ...popScore(it)})).filter(x => !up(x.it)).sort((a, b) => b.s - a.s).slice(0, 10);
-  const topHtml = ranked.length ? `<div class="panel sh-top"><h2>📈 올릴 경기 추천 TOP 10 <span class="small mute">검색 수요 기준 · 이미 올린 경기는 빠져요</span></h2>
+  const topHtml = ranked.length ? `<div class="panel sh-top"><h2>📈 올릴 경기 추천 TOP 10 <span class="small mute">검색 수요 기준${POP_YT.videos ? ` + 우리 채널 조회수(영상 ${POP_YT.videos}개, 평균 ${Math.round(POP_YT.overall)}회)` : ''} · 이미 올린 경기는 빠져요</span></h2>
       <ol class="sh-rank">${ranked.map(x => `<li><a href="#shrow${x.i}"><span class="sh-rk-t"><span class="num">${esc((x.it.kickoff || '').slice(5, 16).replace('-', '/'))}</span> <b><span class="nw">${esc(x.it.home)}</span> vs <span class="nw">${esc(x.it.away)}</span></b></span>
         <span class="sh-rk-w">${[esc(x.it.league), ...x.why.filter(w => w !== x.it.league).map(esc)].map(w => `<span>${w}</span>`).join('')}</span></a></li>`).join('')}</ol>
       <p class="small mute">누르면 아래 그 경기로 이동해요. 하루 3~4개 고르는 걸 추천해요.</p></div>` : '';

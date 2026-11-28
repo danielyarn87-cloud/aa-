@@ -171,8 +171,16 @@ def main() -> None:
                 it["search"] = round(sv.get(it["home"], 0) + sv.get(it["away"], 0), 3)
     except Exception as e:
         print(f"네이버 검색량 건너뜀: {e}")
+    # 추천 순위용 우리 채널 조회수 (리그별·팀별 평균, 무료) → 운영자 '쇼츠' 화면 popScore
+    try:
+        import yt_stats
+
+        ytst = yt_stats.collect(out, ROOT)
+    except Exception as e:
+        print(f"유튜브 조회수 건너뜀: {e}")
+        ytst = {}
     (out / "index.json").write_text(json.dumps({
-        "made_at": now.strftime("%Y-%m-%d %H:%M KST"), "leagues": sorted(want), "items": items,
+        "made_at": now.strftime("%Y-%m-%d %H:%M KST"), "leagues": sorted(want), "items": items, "yt_stats": ytst,
     }, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     print(f"쇼츠 {len(items)}개 (고른 리그 {len(want)}개)")
 
