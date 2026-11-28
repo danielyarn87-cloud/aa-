@@ -1,7 +1,9 @@
 """네이버 데이터랩 검색어 트렌드로 팀 이름의 최근 검색량을 잰다 (쇼츠 추천 순위용).
 
-- API: POST https://openapi.naver.com/v1/datalab/search (무료, 하루 1,000번)
-  키: GitHub 저장소 Secrets 의 NAVER_CLIENT_ID / NAVER_CLIENT_SECRET (네이버 개발자센터에서 사장님이 발급).
+- API: NAVER API HUB(네이버 클라우드) Search Trend
+  POST https://naverapihub.apigw.ntruss.com/search-trend/v1/search (월 5만 건)
+  2026-07-31부터 네이버 개발자센터에서는 데이터랩 키를 새로 받을 수 없어 API HUB 로 옮김.
+  키: GitHub 저장소 Secrets 의 NAVER_CLIENT_ID / NAVER_CLIENT_SECRET (API HUB 애플리케이션의 Client ID / Client Secret).
   키가 없으면 아무것도 하지 않는다 (추천 순위는 점수표만으로).
 - 데이터랩은 한 번 물을 때 넣은 검색어끼리의 '상대값'(가장 많은 것 = 100)만 준다.
   그래서 매번 기준 검색어 ANCHOR 를 같이 넣고, 팀 값 ÷ 기준 값 으로 바꿔 서로 비교할 수 있게 한다.
@@ -16,9 +18,9 @@ import re
 import urllib.request
 from pathlib import Path
 
-URL = "https://openapi.naver.com/v1/datalab/search"
+URL = "https://naverapihub.apigw.ntruss.com/search-trend/v1/search"
 ANCHOR = "토트넘"          # 늘 검색이 꾸준한 기준 (손흥민 이적 뒤에도 국내 검색 많음)
-PER_CALL = 4               # 한 번에 5묶음까지: 기준 1 + 팀 4
+PER_CALL = 4               # 한 번에 5묶음까지: 기준 1 + 팀 4 (월 5만 건 한도라 넉넉함)
 KEEP_H = 20                # 이 시간 안에 잰 팀은 다시 안 물음
 KST = dt.timezone(dt.timedelta(hours=9))
 
@@ -36,7 +38,7 @@ def _ask(groups: list[str], cid: str, secret: str, start: str, end: str) -> dict
     body = {"startDate": start, "endDate": end, "timeUnit": "date",
             "keywordGroups": [{"groupName": g, "keywords": keywords(g)} for g in groups]}
     req = urllib.request.Request(URL, data=json.dumps(body, ensure_ascii=False).encode(), method="POST",
-                                 headers={"X-Naver-Client-Id": cid, "X-Naver-Client-Secret": secret,
+                                 headers={"X-NCP-APIGW-API-KEY-ID": cid, "X-NCP-APIGW-API-KEY": secret,
                                           "Content-Type": "application/json"})
     with urllib.request.urlopen(req, timeout=20) as r:
         res = json.load(r)["results"]
