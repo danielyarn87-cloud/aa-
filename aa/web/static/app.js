@@ -1486,6 +1486,24 @@ const ytTagList = it => {
 };
 const shortDesc = it => `${krNames(it).length ? '🇰🇷 ' + krOf(it).map(k => `${k.name}(${k.team})`).join(' · ') + '\n' : ''}${it.league} · ${(it.kickoff || '').slice(5, 16).replace('-', '/')} KST\n${shortUrl(it)}\n\n※ 예측은 참고용이에요. 도박 문제 상담 1336\n\n${shortTags(it)} #shorts`;
 const instaCap = it => `${krNames(it).length ? '🇰🇷 ' + krNames(it).join('·') + ' 소속팀 경기\n' : ''}${it.home} vs ${it.away} 승부 예측\n${it.league} · ${(it.kickoff || '').slice(5, 16).replace('-', '/')} KST\n🔗 분석 전체는 프로필 링크에서\n\n※ 예측은 참고용이에요. 도박 문제 상담 1336\n\n${shortTags(it)} #릴스`;
+/* 쇼츠 추천 순위 (11/28): 유튜브 리서치에서 본 검색 수요 기준. 국가대표 > 한국 선수 팀 > 빅클럽 맞대결·챔스 > K리그 인기 팀.
+   점수만 매기고 고르는 건 운영자가 한다. 이미 채널에 올린 경기는 순위에서 뺀다. */
+const POP_LEAGUE = {1: 60, 4: 45, 2: 40, 39: 35, 292: 30, 140: 25, 78: 20, 135: 20, 3: 18, 848: 12, 61: 15, 293: 12, 253: 12, 98: 10, 40: 8, 88: 6, 99: 5, 188: 5};
+const POP_BIG = ['아스널', '첼시', '리버풀', '맨체스터 시티', '맨체스터 유나이티드', '토트넘', '레알 마드리드', '바르셀로나', '아틀레티코 마드리드',
+  '바이에른 뮌헨', '도르트문트', '레버쿠젠', '파리 생제르맹', 'PSG', '인테르', 'AC 밀란', '유벤투스', '나폴리', 'LAFC', '인터 마이애미'];
+const POP_KR = ['FC 서울', '울산', '전북', '포항', '수원', '대전', '광주'];   /* K리그 검색 많은 팀 (이름 앞부분으로 비교) */
+const popIs = (name, list) => list.some(t => String(name || '').startsWith(t));
+function popScore(it) {
+  const why = [];
+  let s = POP_LEAGUE[+it.league_id] ?? 5;
+  const kr = krOf(it); if (kr.length) { s += 50; why.push('🇰🇷 ' + kr.map(k => k.name).join('·')); }
+  const bh = popIs(it.home, POP_BIG) || popIs(it.home, POP_KR), ba = popIs(it.away, POP_BIG) || popIs(it.away, POP_KR);
+  if (bh && ba) { s += 35; why.push('빅매치'); } else if (bh || ba) { s += 12; why.push('인기 팀'); }
+  if ([1, 4, 2].includes(+it.league_id)) why.push(it.league);
+  const h = (Date.parse(String(it.kickoff || '').slice(0, 16).replace(' ', 'T') + ':00+09:00') - Date.now()) / 3600e3;   /* '2026-11-28 16:30 KST' */
+  if (h > 2 && h <= 30) { s += 10; why.push('오늘·내일 경기'); } else if (h <= 2) s -= 30;   /* 너무 임박하면 올려도 볼 시간이 없음 */
+  return {s, why};
+}
 async function renderShorts() {
   const [L, S, MM] = await Promise.all([api('/api/leagues'), fetch('/api/shorts', {cache: 'no-store'}).then(r => r.ok ? r.json() : Promise.reject(new Error('쇼츠 목록을 불러오지 못했어요 (' + r.status + ')'))),
     api('/api/matches').catch(() => ({matches: []}))]);
@@ -1506,7 +1524,7 @@ async function renderShorts() {
   const byDay = {};
   items.forEach(it => { const d = (it.kickoff || '').slice(0, 10); (byDay[d] = byDay[d] || []).push(it); });
   const wd = d => '일월화수목금토'[new Date(d + 'T00:00:00+09:00').getDay()];
-  const row = (it, i) => `<li class="sh-row">
+  const row = (it, i) => `<li class="sh-row" id="shrow${i}">
       <div class="sh-info"><span class="sh-meta"><span class="num">${esc((it.kickoff || '').slice(11, 16))}</span><span>${esc(it.league)}</span>${krBadge(it)}</span>
         <b class="sh-teams"><span>${esc(it.home)}</span> <span class="mute">vs</span> <span>${esc(it.away)}</span></b>${shState(it)}</div>
       <div class="sh-act">
@@ -1518,9 +1536,18 @@ async function renderShorts() {
         <button type="button" class="btn ghost" data-tags="${i}">태그 복사</button>
       </div>
       <div class="sh-video" id="shv${i}" hidden></div></li>`;
+  /* 추천 순위 TOP 10 (이미 올린 경기 제외) */
+  const yt = await ytItems().catch(() => []);
+  const up = it => !!ytFor(yt, it);
+  const ranked = items.map((it, i) => ({it, i, ...popScore(it)})).filter(x => !up(x.it)).sort((a, b) => b.s - a.s).slice(0, 10);
+  const topHtml = ranked.length ? `<div class="panel sh-top"><h2>📈 올릴 경기 추천 TOP 10 <span class="small mute">검색 수요 기준 · 이미 올린 경기는 빠져요</span></h2>
+      <ol class="sh-rank">${ranked.map(x => `<li><a href="#shrow${x.i}"><span class="sh-rk-t"><span class="num">${esc((x.it.kickoff || '').slice(5, 16).replace('-', '/'))}</span> <b><span class="nw">${esc(x.it.home)}</span> vs <span class="nw">${esc(x.it.away)}</span></b></span>
+        <span class="sh-rk-w">${[esc(x.it.league), ...x.why.filter(w => w !== x.it.league).map(esc)].map(w => `<span>${w}</span>`).join('')}</span></a></li>`).join('')}</ol>
+      <p class="small mute">누르면 아래 그 경기로 이동해요. 하루 3~4개 고르는 걸 추천해요.</p></div>` : '';
   let idx = 0;
   view.innerHTML = `<section class="band"><div class="wrap"><h1>쇼츠</h1>
     <p class="lead mute">고른 리그의 분석 끝난 경기(킥오프 3일 안)를 세로 영상으로 자동으로 만들어요. 분석이 실행될 때마다 새로 만들어지고, 킥오프가 지나면 목록에서 빠져요.</p>
+    ${topHtml}
     <div class="panel"><h2>영상 <span class="small mute">${items.length}개 · 만든 시각 ${esc((S.index && S.index.made_at) || '-')}</span></h2>
       ${items.length ? Object.keys(byDay).sort().map(d => `<h3 class="sh-day">${esc(d.slice(5).replace('-', '/'))} (${wd(d)})</h3><ul class="sh-list">${byDay[d].map(it => row(it, idx++)).join('')}</ul>`).join('')
         : '<p class="mute">아직 만든 영상이 없어요. 다음 분석이 끝나면 여기에 올라와요.</p>'}
