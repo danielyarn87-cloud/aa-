@@ -1484,8 +1484,20 @@ const ytTagList = it => {
 const shortDesc = it => `${krNames(it).length ? '🇰🇷 ' + krOf(it).map(k => `${k.name}(${k.team})`).join(' · ') + '\n' : ''}${it.league} · ${(it.kickoff || '').slice(5, 16).replace('-', '/')} KST\n${shortUrl(it)}\n\n※ 예측은 참고용이에요. 도박 문제 상담 1336\n\n${shortTags(it)} #shorts`;
 const instaCap = it => `${krNames(it).length ? '🇰🇷 ' + krNames(it).join('·') + ' 소속팀 경기\n' : ''}${it.home} vs ${it.away} 승부 예측\n${it.league} · ${(it.kickoff || '').slice(5, 16).replace('-', '/')} KST\n🔗 분석 전체는 프로필 링크에서\n\n※ 예측은 참고용이에요. 도박 문제 상담 1336\n\n${shortTags(it)} #릴스`;
 async function renderShorts() {
-  const [L, S] = await Promise.all([api('/api/leagues'), fetch('/api/shorts', {cache: 'no-store'}).then(r => r.ok ? r.json() : Promise.reject(new Error('쇼츠 목록을 불러오지 못했어요 (' + r.status + ')')))]);
+  const [L, S, MM] = await Promise.all([api('/api/leagues'), fetch('/api/shorts', {cache: 'no-store'}).then(r => r.ok ? r.json() : Promise.reject(new Error('쇼츠 목록을 불러오지 못했어요 (' + r.status + ')'))),
+    api('/api/matches').catch(() => ({matches: []}))]);
   const items = (S.index && S.index.items) || [];
+  /* 쇼츠 상태: 사이트 기준점과 영상 기준점이 다르면 '새로 만드는 중', 최근 다시 만들었으면 '다시 만듦' */
+  const nowLine = Object.fromEntries((MM.matches || []).map(m => [m.id, m.line]));
+  let lw = {}; try { lw = JSON.parse(store.get('aa_line_wait') || '{}') || {}; } catch (e) {}
+  const want = it => { const w = lw[it.id]; return w && Date.now() - w.t < 60 * 60e3 ? +w.line : (nowLine[it.id] != null ? +nowLine[it.id] : null); };
+  const shState = it => {
+    const w = want(it);
+    if (w != null && it.line != null && +it.line !== w) return `<span class="sh-st wait">🔄 기준점 ${esc(w)} 쇼츠 만드는 중 · 몇 분 뒤 새로고침</span>`;
+    if (it.remade_at && Date.now() - Date.parse(it.remade_at.replace(' KST', '+09:00').replace(' ', 'T')) < 48 * 3600e3)
+      return `<span class="sh-st new">✅ 새로 만듦 ${esc(it.remade_at.slice(5, 16))} · ${esc(it.remade_why || '')} · 이미 올렸다면 다시 받아서 올리세요</span>`;
+    return `<span class="sh-st ok">✓ 최신${it.line != null ? ` · 기준 ${esc(it.line)}` : ''}</span>`;
+  };
   let picked = new Set((S.leagues || []).map(Number));
   const groups = [...new Set(L.leagues.map(l => l.group))];
   const byDay = {};
@@ -1493,7 +1505,7 @@ async function renderShorts() {
   const wd = d => '일월화수목금토'[new Date(d + 'T00:00:00+09:00').getDay()];
   const row = (it, i) => `<li class="sh-row">
       <div class="sh-info"><span class="sh-meta"><span class="num">${esc((it.kickoff || '').slice(11, 16))}</span><span>${esc(it.league)}</span>${krBadge(it)}</span>
-        <b class="sh-teams"><span>${esc(it.home)}</span> <span class="mute">vs</span> <span>${esc(it.away)}</span></b></div>
+        <b class="sh-teams"><span>${esc(it.home)}</span> <span class="mute">vs</span> <span>${esc(it.away)}</span></b>${shState(it)}</div>
       <div class="sh-act">
         <button type="button" class="btn ghost" data-play="${i}">미리보기</button>
         <a class="btn" href="/api/shorts/file/${encodeURIComponent(it.file)}" download>🎬 영상 받기 <span class="num small">${(it.bytes / 1048576).toFixed(1)}MB</span></a>
@@ -1651,7 +1663,7 @@ document.addEventListener('click', async e => {
   let wait = {}; try { wait = JSON.parse(store.get('aa_line_wait') || '{}') || {}; } catch (err) {}
   wait[j.id] = {line: j.line, t: Date.now()}; store.set('aa_line_wait', JSON.stringify(wait));
   box.querySelectorAll('[data-ml]').forEach(x => x.setAttribute('aria-pressed', +x.dataset.v === +j.line));
-  note.textContent = `${j.line}(으)로 저장했어요. 1~3분 뒤 회원 사이트에 반영되고 쇼츠도 다시 만들어요.`;
+  note.textContent = `${j.line}(으)로 저장했어요. 1~3분 뒤 회원 사이트에 반영되고, 쇼츠는 5~10분 뒤 '쇼츠' 메뉴에 ✅ 새로 만듦으로 표시돼요.`;
   if (pwEl) pwEl.remove();
 });
 function toast(msg, ms = 2600) {

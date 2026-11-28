@@ -917,3 +917,7 @@ mark.ap-hl{background:#fde047;color:inherit;padding:0 3px;border-radius:3px}
 details.tk-explain{margin-top:10px}
 details.tk-explain summary{cursor:pointer;font-weight:700;font-size:14px;padding:8px 0;color:var(--ink)}
 @media (max-width:420px){.tkc-sum{grid-template-columns:repeat(2,minmax(0,1fr))}.tkc-pick b{font-size:13px;white-space:normal;word-break:keep-all;max-width:7.5em}}
+.sh-st{display:block;margin-top:4px;font-size:13px;word-break:keep-all}
+.sh-st.ok{color:var(--mute)}
+.sh-st.wait{color:light-dark(#9a6700,#facc15);font-weight:700}
+.sh-st.new{color:var(--hit);font-weight:700}

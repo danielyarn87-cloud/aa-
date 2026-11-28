@@ -23,7 +23,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "tools"))
 import make_short  # noqa: E402
 
-DESIGN = "v4"            # 영상 모양을 바꾸면 올린다 → 전부 다시 만들어짐
+DESIGN = "v5"            # 영상 모양을 바꾸면 올린다 → 전부 다시 만들어짐
 THUMB = "t4"             # 썸네일 모양을 바꾸면 올린다 → 썸네일만 다시 (영상은 그대로)
 AHEAD_HOURS = 72         # 킥오프 3일 안의 경기만
 KST = dt.timezone(dt.timedelta(hours=9))
@@ -87,6 +87,11 @@ def main() -> None:
     want = set(int(x) for x in cfg.get("leagues", []))
     ids = league_ids()
     now = dt.datetime.now(KST)
+    stamp = now.strftime("%Y-%m-%d %H:%M KST")
+    try:   # 지난번 목록: 같은 파일이면 만든 시각을 이어 쓰고, 같은 경기인데 파일이 바뀌었으면 '다시 만듦' 표시
+        prev = {x["id"]: x for x in json.load(open(out / "index.json", encoding="utf-8")).get("items", [])}
+    except Exception:
+        prev = {}
     items, todo = [], []
     for f in sorted(glob.glob(str(ROOT / "reports" / "*.json"))):
         try:
@@ -112,6 +117,7 @@ def main() -> None:
             "id": m["id"], "file": name, "home": m.get("home"), "away": m.get("away"),
             "league": make_short.league_label(m.get("league", "")), "league_id": lid,
             "kickoff": m.get("kickoff"),
+            "line": (rep.get("decision") or {}).get("line"),   # 이 영상의 언더/오버 기준점 (사이트 기준점과 다르면 '만드는 중')
         })
     if os.environ.get("LIMIT"):   # 시험용
         n = int(os.environ["LIMIT"])
@@ -133,6 +139,19 @@ def main() -> None:
             except Exception as e:
                 print("썸네일 실패", label, e, flush=True)
         it["bytes"] = p.stat().st_size
+        old = prev.get(it["id"])
+        if old and old.get("file") == it["file"]:
+            it["made_at"] = old.get("made_at") or stamp
+            if old.get("remade_at"):
+                it["remade_at"], it["remade_why"] = old["remade_at"], old.get("remade_why", "")
+        else:
+            it["made_at"] = stamp
+            if old and "line" in old:   # 같은 경기 영상이 바뀜 (기준점 변경·다시 분석) → 이미 올렸다면 다시 올려야 함
+                it["remade_at"] = stamp
+                it["remade_why"] = (f"기준점 {old.get('line')} → {it.get('line')}"
+                                    if old.get("line") != it.get("line") else "분석 내용 바뀜")
+            elif old and it.get("line") not in (None, 2.5):   # v4 영상은 기준점을 2.5 로 잘못 적었음 (11/28 v5 에서 고침)
+                it["remade_at"], it["remade_why"] = stamp, f"기준점 표시 2.5 → {it.get('line')} 바로잡음"
         if th.exists():
             it["thumb"] = th.name
         ok.append(it)
