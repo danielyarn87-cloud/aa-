@@ -233,7 +233,7 @@ def run_daily(company: Company, client_factory=None, now: datetime | None = None
     except Exception as e:
         summary["errors"].append(f"합류 분석: {e}")
 
-    # 4) AI 가상 배팅: 끝난 배팅 정산 → 비어 있는 3·5·7폴더 새로 걸기
+    # 4) AI 가상 배팅: 끝난 배팅 정산 → 비어 있는 배팅표 자리(최대 3장, 장마다 2~5경기) 새로 걸기
     try:
         from .betting import run_betting
 

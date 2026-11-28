@@ -2,7 +2,9 @@
 
 규칙
 - 분석가(투표하는 사람)마다 가상 자금 100만원으로 시작한다.
-- 각자 3폴더·5폴더·7폴더 조합 배팅을 한 장씩 들고 간다. 한 장이 정산되면 다음 실행 때 새로 건다.
+- 각자 조합 배팅 3장(게임 1·2·3)을 들고 간다. 한 장이 정산되면 다음 실행 때 그 자리에 새로 건다. (11/28부터. 예전엔 3·5·7폴더)
+- 한 장은 2~5경기. 자신 있는 경기부터 담고, 모두 맞을 가능성이 STOP_PROB 아래로 떨어지기 직전에 멈춘다.
+- 세 장끼리 같은 경기를 겹치지 않는다 (한 경기 틀려서 세 장이 한꺼번에 날아가지 않게).
 - 한 장의 경기는 이틀 안(예: 24일·25일)이어야 한다. 24·25·26일처럼 사흘에 걸칠 수 없다.
 - 한 장에는 경기당 한 가지 선택만 (같은 경기의 승무패와 언더오버를 같이 넣지 않는다).
 - 선택은 그 분석가 자신의 최종 가능성으로 고른다: 맞을 가능성이 너무 낮은 것은 빼고, 기대 손익(5,000원 기준 화면 표시)이 큰 순서.
@@ -24,7 +26,10 @@ from .ledger import Ledger
 KST = ZoneInfo("Asia/Seoul")
 START_BANKROLL = 1_000_000
 MIN_STAKE, MAX_STAKE = 5_000, 100_000
-SIZES = (3, 5, 7)
+GAMES = 3                 # 한 사람이 동시에 들고 있는 배팅표 수
+MIN_LEGS, MAX_LEGS = 2, 5
+STOP_PROB = 0.10          # 경기를 더 담으면 모두 맞을 가능성이 이 아래로 떨어질 때 멈춤
+SIZES = tuple(range(MIN_LEGS, MAX_LEGS + 1))   # 기록 화면용: 경기 수별 적중
 MIN_LEG_PROB = 0.45      # 조합 배팅이라 한 경기라도 가능성이 낮으면 거의 다 틀린다
 KELLY_FRACTION = 0.25
 
@@ -192,6 +197,13 @@ def _now_odds(company: Company, match_id: str) -> dict | None:
         return None
 
 
+def _same_window(legs: list[dict], leg: dict) -> bool:
+    """한 장의 경기 날짜(KST)가 이어진 이틀 안에 들어가는지."""
+    from datetime import date
+    days = {date.fromisoformat(x["kickoff"][:10]) for x in legs + [leg]}
+    return (max(days) - min(days)).days <= 1
+
+
 def place(company: Company, book: dict, runs: list[dict], now: datetime, log=print) -> int:
     upcoming = []
     for r in runs:
@@ -215,29 +227,41 @@ def place(company: Company, book: dict, runs: list[dict], now: datetime, log=pri
             if legs:
                 best.append(max(legs, key=lambda l: (l["ev"], l["prob"])))
         best.sort(key=lambda l: (l["ev"], l["prob"]), reverse=True)
-        for size in SIZES:
-            if any(s for s in book["slips"] if s["member_id"] == m.id and s["size"] == size and s["status"] == "open"):
-                continue
-            if len(best) < size:
-                log(f"배팅: {m.name} {size}폴더는 고를 경기가 부족해 이번엔 쉽니다 ({len(best)}경기)")
+        mine_open = [s for s in book["slips"] if s["member_id"] == m.id and s["status"] == "open"]
+        used = {l["match_id"] for s in mine_open for l in s["legs"]}   # 다른 장에 이미 넣은 경기는 빼기
+        taken = {s.get("game") for s in mine_open}
+        free = [g for g in range(1, GAMES + 1) if g not in taken][:max(0, GAMES - len(mine_open))]   # 예전 3·5·7폴더 표도 한 자리씩 차지
+        for game in free:
+            pool = [l for l in best if l["match_id"] not in used]
+            legs, prob = [], 1.0
+            for l in pool:
+                if len(legs) >= MAX_LEGS:
+                    break
+                if len(legs) >= MIN_LEGS and prob * l["prob"] < STOP_PROB:
+                    break
+                if legs and not _same_window(legs, l):
+                    continue
+                legs.append(l); prob *= l["prob"]
+            if len(legs) < MIN_LEGS:
+                log(f"배팅: {m.name} 게임 {game}은 고를 경기가 부족해 이번엔 쉽니다 ({len(pool)}경기)")
                 continue
             if acc["bankroll"] < MIN_STAKE:
                 log(f"배팅: {m.name} 잔액 부족")
-                continue
-            legs = best[:size]
+                break
+            size = len(legs)
+            used |= {l["match_id"] for l in legs}
             odds = round(math.prod(l["odds"] for l in legs), 2)
-            prob = math.prod(l["prob"] for l in legs)
             stake = _stake(acc["bankroll"], prob, odds)
             acc["bankroll"] -= stake
             days = sorted({l["kickoff"][:10] for l in legs})
             book["slips"].append({
-                "id": f"{now.strftime('%Y%m%d%H%M')}-{m.id}-{size}", "member_id": m.id, "member_name": m.name,
-                "size": size, "days": days, "placed_at": now.strftime("%Y-%m-%d %H:%M KST"),
+                "id": f"{now.strftime('%Y%m%d%H%M')}-{m.id}-g{game}", "member_id": m.id, "member_name": m.name,
+                "game": game, "size": size, "days": days, "placed_at": now.strftime("%Y-%m-%d %H:%M KST"),
                 "stake": stake, "combined_odds": odds, "prob": round(prob, 4),
                 "expected": round(prob * odds * stake - stake), "legs": legs, "status": "open", "payout": None,
             })
             placed += 1
-            log(f"배팅: {m.name} {size}폴더 {stake:,}원 (배당 {odds}, 맞을 가능성 {prob:.1%})")
+            log(f"배팅: {m.name} 게임 {game} {size}폴더 {stake:,}원 (배당 {odds}, 맞을 가능성 {prob:.1%})")
     return placed
 
 
@@ -285,7 +309,7 @@ def summary(company: Company) -> dict:
         deposited = a.get("deposited", 0)         # 사이트에서 추가로 넣어 준 돈
         legs = [l for s in mine for l in s["legs"] if l.get("hit") is not None]
         by_size = {str(n): {"won": sum(1 for s in done if s["size"] == n and s["status"] == "won"),
-                            "settled": sum(1 for s in done if s["size"] == n)} for n in SIZES}
+                            "settled": sum(1 for s in done if s["size"] == n)} for n in sorted(set(SIZES) | {s["size"] for s in done})}
         accs.append({"member_id": m.id, "name": m.name, "title": m.title, "color": m.color, "votes": m.votes,
                      "bankroll": a["bankroll"], "at_risk": at_risk, "value": value, "deposited": deposited,
                      "profit": value - start - deposited,

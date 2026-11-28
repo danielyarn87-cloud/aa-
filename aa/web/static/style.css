@@ -170,6 +170,7 @@ pre{background:var(--panel);padding:12px;border-radius:8px;font-size:14px;white-
 .slip-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .who-badge{display:inline-block;background:var(--mc);color:#fff;font-weight:800;font-size:17px;padding:4px 12px;border-radius:999px}
 .slip-size{font-size:22px;font-weight:800}
+.slip-game{font-size:13px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--mc,#0d5c35);color:#fff;white-space:nowrap}
 .slip-stake{font-size:22px;font-weight:800;color:var(--mc)}
 .leg-no{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--mc);color:#fff;font-size:13px;font-weight:700}
 .slip .leg-pick{font-size:19px;font-weight:800}

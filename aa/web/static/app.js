@@ -1106,7 +1106,7 @@ async function renderPicks() {
   placeAd(document.getElementById('ap-adslot'));
 }
 
-/* ---------- 배팅 게임: 분석가들이 가상 100만원으로 3·5·7폴더 ---------- */
+/* ---------- 배팅 게임: 분석가들이 가상 100만원으로 배팅표 3장(장마다 2~5경기) ---------- */
 async function renderBets() {
   const b = await api('/api/bets');
   /* 각 선택이 팀 결론의 '예측'인지, 배당이 후한 '이득'인지, 둘 다인지 표시하려고 경기 목록도 읽는다 */
@@ -1167,7 +1167,7 @@ async function renderBets() {
   const slip = (s, brief) => `<div class="panel slip ticket tkc" style="--mc:${esc(col(s.member_id))}">
     <div class="slip-head">
       <span class="who-badge">${esc(s.member_name)}</span>
-      <span class="slip-size">${esc(s.size)}폴더</span>
+      ${s.game ? `<span class="slip-game">게임 ${esc(s.game)}</span>` : ''}<span class="slip-size">${esc(s.size)}폴더</span>
       <span class="small mute">${esc(s.placed_at)}</span>
       <span style="margin-left:auto">${st(s)}</span></div>
     <div class="tkc-sum">
@@ -1194,7 +1194,7 @@ async function renderBets() {
   const nOpen = pool.filter(s => s.status === 'open').length, nDone = pool.length - nOpen;
   const nWon = pool.filter(s => s.status === 'won').length, nLost = pool.filter(s => s.status === 'lost').length;
   view.innerHTML = `<section class="band"><div class="wrap"><h1>배팅 게임</h1>
-    <p class="lead mute">분석가들이 각자 가상 자금 <b>${W(b.start_bankroll)}</b>으로 자기 예측만 믿고 3폴더·5폴더·7폴더 조합 배팅을 합니다. 한 장에 ${W(b.min_stake)}~${W(b.max_stake)}, 경기는 이틀 안에서만 고릅니다. 실제 돈이 아닌 실력 비교용입니다.</p>
+    <p class="lead mute">분석가들이 각자 가상 자금 <b>${W(b.start_bankroll)}</b>으로 자기 예측만 믿고 배팅표 <b>3장</b>을 들고 갑니다. 한 장에 <b>2~5경기</b>: 자신 있는 경기부터 담고, 모두 맞을 가능성이 10% 아래로 떨어지기 직전에 멈춥니다. 세 장은 서로 다른 경기로 채웁니다. 한 장에 ${W(b.min_stake)}~${W(b.max_stake)}, 경기는 이틀 안에서만 고릅니다. 실제 돈이 아닌 실력 비교용입니다.</p>
     <div class="grid4">${b.accounts.map(a => { const bs = a.by_size || {}; return `<div class="panel acc-card" aria-pressed="${pick === a.member_id}" style="--mc:${esc(col(a.member_id))}">
       <span class="who-badge">${esc(a.name)}</span> <span class="small mute">${esc(a.title)}</span>
       <span class="num acc-value">${W(a.value)}</span>
@@ -1202,7 +1202,7 @@ async function renderBets() {
       <div class="acc-rates">
         <div><span>배팅 적중</span><b class="num">${rate(a.won, a.settled)}</b></div>
         <div><span>경기별 적중</span><b class="num">${rate(a.legs_hit || 0, a.legs_settled || 0)}</b></div>
-        <div class="small mute">${['3', '5', '7'].map(k => `${k}폴더 ${bs[k] ? `${bs[k].won}/${bs[k].settled}` : '0/0'}`).join(' · ')}</div>
+        <div class="small mute">${Object.keys(bs).filter(k => bs[k].settled).map(k => `${k}폴더 ${bs[k].won}/${bs[k].settled}`).join(' · ') || '아직 끝난 배팅 없음'}</div>
       </div>
       <span class="small mute" style="display:block">남은 돈 ${W(a.bankroll)} · 걸어 둔 돈 ${W(a.at_risk)}</span>
       <div class="acc-actions"><button type="button" class="btn ghost sm" data-who="${esc(a.member_id)}">${pick === a.member_id ? '모두 보기' : '이 사람 배팅만'}</button>
@@ -1227,7 +1227,7 @@ async function renderBets() {
       const empty = betView === 'open' ? '진행 중인 배팅이 없습니다. 분석이 끝난 경기가 생기면 자동으로 겁니다.' : '해당하는 배팅 결과가 없습니다.';
       return `<h2 class="who-title" style="--mc:${esc(col(a.member_id))}"><span class="dot"></span>${esc(a.name)}의 ${betView === 'open' ? '배팅' : '배팅 결과'} <span class="small mute">${mine.length}장 · 배팅 적중 ${rate(a.won, a.settled)}</span></h2>${mine.length ? mine.map(s => slip(s, betView === 'done')).join('') : `<p class="empty">${empty}</p>`}`;
     }).join('')}
-    <p class="small mute" style="margin-top:24px">고르는 법: 각 분석가가 경기마다 자기 최종 가능성으로 승무패·언더오버 중 가장 이득인 선택 하나를 고릅니다(가능성 45% 미만은 제외). 그중 5,000원당 평균 손익이 큰 경기부터 3·5·7개를 담습니다. 금액은 켈리 기준의 1/4(자신 있을수록 많이)을 한도 안에서 1,000원 단위로. 배당은 북메이커 평균. 배당 자료가 없는 리그·대회(K리그2·J2리그·AFC챔피언스리그)는 빠집니다. 추가로 넣은 돈은 손익에서 빼고 계산합니다.</p>
+    <p class="small mute" style="margin-top:24px">고르는 법: 각 분석가가 경기마다 자기 최종 가능성으로 승무패·언더오버 중 가장 이득인 선택 하나를 고릅니다(가능성 45% 미만은 제외). 그중 5,000원당 평균 손익이 큰 경기부터 2~5개를 담고(모두 맞을 가능성이 10% 아래로 떨어지기 직전에 멈춤), 배팅표 3장은 서로 다른 경기로 채웁니다. 금액은 켈리 기준의 1/4(자신 있을수록 많이)을 한도 안에서 1,000원 단위로. 배당은 북메이커 평균. 배당 자료가 없는 리그·대회(K리그2·J2리그·AFC챔피언스리그)는 빠집니다. 추가로 넣은 돈은 손익에서 빼고 계산합니다.</p>
   </div></section>`;
   view.querySelectorAll('[data-bview]').forEach(el => el.onclick = () => {
     store.set('aa_bet_view', el.dataset.bview);
