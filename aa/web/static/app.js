@@ -201,12 +201,12 @@ async function renderList() {
   const inLg = all.filter(m => leagueFilter === 'all' || lgName(m) === leagueFilter);
   const finished = inLg.filter(m => m.result);                // 결과가 나온 경기는 '경기 결과' 탭으로
   /* 분석 안 한 경기는 시작하면 보류: 목록에서 뺀다 (실시간 점수도 붙이지 않음) */
-  const ms = inLg.filter(m => !m.result && (m.status === 'analyzed' || !(kickMs(m) <= Date.now())));
+  const ms = inLg.filter(m => !m.result && (m.status === 'analyzed' || !(kickMs(m) <= Date.now())) && !(kickMs(m) + 4 * 3600e3 < Date.now()));   /* 킥오프 4시간 지난 경기는 끝난 것으로 보고 뺀다 */
   const done = ms.filter(m => m.status === 'analyzed');
   const vals = done.filter(m => m.value_alerts && m.value_alerts.length).length;
   const isRes = listFilter === 'results';
-  /* 끝난 경기는 최종 점수와 함께 끝나고 약 1시간 동안만 목록에 남긴다 (킥오프 기준 3시간 = 경기 약 2시간 + 1시간) */
-  const recent = MEMBER ? [] : inLg.filter(m => m.result && m.status === 'analyzed' && Date.now() - kickMs(m) < 3 * 3600e3);
+  /* 끝난 경기는 회원·운영자 모두 바로 목록에서 뺀다 (11/28). 결과는 '경기 결과' 탭에서 */
+  const recent = [];
   const shown = isRes ? [] : [...ms, ...recent].sort((a, b) => kickMs(a) - kickMs(b)).filter(m => !favOnly || FAVS.has(m.id)).filter(m => listFilter === 'all' || (listFilter === 'analyzed' ? m.status === 'analyzed' : listFilter === 'pending' ? m.status === 'pending' : (m.value_alerts || []).length));
   const days = [...new Set(shown.map(m => dayOf(m.kickoff)))];
   const chip = (k, t, cls = '') => `<button class="seg ${cls}" data-f="${k}" aria-pressed="${listFilter === k}">${t}</button>`;
@@ -758,13 +758,13 @@ async function liveTick() {
     if (!show) {
       const past = Date.now() >= Number(el.dataset.kick) + WAIT_MS;
       el.className = 'lv'; el.innerHTML = past ? waitHtml(id) : ''; el.hidden = !past;
-      if (MEMBER && past) hideEnded(el);
+      if (past) hideEnded(el);
       return;
     }
     el.className = 'lv' + (x && LIVE_ON.includes(x.s) && x.s !== 'HT' ? ' on' : '');
     el.innerHTML = x ? liveText(show, false) : FINALS[id] ? waitHtml(id) : liveText(show, true, true);
     el.hidden = false;
-    if (MEMBER && !x) hideEnded(el);
+    if (!x) hideEnded(el);
   });
   finalTick();   /* 방금 '결과 반영 대기'로 바뀐 경기의 최종 점수도 바로 묻는다 */
   liveTimer = setTimeout(liveTick, 60e3);
