@@ -12,17 +12,17 @@
   "away_en": "AS Roma",
   "odds": {
     "line": 2.5,
-    "home": 4.03,
+    "home": 4.05,
     "best_home": 4.4,
-    "draw": 3.72,
+    "draw": 3.73,
     "best_draw": 4.0,
     "away": 1.8,
     "best_away": 1.91,
     "over": 1.72,
     "best_over": 1.78,
     "under": 2.1,
-    "best_under": 2.24,
-    "source": "The Odds API 평균 배당 (승무패 19곳, 언더/오버 12곳 북메이커)",
+    "best_under": 2.22,
+    "source": "The Odds API 평균 배당 (승무패 20곳, 언더/오버 13곳 북메이커)",
     "event_id": "7a3763ed676aa657abff78f841bb851c",
     "sport": "soccer_italy_serie_a"
   },
@@ -92,7 +92,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-28 06:04 KST",
+  "collected_at": "2026-11-28 14:18 KST",
   "odds_first": {
     "line": 2.5,
     "home": 4.03,

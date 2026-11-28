@@ -12,7 +12,19 @@
   "away_en": "Gwangju FC",
   "odds": {
     "line": 2.5,
-    "note": "The Odds API 에서 이 경기를 찾지 못함 (팀 이름 별칭을 확인하세요)"
+    "home": 1.79,
+    "best_home": 1.81,
+    "draw": 3.36,
+    "best_draw": 3.4,
+    "away": 3.6,
+    "best_away": 3.65,
+    "over": 1.75,
+    "best_over": 1.77,
+    "under": 1.89,
+    "best_under": 1.91,
+    "source": "The Odds API 평균 배당 (승무패 4곳, 언더/오버 4곳 북메이커)",
+    "event_id": "d10ad91d0d614791669843e53973b6d0",
+    "sport": "soccer_korea_kleague1"
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
@@ -24,22 +36,24 @@
     "metric": "goals",
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
-      "설명": "홈 경기 경기당 득실 (17경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.184,
-      "xg_against": 1.642,
-      "raw_goals_for": 1.176,
-      "raw_goals_against": 1.706,
+      "설명": "홈 경기 경기당 득실 (17경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.204,
+      "xg_against": 1.637,
+      "raw_goals_for": 1.2,
+      "raw_goals_against": 1.7,
       "played": 17,
-      "record": "5승 6무 6패"
+      "record": "5승 6무 6패",
+      "form": "DDWLD"
     },
     "away": {
-      "설명": "원정 경기 경기당 득실 (17경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 0.941,
-      "xg_against": 1.984,
-      "raw_goals_for": 0.882,
-      "raw_goals_against": 2.118,
+      "설명": "원정 경기 경기당 득실 (17경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.957,
+      "xg_against": 1.969,
+      "raw_goals_for": 0.9,
+      "raw_goals_against": 2.1,
       "played": 17,
-      "record": "1승 8무 8패"
+      "record": "1승 8무 8패",
+      "form": "LWDDW"
     }
   },
   "lineup": {
@@ -48,10 +62,10 @@
     "away_absent": [],
     "away_doubtful": [],
     "confirmed": false,
-    "status": "skipped",
-    "설명": "호출 절약 수집이라 부상자 목록을 받지 않음"
+    "status": "unsupported",
+    "설명": "API-Football 이 이 리그의 결장자 자료를 제공하지 않음 (결장자가 없다는 뜻이 아님), 라인업 미발표"
   },
-  "collected_detail": "light",
+  "collected_detail": "full",
   "venue": "Anyang Stadium",
   "source_ids": {
     "api_football_fixture": 1647402,
@@ -61,9 +75,33 @@
     "season": 2026
   },
   "table": "FC 안양 파이널B 8위 47점 (11승14무11패, 득실 -8) / 광주 FC 파이널B 12위 26점 (4승14무18패, 득실 -37)",
+  "head_to_head": [
+    "2026-09-13 광주 FC 1-1 FC 안양",
+    "2026-07-19 FC 안양 1-1 광주 FC",
+    "2026-04-26 광주 FC 2-5 FC 안양",
+    "2025-10-25 광주 FC 1-0 FC 안양",
+    "2025-09-28 FC 안양 0-0 광주 FC"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-21 K League 1",
+    "home_days_rest": 14,
+    "away_prev": "2026-11-22 K League 1",
+    "away_days_rest": 13
+  },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-28 06:04 KST"
+  "collected_at": "2026-11-28 14:19 KST",
+  "odds_first": {
+    "line": 2.5,
+    "home": 1.79,
+    "draw": 3.36,
+    "away": 3.6,
+    "over": 1.75,
+    "under": 1.89,
+    "event_id": "d10ad91d0d614791669843e53973b6d0",
+    "sport": "soccer_korea_kleague1",
+    "at": "2026-11-28 14:19 KST"
+  }
 }

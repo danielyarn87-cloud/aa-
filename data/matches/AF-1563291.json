@@ -12,15 +12,15 @@
   "away_en": "Burnley",
   "odds": {
     "line": 2.5,
-    "home": 2.09,
+    "home": 2.08,
     "best_home": 2.2,
-    "draw": 3.52,
-    "best_draw": 3.85,
-    "away": 3.19,
-    "best_away": 3.45,
+    "draw": 3.53,
+    "best_draw": 3.75,
+    "away": 3.21,
+    "best_away": 3.5,
     "over": 1.66,
     "best_over": 1.71,
-    "under": 2.1,
+    "under": 2.11,
     "best_under": 2.2,
     "source": "The Odds API 평균 배당 (승무패 22곳, 언더/오버 12곳 북메이커)",
     "event_id": "3f93526d7c8e0ca84734aea60c13900a",
@@ -28,8 +28,8 @@
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
-    "home_goals": 1.632,
-    "away_goals": 1.27
+    "home_goals": 1.634,
+    "away_goals": 1.263
   },
   "stats": {
     "basis": "venue",
@@ -38,7 +38,7 @@
     "home": {
       "설명": "홈 경기 경기당 득실 (8경기, 리그 평균 쪽으로 3경기만큼 보정)",
       "xg_for": 1.827,
-      "xg_against": 1.292,
+      "xg_against": 1.29,
       "raw_goals_for": 1.9,
       "raw_goals_against": 1.3,
       "played": 8,
@@ -47,8 +47,8 @@
     },
     "away": {
       "설명": "원정 경기 경기당 득실 (8경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.655,
-      "xg_against": 2.336,
+      "xg_for": 1.654,
+      "xg_against": 2.337,
       "raw_goals_for": 1.8,
       "raw_goals_against": 2.6,
       "played": 8,
@@ -113,7 +113,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-28 06:04 KST",
+  "collected_at": "2026-11-28 14:18 KST",
   "odds_first": {
     "line": 2.5,
     "home": 2.09,

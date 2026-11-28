@@ -16,8 +16,8 @@
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
-    "home_goals": 1.632,
-    "away_goals": 1.27
+    "home_goals": 1.634,
+    "away_goals": 1.263
   },
   "stats": {
     "basis": "venue",
@@ -26,7 +26,7 @@
     "home": {
       "설명": "홈 경기 경기당 득실 (9경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
       "xg_for": 2.158,
-      "xg_against": 1.151,
+      "xg_against": 1.149,
       "raw_goals_for": 2.333,
       "raw_goals_against": 1.111,
       "played": 9,
@@ -34,7 +34,7 @@
     },
     "away": {
       "설명": "원정 경기 경기당 득실 (9경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 0.901,
+      "xg_for": 0.899,
       "xg_against": 2.075,
       "raw_goals_for": 0.778,
       "raw_goals_against": 2.222,
@@ -60,10 +60,10 @@
     "league": 40,
     "season": 2026
   },
-  "table": "미들즈브러 1위 35점 (10승5무2패, 득실 +14) / 더비 24위 10점 (2승4무11패, 득실 -21)",
+  "table": "미들즈브러 1위 35점 (10승5무3패, 득실 +12) / 더비 24위 10점 (2승4무11패, 득실 -21)",
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-28 06:04 KST"
+  "collected_at": "2026-11-28 14:19 KST"
 }

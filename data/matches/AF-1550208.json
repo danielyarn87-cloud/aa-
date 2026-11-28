@@ -14,12 +14,12 @@
     "line": 2.5,
     "home": 4.85,
     "best_home": 5.5,
-    "draw": 3.78,
+    "draw": 3.77,
     "best_draw": 4.03,
     "away": 1.7,
     "best_away": 1.77,
-    "over": 1.84,
-    "best_over": 1.92,
+    "over": 1.85,
+    "best_over": 1.94,
     "under": 1.94,
     "best_under": 2.03,
     "source": "The Odds API 평균 배당 (승무패 25곳, 언더/오버 18곳 북메이커)",
@@ -58,11 +58,29 @@
   },
   "lineup": {
     "home_absent": [
-      "Riyad Idrissi (Jumpers Knee)"
+      "M. Felici (Knee Injury)",
+      "J. Liteta (Knee Injury)",
+      "Y. Mina (Thigh Injury)",
+      "H. Winks (Back Injury)"
     ],
-    "home_doubtful": [],
-    "away_absent": [],
-    "away_doubtful": [],
+    "home_doubtful": [
+      "M. Adopo (Muscle Injury)",
+      "P. Mendy (Muscle Injury)"
+    ],
+    "away_absent": [
+      "D. Bartesaghi (Leg Injury)",
+      "F. Camarda (Ankle Injury)",
+      "S. Chukwueze (Hip Injury)",
+      "M. Gabbia (Thigh Injury)",
+      "R. Loftus-Cheek (Thigh Injury)",
+      "L. Modric (Thigh Injury)",
+      "S. Pavlovic (Illness)",
+      "A. Saelemaekers (Ankle Injury)",
+      "P. Terracciano (Shoulder Injury)"
+    ],
+    "away_doubtful": [
+      "G. Ramos (Leg Injury)"
+    ],
     "confirmed": false,
     "status": "listed",
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
@@ -94,7 +112,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-28 06:04 KST",
+  "collected_at": "2026-11-28 14:18 KST",
   "odds_first": {
     "line": 2.5,
     "home": 4.8,

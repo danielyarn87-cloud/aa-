@@ -13,11 +13,11 @@
   "odds": {
     "line": 3.5,
     "home": 1.59,
-    "best_home": 1.67,
+    "best_home": 1.66,
     "draw": 4.29,
     "best_draw": 4.6,
-    "away": 5.15,
-    "best_away": 5.6,
+    "away": 5.18,
+    "best_away": 5.7,
     "over": 2.35,
     "best_over": 2.42,
     "under": 1.57,
@@ -58,7 +58,7 @@
   },
   "lineup": {
     "home_absent": [
-      "D. Ceballos (Injury)",
+      "D. Ceballos (Back Injury)",
       "G. Lo Celso (Knee Injury)",
       "I. Losada (Injury)"
     ],
@@ -101,7 +101,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-28 06:04 KST",
+  "collected_at": "2026-11-28 14:18 KST",
   "odds_first": {
     "line": 3.5,
     "home": 1.57,

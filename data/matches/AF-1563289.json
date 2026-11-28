@@ -12,15 +12,15 @@
   "away_en": "Watford",
   "odds": {
     "line": 2.5,
-    "home": 2.2,
-    "best_home": 2.34,
-    "draw": 3.3,
+    "home": 2.21,
+    "best_home": 2.36,
+    "draw": 3.29,
     "best_draw": 3.55,
     "away": 3.14,
     "best_away": 3.4,
-    "over": 1.9,
-    "best_over": 2.02,
-    "under": 1.84,
+    "over": 1.92,
+    "best_over": 2.08,
+    "under": 1.82,
     "best_under": 1.89,
     "source": "The Odds API 평균 배당 (승무패 21곳, 언더/오버 16곳 북메이커)",
     "event_id": "82ef491ed2f8399e4ccec9f5d8315cee",
@@ -28,8 +28,8 @@
   },
   "league_avg": {
     "설명": "이번 시즌 리그 평균 경기당 득점 (순위표 기준)",
-    "home_goals": 1.632,
-    "away_goals": 1.27
+    "home_goals": 1.634,
+    "away_goals": 1.263
   },
   "stats": {
     "basis": "venue",
@@ -38,7 +38,7 @@
     "home": {
       "설명": "홈 경기 경기당 득실 (8경기, 리그 평균 쪽으로 3경기만큼 보정)",
       "xg_for": 1.1,
-      "xg_against": 1.728,
+      "xg_against": 1.726,
       "raw_goals_for": 0.9,
       "raw_goals_against": 1.9,
       "played": 8,
@@ -47,7 +47,7 @@
     },
     "away": {
       "설명": "원정 경기 경기당 득실 (8경기, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 0.71,
+      "xg_for": 0.708,
       "xg_against": 2.118,
       "raw_goals_for": 0.5,
       "raw_goals_against": 2.3,
@@ -111,7 +111,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-28 06:04 KST",
+  "collected_at": "2026-11-28 14:18 KST",
   "odds_first": {
     "line": 2.5,
     "home": 2.19,

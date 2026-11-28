@@ -66,11 +66,11 @@
   "schedule": {
     "home_prev": "2026-11-24 AFC Champions League Elite",
     "home_days_rest": 7,
-    "away_prev": "2026-11-24 AFC Champions League Elite",
-    "away_days_rest": 6
+    "away_prev": "2026-11-27 V.League 1",
+    "away_days_rest": 3
   },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)"
   ],
-  "collected_at": "2026-11-28 06:04 KST"
+  "collected_at": "2026-11-28 14:19 KST"
 }

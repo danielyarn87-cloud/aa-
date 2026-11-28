@@ -14,10 +14,10 @@
     "line": 3.5,
     "home": 1.19,
     "best_home": 1.24,
-    "draw": 7.33,
+    "draw": 7.27,
     "best_draw": 8.2,
-    "away": 12.89,
-    "best_away": 16.5,
+    "away": 13.02,
+    "best_away": 17.0,
     "over": 2.06,
     "best_over": 2.17,
     "under": 1.74,
@@ -58,11 +58,13 @@
   },
   "lineup": {
     "home_absent": [
-      "D. Doue (Knee Injury)",
-      "K. Kvaratskhelia (Knee Injury)",
+      "D. Doue (Knee Injury - ACL)",
+      "K. Kvaratskhelia (Knee Injury - ACL)",
       "A. Longoni (Thigh Injury)"
     ],
-    "home_doubtful": [],
+    "home_doubtful": [
+      "N. Mendes (Thigh Injury)"
+    ],
     "away_absent": [
       "M. Bamba (Injury)",
       "B. Fadiga (Muscle Injury)",
@@ -100,7 +102,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-28 06:04 KST",
+  "collected_at": "2026-11-28 14:18 KST",
   "odds_first": {
     "line": 3.5,
     "home": 1.2,

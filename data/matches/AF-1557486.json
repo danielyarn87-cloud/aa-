@@ -12,11 +12,11 @@
   "away_en": "Tottenham",
   "odds": {
     "line": 2.5,
-    "home": 3.85,
-    "best_home": 4.3,
-    "draw": 3.41,
+    "home": 3.86,
+    "best_home": 4.17,
+    "draw": 3.43,
     "best_draw": 3.7,
-    "away": 1.99,
+    "away": 1.98,
     "best_away": 2.1,
     "over": 1.98,
     "best_over": 2.1,
@@ -66,7 +66,6 @@
       "G. Xhaka (Calf Injury)"
     ],
     "home_doubtful": [
-      "O. Alderete (Injury)",
       "D. Methalie (Illness)"
     ],
     "away_absent": [
@@ -109,7 +108,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-28 06:04 KST",
+  "collected_at": "2026-11-28 14:18 KST",
   "odds_first": {
     "line": 2.5,
     "home": 3.65,

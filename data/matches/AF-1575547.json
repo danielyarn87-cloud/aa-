@@ -14,9 +14,9 @@
     "line": 3.5,
     "home": 1.15,
     "best_home": 1.19,
-    "draw": 7.25,
-    "best_draw": 8.2,
-    "away": 13.76,
+    "draw": 7.28,
+    "best_draw": 8.4,
+    "away": 13.66,
     "best_away": 17.5,
     "over": 2.0,
     "best_over": 2.12,
@@ -66,7 +66,7 @@
     "설명": "API-Football 이 이 리그의 결장자 자료를 제공하지 않음 (결장자가 없다는 뜻이 아님), 라인업 미발표"
   },
   "collected_detail": "full",
-  "venue": null,
+  "venue": "Estádio da Luz",
   "source_ids": {
     "api_football_fixture": 1575547,
     "home_team": 211,
@@ -92,7 +92,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-28 06:04 KST",
+  "collected_at": "2026-11-28 14:19 KST",
   "odds_first": {
     "line": 3.5,
     "home": 1.15,

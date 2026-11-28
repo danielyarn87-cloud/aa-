@@ -16,11 +16,11 @@
     "best_home": 2.08,
     "draw": 3.77,
     "best_draw": 4.0,
-    "away": 3.45,
-    "best_away": 3.7,
+    "away": 3.46,
+    "best_away": 3.75,
     "over": 1.6,
     "best_over": 1.67,
-    "under": 2.3,
+    "under": 2.31,
     "best_under": 2.4,
     "source": "The Odds API 평균 배당 (승무패 23곳, 언더/오버 7곳 북메이커)",
     "event_id": "2c30e2ebaf6c30aaa4e3fb56cffa6a29",
@@ -61,6 +61,7 @@
       "A. Castro-Montes (Calf Injury)",
       "T. Dallinga (Knee Injury)",
       "T. Hubers (Knee Injury)",
+      "L. Lochoshvili (Head Injury)",
       "I. Rondic (Muscle Injury)",
       "E. Skhiri (Ankle Injury)",
       "R. van den Berg (Muscle Injury)"
@@ -69,10 +70,14 @@
       "M. Schwabe (Back Injury)"
     ],
     "away_absent": [
-      "N. Mickelson (Injury)",
+      "N. Mickelson (Knee Injury)",
       "L. Seifert (Ankle Injury)"
     ],
-    "away_doubtful": [],
+    "away_doubtful": [
+      "N. Darvich (Muscle Injury)",
+      "L. Gunther (Illness)",
+      "N. Kristof (Illness)"
+    ],
     "confirmed": false,
     "status": "listed",
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
@@ -102,7 +107,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-28 06:04 KST",
+  "collected_at": "2026-11-28 14:18 KST",
   "odds_first": {
     "line": 3.5,
     "home": 1.96,

@@ -12,12 +12,12 @@
   "away_en": "Nottingham Forest",
   "odds": {
     "line": 2.5,
-    "home": 3.99,
+    "home": 4.0,
     "best_home": 4.31,
     "draw": 3.52,
     "best_draw": 3.73,
     "away": 1.89,
-    "best_away": 1.96,
+    "best_away": 1.95,
     "over": 1.91,
     "best_over": 2.0,
     "under": 1.88,
@@ -96,7 +96,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-28 06:04 KST",
+  "collected_at": "2026-11-28 14:18 KST",
   "odds_first": {
     "line": 2.5,
     "home": 3.99,

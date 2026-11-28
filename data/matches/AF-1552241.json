@@ -12,12 +12,12 @@
   "away_en": "Heerenveen",
   "odds": {
     "line": 3.5,
-    "home": 3.5,
+    "home": 3.52,
     "best_home": 3.8,
-    "draw": 3.67,
-    "best_draw": 4.0,
+    "draw": 3.66,
+    "best_draw": 3.91,
     "away": 1.91,
-    "best_away": 2.04,
+    "best_away": 1.98,
     "over": 2.35,
     "best_over": 2.48,
     "under": 1.53,
@@ -101,7 +101,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-28 06:04 KST",
+  "collected_at": "2026-11-28 14:19 KST",
   "odds_first": {
     "line": 3.5,
     "home": 3.51,

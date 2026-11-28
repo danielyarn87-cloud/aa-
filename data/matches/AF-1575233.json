@@ -12,11 +12,11 @@
   "away_en": "RB Leipzig",
   "odds": {
     "line": 3.5,
-    "home": 2.67,
+    "home": 2.69,
     "best_home": 2.83,
     "draw": 3.82,
-    "best_draw": 4.1,
-    "away": 2.36,
+    "best_draw": 4.2,
+    "away": 2.34,
     "best_away": 2.48,
     "over": 2.12,
     "best_over": 2.27,
@@ -98,7 +98,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-28 06:04 KST",
+  "collected_at": "2026-11-28 14:18 KST",
   "odds_first": {
     "line": 3.5,
     "home": 2.69,

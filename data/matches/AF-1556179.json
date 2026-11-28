@@ -24,22 +24,24 @@
     "metric": "goals",
     "설명": "API-Football 홈/원정 경기당 득실 (xG 아님)",
     "home": {
-      "설명": "홈 경기 경기당 득실 (9경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 1.383,
-      "xg_against": 1.341,
-      "raw_goals_for": 1.333,
-      "raw_goals_against": 1.333,
-      "played": 9,
-      "record": "7승 0무 2패"
+      "설명": "홈 경기 경기당 득실 (10경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 1.431,
+      "xg_against": 1.546,
+      "raw_goals_for": 1.4,
+      "raw_goals_against": 1.6,
+      "played": 10,
+      "record": "7승 0무 3패",
+      "form": "LWLDL"
     },
     "away": {
-      "설명": "원정 경기 경기당 득실 (9경기, 순위표 기준, 리그 평균 쪽으로 3경기만큼 보정)",
-      "xg_for": 0.925,
-      "xg_against": 1.633,
-      "raw_goals_for": 0.778,
-      "raw_goals_against": 1.667,
-      "played": 9,
-      "record": "3승 0무 6패"
+      "설명": "원정 경기 경기당 득실 (10경기, 리그 평균 쪽으로 3경기만큼 보정)",
+      "xg_for": 0.931,
+      "xg_against": 1.508,
+      "raw_goals_for": 0.8,
+      "raw_goals_against": 1.5,
+      "played": 10,
+      "record": "4승 0무 6패",
+      "form": "LLWLW"
     }
   },
   "lineup": {
@@ -48,10 +50,10 @@
     "away_absent": [],
     "away_doubtful": [],
     "confirmed": false,
-    "status": "skipped",
-    "설명": "호출 절약 수집이라 부상자 목록을 받지 않음"
+    "status": "unsupported",
+    "설명": "API-Football 이 이 리그의 결장자 자료를 제공하지 않음 (결장자가 없다는 뜻이 아님), 라인업 미발표"
   },
-  "collected_detail": "light",
+  "collected_detail": "full",
   "venue": "Ajinomoto Stadium",
   "source_ids": {
     "api_football_fixture": 1556179,
@@ -61,9 +63,22 @@
     "season": 2026
   },
   "table": "도쿄 베르디 동부 5위 28점 (10승0무8패, 득실 -4) / 교토 상가 서부 8위 23점 (8승0무10패, 득실 -6)",
+  "head_to_head": [
+    "2025-08-16 교토 상가 1-0 도쿄 베르디",
+    "2025-05-25 도쿄 베르디 1-0 교토 상가",
+    "2024-12-08 교토 상가 0-0 도쿄 베르디",
+    "2024-03-29 도쿄 베르디 2-2 교토 상가",
+    "2022-09-07 교토 상가 2-1 도쿄 베르디"
+  ],
+  "schedule": {
+    "home_prev": "2026-11-25 J1 League",
+    "home_days_rest": 9,
+    "away_prev": "2026-11-28 J1 League",
+    "away_days_rest": 7
+  },
   "sources": [
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-28 06:04 KST"
+  "collected_at": "2026-11-28 14:19 KST"
 }

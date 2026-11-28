@@ -12,11 +12,11 @@
   "away_en": "Sunderland",
   "odds": {
     "line": 2.5,
-    "home": 1.42,
+    "home": 1.41,
     "best_home": 1.5,
     "draw": 4.79,
     "best_draw": 5.2,
-    "away": 6.68,
+    "away": 6.69,
     "best_away": 7.6,
     "over": 1.57,
     "best_over": 1.63,
@@ -99,7 +99,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-28 06:04 KST",
+  "collected_at": "2026-11-28 14:18 KST",
   "odds_first": {
     "line": 2.5,
     "home": 1.43,

@@ -16,10 +16,10 @@
     "best_home": 1.61,
     "draw": 4.47,
     "best_draw": 4.8,
-    "away": 5.34,
-    "best_away": 5.9,
+    "away": 5.36,
+    "best_away": 6.0,
     "over": 2.33,
-    "best_over": 2.44,
+    "best_over": 2.42,
     "under": 1.59,
     "best_under": 1.67,
     "source": "The Odds API 평균 배당 (승무패 25곳, 언더/오버 11곳 북메이커)",
@@ -65,8 +65,6 @@
       "Z. Yohanna (Injury)"
     ],
     "home_doubtful": [
-      "O. Boscagli (Illness)",
-      "J. Hadjam (Muscle Injury)",
       "M. O'Riley (Ankle Injury)",
       "S. Tzimas (Knee Injury)"
     ],
@@ -74,9 +72,7 @@
       "E. Jaouen (Muscle Injury)",
       "Joelinton (Muscle Injury)"
     ],
-    "away_doubtful": [
-      "L. Hall (Injury)"
-    ],
+    "away_doubtful": [],
     "confirmed": false,
     "status": "listed",
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
@@ -108,7 +104,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-28 06:04 KST",
+  "collected_at": "2026-11-28 14:18 KST",
   "odds_first": {
     "line": 3.5,
     "home": 1.54,

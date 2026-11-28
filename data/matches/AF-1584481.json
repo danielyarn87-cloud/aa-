@@ -12,10 +12,10 @@
   "away_en": "Trabzonspor",
   "odds": {
     "line": 2.5,
-    "home": 3.22,
+    "home": 3.21,
     "best_home": 3.42,
-    "draw": 3.67,
-    "best_draw": 3.95,
+    "draw": 3.68,
+    "best_draw": 4.1,
     "away": 1.99,
     "best_away": 2.12,
     "over": 1.56,
@@ -82,7 +82,7 @@
     "설명": "API-Football 부상자 목록 기준, 라인업 미발표"
   },
   "collected_detail": "full",
-  "venue": null,
+  "venue": "Gürsel Aksel Stadium",
   "source_ids": {
     "api_football_fixture": 1584481,
     "home_team": 994,
@@ -108,7 +108,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-28 06:04 KST",
+  "collected_at": "2026-11-28 14:19 KST",
   "odds_first": {
     "line": 2.5,
     "home": 3.19,

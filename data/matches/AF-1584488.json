@@ -14,15 +14,15 @@
     "line": 3.5,
     "home": 1.21,
     "best_home": 1.27,
-    "draw": 6.12,
+    "draw": 6.18,
     "best_draw": 7.7,
-    "away": 9.49,
+    "away": 9.52,
     "best_away": 12.5,
     "over": 1.75,
     "best_over": 1.86,
-    "under": 1.97,
+    "under": 1.98,
     "best_under": 2.03,
-    "source": "The Odds API 평균 배당 (승무패 13곳, 언더/오버 7곳 북메이커)",
+    "source": "The Odds API 평균 배당 (승무패 14곳, 언더/오버 8곳 북메이커)",
     "event_id": "1a0b104e0d1de4302de2ed3be2e8f9af",
     "sport": "soccer_turkey_super_league"
   },
@@ -92,7 +92,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-28 06:04 KST",
+  "collected_at": "2026-11-28 14:19 KST",
   "odds_first": {
     "line": 3.5,
     "home": 1.21,

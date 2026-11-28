@@ -12,7 +12,7 @@
   "away_en": "Liverpool",
   "odds": {
     "line": 2.5,
-    "home": 4.43,
+    "home": 4.44,
     "best_home": 4.8,
     "draw": 3.87,
     "best_draw": 4.16,
@@ -102,7 +102,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-28 06:04 KST",
+  "collected_at": "2026-11-28 14:18 KST",
   "odds_first": {
     "line": 2.5,
     "home": 4.4,

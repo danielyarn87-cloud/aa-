@@ -12,9 +12,9 @@
   "away_en": "Napoli",
   "odds": {
     "line": 3.5,
-    "home": 4.65,
-    "best_home": 5.1,
-    "draw": 4.2,
+    "home": 4.66,
+    "best_home": 5.2,
+    "draw": 4.19,
     "best_draw": 4.5,
     "away": 1.64,
     "best_away": 1.71,
@@ -110,7 +110,7 @@
     "API-Football (일정·순위·팀 통계·부상자·상대 전적)",
     "The Odds API (배당)"
   ],
-  "collected_at": "2026-11-28 06:04 KST",
+  "collected_at": "2026-11-28 14:18 KST",
   "odds_first": {
     "line": 2.5,
     "home": 4.6,
