@@ -161,6 +161,16 @@ def main() -> None:
         if p.name not in keep:
             p.unlink()
     items.sort(key=lambda x: x["kickoff"])
+    # 추천 순위용 네이버 검색량 (키가 있을 때만, 기준 '토트넘' = 1.0) → 운영자 '쇼츠' 화면 popScore
+    try:
+        import naver_trend
+
+        sv = naver_trend.measure([t for it in items for t in (it["home"], it["away"])], out)
+        for it in items:
+            if it["home"] in sv or it["away"] in sv:
+                it["search"] = round(sv.get(it["home"], 0) + sv.get(it["away"], 0), 3)
+    except Exception as e:
+        print(f"네이버 검색량 건너뜀: {e}")
     (out / "index.json").write_text(json.dumps({
         "made_at": now.strftime("%Y-%m-%d %H:%M KST"), "leagues": sorted(want), "items": items,
     }, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")

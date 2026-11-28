@@ -1500,6 +1500,8 @@ function popScore(it) {
   const bh = popIs(it.home, POP_BIG) || popIs(it.home, POP_KR), ba = popIs(it.away, POP_BIG) || popIs(it.away, POP_KR);
   if (bh && ba) { s += 35; why.push('빅매치'); } else if (bh || ba) { s += 12; why.push('인기 팀'); }
   if ([1, 4, 2].includes(+it.league_id)) why.push(it.league);
+  /* 네이버 검색량 (두 팀 합, 기준 '토트넘' = 1.0): 많이 찾는 경기일수록 최대 +40 */
+  if (it.search != null) { s += Math.min(40, Math.round(it.search * 25)); if (it.search >= 0.3) why.push(`🔎 검색 ${it.search >= 1 ? '아주 많음' : '많음'}`); }
   const h = (Date.parse(String(it.kickoff || '').slice(0, 16).replace(' ', 'T') + ':00+09:00') - Date.now()) / 3600e3;   /* '2026-11-28 16:30 KST' */
   if (h > 2 && h <= 30) { s += 10; why.push('오늘·내일 경기'); } else if (h <= 2) s -= 30;   /* 너무 임박하면 올려도 볼 시간이 없음 */
   return {s, why};

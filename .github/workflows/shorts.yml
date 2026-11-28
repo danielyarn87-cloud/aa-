@@ -43,6 +43,9 @@ jobs:
           ls /tmp/shorts | wc -l
 
       - name: 쇼츠 만들기
+        env:   # 추천 순위용 네이버 검색량 (없으면 건너뜀)
+          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
+          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
         run: python tools/make_shorts_batch.py /tmp/shorts
 
       - name: shorts 브랜치에 올리기 (기록 1개만 유지)
