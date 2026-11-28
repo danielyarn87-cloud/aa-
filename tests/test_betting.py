@@ -24,12 +24,12 @@ ODDS = {"home": 1.8, "draw": 3.6, "away": 4.5, "over": 1.9, "under": 1.9}
 
 def test_slips_follow_rules(company):
     now = datetime(2026, 11, 24, 18, 0, tzinfo=KST)
-    runs = [_run(f"M{i}", 24 if i < 4 else 25, 22, (0.6, 0.25, 0.15), 0.55, ODDS) for i in range(8)]
+    runs = [_run(f"M{i}", 24 if i < 4 else 25, 22, (0.6, 0.25, 0.15), 0.55, ODDS) for i in range(12)]
     runs.append(_run("LATE", 26, 20, (0.9, 0.05, 0.05), 0.5, ODDS))                 # 사흘째 → 못 씀
     runs.append(_run("MOCK", 24, 23, (0.9, 0.05, 0.05), 0.5, ODDS, engine="모의"))    # 모의 → 못 씀
     runs.append(_run("NOODDS", 24, 23, (0.9, 0.05, 0.05), 0.5, {}))                  # 배당 없음 → 못 씀
     book = {"start_bankroll": 1_000_000, "accounts": {}, "slips": []}
-    assert betting.place(company, book, runs, now, log=lambda *_: None) == 9         # 3명 × 3·5·7폴더
+    assert betting.place(company, book, runs, now, log=lambda *_: None) == 9         # 3명 × 배팅표 3장
     for s in book["slips"]:
         assert 5_000 <= s["stake"] <= 100_000 and s["stake"] % 1000 == 0
         ids = [l["match_id"] for l in s["legs"]]
@@ -37,10 +37,16 @@ def test_slips_follow_rules(company):
         assert not {"LATE", "MOCK", "NOODDS"} & set(ids)
         assert set(s["days"]) <= {"2026-11-24", "2026-11-25"}                         # 이틀 안
         assert all(l["prob"] >= betting.MIN_LEG_PROB for l in s["legs"])
+        assert betting.MIN_LEGS <= s["size"] <= betting.MAX_LEGS                       # 한 장에 2~5경기
+    for m in ("kim_data", "park_field", "lee_contra"):
+        mine = [s for s in book["slips"] if s["member_id"] == m]
+        assert sorted(s["game"] for s in mine) == [1, 2, 3]
+        ids = [l["match_id"] for s in mine for l in s["legs"]]
+        assert len(ids) == len(set(ids))                                              # 세 장끼리 경기 안 겹침
     acc = book["accounts"]["kim_data"]
     spent = sum(s["stake"] for s in book["slips"] if s["member_id"] == "kim_data")
     assert acc["bankroll"] == 1_000_000 - spent
-    # 열린 배팅이 있으면 같은 크기는 다시 걸지 않는다
+    # 세 자리가 다 차 있으면 더 걸지 않는다
     assert betting.place(company, book, runs, now, log=lambda *_: None) == 0
 
 
@@ -49,16 +55,16 @@ def test_settle_win_and_loss(company):
     runs = [_run(f"M{i}", 24, 22, (0.6, 0.25, 0.15), 0.55, ODDS) for i in range(7)]
     book = {"start_bankroll": 1_000_000, "accounts": {}, "slips": []}
     betting.place(company, book, runs, now, log=lambda *_: None)
-    s3 = next(s for s in book["slips"] if s["member_id"] == "kim_data" and s["size"] == 3)
+    s3 = next(s for s in book["slips"] if s["member_id"] == "kim_data" and s["game"] == 1)
     results = {}
-    for l in s3["legs"]:                                   # 3폴더의 선택이 모두 맞게 결과를 만든다
+    for l in s3["legs"]:                                   # 게임 1의 선택이 모두 맞게 결과를 만든다
         results[l["match_id"]] = {"home_goals": 2, "away_goals": 1} if l["pick"] in ("home", "over") else {"home_goals": 0, "away_goals": 0}
     before = book["accounts"]["kim_data"]["bankroll"]
     betting.settle(book, results, now, log=lambda *_: None)
     assert s3["status"] == "won" and s3["payout"] == int(s3["stake"] * s3["combined_odds"])
     assert book["accounts"]["kim_data"]["bankroll"] == before + s3["payout"]
     # 하나라도 틀리면 나머지 경기를 기다리지 않고 실패
-    s5 = next(s for s in book["slips"] if s["member_id"] == "park_field" and s["size"] == 5)
+    s5 = next(s for s in book["slips"] if s["member_id"] == "park_field" and s["game"] == 2)
     first = s5["legs"][0]
     betting.settle(book, {first["match_id"]: {"home_goals": 0, "away_goals": 3}}, now, log=lambda *_: None)
     assert s5["status"] == "lost" and s5["payout"] == 0
