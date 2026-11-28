@@ -875,7 +875,11 @@ mark.ap-hl{background:#fde047;color:inherit;padding:0 3px;border-radius:3px}
 /* 경기 목록: 오늘의 쇼츠 줄 + ▶ 쇼츠 꼬리표 */
 .tag.yt{background:#dc2626;color:#fff;border-color:#dc2626;font-weight:700;white-space:nowrap}
 .ytstrip{margin:14px 0 6px}
-.ytshead{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.ytshead{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.ytch-btn{display:inline-flex;align-items:center;gap:8px;background:#ff0033;color:#fff;text-decoration:none;font-weight:700;font-size:15px;padding:8px 16px 8px 12px;border-radius:999px;box-shadow:0 2px 8px rgb(255 0 51/.28);white-space:nowrap;transition:transform .15s,background .15s}
+.ytch-btn b{font-weight:800}
+.ytch-btn:hover,.ytch-btn:focus-visible{background:#d9002b;transform:translateY(-1px);color:#fff}
+@media (max-width:420px){.ytch-btn{font-size:14px;padding:7px 13px 7px 10px}}
 .ytshead h2{font-size:20px;margin:0}
 .ytsrow{display:flex;gap:12px;overflow-x:auto;padding:10px 2px 8px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
 .ytsc{flex:0 0 120px;display:flex;flex-direction:column;gap:5px;text-decoration:none;color:var(--ink);scroll-snap-align:start}

@@ -795,7 +795,7 @@ async function mountShortsList(matches) {
   const strip = document.getElementById('ytStrip');
   if (strip) {
     const list = found.sort((a, b) => (a.v.published < b.v.published ? 1 : -1)).slice(0, 8);
-    strip.innerHTML = `<div class="ytshead"><h2>📺 오늘의 쇼츠</h2><a class="small" href="https://www.youtube.com/@raise-fulltime/shorts" target="_blank" rel="noopener">유튜브 채널 ↗</a></div>
+    strip.innerHTML = `<div class="ytshead"><h2>📺 오늘의 쇼츠</h2><a class="ytch-btn" href="https://www.youtube.com/@raise-fulltime/shorts" target="_blank" rel="noopener" aria-label="RAISE 유튜브 채널 열기 (새 창)"><svg viewBox="0 0 28 20" width="26" height="18" aria-hidden="true"><rect width="28" height="20" rx="5" fill="#fff"/><path d="M11 5.5v9l8-4.5z" fill="#ff0033"/></svg><span>유튜브 채널 <b>구독하기</b></span></a></div>
       <div class="ytsrow">${list.map(({m, v}) => `<a class="ytsc" href="${matchHref(m.id, m.slug)}" data-auto="${esc(m.id)}">
         <span class="ytthumb"><img src="${ytThumb(v.id)}" alt="" loading="lazy" onerror="this.remove()"><b class="ytplay" aria-hidden="true">▶</b></span>
         <span class="ytst"><span>${esc(m.home)}</span> <span class="mute">vs</span> <span>${esc(m.away)}</span></span>
