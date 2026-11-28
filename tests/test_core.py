@@ -231,3 +231,29 @@ def test_line_choice_and_reline(company_dir):
     assert not LN.apply_line(d, 2.5, company.policy)                     # 같은 기준점이면 그대로
     assert LN.start_line({}, None, (0.6, 0.5)) == 2.5 and LN.start_line({}, None, (2.4, 1.9)) == 4.5
     assert LN.start_line({"totals": {"2.5": {"over": 1.4, "under": 2.9}, "3.5": {"over": 1.95, "under": 1.85}}}, None, None) == 3.5
+
+
+def test_old_analysis_gets_supplement_then_reline(company_dir):
+    """세 기준점 숫자가 없는 예전 분석: 보충 질문(분석가마다 한 번) 뒤 기준점을 바꾼다. 보충 없이 부르면 그대로."""
+    from aa import lines as LN
+    from aa.store import run_to_dict
+
+    company = load_company(company_dir / "company.yaml")
+    match = Match.load(company_dir / "data" / "sample_match.json")
+    run = run_to_dict(analyze(company, match, MockClient(), Ledger(company_dir / "ledger.sqlite")))
+    for o in run["initial"] + run["final"]:
+        o.pop("over_probs", None)                       # 예전 분석처럼
+    run["match"]["data"]["kickoff_iso"] = "2099-01-01T00:00:00+09:00"
+    run["engine"] = "Claude API (시험)"               # 모의 분석은 보충하지 않으므로
+    old = run["decision"]["line"]
+    (company_dir / "reports").mkdir(exist_ok=True)
+    rp = company_dir / "reports" / f"{match.id}.json"
+    rp.write_text(json.dumps(run, ensure_ascii=False), encoding="utf-8")
+    new = 3.5 if old != 3.5 else 2.5
+    (company_dir / "data" / "lines.json").write_text(json.dumps({"lines": {match.id: new}}), encoding="utf-8")
+    assert LN.reline_all(company, log=lambda *_: None) == 0           # 보충 허락 없으면 못 바꿈
+    assert LN.reline_all(company, log=lambda *_: None, client_factory=MockClient) == 1
+    got = json.loads(rp.read_text(encoding="utf-8"))
+    assert got["decision"]["line"] == new and got["line_supplemented"] == len(got["final"])
+    for o in got["initial"] + got["final"]:
+        assert o["over_prob"] == o["over_probs"][LN.key(new)]

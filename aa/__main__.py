@@ -132,7 +132,12 @@ def cmd_sync(company, args) -> None:
 def cmd_reline(company, args) -> None:
     from .lines import reline_all
 
-    print(f"기준점 바꾼 경기 {reline_all(company)}개")
+    factory = None
+    if args.supplement:   # 예전 분석은 분석가에게 세 기준점 숫자만 짧게 다시 묻는다 (Claude 비용 조금)
+        from .daily import _default_client
+
+        factory = (lambda: MockClient()) if args.mock else (lambda: _default_client(company))
+    print(f"기준점 바꾼 경기 {reline_all(company, client_factory=factory)}개")
 
 
 def cmd_daily(company, args) -> None:
@@ -236,7 +241,9 @@ def main(argv=None) -> None:
     sub.add_parser("worker", help="정해진 시각마다 자동 실행 (서버 상시 구동용)")
     sub.add_parser("news", help="경기에 영향 줄 뉴스 모으기 (구글 뉴스 + Claude Haiku)")
 
-    sub.add_parser("reline", help="운영자가 바꾼 언더/오버 기준점(data/lines.json)을 분석 결과에 반영")
+    rl = sub.add_parser("reline", help="운영자가 바꾼 언더/오버 기준점(data/lines.json)을 분석 결과에 반영")
+    rl.add_argument("--supplement", action="store_true", help="예전 분석은 세 기준점 오버 확률을 보충 질문 (Claude 비용 조금)")
+    rl.add_argument("--mock", action="store_true", help="보충 질문을 모의 실행으로")
     w = sub.add_parser("serve", help="웹사이트 실행")
     w.add_argument("--host", default="127.0.0.1")
     w.add_argument("--port", type=int, default=8000)

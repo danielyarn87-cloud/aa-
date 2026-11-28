@@ -37,6 +37,11 @@ SCHEMAS = {
                "required": ["rebuttal", "concession", "changed", *_REQ], "additionalProperties": False},
     "lead": {"type": "object", "properties": {"headline": {"type": "string"}, "comment": {"type": "string"}},
              "required": ["headline", "comment"], "additionalProperties": False},
+    # 예전 분석의 기준점을 바꿀 때: 세 기준점 오버 확률만 보충 (aa/lines.py supplement)
+    "supplement": {"type": "object", "properties": {st: {"type": "object", "properties": {k: {"type": "number"} for k in ("2.5", "3.5", "4.5")},
+                                                          "required": ["2.5", "3.5", "4.5"], "additionalProperties": False}
+                                                     for st in ("initial", "final")},
+                   "required": ["initial", "final"], "additionalProperties": False},
 }
 
 

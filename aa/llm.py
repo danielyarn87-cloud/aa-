@@ -120,6 +120,8 @@ class MockClient:
         stage = ctx["stage"]
         if stage == "lead":
             return json.dumps({"headline": "모의 실행 결론", "comment": "모의 실행이므로 팀장 코멘트는 생략합니다."}, ensure_ascii=False)
+        if stage == "supplement":   # 기준점 보충: 답한 기준점 값은 lines.tidy 가 맞춘다
+            return json.dumps({k: _mock_lines(ctx["over"][k]) for k in ("initial", "final")})
         style = ctx["member_id"] if ctx["member_id"] in ("kim_data", "park_field", "lee_contra") else "neutral"
         if stage == "initial":
             out = self._initial(style, ctx)

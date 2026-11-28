@@ -155,8 +155,64 @@ def apply_line(run: dict, line: float, policy) -> bool:
     return True
 
 
-def reline_all(company, log=print) -> int:
-    """data/lines.json 의 기준점을 아직 시작 안 한 경기의 분석 결과와 채점 기록에 반영한다."""
+def supplement(company, run: dict, client, log=print) -> bool:
+    """세 기준점 숫자가 없는 예전 분석: 분석가마다 짧게 한 번씩 '2.5·3.5·4.5 오버 확률'만 다시 묻는다.
+    승무패·토론 글은 그대로. 경기당 비용은 전체 분석의 1/10 안팎 (경기 자료 전체 대신 요약만 보냄)."""
+    from string import Template
+
+    from .pipeline import _ask
+    from .sports.base import score_matrix, summarize_matrix
+
+    m, d = run["match"], run["decision"]
+    old = float(d.get("line") or 2.5)
+    base = run.get("base") or {}
+    lam = base.get("lambdas") or []
+    if len(lam) >= 2:
+        mx = score_matrix(float(lam[0]), float(lam[1]))
+        base_lines = f"예상 득점 {m['home']} {lam[0]:.2f} : {lam[1]:.2f} {m['away']}\n" + " / ".join(
+            f"{pt} 오버 {summarize_matrix(mx, pt)[1]:.1%}" for pt in LINES)
+    else:
+        base_lines = "자료 없음"
+    tot = (m.get("odds") or {}).get("totals") or {}
+    market_lines = " / ".join(f"{k} 오버 {v['over']} · 언더 {v['under']}" for k, v in sorted(tot.items())) or (
+        f"{old} 오버 {m['odds'].get('over')} · 언더 {m['odds'].get('under')}" if (m.get("odds") or {}).get("over") else "자료 없음")
+    tpl = Template((company.base_dir / "prompts" / "supplement.md").read_text(encoding="utf-8"))
+    first = {o["member_id"]: o for o in run.get("initial", [])}
+
+    def text(o):
+        if not o:
+            return "(없음)"
+        return (f"오버 {o['over_prob']:.0%} → {'오버' if o.get('pick_ou') == 'over' else '언더'}\n요약: {o.get('summary', '')}\n"
+                f"근거: {' / '.join(o.get('key_reasons', []))}")
+
+    members = {mb.id: mb for mb in company.members}
+    done = 0
+    for fo in run.get("final", []):
+        if key_ok(fo):
+            continue
+        mb = members.get(fo["member_id"])
+        if not mb:
+            log(f"기준점 보충: {fo['member_name']} 은 지금 조직에 없어 건너뜀")
+            return False
+        io = first.get(fo["member_id"])
+        prompt = tpl.safe_substitute(
+            member_name=mb.name, member_title=mb.title, match_title=f"{m['home']} vs {m['away']}",
+            league=m.get("league", ""), kickoff=m.get("kickoff", ""), table=(m.get("data") or {}).get("table", ""),
+            base_lines=base_lines, market_lines=market_lines, old_line=old, initial=text(io), final=text(fo),
+            initial_over=f"{(io or fo)['over_prob']:.2f}", final_over=f"{fo['over_prob']:.2f}")
+        ans = _ask(client, company, mb, "supplement", prompt,
+                   {"over": {"initial": (io or fo)["over_prob"], "final": fo["over_prob"]}})
+        fo["over_probs"] = tidy(ans.get("final"), old, fo["over_prob"])
+        if io:
+            io["over_probs"] = tidy(ans.get("initial"), old, io["over_prob"])
+        done += 1
+    run["line_supplemented"] = done
+    return can_reline(run)
+
+
+def reline_all(company, log=print, client_factory=None) -> int:
+    """data/lines.json 의 기준점을 아직 시작 안 한 경기의 분석 결과와 채점 기록에 반영한다.
+    client_factory 를 주면 세 기준점 숫자가 없는 예전 분석은 먼저 보충 질문을 한다 (운영자가 화면에서 확인한 경우)."""
     from datetime import datetime
     from zoneinfo import ZoneInfo
 
@@ -180,6 +236,15 @@ def reline_all(company, log=print) -> int:
             started = False
         if started:
             continue                      # 시작한 경기는 바꾸지 않는다 (채점 기준이 흔들리지 않게)
+        if (client_factory and not can_reline(run) and float(run["decision"].get("line") or 0) != line
+                and "모의" not in run.get("engine", "")):
+            try:
+                ok = supplement(company, run, client_factory(), log=log)
+            except Exception as e:   # 한 경기 실패가 나머지를 막지 않게
+                log(f"기준점 보충 실패: {mid} {e}")
+                ok = False
+            if ok:
+                log(f"기준점 보충: {run['match']['home']} vs {run['match']['away']} (분석가 {run.get('line_supplemented')}명)")
         if not apply_line(run, line, company.policy):
             if float(run["decision"].get("line") or 0) != line:
                 log(f"기준점: {mid} 는 세 기준점 숫자가 없는 예전 분석이라 바꾸지 못함")

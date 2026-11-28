@@ -246,6 +246,7 @@ pre{background:var(--panel);padding:12px;border-radius:8px;font-size:14px;white-
 .ln-btn{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:8px;padding:2px 8px;font:inherit;font-size:13px;font-variant-numeric:tabular-nums;cursor:pointer;min-width:38px}
 .ln-btn[aria-pressed="true"]{background:var(--pitch);border-color:var(--pitch);color:#fff;font-weight:700}
 .ln-btn:disabled{opacity:.45;cursor:default}
+.ln-btn.ask{border-color:light-dark(#9a6700,#facc15);box-shadow:0 0 0 2px light-dark(#f5d56b,#7a5c00)}
 .ln-box{margin-top:14px;padding:12px 14px}
 .ln-box .ln-pick{margin:0;flex-wrap:wrap;gap:6px}
 .ln-box .ln-pick b{flex-basis:100%}

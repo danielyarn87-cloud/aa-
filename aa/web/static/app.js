@@ -1637,13 +1637,13 @@ function lineBox(m, d, s) {
   let wait = {}; try { wait = JSON.parse(store.get('aa_line_wait') || '{}') || {}; } catch (e) {}
   const w = wait[m.id];
   const pending = w && Date.now() - w.t < 15 * 60e3 && +w.line !== +d.line ? +w.line : null;
-  const btns = LINES.map(v => `<button type="button" class="ln-btn" data-ml="${esc(m.id)}" data-v="${v}" aria-pressed="${+(pending ?? d.line) === v}"${started || !s.reline ? ' disabled' : ''}>${v}</button>`).join('');
+  const btns = LINES.map(v => `<button type="button" class="ln-btn" data-ml="${esc(m.id)}" data-v="${v}" data-need="${s.reline ? '' : '1'}" aria-pressed="${+(pending ?? d.line) === v}"${started ? ' disabled' : ''}>${v}</button>`).join('');
   const note = started ? '경기가 시작돼 기준점을 바꿀 수 없어요.'
-    : !s.reline ? '예전 방식 분석이라 기준점을 바꾸려면 다시 분석해야 해요.'
     : pending ? `${pending}(으)로 바꾸는 중이에요. 1~3분 뒤 회원 사이트에 반영돼요.`
+    : !s.reline ? '예전 방식 분석이라 바꾸려면 분석가들에게 언더/오버만 짧게 보충 질문해요 (경기당 약 40~50원, 승무패 예측은 그대로). 회원 사이트에는 3~5분 뒤 반영돼요.'
     : '바꾸면 다시 분석하지 않고 분석가들이 미리 낸 숫자로 결론을 고쳐요. 회원 사이트에는 1~3분 뒤 반영되고 쇼츠도 다시 만들어요.';
   return `<div class="panel ln-box"><div class="ln-pick" role="group" aria-label="언더/오버 기준점"><b>언더/오버 기준점</b> ${btns}</div>
-    ${!started && s.reline && !store.get('aa_run_pw') ? '<input type="password" class="ln-pw" placeholder="분석 요청 비밀번호" autocomplete="current-password">' : ''}
+    ${!started && !store.get('aa_run_pw') ? '<input type="password" class="ln-pw" placeholder="분석 요청 비밀번호" autocomplete="current-password">' : ''}
     <p class="small mute ln-note" role="status">${esc(note)}</p></div>`;
 }
 document.addEventListener('click', async e => {
@@ -1652,6 +1652,13 @@ document.addEventListener('click', async e => {
   const box = b.closest('.ln-box'), note = box.querySelector('.ln-note'), pwEl = box.querySelector('.ln-pw');
   const pw = store.get('aa_run_pw') || (pwEl && pwEl.value);
   if (!pw) { note.textContent = '분석 요청 비밀번호를 넣고 다시 눌러 주세요.'; pwEl && pwEl.focus(); return; }
+  /* 예전 분석: 보충 질문 비용이 들어서 한 번 더 눌러야 진행 */
+  if (b.dataset.need && box.dataset.ok !== b.dataset.v) {
+    box.dataset.ok = b.dataset.v;
+    box.querySelectorAll('[data-ml]').forEach(x => x.classList.toggle('ask', x === b));
+    note.textContent = `${b.dataset.v}(으)로 바꾸려면 보충 질문 비용(약 40~50원)이 들어요. 진행하려면 ${b.dataset.v} 를 한 번 더 누르세요.`;
+    return;
+  }
   box.querySelectorAll('[data-ml]').forEach(x => x.disabled = true);
   note.textContent = `${b.dataset.v}(으)로 바꾸는 중…`;
   let j = {};
@@ -1663,7 +1670,8 @@ document.addEventListener('click', async e => {
   let wait = {}; try { wait = JSON.parse(store.get('aa_line_wait') || '{}') || {}; } catch (err) {}
   wait[j.id] = {line: j.line, t: Date.now()}; store.set('aa_line_wait', JSON.stringify(wait));
   box.querySelectorAll('[data-ml]').forEach(x => x.setAttribute('aria-pressed', +x.dataset.v === +j.line));
-  note.textContent = `${j.line}(으)로 저장했어요. 1~3분 뒤 회원 사이트에 반영되고, 쇼츠는 5~10분 뒤 '쇼츠' 메뉴에 ✅ 새로 만듦으로 표시돼요.`;
+  box.querySelectorAll('[data-ml]').forEach(x => x.classList.remove('ask')); delete box.dataset.ok;
+  note.textContent = `${j.line}(으)로 저장했어요. ${b.dataset.need ? '3~5분' : '1~3분'} 뒤 회원 사이트에 반영되고, 쇼츠는 5~10분 뒤 '쇼츠' 메뉴에 ✅ 새로 만듦으로 표시돼요.`;
   if (pwEl) pwEl.remove();
 });
 function toast(msg, ms = 2600) {
