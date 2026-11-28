@@ -368,7 +368,10 @@ function kpiDetail() {
       <h3>경기 (최근 순)</h3>${rows(p, m => `<div class="kd-row">${head(m)} · 예측 ${esc(PK[m.pick_1x2] || '-')}</small></a><span class="kd-r num">${esc(m.result.score)} ${ok(m.result.hit_1x2)}</span></div>`)}`;
   } else if (kpiOpen === 'ou') {
     const p = byNew.filter(m => m.result.hit_ou != null);
-    body = `${nineChart('ou')}<h3>예측별</h3>${bars(group(p, m => m.pick_ou || '-', m => m.result.hit_ou), k => PK[k] || k)}
+    const L = m => (+(m.line ?? 2.5)).toFixed(1), byL = (a, b) => (a[0] > b[0] ? 1 : -1);
+    body = `${nineChart('ou')}<h3>기준점별</h3>${bars(group(p, L, m => m.result.hit_ou).sort(byL), k => `기준 ${k}`)}
+      <h3>기준점 · 예측별</h3>${bars(group(p, m => `${L(m)} ${PK[m.pick_ou] || '-'}`, m => m.result.hit_ou).sort(byL))}
+      <h3>예측별</h3>${bars(group(p, m => m.pick_ou || '-', m => m.result.hit_ou), k => PK[k] || k)}
       <h3>경기 (최근 순)</h3>${rows(p, m => { const g = goalsOf(m); return `<div class="kd-row">${head(m)} · ${esc(PK[m.pick_ou] || '-')} ${esc(m.line ?? 2.5)} · 실제 ${g ? g[0] + g[1] : '-'}골</small></a><span class="kd-r">${ok(m.result.hit_ou)}</span></div>`; })}`;
   } else if (kpiOpen === 'value') {
     const V = valueTickets(byNew), chart = nineChart('value');
@@ -419,7 +422,7 @@ function kpiCards(all, waiting, analyzed, vals, credit, lgInfo) {
   return `<div class="kpis">
     ${card('k1', '승무패 적중', pc(h1, p1.length), p1.length ? `${h1} / ${p1.length}경기` : '결과 대기')}
     ${card('k5', '이득 적중', pc(vh, vn), vn ? `${vh} / ${vn}개 · 5,000원씩 <b class="${vpl >= 0 ? 'plus' : ''}">${(vpl >= 0 ? '+' : '−') + Math.abs(Math.round(vpl)).toLocaleString('ko-KR')}원</b>` : '결과 대기')}
-    ${card('k2', '언더/오버 적중', pc(ho, po.length), po.length ? `${ho} / ${po.length}경기` : '결과 대기')}
+    ${card('k2', '언더/오버 적중', pc(ho, po.length), po.length ? `${ho} / ${po.length}경기<span class="kd-lines">${[2.5, 3.5, 4.5].map(L => { const x = po.filter(m => +(m.line ?? 2.5) === L); return x.length ? `<span>${L} <b>${pc(x.filter(m => m.result.hit_ou).length, x.length)}</b></span>` : ''; }).join('')}</span>` : '결과 대기')}
     ${card('k3', '채점한 경기', done.length, '누적')}
     ${card('k4', '분석 대기', waiting, `분석 완료 ${analyzed} · 이득 ${vals}`)}
     ${creditCard(credit)}
