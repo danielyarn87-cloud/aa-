@@ -956,3 +956,5 @@ details.tk-explain summary{cursor:pointer;font-weight:700;font-size:14px;padding
 .bd-more summary{cursor:pointer;font-size:13px;color:var(--mute);padding:6px 0}
 .bd-bar em{font-style:normal}
 @media (max-width:420px){.bd-r{grid-template-columns:minmax(0,1fr);gap:4px}.bd-e{grid-column:1}.bd-l small{display:inline;margin-left:6px}.bd-bar em{display:none}}
+.bd-sub{flex-basis:100%;font-size:12px;color:var(--mute);word-break:keep-all}
+.bd-mem{margin:14px 0 18px}

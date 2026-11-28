@@ -222,6 +222,7 @@ async function renderList() {
     ${MEMBER ? favBarHtml() : ''}
     ${riskLine()}${legendHtml()}
     ${isRes ? '' : '<div id="ytStrip" class="ytstrip" hidden></div>'}
+    ${MEMBER && !isRes ? bandHtml(all.filter(m => m.result), true) : ''}
     ${isRes ? `<div class="ressearch">
         <input type="search" id="rq" placeholder="팀 이름·리그로 검색 (예: 대전, 챔피언스리그)" value="${esc(resQuery)}">
         <input type="date" id="rd" value="${esc(resDate)}" title="날짜">
@@ -279,7 +280,7 @@ async function renderList() {
 /* 확률 구간별 실제 결과 (11/28): 가장 유력한 팀(홈 또는 원정)의 확률 구간마다 실제 홈 승·무·원정 승 비율을 막대 하나로.
    막대 밑에 '예상'(그 구간 경기들의 평균 확률). 지켜보는 구간은 노란 칸 + 진행도, 10경기 미만은 흐리게. */
 const BAND_WATCH = {key: 'home60', goal: 40, what: '무승부'};   /* 11/28부터: 홈 60%대에서 무승부가 예상보다 많은지 */
-function bandHtml(list) {
+function bandHtml(list, member = false) {
   const outcome = m => { const g = goalsOf(m); return g ? (g[0] > g[1] ? 'home' : g[0] < g[1] ? 'away' : 'draw') : null; };
   const rows = list.filter(m => m.probs && outcome(m));
   const side = m => (m.probs.home >= m.probs.away ? 'home' : 'away');
@@ -288,11 +289,11 @@ function bandHtml(list) {
   const pc0 = x => Math.round(x * 100);
   const one = ([sd, lo, hi]) => {
     const g = rows.filter(m => side(m) === sd && m.probs[sd] >= lo && m.probs[sd] < hi), n = g.length;
-    const key = sd + Math.round(lo * 100), watch = BAND_WATCH.key === key;
+    const key = sd + Math.round(lo * 100), watch = !member && BAND_WATCH.key === key;   /* 회원 화면에는 '관찰 중' 같은 내부 표시 없음 */
     const name = `${sd === 'home' ? '홈' : '원정'} ${hi > 1 ? '70% 이상' : Math.round(lo * 100) + '%대'}`;
     if (!n) return watch ? `<div class="bd-r bd-hot"><div class="bd-l">${name}<small>0경기</small></div><div class="bd-e">아직 결과 없음</div></div>` : '';
     const real = k => g.filter(m => outcome(m) === k).length / n, exp = k => g.reduce((a, m) => a + (m.probs[k] || 0), 0) / n;
-    const seg = (k, cls, label) => { const v = pc0(real(k)); return v ? `<span class="${cls}" style="width:${v}%">${v >= 9 ? (label && v >= 18 ? `<em>${label} </em>` : '') + v + '%' : ''}</span>` : ''; };
+    const seg = (k, cls, label) => { const v = pc0(real(k)); return v ? `<span class="${cls}" style="width:${v}%">${v >= 9 ? (label && v >= 18 ? `<em>${label}&nbsp;</em>` : '') + v + '%' : ''}</span>` : ''; };
     const diffs = ['home', 'draw', 'away'].map(k => [k, pc0(real(k)) - pc0(exp(k))]);
     const big = diffs.filter(([, d]) => Math.abs(d) >= 10).map(([k, d]) => `${{home: '홈 승', draw: '무승부', away: '원정 승'}[k]} ${d > 0 ? '▲' : '▼'}${Math.abs(d)}%p`);
     let note = `예상 ${pc0(exp('home'))} · ${pc0(exp('draw'))} · ${pc0(exp('away'))}`;
@@ -308,7 +309,7 @@ function bandHtml(list) {
       <div class="bd-e">${note}</div></div>`;
   };
   if (!rows.length) return '';
-  return `<div class="bd-box"><div class="bd-head"><b>가장 유력한 팀이 실제로 이겼나</b><span class="bd-key"><i class="h"></i>홈 승 <i class="d"></i>무 <i class="a"></i>원정 승</span></div>
+  return `<div class="bd-box${member ? ' bd-mem' : ''}"><div class="bd-head"><b>가장 유력한 팀이 실제로 이겼나</b>${member ? `<span class="bd-sub">결과 나온 ${rows.length}경기 · 우리 확률이 실제와 얼마나 맞았는지</span>` : ''}<span class="bd-key"><i class="h"></i>홈 승 <i class="d"></i>무 <i class="a"></i>원정 승</span></div>
     ${bands.map(one).join('')}
     <details class="bd-more"><summary>40%대 · 70% 이상 구간 보기</summary>${more.map(one).join('') || '<p class="small mute">아직 없음</p>'}</details></div>`;
 }
