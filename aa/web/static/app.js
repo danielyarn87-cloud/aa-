@@ -222,7 +222,7 @@ async function renderList() {
     ${MEMBER ? favBarHtml() : ''}
     ${riskLine()}${legendHtml()}
     ${isRes ? '' : '<div id="ytStrip" class="ytstrip" hidden></div>'}
-    ${MEMBER && !isRes ? bandHtml(all.filter(m => m.result), true) : ''}
+    ${!isRes ? bandHtml(all.filter(m => m.result), MEMBER) : ''}
     ${isRes ? `<div class="ressearch">
         <input type="search" id="rq" placeholder="팀 이름·리그로 검색 (예: 대전, 챔피언스리그)" value="${esc(resQuery)}">
         <input type="date" id="rd" value="${esc(resDate)}" title="날짜">
@@ -400,7 +400,7 @@ function kpiDetail() {
   let body = '';
   if (kpiOpen === '1x2') {
     const p = byNew.filter(m => m.result.hit_1x2 != null);
-    body = `${bandHtml(byNew)}${nineChart('1x2')}<h3>리그별</h3>${bars(group(p, lgName, m => m.result.hit_1x2))}
+    body = `${nineChart('1x2')}<h3>리그별</h3>${bars(group(p, lgName, m => m.result.hit_1x2))}
       <h3>예측별</h3>${bars(group(p, m => m.pick_1x2 || '-', m => m.result.hit_1x2), k => PK[k] || k)}
       <h3>경기 (최근 순)</h3>${rows(p, m => `<div class="kd-row">${head(m)} · 예측 ${esc(PK[m.pick_1x2] || '-')}</small></a><span class="kd-r num">${esc(m.result.score)} ${ok(m.result.hit_1x2)}</span></div>`)}`;
   } else if (kpiOpen === 'ou') {
