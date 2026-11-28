@@ -16,9 +16,6 @@ python -m aa analyze data/sample_match.json --mock    # 키 없이 모의 실행
 export ANTHROPIC_API_KEY=sk-...                       # 실제 분석
 python -m aa analyze data/sample_match.json
 
-python -m aa analyze data/2026-11-29_ARS-MCI.json --replay data/2026-11-29_ARS-MCI.responses.json
-                                                      # 미리 받아 둔 분석가 답변으로 실행 (API 없이)
-
 python -m aa settle SAMPLE-001 2-1                    # 경기 결과 입력 (홈-원정)
 python -m aa review                                   # 인사평가: 분석가별 성적과 다음 투표 비중
 python -m pytest -q                                   # 테스트
