@@ -676,6 +676,7 @@ async function finalTick() {
 }
 const liveSeen = {};   /* 진행 중으로 본 적 있는 경기의 마지막 값: 목록에서 빠지면 '종료'로 보여 준다 */
 let liveTimer = null;
+let liveAt = 0;   /* 화면에 보여 준 실시간 점수의 받은 시각 */
 const LIVE_ON = ['1H', 'HT', '2H', 'ET', 'BT', 'P', 'LIVE', 'INT', 'SUSP'];
 function liveText(x, ended, wait) {
   /* 시간 알약은 막대 왼쪽 옆, 점수는 막대 위 가운데: 홈 카드 · 홈 점수(빨강) · 원정 점수(파랑) · 원정 카드 */
@@ -745,6 +746,10 @@ async function liveTick() {
     if (c && Date.now() - Date.parse(c.at) < 15 * 60e3) d = c;
     else { liveTimer = setTimeout(liveTick, 60e3); return; }   /* 기억도 없으면 화면의 점수를 그대로 두고 1분 뒤 다시 */
   }
+  /* 받은 점수가 이미 보여 준 것보다 옛날 것이면(서버 대체값·다른 서버 캐시) 화면을 되돌리지 않는다: 2:0 → 1:0 → 2:0 깜빡임 방지 */
+  const at = Date.parse(d && d.at) || 0;
+  if (at && at < liveAt) { liveTimer = setTimeout(liveTick, 60e3); return; }
+  if (at) liveAt = at;
   const live = (d && d.live) || {};
   document.querySelectorAll('[data-live]').forEach(el => {
     const id = el.dataset.live, x = live[id];

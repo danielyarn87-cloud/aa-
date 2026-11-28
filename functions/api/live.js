@@ -14,7 +14,7 @@ const CACHE_KEY = "https://aa-live.cache/v1/live";
 const GOOD_KEY = "https://aa-live.cache/v1/good";   // 마지막으로 제대로 받은 점수 (10분 보관: 배포 직후·한도 초과 때 대신 준다)
 const GOOD_TTL = 600;
 let memo = null;                                  // 같은 서버 안에서 한 번 더 아끼는 저장 {t, body}
-let good = null;                                  // 마지막으로 제대로 받은 값 (API 오류 때 대신 준다)
+let good = null;                                  // 마지막으로 제대로 받은 값 {t, body} (API 오류 때 대신 준다, 10분 안의 것만)
 
 const out = (body, maxAge = TTL - 5) =>
   new Response(body, {
@@ -46,7 +46,8 @@ export function shrink(apiBody) {
 // API 가 실패하면: 이 서버가 기억하는 점수 → 캐시에 10분 보관한 점수 → 그래도 없으면 오류 표시.
 // 그 답을 30초 동안 캐시에 두어, 같은 지역의 다른 서버들도 그동안 API 를 다시 두드리지 않게 한다.
 async function fallback(cache, now, errBody) {
-  let b = good;
+  // 오래된 점수(10분 넘음)를 주면 화면 점수가 2:0 → 1:0 으로 되돌아간다 (11/28). 10분 넘은 기억은 버린다
+  let b = good && now - good.t < GOOD_TTL * 1000 ? good.body : null;
   if (!b && cache) {
     const hit = await cache.match(GOOD_KEY);
     if (hit) b = await hit.text();
@@ -141,7 +142,7 @@ export async function onRequestGet({ request, env }) {
   } catch (e) {
     return await fallback(cache, now, JSON.stringify({ error: "fetch_failed", detail: String(e.message || e), live: {} }));
   }
-  good = body;
+  good = { t: now, body };
   if (cache) await cache.put(GOOD_KEY, new Response(body, { headers: { "Cache-Control": `public, max-age=${GOOD_TTL}` } }));
 
   memo = { t: now, body };
