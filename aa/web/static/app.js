@@ -276,6 +276,42 @@ async function renderList() {
 }
 
 /* ---------- 누적 적중률 카드 → 자세히 보기 (운영자 화면) ---------- */
+/* 확률 구간별 실제 결과 (11/28): 가장 유력한 팀(홈 또는 원정)의 확률 구간마다 실제 홈 승·무·원정 승 비율을 막대 하나로.
+   막대 밑에 '예상'(그 구간 경기들의 평균 확률). 지켜보는 구간은 노란 칸 + 진행도, 10경기 미만은 흐리게. */
+const BAND_WATCH = {key: 'home60', goal: 40, what: '무승부'};   /* 11/28부터: 홈 60%대에서 무승부가 예상보다 많은지 */
+function bandHtml(list) {
+  const outcome = m => { const g = goalsOf(m); return g ? (g[0] > g[1] ? 'home' : g[0] < g[1] ? 'away' : 'draw') : null; };
+  const rows = list.filter(m => m.probs && outcome(m));
+  const side = m => (m.probs.home >= m.probs.away ? 'home' : 'away');
+  const bands = [['home', 0.5, 0.6], ['home', 0.6, 0.7], ['away', 0.5, 0.6], ['away', 0.6, 0.7]];
+  const more = [['home', 0.4, 0.5], ['home', 0.7, 1.01], ['away', 0.4, 0.5], ['away', 0.7, 1.01]];
+  const pc0 = x => Math.round(x * 100);
+  const one = ([sd, lo, hi]) => {
+    const g = rows.filter(m => side(m) === sd && m.probs[sd] >= lo && m.probs[sd] < hi), n = g.length;
+    const key = sd + Math.round(lo * 100), watch = BAND_WATCH.key === key;
+    const name = `${sd === 'home' ? '홈' : '원정'} ${hi > 1 ? '70% 이상' : Math.round(lo * 100) + '%대'}`;
+    if (!n) return watch ? `<div class="bd-r bd-hot"><div class="bd-l">${name}<small>0경기</small></div><div class="bd-e">아직 결과 없음</div></div>` : '';
+    const real = k => g.filter(m => outcome(m) === k).length / n, exp = k => g.reduce((a, m) => a + (m.probs[k] || 0), 0) / n;
+    const seg = (k, cls, label) => { const v = pc0(real(k)); return v ? `<span class="${cls}" style="width:${v}%">${v >= 9 ? (label && v >= 18 ? `<em>${label} </em>` : '') + v + '%' : ''}</span>` : ''; };
+    const diffs = ['home', 'draw', 'away'].map(k => [k, pc0(real(k)) - pc0(exp(k))]);
+    const big = diffs.filter(([, d]) => Math.abs(d) >= 10).map(([k, d]) => `${{home: '홈 승', draw: '무승부', away: '원정 승'}[k]} ${d > 0 ? '▲' : '▼'}${Math.abs(d)}%p`);
+    let note = `예상 ${pc0(exp('home'))} · ${pc0(exp('draw'))} · ${pc0(exp('away'))}`;
+    if (big.length && n >= 10) note += ` → ${big.join(', ')}`;
+    let tag = '', sub = `${n}경기`;
+    if (watch) {
+      const dd = pc0(real('draw')) - pc0(exp('draw'));
+      tag = n >= BAND_WATCH.goal ? `<span class="bd-tag">${dd >= 10 ? '패턴 확인됨' : '우연이었음'}</span>` : '<span class="bd-tag">관찰 중</span>';
+      sub = `${n} / ${BAND_WATCH.goal}경기`;
+    }
+    return `<div class="bd-r${watch ? ' bd-hot' : ''}${n < 10 ? ' bd-few' : ''}"><div class="bd-l">${name}${tag}<small>${sub}${n < 10 ? ' · 적음' : ''}</small></div>
+      <div class="bd-bar" role="img" aria-label="${name} 실제 홈 승 ${pc0(real('home'))}%, 무 ${pc0(real('draw'))}%, 원정 승 ${pc0(real('away'))}%">${seg('home', 'h')}${seg('draw', 'd', '무')}${seg('away', 'a')}</div>
+      <div class="bd-e">${note}</div></div>`;
+  };
+  if (!rows.length) return '';
+  return `<div class="bd-box"><div class="bd-head"><b>가장 유력한 팀이 실제로 이겼나</b><span class="bd-key"><i class="h"></i>홈 승 <i class="d"></i>무 <i class="a"></i>원정 승</span></div>
+    ${bands.map(one).join('')}
+    <details class="bd-more"><summary>40%대 · 70% 이상 구간 보기</summary>${more.map(one).join('') || '<p class="small mute">아직 없음</p>'}</details></div>`;
+}
 let KPI_DONE = [], kpiOpen = null, kpiAll = false;
 const PK = {home: '홈 승', draw: '무', away: '원정 승', over: '오버', under: '언더'};
 const goalsOf = m => { const g = String((m.result || {}).score || '').match(/(\d+)\s*[-:]\s*(\d+)/); return g ? [+g[1], +g[2]] : null; };
@@ -363,7 +399,7 @@ function kpiDetail() {
   let body = '';
   if (kpiOpen === '1x2') {
     const p = byNew.filter(m => m.result.hit_1x2 != null);
-    body = `${nineChart('1x2')}<h3>리그별</h3>${bars(group(p, lgName, m => m.result.hit_1x2))}
+    body = `${bandHtml(byNew)}${nineChart('1x2')}<h3>리그별</h3>${bars(group(p, lgName, m => m.result.hit_1x2))}
       <h3>예측별</h3>${bars(group(p, m => m.pick_1x2 || '-', m => m.result.hit_1x2), k => PK[k] || k)}
       <h3>경기 (최근 순)</h3>${rows(p, m => `<div class="kd-row">${head(m)} · 예측 ${esc(PK[m.pick_1x2] || '-')}</small></a><span class="kd-r num">${esc(m.result.score)} ${ok(m.result.hit_1x2)}</span></div>`)}`;
   } else if (kpiOpen === 'ou') {

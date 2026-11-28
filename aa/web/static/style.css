@@ -937,3 +937,22 @@ details.tk-explain summary{cursor:pointer;font-weight:700;font-size:14px;padding
 .sh-rk-w span{font-size:12px;padding:1px 8px;border-radius:999px;background:light-dark(rgba(0,0,0,.06),rgba(255,255,255,.1));white-space:nowrap}
 .sh-row:target{outline:2px solid var(--pitch);outline-offset:4px;border-radius:8px}
 .sh-rank .nw{white-space:nowrap}
+.bd-box{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:0 0 16px;background:var(--bg)}
+.bd-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 10px;margin-bottom:4px}
+.bd-key{font-size:12px;color:var(--mute);white-space:nowrap}
+.bd-key i{display:inline-block;width:9px;height:9px;border-radius:2px;margin:0 3px 0 6px;vertical-align:0}
+.bd-r{display:grid;grid-template-columns:112px minmax(0,1fr);gap:3px 12px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
+.bd-r:first-of-type{border-top:0}
+.bd-l{font-size:14px;white-space:nowrap}
+.bd-l small{display:block;font-size:12px;color:var(--mute)}
+.bd-bar{display:flex;height:22px;border-radius:5px;overflow:hidden;font-size:12px;font-weight:700;color:#fff;background:var(--line)}
+.bd-bar span,.bd-key i{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap}
+.bd-bar .h,.bd-key .h{background:#dc2626}.bd-bar .d,.bd-key .d{background:#facc15;color:#5b4300}.bd-bar .a,.bd-key .a{background:#2563eb}
+.bd-e{grid-column:2;font-size:12px;color:var(--mute);word-break:keep-all}
+.bd-hot{background:light-dark(#fef6d8,#3a3000);border-radius:8px;margin:2px -8px;padding:8px;border-top:0}
+.bd-hot .bd-e{color:light-dark(#8a6100,#facc15)}
+.bd-tag{display:inline-block;font-size:11px;font-weight:700;padding:1px 6px;border-radius:4px;background:light-dark(#fde68a,#5c4a00);color:light-dark(#7a5200,#fde68a);margin-left:5px;vertical-align:1px}
+.bd-few .bd-bar{opacity:.5}
+.bd-more summary{cursor:pointer;font-size:13px;color:var(--mute);padding:6px 0}
+.bd-bar em{font-style:normal}
+@media (max-width:420px){.bd-r{grid-template-columns:minmax(0,1fr);gap:4px}.bd-e{grid-column:1}.bd-l small{display:inline;margin-left:6px}.bd-bar em{display:none}}
